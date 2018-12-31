@@ -3,4 +3,13 @@
     <string name="title_home">Home</string>
     <string name="title_my_food">My Food</string>
     <string name="title_plan">Plan</string>
+    <string name="tab_left">left</string>
+    <string name="tab_middle">middle</string>
+    <string name="tab_right">right</string>
+    <string name="title_activity_food">FoodActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
