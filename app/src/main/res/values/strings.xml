@@ -7,9 +7,12 @@
     <string name="tab_middle">middle</string>
     <string name="tab_right">right</string>
     <string name="title_activity_food">FoodActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
+    <string name="tab_text_1">Overview</string>
+    <string name="tab_text_2">Measuring</string>
+    <string name="tab_text_3">Food data</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="hello_world">Hello World from section: %1$d</string>
+    <string name="food_list_main_text">Main Text</string>
+    <string name="food_list_sub_text">Sub text</string>,
+    <string name="food_list_meta_data">Meta data</string>
 </resources>
