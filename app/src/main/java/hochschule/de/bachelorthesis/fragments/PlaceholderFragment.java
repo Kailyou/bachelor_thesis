@@ -13,6 +13,7 @@ import hochschule.de.bachelorthesis.R;
  * A placeholder fragment containing a simple view.
  */
 public class PlaceholderFragment extends Fragment {
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
