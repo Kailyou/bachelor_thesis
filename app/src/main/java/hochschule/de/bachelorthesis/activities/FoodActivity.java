@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +17,8 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.fragments.PlaceholderFragment;
 
 public class FoodActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getName();
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 

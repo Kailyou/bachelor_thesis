@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.MenuItem;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.fragments.HomeFragment;
@@ -12,6 +14,8 @@ import hochschule.de.bachelorthesis.fragments.MyFoodFragment;
 import hochschule.de.bachelorthesis.fragments.PlanFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Show the first TopLevelFragment by default.
         showTopLevelFragment(new HomeFragment());
+
+        Log.d(MainActivity.TAG, "hi from MainActivity");
     }
 
     @Override
@@ -35,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onRestoreInstanceState(savedInstanceState);
     }
 
+    /**
+     * Helper function to load a new fragment.
+     * @param fragment - The fragment to show.
+     */
     private void showTopLevelFragment(Fragment fragment) {
         // Use the fragment manager to dynamically change the fragment displayed in the FrameLayout.
         getSupportFragmentManager().beginTransaction()
@@ -42,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 .commit();
     }
 
+    /**
+     * Action listener for the bottom navigation bar.
+     * Loading different fragments depending on the clicked btm bar element.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment f;
@@ -62,5 +78,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         showTopLevelFragment(f);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

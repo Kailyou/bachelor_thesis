@@ -4,101 +4,57 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.activities.FoodActivity;
+import hochschule.de.bachelorthesis.adapter.FoodAdapter;
+import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
 public class MyFoodFragment extends Fragment {
 
-    String[] MAIN_TEXTS = {
-            "Product 1",
-            "Product 2",
-            "Product 3",
-            "Product 4",
-            "Product 5",
-            "Product 6",
-    };
+    private FoodViewModel foodViewModel;
 
-    String[] SUB_TEXTS = {
-            "sub text 1",
-            "sub text 2",
-            "sub text 3",
-            "sub text 4",
-            "sub text 5",
-            "sub text 6",
-    };
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    String[] META_TEXTS = {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-    };
-
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_food, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my_food, container, false);
+
+        // RecyclerView
+        RecyclerView rv = rootView.findViewById(R.id.recycler_view);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setHasFixedSize(true);
+
+        // Adapter
+        final FoodAdapter adapter = new FoodAdapter();
+        rv.setAdapter(adapter);
+
+        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+        foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foods) {
+                adapter.setFoods(foods);
+            }
+        });
+
+       return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        ListView lv = getView().findViewById(R.id.list);
-        FoodAdapter adapter = new FoodAdapter();
-
-        lv.setAdapter(adapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getContext(), FoodActivity.class));
-            }
-        });
-    }
-
-    class FoodAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return MAIN_TEXTS.length;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return i;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.customlayout, null);
-            TextView mainText = view.findViewById(R.id.mainText);
-            mainText.setText(MAIN_TEXTS[i]);
-
-            TextView subText = view.findViewById(R.id.subText);
-            subText.setText(SUB_TEXTS[i]);
-
-            TextView meta = view.findViewById(R.id.metaData);
-            meta.setText(META_TEXTS[i]);
-
-            return view;
-        }
     }
 }
 

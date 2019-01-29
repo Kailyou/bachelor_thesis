@@ -29,8 +29,8 @@
         android:text="@string/food_list_sub_text"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/mainText"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainText" />
 
     <TextView
         android:id="@+id/metaData"
