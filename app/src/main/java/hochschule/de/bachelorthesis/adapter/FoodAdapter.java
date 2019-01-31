@@ -30,25 +30,29 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     @Override
     public FoodHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.food_item_cardview, parent, false);
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Intent intent = new Intent(context, FoodActivity.class);
-               context.startActivity(intent);
-            }
-        });
+                .inflate(R.layout.food_item, parent, false);
 
         return new FoodHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodHolder holder, final int position) {
         Food currentFood = foods.get(position);
-        holder.mainText.setText(currentFood.getMainText());
-        holder.subText.setText(currentFood.getSubText());
-        holder.metaText.setText(currentFood.getMetaText());
+        holder.textViewFoodName.setText(currentFood.getFoodName());
+        holder.textViewBrandName.setText(currentFood.getBrandName());
+        holder.textViewMetaText.setText(currentFood.getMetaText());
+
+        // Click event for the card views, which will start a new activity (FoodActivity)
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, FoodActivity.class);
+                intent.putExtra("food_name", foods.get(position).getFoodName());
+                intent.putExtra("food_brand_name", foods.get(position).getBrandName());
+                intent.putExtra("food_meta_text", foods.get(position).getMetaText());
+                context.startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -67,15 +71,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     }
 
     class FoodHolder extends RecyclerView.ViewHolder {
-        private TextView mainText;
-        private TextView subText;
-        private TextView metaText;
+        private TextView textViewFoodName;
+        private TextView textViewBrandName;
+        private TextView textViewMetaText;
 
         private FoodHolder(@NonNull View itemView) {
             super(itemView);
-            mainText = itemView.findViewById(R.id.food_item_maintext);
-            subText = itemView.findViewById(R.id.food_item_subtext);
-            metaText = itemView.findViewById(R.id.food_item_metatext);
+            textViewFoodName = itemView.findViewById(R.id.food_item_food_name);
+            textViewBrandName = itemView.findViewById(R.id.food_item_brand_name);
+            textViewMetaText = itemView.findViewById(R.id.food_item_meta_text);
         }
     }
 }

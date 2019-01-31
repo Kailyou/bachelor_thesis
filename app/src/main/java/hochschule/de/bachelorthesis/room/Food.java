@@ -9,18 +9,18 @@ public class Food {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    @ColumnInfo(name = "main_text")
-    private String mainText;
+    @ColumnInfo(name = "food_name")
+    private String foodName;
 
-    @ColumnInfo(name = "sub_text")
-    private String subText;
+    @ColumnInfo(name = "brand_name")
+    private String brandName;
 
     @ColumnInfo(name = "meta_text")
     private String metaText;
 
-    public Food(String mainText, String subText, String metaText) {
-        this.mainText = mainText;
-        this.subText = subText;
+    public Food(String foodName, String brandName, String metaText) {
+        this.foodName = foodName;
+        this.brandName = brandName;
         this.metaText = metaText;
     }
 
@@ -32,12 +32,12 @@ public class Food {
         return id;
     }
 
-    public String getMainText() {
-        return mainText;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public String getSubText() {
-        return subText;
+    public String getBrandName() {
+        return brandName;
     }
 
     public String getMetaText() {

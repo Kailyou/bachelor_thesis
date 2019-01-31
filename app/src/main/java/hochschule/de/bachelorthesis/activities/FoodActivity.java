@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +27,7 @@ import hochschule.de.bachelorthesis.fragments.PlaceholderFragment;
 
 public class FoodActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getName();
+    private static final String TAG = "FoodActivity";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -62,6 +63,25 @@ public class FoodActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Log.d(TAG, "onCreate: started");
+    }
+
+    private void getIncomingIntent() {
+        Log.d(TAG, "getIncomingContent: checking for incoming intents.");
+
+        // Check if there are extras
+        if(getIntent().hasExtra("food_name")
+        || getIntent().hasExtra("food_brand_name")
+        || getIntent().hasExtra("food_meta_text")) {
+
+            String foodName = getIntent().getStringExtra("food_name");
+            String brandName = getIntent().getStringExtra("food_brand_name");
+            String metaText = getIntent().getStringExtra("food_meta_text");
+        }
+
+
+
     }
 
     @Override

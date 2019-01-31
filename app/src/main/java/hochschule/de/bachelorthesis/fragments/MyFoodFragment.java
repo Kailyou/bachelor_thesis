@@ -51,6 +51,7 @@ public class MyFoodFragment extends Fragment implements View.OnClickListener {
         rv.setAdapter(adapter);
 
         foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+
         foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
             @Override
             public void onChanged(List<Food> foods) {

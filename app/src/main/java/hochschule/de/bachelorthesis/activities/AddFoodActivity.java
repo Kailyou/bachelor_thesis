@@ -10,6 +10,7 @@ import hochschule.de.bachelorthesis.view_model.AddFoodViewModel;
 import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class AddFoodActivity extends AppCompatActivity {
+    private static final String TAG = "AddFoodActivity";
+
     private AddFoodViewModel viewModel;
 
     private EditText editTextFoodName;
@@ -60,6 +63,8 @@ public class AddFoodActivity extends AppCompatActivity {
 
         // view model
         viewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
+
+        Log.d(TAG,"onCreate: started");
     }
 
     private void saveFood() {
