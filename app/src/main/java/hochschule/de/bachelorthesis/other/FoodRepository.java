@@ -23,7 +23,6 @@ public class FoodRepository {
         FoodDatabase database = FoodDatabase.getDatabase(application);
         this.foodDao = database.foodDao();
         this.allFood = this.foodDao.getAllFood();
-
     }
 
     /**

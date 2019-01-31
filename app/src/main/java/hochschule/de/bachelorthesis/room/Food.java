@@ -10,13 +10,13 @@ public class Food {
     public int id;
 
     @ColumnInfo(name = "main_text")
-    public String mainText;
+    private String mainText;
 
     @ColumnInfo(name = "sub_text")
-    public String subText;
+    private String subText;
 
     @ColumnInfo(name = "meta_text")
-    public String metaText;
+    private String metaText;
 
     public Food(String mainText, String subText, String metaText) {
         this.mainText = mainText;

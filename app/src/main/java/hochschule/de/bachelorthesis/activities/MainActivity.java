@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Use the fragment manager to dynamically change the fragment displayed in the FrameLayout.
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 

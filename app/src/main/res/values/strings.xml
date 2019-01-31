@@ -15,4 +15,19 @@
     <string name="food_list_main_text">Main Text</string>
     <string name="food_list_sub_text">Sub text</string>,
     <string name="food_list_meta_data">Meta data</string>
+    <string name="about_the_food">About the food</string>
+    <string name="food_name">Food name</string>
+    <string name="brand_name">Brand name</string>
+    <string name="main_text">Main Text</string>
+    <string name="_1">1</string>
+    <string name="subtext">subtext</string>
+    <string name="nutritional_information">Nutritional information</string>
+    <string name="energy_kcal">Energy (kcal)</string>
+    <string name="energy_kj">Energy (kJ)</string>
+    <string name="fat">Fat</string>
+    <string name="of_which_saturates">of which saturates</string>
+    <string name="protein">Protein</string>
+    <string name="carbohydrates">Carbohydrates</string>
+    <string name="salt">Salt</string>
+    <string name="of_which_sugars">of which sugars</string>
 </resources>
