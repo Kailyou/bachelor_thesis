@@ -2,6 +2,8 @@ package hochschule.de.bachelorthesis.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -32,7 +34,7 @@ public class MyFoodFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_my_food, container, false);
 
         // Add food button
@@ -45,7 +47,7 @@ public class MyFoodFragment extends Fragment implements View.OnClickListener {
         rv.setHasFixedSize(true);
 
         // Adapter
-        final FoodAdapter adapter = new FoodAdapter();
+        final FoodAdapter adapter = new FoodAdapter(getContext());
         rv.setAdapter(adapter);
 
         foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);

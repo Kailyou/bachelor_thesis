@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AddFoodActivity extends AppCompatActivity {
     private AddFoodViewModel viewModel;
@@ -54,7 +55,7 @@ public class AddFoodActivity extends AppCompatActivity {
         editTextSalt = findViewById(R.id.edit_salt);
 
         // Modify action bar
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
         setTitle("Add Food");
 
         // view model
@@ -90,7 +91,7 @@ public class AddFoodActivity extends AppCompatActivity {
             return;
         }
 
-        // save data to databse
+        // save data to database
         Food newFood = new Food(foodName, brandName, "test");
         viewModel.insert(newFood);
         Toast.makeText(this, foodName + " added to the list.", Toast.LENGTH_LONG).show();
@@ -113,6 +114,7 @@ public class AddFoodActivity extends AppCompatActivity {
             // see https://stackoverflow.com/questions/30059474/android-navigation-up-from-activity-to-fragment/30059708#30059708
             case android.R.id.home:
                 Intent parentIntent = NavUtils.getParentActivityIntent(this);
+                assert parentIntent != null;
                 parentIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(parentIntent);
                 finish();
