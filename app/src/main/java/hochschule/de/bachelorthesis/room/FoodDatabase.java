@@ -56,9 +56,9 @@ public abstract class FoodDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            foodDao.insert(new Food("Main Text 1", "Sub Text 1", "Meta Text 1"));
-            foodDao.insert(new Food("Main Text 2", "Sub Text 2", "Meta Text 2"));
-            foodDao.insert(new Food("Main Text 3", "Sub Text 3", "Meta Text 3"));
+            foodDao.insert(new Food("Apfel", "Pink Lady", "Fruit"));
+            foodDao.insert(new Food("Linseneintopf mit Mettwurst", "Sub Text 3", "Dish"));
+            foodDao.insert(new Food("Pizza, Salami", "Dr. Oetker", "Instant meal"));
 
             return null;
         }

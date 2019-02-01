@@ -17,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -63,6 +65,16 @@ public class AddFoodActivity extends AppCompatActivity {
 
         // view model
         viewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
+
+        // Spinner
+        Spinner spinner = (Spinner) findViewById(R.id.activity_add_food_spinner_type);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.activity_add_food_spinner_type, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 
         Log.d(TAG,"onCreate: started");
     }

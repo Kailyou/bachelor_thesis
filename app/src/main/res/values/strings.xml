@@ -30,4 +30,15 @@
     <string name="carbohydrates">Carbohydrates</string>
     <string name="salt">Salt</string>
     <string name="of_which_sugars">of which sugars</string>
+    <string-array name="activity_add_food_spinner_type">
+        <item>Grains</item>
+        <item>Vegetables</item>
+        <item>Fruit</item>
+        <item>Protein</item>
+        <item>Dairy</item>
+        <item>Oils</item>
+        <item>Solid Fats and Added Sugar</item>
+        <item>Drinks</item>
+        <item>Snacks</item>
+    </string-array>
 </resources>
