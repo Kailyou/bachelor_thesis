@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.util.Objects;
+
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.fragments_main_activity.HomeFragment;
 import hochschule.de.bachelorthesis.fragments_main_activity.MyFoodFragment;
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -56,8 +59,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     /**
      * Action listener for the bottom navigation bar.
      * Loading different fragments depending on the clicked btm bar element.
-     * @param item
-     * @return
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -79,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         showTopLevelFragment(f);
         return true;
+    }
+
+    /**
+     * Will be used to change the title when a new fragment is loaded.
+     */
+    public void setActionBarTitle(String title) {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
 
     @Override

@@ -40,6 +40,18 @@ public class FoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
+
+        Log.d(TAG, "onCreate: before extra check");
+
+        // Set action bar title
+        if(getIntent().hasExtra("food_name")) {
+            Log.d(TAG, "extra check was true");
+            setTitle(getIntent().getStringExtra("food_name"));
+        }
+
+        Log.d(TAG, "after extra check");
+
+        // Enable back button
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -98,7 +110,6 @@ public class FoodActivity extends AppCompatActivity {
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
-
             case android.R.id.home:
                 Intent parentIntent = NavUtils.getParentActivityIntent(this);
                 assert parentIntent != null;

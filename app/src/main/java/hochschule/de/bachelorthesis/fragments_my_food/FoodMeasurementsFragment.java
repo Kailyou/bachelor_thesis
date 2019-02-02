@@ -12,9 +12,13 @@ import hochschule.de.bachelorthesis.R;
 
 public class FoodMeasurementsFragment extends Fragment {
 
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_food_measurements,null);
+        return inflater.inflate(R.layout.fragment_food_measurements,container, false);
     }
 }
