@@ -23,7 +23,10 @@ import android.view.View;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.fragments.PlaceholderFragment;
+import hochschule.de.bachelorthesis.fragments_my_food.FoodDataFragment;
+import hochschule.de.bachelorthesis.fragments_my_food.FoodMeasurementsFragment;
+import hochschule.de.bachelorthesis.fragments_my_food.FoodOverviewFragment;
+import hochschule.de.bachelorthesis.fragments_my_food.PlaceholderFragment;
 
 public class FoodActivity extends AppCompatActivity {
 
@@ -71,15 +74,14 @@ public class FoodActivity extends AppCompatActivity {
         Log.d(TAG, "getIncomingContent: checking for incoming intents.");
 
         // Check if there are extras
-        if(getIntent().hasExtra("food_name")
-        || getIntent().hasExtra("food_brand_name")
-        || getIntent().hasExtra("food_meta_text")) {
+        if (getIntent().hasExtra("food_name")
+                || getIntent().hasExtra("food_brand_name")
+                || getIntent().hasExtra("food_meta_text")) {
 
             String foodName = getIntent().getStringExtra("food_name");
             String brandName = getIntent().getStringExtra("food_brand_name");
             String metaText = getIntent().getStringExtra("food_meta_text");
         }
-
 
 
     }
@@ -123,8 +125,20 @@ public class FoodActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public Fragment getItem(int i) {
-            return PlaceholderFragment.newInstance(i + 1);
+        public Fragment getItem(int i)
+        {
+            switch(i) {
+                case 0:
+                    return new FoodOverviewFragment();
+                case 1:
+                    return new FoodMeasurementsFragment();
+                case 2:
+                    return new FoodDataFragment();
+                default:
+                    return null;
+            }
+
+             // return PlaceholderFragment.newInstance(i + 1);
         }
 
         @Override

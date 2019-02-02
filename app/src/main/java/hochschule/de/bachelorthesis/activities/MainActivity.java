@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.fragments.HomeFragment;
-import hochschule.de.bachelorthesis.fragments.MyFoodFragment;
-import hochschule.de.bachelorthesis.fragments.PlanFragment;
+import hochschule.de.bachelorthesis.fragments_main_activity.HomeFragment;
+import hochschule.de.bachelorthesis.fragments_main_activity.MyFoodFragment;
+import hochschule.de.bachelorthesis.fragments_main_activity.PlanFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 

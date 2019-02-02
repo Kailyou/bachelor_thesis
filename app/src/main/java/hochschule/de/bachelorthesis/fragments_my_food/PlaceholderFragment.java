@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.fragments;
+package hochschule.de.bachelorthesis.fragments_my_food;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
