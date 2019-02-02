@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Food.class}, version = 1)
+@Database(entities = {Food.class}, version = 1, exportSchema = false)
 public abstract class FoodDatabase extends RoomDatabase {
 
     // Only one database instance will be available for the whole APP.
@@ -50,7 +50,7 @@ public abstract class FoodDatabase extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private FoodDao foodDao;
 
-        public PopulateDbAsyncTask(FoodDatabase db) {
+        private PopulateDbAsyncTask(FoodDatabase db) {
             foodDao = db.foodDao();
         }
 

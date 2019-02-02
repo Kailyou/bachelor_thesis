@@ -26,7 +26,6 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodDataFragment;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodMeasurementsFragment;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodOverviewFragment;
-import hochschule.de.bachelorthesis.fragments_my_food.PlaceholderFragment;
 
 public class FoodActivity extends AppCompatActivity {
 
@@ -123,11 +122,10 @@ public class FoodActivity extends AppCompatActivity {
             super(fm);
         }
 
-        @NonNull
         @Override
-        public Fragment getItem(int i)
-        {
-            switch(i) {
+        @NonNull
+        public Fragment getItem(int i) {
+            switch (i) {
                 case 0:
                     return new FoodOverviewFragment();
                 case 1:
@@ -135,10 +133,8 @@ public class FoodActivity extends AppCompatActivity {
                 case 2:
                     return new FoodDataFragment();
                 default:
-                    return null;
+                    throw new IllegalArgumentException("Unexpected index @FoodActivity");
             }
-
-             // return PlaceholderFragment.newInstance(i + 1);
         }
 
         @Override
