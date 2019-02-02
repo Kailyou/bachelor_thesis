@@ -60,7 +60,7 @@ public class AddFoodActivity extends AppCompatActivity {
         editTextSalt = findViewById(R.id.edit_salt);
 
         // Modify action bar
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         setTitle("Add Food");
 
         // view model
@@ -76,7 +76,7 @@ public class AddFoodActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        Log.d(TAG,"onCreate: started");
+        Log.d(TAG, "onCreate: started");
     }
 
     private void saveFood() {
