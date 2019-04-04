@@ -9,6 +9,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import hochschule.de.bachelorthesis.room.Food;
+import io.reactivex.Flowable;
 
 @Dao
 public interface FoodDao {
@@ -23,6 +24,9 @@ public interface FoodDao {
 
     @Query("DELETE FROM food_table")
     void deleteAllFood();
+
+    @Query("SELECT * FROM food_table WHERE id=:id")
+    Flowable<Food> getFoodById(int id);
 
     @Query("SELECT * FROM food_table ORDER BY id DESC")
     LiveData<List<Food>> getAllFood();

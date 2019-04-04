@@ -1,8 +1,6 @@
 package hochschule.de.bachelorthesis.activities;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +9,7 @@ import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.Objects;
 
@@ -26,10 +24,13 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodDataFragment;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodMeasurementsFragment;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodOverviewFragment;
+import hochschule.de.bachelorthesis.view_model.ActivityFoodViewModel;
 
 public class FoodActivity extends AppCompatActivity {
 
-    private static final String TAG = "FoodActivity";
+    private static final String TAG = FoodActivity.class.getName();
+
+    private ActivityFoodViewModel viewModel;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -40,16 +41,8 @@ public class FoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
-
-        Log.d(TAG, "onCreate: before extra check");
-
-        // Set action bar title
-        if(getIntent().hasExtra("food_name")) {
-            Log.d(TAG, "extra check was true");
-            setTitle(getIntent().getStringExtra("food_name"));
-        }
-
-        Log.d(TAG, "after extra check");
+        // view model
+        viewModel = ViewModelProviders.of(this).get(ActivityFoodViewModel.class);
 
         // Enable back button
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -70,22 +63,6 @@ public class FoodActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
-    private void getIncomingIntent() {
-        Log.d(TAG, "getIncomingContent: checking for incoming intents.");
-
-        // Check if there are extras
-        if (getIntent().hasExtra("food_name")
-                || getIntent().hasExtra("food_brand_name")
-                || getIntent().hasExtra("food_meta_text")) {
-
-            String foodName = getIntent().getStringExtra("food_name");
-            String brandName = getIntent().getStringExtra("food_brand_name");
-            String metaText = getIntent().getStringExtra("food_meta_text");
-        }
-
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -96,15 +73,17 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //noinspection SimplifiableIfStatement
-            case R.id.action_settings:
+            case R.id.menu_favorite:
+                 return true;
+            case R.id.menu_delete:
                 return true;
+
             case android.R.id.home:
-                Intent parentIntent = NavUtils.getParentActivityIntent(this);
-                assert parentIntent != null;
-                parentIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(parentIntent);
-                finish();
+              //  Intent parentIntent = NavUtils.getParentActivityIntent(this);
+              //  assert parentIntent != null;
+              //  parentIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+             //   startActivity(parentIntent);
+             //   finish();
                 return true;
 
             default:

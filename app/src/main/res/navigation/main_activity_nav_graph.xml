@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav_graph"
+    app:startDestination="@id/main_activity_home_fragment">
+
+    <fragment
+        android:id="@+id/main_activity_home_fragment"
+        android:name="hochschule.de.bachelorthesis.fragments_main_activity.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/main_activity_food_fragment"
+        android:name="hochschule.de.bachelorthesis.fragments_main_activity.FoodFragment"
+        android:label="MyFoodFragment" >
+        <action
+            android:id="@+id/action_main_activity_food_fragment_to_addFoodActivity"
+            app:destination="@id/addFoodActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@+id/main_activity_food_fragment" />
+        <action
+            android:id="@+id/action_main_activity_food_fragment_to_FoodActivity"
+            app:destination="@id/FoodActivity"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/main_activity_me_fragment"
+        android:name="hochschule.de.bachelorthesis.fragments_main_activity.MeFragment"
+        android:label="fragment_me"
+        tools:layout="@layout/fragment_me" />
+    <fragment
+        android:id="@+id/main_activity_graphs_fragment"
+        android:name="hochschule.de.bachelorthesis.fragments_main_activity.GraphsFragment"
+        android:label="fragment_graphs"
+        tools:layout="@layout/fragment_graphs" />
+    <activity
+        android:id="@+id/addFoodActivity"
+        android:name="hochschule.de.bachelorthesis.activities.AddFoodActivity"
+        android:label="activity_add_food"
+        tools:layout="@layout/activity_add_food" />
+    <activity
+        android:id="@+id/FoodActivity"
+        android:name="hochschule.de.bachelorthesis.activities.FoodActivity"
+        android:label="activity_food"
+        tools:layout="@layout/activity_food" />
+
+</navigation>

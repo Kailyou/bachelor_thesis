@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 
-public class PlanFragment extends Fragment {
+public class GraphsFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).setTitle("Plan");
@@ -24,7 +24,7 @@ public class PlanFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_plan, container, false);
+        return inflater.inflate(R.layout.fragment_graphs, container, false);
     }
 }
 

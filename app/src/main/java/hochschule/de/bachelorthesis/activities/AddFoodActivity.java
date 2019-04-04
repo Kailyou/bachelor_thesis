@@ -2,32 +2,26 @@ package hochschule.de.bachelorthesis.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.view_model.AddFoodViewModel;
-import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 import java.util.Objects;
 
 public class AddFoodActivity extends AppCompatActivity {
+
     private static final String TAG = "AddFoodActivity";
 
     private AddFoodViewModel viewModel;
@@ -46,7 +40,7 @@ public class AddFoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_food_activity);
+        setContentView(R.layout.activity_add_food);
 
         editTextFoodName = findViewById(R.id.edit_food_name);
         editTextBrandName = findViewById(R.id.edit_brand_name);
@@ -119,25 +113,5 @@ public class AddFoodActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_food_menu, menu);
         return true;    // displays the menu
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.save_food:
-                saveFood();
-                return true;
-            // get intent of parent activity and bring it to front if it exists
-            // see https://stackoverflow.com/questions/30059474/android-navigation-up-from-activity-to-fragment/30059708#30059708
-            case android.R.id.home:
-                Intent parentIntent = NavUtils.getParentActivityIntent(this);
-                assert parentIntent != null;
-                parentIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(parentIntent);
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

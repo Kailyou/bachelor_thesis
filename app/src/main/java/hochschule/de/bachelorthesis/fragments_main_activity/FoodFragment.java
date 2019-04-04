@@ -18,6 +18,9 @@ import java.util.Objects;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
@@ -26,22 +29,20 @@ import hochschule.de.bachelorthesis.adapter.FoodAdapter;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
-public class MyFoodFragment extends Fragment implements View.OnClickListener {
+public class FoodFragment extends Fragment {
 
     private FoodViewModel foodViewModel;
+    private FloatingActionButton fab;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).setTitle("My Food");
-
         super.onCreate(savedInstanceState);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_my_food, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_food, container, false);
 
-        // Add food button
-        FloatingActionButton buttonAddFood = rootView.findViewById(R.id.button_add_note);
-        buttonAddFood.setOnClickListener(this);
+        fab = rootView.findViewById(R.id.button_add_note);
 
         // RecyclerView
         RecyclerView rv = rootView.findViewById(R.id.recycler_view);
@@ -49,9 +50,11 @@ public class MyFoodFragment extends Fragment implements View.OnClickListener {
         rv.setHasFixedSize(true);
 
         // Adapter
-        final FoodAdapter adapter = new FoodAdapter(getContext());
+        NavController navController = Navigation.findNavController(getActivity(), R.id.main_activity_fragment);
+        final FoodAdapter adapter = new FoodAdapter(getContext(), navController);
         rv.setAdapter(adapter);
 
+        // View model
         foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
         foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
@@ -65,14 +68,10 @@ public class MyFoodFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(getContext(), AddFoodActivity.class);
-        startActivity(intent);
+        fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_addFoodActivity));
     }
 }
 

@@ -4,11 +4,13 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.lifecycle.LiveData;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.room.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
+import io.reactivex.Flowable;
 
 /**
  * Is not part of the architecture components library
@@ -41,7 +43,7 @@ public class FoodRepository {
     }
 
     public void deleteAllFood() {
-        new DeleteAllFoodAsyncTast(foodDao).execute();
+        new DeleteAllFoodAsyncTask(foodDao).execute();
     }
 
     // already executed on a background threat
@@ -65,6 +67,22 @@ public class FoodRepository {
             return null;
         }
     }
+
+    /*
+    private static class GetFodoByIdTask extends AsyncTask<Food, Void, Void> {
+        private FoodDao mFoodDao;
+
+        public InsertFoodAsyncTask(FoodDao mFoodDao) {
+            this.mFoodDao = mFoodDao;
+        }
+
+        @Override
+        protected Void doInBackground(Food... foods) {
+            mFoodDao.insert(foods[0]);
+            return null;
+        }
+    }
+    */
 
     private static class UpdateFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
@@ -94,10 +112,10 @@ public class FoodRepository {
         }
     }
 
-    private static class DeleteAllFoodAsyncTast extends AsyncTask<Void, Void, Void> {
+    private static class DeleteAllFoodAsyncTask extends AsyncTask<Void, Void, Void> {
         private FoodDao mFoodDao;
 
-        public DeleteAllFoodAsyncTast(FoodDao mFoodDao) {
+        public DeleteAllFoodAsyncTask(FoodDao mFoodDao) {
             this.mFoodDao = mFoodDao;
         }
 

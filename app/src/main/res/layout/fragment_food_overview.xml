@@ -1,204 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:stretchColumns="1">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stretchColumns="1">
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="General"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+    </TableRow>
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="General"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Food name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Food name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TextView
+            android:id="@+id/text_food_name"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="Apple"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="Apple"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Brand name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Brand name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TextView
+            android:id="@+id/text_brand_name"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="Pink Lady"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="Pink Lady"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Type"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Type"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TextView
+            android:id="@+id/text_type"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="Fruit"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="Fruit"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="kCal (100)"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="kCal (100)"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
+        <TextView
+            android:id="@+id/text_kCal"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="13"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="13"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-        </TableRow>
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Measurements"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+    </TableRow>
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Measurements"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Measurements done"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Measurments done"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
+        <TextView
+            android:id="@+id/text_measurements_done"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="1"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="1"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Max. Glucose"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Max. Glucose"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
+        <TextView
+            android:id="@+id/text_max_glucose"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="145"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="145"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Average Glucose"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Average Glucose"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
+        <TextView
+            android:id="@+id/text_avg_glucose"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="104"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="104"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-        </TableRow>
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Analyses"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+    </TableRow>
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Analyses"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Rating"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Rating"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="good"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-        </TableRow>
+        <TextView
+            android:id="@+id/text_rating"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="good"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
 
-        <TableRow>
+    <TableRow>
 
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="Personal GI"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
+        <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="Personal GI"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-            <TextView
-                android:gravity="right"
-                android:padding="3dip"
-                android:text="not calculated yet"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                />
-        </TableRow>
+        <TextView
+            android:id="@+id/text_personal_gi"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="not calculated yet"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    </TableRow>
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-    </TableLayout>
-</LinearLayout>
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+</TableLayout>

@@ -10,10 +10,6 @@ import androidx.lifecycle.LiveData;
 import hochschule.de.bachelorthesis.other.FoodRepository;
 import hochschule.de.bachelorthesis.room.Food;
 
-/**
- * Model, where the Activty/Fragment will have a reference to.
- * It won't have a reference to the food repository itself (wrapper).
- */
 public class FoodViewModel extends AndroidViewModel {
 
     private FoodRepository repository;
