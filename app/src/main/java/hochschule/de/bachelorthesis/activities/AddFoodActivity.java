@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.lifecycle.ActivityAddFoodObserver;
+import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.view_model.AddFoodViewModel;
 
@@ -41,6 +43,8 @@ public class AddFoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
+
+        getLifecycle().addObserver(new ActivityAddFoodObserver());
 
         editTextFoodName = findViewById(R.id.edit_food_name);
         editTextBrandName = findViewById(R.id.edit_brand_name);

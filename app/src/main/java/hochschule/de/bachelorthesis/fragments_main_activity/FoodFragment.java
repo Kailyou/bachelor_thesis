@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.activities.AddFoodActivity;
 import hochschule.de.bachelorthesis.adapter.FoodAdapter;
+import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
+import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
@@ -43,6 +45,8 @@ public class FoodFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_food, container, false);
 
         fab = rootView.findViewById(R.id.button_add_note);
+
+        getLifecycle().addObserver(new FragmentFoodObserver());
 
         // RecyclerView
         RecyclerView rv = rootView.findViewById(R.id.recycler_view);

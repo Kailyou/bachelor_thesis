@@ -13,12 +13,16 @@ import android.view.ViewGroup;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
+import hochschule.de.bachelorthesis.lifecycle.FragmentGraphsObserver;
 
 public class GraphsFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).setTitle("Plan");
         super.onCreate(savedInstanceState);
+
+        getLifecycle().addObserver(new FragmentGraphsObserver());
     }
 
     @Nullable

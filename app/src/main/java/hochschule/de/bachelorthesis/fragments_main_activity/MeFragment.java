@@ -11,12 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
+import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
 
 public class MeFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).setTitle("Me");
         super.onCreate(savedInstanceState);
+
+        getLifecycle().addObserver(new FragmentMeObserver());
     }
 
     @Nullable

@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.lifecycle.FragmentFoodMeasurmentsObserver;
+import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 
 public class FoodMeasurementsFragment extends Fragment {
 
@@ -20,6 +22,8 @@ public class FoodMeasurementsFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getLifecycle().addObserver(new FragmentFoodMeasurmentsObserver());
     }
 
     @Nullable

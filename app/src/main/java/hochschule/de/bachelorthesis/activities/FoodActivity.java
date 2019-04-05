@@ -24,6 +24,8 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodDataFragment;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodMeasurementsFragment;
 import hochschule.de.bachelorthesis.fragments_my_food.FoodOverviewFragment;
+import hochschule.de.bachelorthesis.lifecycle.ActivityFoodObserver;
+import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
 import hochschule.de.bachelorthesis.view_model.ActivityFoodViewModel;
 
 public class FoodActivity extends AppCompatActivity {
@@ -40,6 +42,8 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
+        getLifecycle().addObserver(new ActivityFoodObserver());
 
         // view model
         viewModel = ViewModelProviders.of(this).get(ActivityFoodViewModel.class);
