@@ -39,14 +39,15 @@ public class FoodFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).setTitle("My Food");
         super.onCreate(savedInstanceState);
+
+        // Lifecycle
+        getLifecycle().addObserver(new FragmentFoodObserver());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_food, container, false);
 
         fab = rootView.findViewById(R.id.button_add_note);
-
-        getLifecycle().addObserver(new FragmentFoodObserver());
 
         // RecyclerView
         RecyclerView rv = rootView.findViewById(R.id.recycler_view);

@@ -43,6 +43,7 @@ public class FoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
+        // life cycle
         getLifecycle().addObserver(new ActivityFoodObserver());
 
         // view model

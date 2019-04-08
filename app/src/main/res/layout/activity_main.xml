@@ -11,6 +11,7 @@
         android:id="@+id/main_activity_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:navGraph="@navigation/main_activity_nav_graph"
         app:defaultNavHost = "true">
