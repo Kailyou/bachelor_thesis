@@ -8,6 +8,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import hochschule.de.bachelorthesis.other.FoodSample;
 
 @Database(entities = {Food.class}, version = 1, exportSchema = false)
 public abstract class FoodDatabase extends RoomDatabase {
@@ -56,10 +57,9 @@ public abstract class FoodDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            foodDao.insert(new Food("Apfel", "Pink Lady", "Fruit"));
-            foodDao.insert(new Food("Linseneintopf mit Mettwurst", "Sub Text 3", "Dish"));
-            foodDao.insert(new Food("Pizza, Salami", "Dr. Oetker", "Instant meal"));
-
+            foodDao.insert(FoodSample.getApple());
+            foodDao.insert(FoodSample.getPizza());
+            foodDao.insert(FoodSample.getCola());
             return null;
         }
     }

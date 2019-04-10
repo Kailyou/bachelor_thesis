@@ -44,7 +44,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         Food currentFood = foods.get(position);
         holder.textViewFoodName.setText(currentFood.getFoodName());
         holder.textViewBrandName.setText(currentFood.getBrandName());
-        holder.textViewMetaText.setText(currentFood.getMetaText());
+        holder.textViewMetaText.setText(currentFood.getFoodType());
 
         // Click event for the card views, which will start a new activity (FoodActivity)
         // navController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity);
