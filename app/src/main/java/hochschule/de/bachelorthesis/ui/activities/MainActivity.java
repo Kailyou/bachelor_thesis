@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.activities;
+package hochschule.de.bachelorthesis.ui.activities;
 
 import android.os.Bundle;
 

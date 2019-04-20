@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.fragments_main_activity;
+package hochschule.de.bachelorthesis.ui.fragments.mainActivity;
 
 import android.os.Bundle;
 

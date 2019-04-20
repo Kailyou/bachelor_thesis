@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view_model;
+package hochschule.de.bachelorthesis.data.view_model;
 
 import android.app.Application;
 

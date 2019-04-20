@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.fragments_my_food;
+package hochschule.de.bachelorthesis.ui.fragments.food;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodMeasurmentsObserver;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 
 public class FoodMeasurementsFragment extends Fragment {
 

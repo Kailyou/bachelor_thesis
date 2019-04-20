@@ -1,6 +1,5 @@
-package hochschule.de.bachelorthesis.fragments_main_activity;
+package hochschule.de.bachelorthesis.ui.fragments.mainActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,16 +19,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.activities.AddFoodActivity;
 import hochschule.de.bachelorthesis.adapter.FoodAdapter;
-import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.Food;
-import hochschule.de.bachelorthesis.view_model.FoodViewModel;
+import hochschule.de.bachelorthesis.data.view_model.FoodViewModel;
 
 public class FoodFragment extends Fragment {
 

@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.activities.FoodActivity;
 import hochschule.de.bachelorthesis.room.Food;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {

@@ -1,27 +1,19 @@
-package hochschule.de.bachelorthesis.activities;
+package hochschule.de.bachelorthesis.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.ActivityAddFoodBinding;
 import hochschule.de.bachelorthesis.lifecycle.ActivityAddFoodObserver;
-import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
-import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.AddFoodViewModel;
+import hochschule.de.bachelorthesis.data.view_model.AddFoodViewModel;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.Objects;
 

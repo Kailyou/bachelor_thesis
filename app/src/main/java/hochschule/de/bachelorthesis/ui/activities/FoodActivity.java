@@ -1,32 +1,28 @@
-package hochschule.de.bachelorthesis.activities;
+package hochschule.de.bachelorthesis.ui.activities;
 
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.fragments_my_food.FoodDataFragment;
-import hochschule.de.bachelorthesis.fragments_my_food.FoodMeasurementsFragment;
-import hochschule.de.bachelorthesis.fragments_my_food.FoodOverviewFragment;
+import hochschule.de.bachelorthesis.ui.fragments.food.FoodDataFragment;
+import hochschule.de.bachelorthesis.ui.fragments.food.FoodMeasurementsFragment;
+import hochschule.de.bachelorthesis.ui.fragments.food.FoodOverviewFragment;
 import hochschule.de.bachelorthesis.lifecycle.ActivityFoodObserver;
-import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
-import hochschule.de.bachelorthesis.view_model.ActivityFoodViewModel;
+import hochschule.de.bachelorthesis.data.view_model.ActivityFoodViewModel;
 
 public class FoodActivity extends AppCompatActivity {
 

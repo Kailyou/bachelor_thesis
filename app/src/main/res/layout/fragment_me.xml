@@ -1,156 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:stretchColumns="1">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User Data"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
+    <data>
+        <variable
+            name="viewmodel"
+            type="hochschule.de.bachelorthesis.data.view_model.FragmentMeViewModel" />
+    </data>
 
-    <View
-        android:layout_height="2dip"
-        android:background="#FF909090" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:text="Personal data"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
-    <TableRow>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:stretchColumns="1"
+        tools:context=".ui.activities.MainActivity">
 
         <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Age"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/personal_data"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/age"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/fragment_me_age"
+                android:text="@{viewmodel.userAge}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+            <Spinner
+                android:id="@+id/fragment_me_age_edit"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:visibility="gone"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/height"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/fragment_me_height"
+                android:text="@{viewmodel.userAge}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+            <Spinner
+                android:id="@+id/fragment_me_height_edit"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:visibility="gone"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/weight"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/fragment_me_weight"
+                android:text="@{viewmodel.weight}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+            <Spinner
+                android:id="@+id/fragment_me_weight_edit"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:visibility="gone"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/gender"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/fragment_me_gender"
+                android:text="@{viewmodel.gender}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+            <Spinner
+                android:id="@+id/fragment_me_gender_edit"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:visibility="gone"/>
+        </TableRow>
 
         <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="22"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-    </TableRow>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/lifestyle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
-    <TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/fitness_level"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Height"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            <TextView
+                android:id="@+id/fragment_me_fitness_level"
+                android:text="@{viewmodel.fitnessLevel}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="176 cm"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-    </TableRow>
+            <Spinner
+                android:id="@+id/fragment_me_fitness_level_edit"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:visibility="gone"/>
+        </TableRow>
 
-    <TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/taking_medication"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Weight"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            <TextView
+                android:id="@+id/fragment_me_medication"
+                android:text="@{viewmodel.takingMedication}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="70 kg"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-    </TableRow>
+            <RadioGroup
+                android:id="@+id/fragment_me_medication_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
 
-    <TableRow>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+            </RadioGroup>
+        </TableRow>
 
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Gender"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/allergies_available"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="Male"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-    </TableRow>
+            <TextView
+                android:id="@+id/fragment_me_allergies"
+                android:text="@{viewmodel.hasAllergies}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:text="Lifestyle"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <RadioGroup
+                android:id="@+id/fragment_me_allergies_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
 
-    <TableRow>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+            </RadioGroup>
+        </TableRow>
 
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Fitness Level"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/smoking"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="2"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            <TextView
+                android:id="@+id/fragment_me_smoking"
+                android:text="@{viewmodel.isSmoking}"
+                android:gravity="end"
+                android:padding="3dip"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    </TableRow>
+            <RadioGroup
+                android:id="@+id/fragment_me_smoking_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
 
-    <TableRow>
-
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Taking Medication?"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="no"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-    </TableRow>
-
-    <TableRow>
-
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Allergies available?"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="yes"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-    </TableRow>
-
-    <TableRow>
-
-        <TextView
-            android:layout_column="1"
-            android:padding="3dip"
-            android:text="Smoking?"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        <TextView
-            android:gravity="right"
-            android:padding="3dip"
-            android:text="no"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-    </TableRow>
-
-</TableLayout>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+            </RadioGroup>
+        </TableRow>
+    </TableLayout>
+</layout>

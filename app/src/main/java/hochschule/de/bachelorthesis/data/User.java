@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.model;
+package hochschule.de.bachelorthesis.data;
 
 public class User {
 
@@ -6,9 +6,7 @@ public class User {
     private int height;
     private float weight;
     private int gender; //0 = female, 1 = male
+
     private int sportActivityLevel; // 0 - 5, 0 = less, 5 = much
-
     private boolean medicaments = false;
-
-
 }

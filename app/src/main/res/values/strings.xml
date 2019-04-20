@@ -31,6 +31,21 @@
     <string name="salt">Salt</string>
     <string name="of_which_sugars">of which sugars</string>
     <string name="home_fragment">Home fragment</string>
+    <string name="personal_data">Personal data</string>
+    <string name="age">Age</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="gender">Gender</string>
+    <string name="lifestyle">Lifestyle</string>
+    <string name="fitness_level">Fitness Level</string>
+    <string name="taking_medication">Taking Medication?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="allergies_available">Allergies available?</string>
+    <string name="smoking">Smoking?</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
     <string-array name="activity_add_food_spinner_type">
         <item>Grains</item>
         <item>Vegetables</item>
@@ -41,5 +56,14 @@
         <item>Solid Fats and Added Sugar</item>
         <item>Drinks</item>
         <item>Snacks</item>
+    </string-array>
+    <string-array name="fragment_me_spinner_gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="fragment_me_spinner_fitness_level">
+        <item>low</item>
+        <item>average</item>
+        <item>good</item>
     </string-array>
 </resources>
