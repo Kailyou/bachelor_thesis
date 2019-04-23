@@ -2,11 +2,15 @@ package hochschule.de.bachelorthesis.data;
 
 public class User {
 
+    // Personal data
     private int age;
     private int height;
-    private float weight;
-    private int gender; //0 = female, 1 = male
+    private int weight;
+    private String gender;
 
-    private int sportActivityLevel; // 0 - 5, 0 = less, 5 = much
-    private boolean medicaments = false;
+    // Lifestyle
+    private String fitnessLevel;
+    private String medicaments;
+    private String allergies;
+    private String smoking;
 }

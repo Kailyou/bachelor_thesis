@@ -7,17 +7,17 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import hochschule.de.bachelorthesis.other.FoodRepository;
+import hochschule.de.bachelorthesis.data.Repository;
 import hochschule.de.bachelorthesis.room.Food;
 
 public class FoodViewModel extends AndroidViewModel {
 
-    private FoodRepository repository;
+    private Repository repository;
     private LiveData<List<Food>> allFood;
 
     public FoodViewModel(@NonNull Application application) {
         super(application);
-        repository = new FoodRepository(application);
+        repository = new Repository(application);
         allFood = repository.getAllFood();
     }
 

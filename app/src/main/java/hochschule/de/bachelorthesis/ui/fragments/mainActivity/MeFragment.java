@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.ui.fragments.mainActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -65,9 +69,6 @@ public class MeFragment extends Fragment {
         return view;
     }
 
-    private void initViewModel() {
-
-    }
 
     /**
      * Initializes the spinners.
@@ -143,7 +144,7 @@ public class MeFragment extends Fragment {
      * if the edit mode is enabled, the text views will be hided
      * and the edit ui elements will be shown instead of.
      */
-    private void swapTextviewsAndEditable() {
+    private void swapTextViewAndEditable() {
         if(!isEditing) {
             isEditing = true;
             swapVisibility(mBinding.fragmentMeAge, mBinding.fragmentMeAgeEdit);
@@ -169,34 +170,78 @@ public class MeFragment extends Fragment {
         }
     }
 
-    public void handleSaveButton() {
+    /**
+     * Helper function which returns the String of a selected item of a radio group.
+     * @param radiogroup
+     * @return
+     */
+    private String getSelectedRadioButtonText(RadioGroup radiogroup) {
+        // return empty string if no button  has been selected
+        if(radiogroup.getCheckedRadioButtonId() == -1)
+            return "";
+
+        // return string of selected button
+        int radioButtonID = radiogroup.getCheckedRadioButtonId();
+        View radioButton = radiogroup.findViewById(radioButtonID);
+        int idx = radiogroup.indexOfChild(radioButton);
+        RadioButton r = (RadioButton) radiogroup.getChildAt(idx);
+        return r.getText().toString();
+    }
+
+    private void handleSaveButton() {
         // personal data
-        mFragmentMeViewModel.setUserAge(mBinding.fragmentMeAgeEdit.getSelectedItem().toString());
-        //mFragmentMeViewModel.setHeight(mBinding.fragmentMeHeightEdit.getSelectedItem().toString());
-        //mFragmentMeViewModel.setWeight(mBinding.fragmentMeWeightEdit.getSelectedItem().toString());
-        //mFragmentMeViewModel.setGender(mBinding.fragmentMeGenderEdit.getSelectedItem().toString());
+        String age = mBinding.fragmentMeAgeEdit.getSelectedItem().toString();
+        String height = mBinding.fragmentMeHeightEdit.getSelectedItem().toString();
+        String weight = mBinding.fragmentMeWeightEdit.getSelectedItem().toString();
+        String gender = mBinding.fragmentMeGenderEdit.getSelectedItem().toString();
 
         // lifestyle data
-        //mFragmentMeViewModel.setFitnessLevel(mBinding.fragmentMeFitnessLevelEdit.getSelectedItem().toString());
+        String fitnessLevel = mBinding.fragmentMeFitnessLevelEdit.getSelectedItem().toString();
+        String medication = getSelectedRadioButtonText(mBinding.fragmentMeMedicationEdit);
+        String allergies = getSelectedRadioButtonText(mBinding.fragmentMeAllergiesEdit);
+        String smoking = getSelectedRadioButtonText(mBinding.fragmentMeSmokingEdit);
+
+        // update view model
+        mFragmentMeViewModel.setUserAge(age);
+        mFragmentMeViewModel.setHeight(height);
+        mFragmentMeViewModel.setWeight(weight);
+        mFragmentMeViewModel.setGender(gender);
+        mFragmentMeViewModel.setFitnessLevel(fitnessLevel);
+        mFragmentMeViewModel.setTakingMedication(medication);
+        mFragmentMeViewModel.setHasAllergies(allergies);
+        mFragmentMeViewModel.setIsSmoking(smoking);
+
+        // save persistent
+        SharedPreferences sharedPref = Objects.requireNonNull(getActivity()).getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.save_fragment_me_age), age);
+        editor.putString(getString(R.string.save_fragment_me_height), height);
+        editor.putString(getString(R.string.save_fragment_me_weight), weight);
+        editor.putString(getString(R.string.save_fragment_me_gender), gender);
+        editor.putString(getString(R.string.save_fragment_me_fitness_level), fitnessLevel);
+        editor.putString(getString(R.string.save_fragment_me_medication), medication);
+        editor.putString(getString(R.string.save_fragment_me_allergies), allergies);
+        editor.putString(getString(R.string.save_fragment_me_smoking), smoking);
+        editor.apply();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_me_edit:
-                swapTextviewsAndEditable();
+                swapTextViewAndEditable();
                 edit.setVisible(false);
                 cancel.setVisible(true);
                 save.setVisible(true);
                 return true;
             case R.id.menu_me_cancel:
-                swapTextviewsAndEditable();
+                swapTextViewAndEditable();
                 cancel.setVisible(false);
                 save.setVisible(false);
                 edit.setVisible(true);
                 return true;
             case R.id.menu_me_save:
-                swapTextviewsAndEditable();
+                swapTextViewAndEditable();
                 cancel.setVisible(false);
                 save.setVisible(false);
                 edit.setVisible(true);

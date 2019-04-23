@@ -46,6 +46,17 @@
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+
+    <string name="save_fragment_me_age"> </string>
+    <string name="save_fragment_me_fitness_level"> </string>
+    <string name="save_fragment_me_gender"> </string>
+    <string name="save_fragment_me_height"> </string>
+    <string name="save_fragment_me_weight"> </string>
+    <string name="save_fragment_me_smoking"> </string>
+    <string name="save_fragment_me_medication"> </string>
+    <string name="save_fragment_me_allergies"> </string>
+
+
     <string-array name="activity_add_food_spinner_type">
         <item>Grains</item>
         <item>Vegetables</item>

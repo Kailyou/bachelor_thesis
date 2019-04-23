@@ -1,10 +1,13 @@
 package hochschule.de.bachelorthesis.lifecycle;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+
+import javax.security.auth.callback.Callback;
 
 public class FragmentMeObserver implements LifecycleObserver {
 

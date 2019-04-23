@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.other;
+package hochschule.de.bachelorthesis.data;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -16,19 +16,26 @@ import io.reactivex.Flowable;
  * Is not part of the architecture components library
  * but it is considered best practice.
  */
-public class FoodRepository {
+public class Repository {
 
+    private User user;
     private FoodDao foodDao;
     private LiveData<List<Food>> allFood;
 
-    public FoodRepository(Application application) {
+    public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
         this.foodDao = database.foodDao();
         this.allFood = this.foodDao.getAllFood();
     }
 
     /**
+     * API methods for the FragmentMeViewModel
+     */
+
+
+    /**
      * API methods that will be used by outside (View Model)
+     * FoodViewModel
      */
     public void insert(Food food) {
         new InsertFoodAsyncTask(foodDao).execute(food);

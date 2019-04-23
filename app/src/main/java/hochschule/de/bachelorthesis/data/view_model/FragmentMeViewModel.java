@@ -24,8 +24,16 @@ public class FragmentMeViewModel extends AndroidViewModel {
 
     public FragmentMeViewModel(@NonNull Application application) {
         super(application);
-        userAge = new MutableLiveData<String>();
-    }
+
+        userAge = new MutableLiveData<>();
+        height = new MutableLiveData<>();
+        weight = new MutableLiveData<>();
+        gender = new MutableLiveData<>();
+        fitnessLevel = new MutableLiveData<>();
+        medication = new MutableLiveData<>();
+        allergies = new MutableLiveData<>();
+        smoking = new MutableLiveData<>();
+     }
 
     public MutableLiveData<String> getUserAge() {
         return userAge;
