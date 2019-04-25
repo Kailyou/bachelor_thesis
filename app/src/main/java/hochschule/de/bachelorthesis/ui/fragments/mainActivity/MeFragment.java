@@ -35,13 +35,13 @@ import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
 import hochschule.de.bachelorthesis.utility.MyToast;
 
 public class MeFragment extends Fragment {
-
     private FragmentMeViewModel mFragmentMeViewModel;
     private FragmentMeBinding mBinding;
     private MenuItem edit;
     private MenuItem cancel;
     private MenuItem save;
     private boolean isEditing;
+    private static final String SHARED_PREFS = "sharedPrefs";
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).setTitle("Me");
@@ -50,8 +50,9 @@ public class MeFragment extends Fragment {
         setHasOptionsMenu(true);
         getLifecycle().addObserver(new FragmentMeObserver());
 
+        // View model
         mFragmentMeViewModel = ViewModelProviders.of(this).get(FragmentMeViewModel.class);
-     }
+    }
 
     @Nullable
     @Override
@@ -61,12 +62,11 @@ public class MeFragment extends Fragment {
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewmodel(mFragmentMeViewModel);
 
-        View view = mBinding.getRoot();
-
         initSpinner();
 
-        // Height spinner
-        return view;
+        loadData();
+
+        return mBinding.getRoot();
     }
 
 
@@ -81,7 +81,7 @@ public class MeFragment extends Fragment {
         }
 
         ArrayAdapter<Integer> spinnerArrayAdapter = new ArrayAdapter<Integer>(
-                getContext(), android.R.layout.simple_spinner_item, age);
+                Objects.requireNonNull(getContext()), android.R.layout.simple_spinner_item, age);
         spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         mBinding.fragmentMeAgeEdit.setAdapter(spinnerArrayAdapter);
 
@@ -120,7 +120,7 @@ public class MeFragment extends Fragment {
         mBinding.fragmentMeFitnessLevelEdit.setAdapter(adapter);
     }
 
-       @Override
+    @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         setHasOptionsMenu(true);
@@ -188,7 +188,19 @@ public class MeFragment extends Fragment {
         return r.getText().toString();
     }
 
-    private void handleSaveButton() {
+    private void updateViewModel(String age, String height, String weight, String gender,
+                                 String fitnessLevel, String medication, String allergies, String smoking) {
+        mFragmentMeViewModel.setUserAge(age);
+        mFragmentMeViewModel.setHeight(height);
+        mFragmentMeViewModel.setWeight(weight);
+        mFragmentMeViewModel.setGender(gender);
+        mFragmentMeViewModel.setFitnessLevel(fitnessLevel);
+        mFragmentMeViewModel.setTakingMedication(medication);
+        mFragmentMeViewModel.setHasAllergies(allergies);
+        mFragmentMeViewModel.setIsSmoking(smoking);
+    }
+
+    private void saveData() {
         // personal data
         String age = mBinding.fragmentMeAgeEdit.getSelectedItem().toString();
         String height = mBinding.fragmentMeHeightEdit.getSelectedItem().toString();
@@ -201,19 +213,9 @@ public class MeFragment extends Fragment {
         String allergies = getSelectedRadioButtonText(mBinding.fragmentMeAllergiesEdit);
         String smoking = getSelectedRadioButtonText(mBinding.fragmentMeSmokingEdit);
 
-        // update view model
-        mFragmentMeViewModel.setUserAge(age);
-        mFragmentMeViewModel.setHeight(height);
-        mFragmentMeViewModel.setWeight(weight);
-        mFragmentMeViewModel.setGender(gender);
-        mFragmentMeViewModel.setFitnessLevel(fitnessLevel);
-        mFragmentMeViewModel.setTakingMedication(medication);
-        mFragmentMeViewModel.setHasAllergies(allergies);
-        mFragmentMeViewModel.setIsSmoking(smoking);
-
         // save persistent
-        SharedPreferences sharedPref = Objects.requireNonNull(getActivity()).getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(getString(R.string.save_fragment_me_age), age);
         editor.putString(getString(R.string.save_fragment_me_height), height);
         editor.putString(getString(R.string.save_fragment_me_weight), weight);
@@ -223,6 +225,24 @@ public class MeFragment extends Fragment {
         editor.putString(getString(R.string.save_fragment_me_allergies), allergies);
         editor.putString(getString(R.string.save_fragment_me_smoking), smoking);
         editor.apply();
+
+        updateViewModel(age, height, weight, gender, fitnessLevel, medication, allergies, smoking);
+        MyToast.createToast(getContext(), "Data saved");
+    }
+
+    private void loadData()
+    {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        String age = sharedPreferences.getString(getString(R.string.save_fragment_me_age),"nope");
+        String height = sharedPreferences.getString(getString(R.string.save_fragment_me_height),"nope");
+        String weight = sharedPreferences.getString(getString(R.string.save_fragment_me_weight),"nope");
+        String gender = sharedPreferences.getString(getString(R.string.save_fragment_me_gender),"nope");
+        String fitnessLevel = sharedPreferences.getString(getString(R.string.save_fragment_me_fitness_level),"nope");
+        String medication = sharedPreferences.getString(getString(R.string.save_fragment_me_medication),"nope");
+        String allergies = sharedPreferences.getString(getString(R.string.save_fragment_me_allergies),"nope");
+        String smoking = sharedPreferences.getString(getString(R.string.save_fragment_me_smoking),"nope");
+
+        updateViewModel(age, height, weight, gender, fitnessLevel, medication, allergies, smoking);
     }
 
     @Override
@@ -245,8 +265,7 @@ public class MeFragment extends Fragment {
                 cancel.setVisible(false);
                 save.setVisible(false);
                 edit.setVisible(true);
-                handleSaveButton();
-                MyToast.createToast(getContext(), "Saved");
+                saveData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

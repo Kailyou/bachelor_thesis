@@ -47,14 +47,14 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
 
-    <string name="save_fragment_me_age"> </string>
-    <string name="save_fragment_me_fitness_level"> </string>
-    <string name="save_fragment_me_gender"> </string>
-    <string name="save_fragment_me_height"> </string>
-    <string name="save_fragment_me_weight"> </string>
-    <string name="save_fragment_me_smoking"> </string>
-    <string name="save_fragment_me_medication"> </string>
-    <string name="save_fragment_me_allergies"> </string>
+    <string name="save_fragment_me_age">save_fragment_me_age</string>
+    <string name="save_fragment_me_fitness_level">save_fragment_me_fitness_level</string>
+    <string name="save_fragment_me_gender">save_fragment_me_gender</string>
+    <string name="save_fragment_me_height">save_fragment_me_height</string>
+    <string name="save_fragment_me_weight">save_fragment_me_weight</string>
+    <string name="save_fragment_me_smoking">save_fragment_me_smoking</string>
+    <string name="save_fragment_me_medication">save_fragment_me_medication</string>
+    <string name="save_fragment_me_allergies">save_fragment_me_allergies</string>
 
 
     <string-array name="activity_add_food_spinner_type">

@@ -24,7 +24,6 @@ public class FragmentMeViewModel extends AndroidViewModel {
 
     public FragmentMeViewModel(@NonNull Application application) {
         super(application);
-
         userAge = new MutableLiveData<>();
         height = new MutableLiveData<>();
         weight = new MutableLiveData<>();
@@ -35,6 +34,9 @@ public class FragmentMeViewModel extends AndroidViewModel {
         smoking = new MutableLiveData<>();
      }
 
+    /*
+     * GETTER
+      */
     public MutableLiveData<String> getUserAge() {
         return userAge;
     }
@@ -66,6 +68,10 @@ public class FragmentMeViewModel extends AndroidViewModel {
     public LiveData<String> getIsSmoking() {
         return smoking;
     }
+
+    /*
+     * SETTER
+     */
 
     public void setUserAge(String userAge) {
         this.userAge.setValue(userAge);
