@@ -39,7 +39,12 @@
         android:id="@+id/addFoodActivity"
         android:name="hochschule.de.bachelorthesis.ui.activities.AddFoodActivity"
         android:label="activity_add_food"
-        tools:layout="@layout/activity_add_food" />
+        tools:layout="@layout/activity_add_food" >
+        <argument
+            android:name="test"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </activity>
     <activity
         android:id="@+id/FoodActivity"
         android:name="hochschule.de.bachelorthesis.ui.activities.FoodActivity"

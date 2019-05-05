@@ -15,6 +15,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.ui.activities.AddFoodActivityArgs;
+import hochschule.de.bachelorthesis.ui.activities.FoodActivity;
+import hochschule.de.bachelorthesis.ui.fragments.mainActivity.FoodFragmentDirections;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
@@ -45,22 +48,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         holder.textViewMetaText.setText(currentFood.getFoodType());
 
         // Click event for the card views, which will start a new activity (FoodActivity)
-        // navController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity);
-
-        // Trying to pass the primaryKey
-        /*
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, FoodActivity.class);
-                intent.putExtra("primary_key", foods.get(position).getId());
-                intent.putExtra("food_name", foods.get(position).getFoodName());
-                context.startActivity(intent);
-            }
-        });
-        */
+                AddFoodActivityArgs.Builder builder = new AddFoodActivityArgs.Builder();
+                builder.setTest(42);
 
-        holder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_FoodActivity));
+                navController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity, builder.build().toBundle());
+            }
+
+        });
     }
 
     /**

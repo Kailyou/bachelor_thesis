@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -37,6 +38,10 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AddFoodActivityArgs args = AddFoodActivityArgs.fromBundle(Objects.requireNonNull(getIntent().getExtras()));
+        Log.e("TAG", ""+args.getTest());
+
         setContentView(R.layout.activity_food);
 
         // life cycle
