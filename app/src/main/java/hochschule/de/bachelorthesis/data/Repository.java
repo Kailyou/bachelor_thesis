@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.room.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
@@ -18,14 +20,13 @@ import io.reactivex.Flowable;
  */
 public class Repository {
 
-    private User user;
-    private FoodDao foodDao;
-    private LiveData<List<Food>> allFood;
+    private FoodDao mFoodDao;
+    private LiveData<List<Food>> mAllFood;
 
     public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
-        this.foodDao = database.foodDao();
-        this.allFood = this.foodDao.getAllFood();
+        mFoodDao = database.foodDao();
+        mAllFood = mFoodDao.getAllFood();
     }
 
     /**
@@ -38,24 +39,24 @@ public class Repository {
      * FoodViewModel
      */
     public void insert(Food food) {
-        new InsertFoodAsyncTask(foodDao).execute(food);
+        new InsertFoodAsyncTask(mFoodDao).execute(food);
     }
 
     public void update(Food food) {
-        new UpdateFoodAsyncTask(foodDao).execute(food);
+        new UpdateFoodAsyncTask(mFoodDao).execute(food);
     }
 
     public void delete(Food food) {
-        new DeleteFoodAsyncTask(foodDao).execute(food);
+        new DeleteFoodAsyncTask(mFoodDao).execute(food);
     }
 
     public void deleteAllFood() {
-        new DeleteAllFoodAsyncTask(foodDao).execute();
+        new DeleteAllFoodAsyncTask(mFoodDao).execute();
     }
 
     // already executed on a background threat
     public LiveData<List<Food>> getAllFood() {
-        return allFood;
+        return mAllFood;
     }
 
     /**
@@ -74,22 +75,6 @@ public class Repository {
             return null;
         }
     }
-
-    /*
-    private static class GetFodoByIdTask extends AsyncTask<Food, Void, Void> {
-        private FoodDao mFoodDao;
-
-        public InsertFoodAsyncTask(FoodDao mFoodDao) {
-            this.mFoodDao = mFoodDao;
-        }
-
-        @Override
-        protected Void doInBackground(Food... foods) {
-            mFoodDao.insert(foods[0]);
-            return null;
-        }
-    }
-    */
 
     private static class UpdateFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
