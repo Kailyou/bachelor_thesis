@@ -65,7 +65,7 @@ public class Repository {
     private static class InsertFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
 
-        public InsertFoodAsyncTask(FoodDao mFoodDao) {
+        private InsertFoodAsyncTask(FoodDao mFoodDao) {
             this.mFoodDao = mFoodDao;
         }
 
@@ -79,7 +79,7 @@ public class Repository {
     private static class UpdateFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
 
-        public UpdateFoodAsyncTask(FoodDao mFoodDao) {
+        private UpdateFoodAsyncTask(FoodDao mFoodDao) {
             this.mFoodDao = mFoodDao;
         }
 
@@ -93,7 +93,7 @@ public class Repository {
     private static class DeleteFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
 
-        public DeleteFoodAsyncTask(FoodDao mFoodDao) {
+        private DeleteFoodAsyncTask(FoodDao mFoodDao) {
             this.mFoodDao = mFoodDao;
         }
 
@@ -107,7 +107,7 @@ public class Repository {
     private static class DeleteAllFoodAsyncTask extends AsyncTask<Void, Void, Void> {
         private FoodDao mFoodDao;
 
-        public DeleteAllFoodAsyncTask(FoodDao mFoodDao) {
+        private DeleteAllFoodAsyncTask(FoodDao mFoodDao) {
             this.mFoodDao = mFoodDao;
         }
 
