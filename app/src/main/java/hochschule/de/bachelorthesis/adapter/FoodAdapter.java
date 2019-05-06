@@ -11,24 +11,21 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.ui.activities.AddFoodActivityArgs;
-import hochschule.de.bachelorthesis.ui.activities.FoodActivity;
-import hochschule.de.bachelorthesis.ui.fragments.mainActivity.FoodFragmentDirections;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
-    private Context context;
-    private NavController navController;
+    private Context mContext;
+    private NavController mNavController;
 
     private List<Food> foods = new ArrayList<>();
 
     public FoodAdapter(Context context, NavController navController) {
-        this.context = context;
-        this.navController = navController;
+        mContext = context;
+        mNavController = navController;
     }
 
     @NonNull
@@ -54,8 +51,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
             public void onClick(View v) {
                 AddFoodActivityArgs.Builder builder = new AddFoodActivityArgs.Builder();
                 builder.setTest(42);
-
-                navController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity, builder.build().toBundle());
+                mNavController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity, builder.build().toBundle());
             }
 
         });
