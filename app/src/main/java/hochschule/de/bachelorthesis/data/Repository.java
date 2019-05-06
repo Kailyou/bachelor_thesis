@@ -54,7 +54,7 @@ public class Repository {
         new DeleteAllFoodAsyncTask(mFoodDao).execute();
     }
 
-    // already executed on a background threat
+    // already executed on a background thread because of live data
     public LiveData<List<Food>> getAllFood() {
         return mAllFood;
     }
