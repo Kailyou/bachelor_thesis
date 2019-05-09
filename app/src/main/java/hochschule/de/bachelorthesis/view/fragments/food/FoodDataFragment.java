@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.ui.fragments.food;
+package hochschule.de.bachelorthesis.view.fragments.food;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodDataObserver;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 
 public class FoodDataFragment extends Fragment {
 

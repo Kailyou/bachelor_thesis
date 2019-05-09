@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.other;
+package hochschule.de.bachelorthesis.utility;
 
 import hochschule.de.bachelorthesis.room.Food;
 

@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.data;
+package hochschule.de.bachelorthesis.model;
 
 public class User {
 

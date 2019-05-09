@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.data.view_model;
+package hochschule.de.bachelorthesis.view_model;
 
 import android.app.Application;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import hochschule.de.bachelorthesis.data.Repository;
+import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.Food;
 
 public class FoodViewModel extends AndroidViewModel {

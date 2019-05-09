@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.ui.fragments.mainActivity;
+package hochschule.de.bachelorthesis.view.fragments.mainActivity;
 
 import android.os.Bundle;
 
@@ -25,7 +25,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.adapter.FoodAdapter;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.Food;
-import hochschule.de.bachelorthesis.data.view_model.FoodViewModel;
+import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
 public class FoodFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.ui.activities;
+package hochschule.de.bachelorthesis.view.activities;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -19,11 +19,11 @@ import android.view.MenuItem;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.ui.fragments.food.FoodDataFragment;
-import hochschule.de.bachelorthesis.ui.fragments.food.FoodMeasurementsFragment;
-import hochschule.de.bachelorthesis.ui.fragments.food.FoodOverviewFragment;
+import hochschule.de.bachelorthesis.view.fragments.food.FoodDataFragment;
+import hochschule.de.bachelorthesis.view.fragments.food.FoodMeasurementsFragment;
+import hochschule.de.bachelorthesis.view.fragments.food.FoodOverviewFragment;
 import hochschule.de.bachelorthesis.lifecycle.ActivityFoodObserver;
-import hochschule.de.bachelorthesis.data.view_model.ActivityFoodViewModel;
+import hochschule.de.bachelorthesis.view_model.ActivityFoodViewModel;
 
 public class FoodActivity extends AppCompatActivity {
 

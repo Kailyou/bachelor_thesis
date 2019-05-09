@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="hochschule.de.bachelorthesis.data.view_model.FragmentMeViewModel" />
+            type="hochschule.de.bachelorthesis.view_model.FragmentMeViewModel" />
     </data>
 
     <TableLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:stretchColumns="1"
-        tools:context=".ui.activities.MainActivity">
+        tools:context=".view.activities.MainActivity">
 
         <TextView
             android:layout_width="wrap_content"

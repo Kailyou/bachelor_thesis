@@ -1,18 +1,15 @@
-package hochschule.de.bachelorthesis.data;
+package hochschule.de.bachelorthesis.model;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.room.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
-import io.reactivex.Flowable;
 
 /**
  * Is not part of the architecture components library

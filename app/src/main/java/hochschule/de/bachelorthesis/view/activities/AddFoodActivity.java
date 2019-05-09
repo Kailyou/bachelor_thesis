@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.ui.activities;
+package hochschule.de.bachelorthesis.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -7,7 +7,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.ActivityAddFoodBinding;
 import hochschule.de.bachelorthesis.lifecycle.ActivityAddFoodObserver;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.data.view_model.AddFoodViewModel;
+import hochschule.de.bachelorthesis.view_model.AddFoodViewModel;
 
 import android.os.Bundle;
 import android.view.Menu;

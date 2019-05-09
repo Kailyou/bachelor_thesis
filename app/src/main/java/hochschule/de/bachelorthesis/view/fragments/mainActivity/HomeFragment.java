@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.ui.fragments.mainActivity;
+package hochschule.de.bachelorthesis.view.fragments.mainActivity;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.lifecycle.FragmentHomeObserver;
 
 public class HomeFragment extends Fragment {
