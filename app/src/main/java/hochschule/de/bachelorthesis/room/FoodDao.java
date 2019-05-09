@@ -26,7 +26,7 @@ public interface FoodDao {
     void deleteAllFood();
 
     @Query("SELECT * FROM food_table WHERE id=:id")
-    Flowable<Food> getFoodById(int id);
+    LiveData<Food> getFoodById(int id);
 
     @Query("SELECT * FROM food_table ORDER BY id DESC")
     LiveData<List<Food>> getAllFood();
