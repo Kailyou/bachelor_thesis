@@ -29,7 +29,6 @@ import hochschule.de.bachelorthesis.view_model.FoodViewModel;
 
 public class FoodFragment extends Fragment {
 
-    private FoodViewModel foodViewModel;
     private FloatingActionButton fab;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,12 +50,12 @@ public class FoodFragment extends Fragment {
         rv.setHasFixedSize(true);
 
         // Adapter
-        NavController navController = Navigation.findNavController(getActivity(), R.id.main_activity_fragment);
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment);
         final FoodAdapter adapter = new FoodAdapter(getContext(), navController);
         rv.setAdapter(adapter);
 
         // View model
-        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+        FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
         foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
             @Override
