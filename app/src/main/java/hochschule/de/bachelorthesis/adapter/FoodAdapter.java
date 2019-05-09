@@ -14,7 +14,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.Food;
-import hochschule.de.bachelorthesis.ui.activities.AddFoodActivityArgs;
+import hochschule.de.bachelorthesis.view.activities.AddFoodActivityArgs;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
@@ -51,6 +51,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
             public void onClick(View v) {
                 AddFoodActivityArgs.Builder builder = new AddFoodActivityArgs.Builder();
                 builder.setTest(42);
+
                 mNavController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity, builder.build().toBundle());
             }
 
