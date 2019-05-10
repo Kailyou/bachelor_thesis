@@ -23,13 +23,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.view_model.FragmentMeViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
 import hochschule.de.bachelorthesis.utility.MyToast;
 
 public class MeFragment extends Fragment {
-    private FragmentMeViewModel mFragmentMeViewModel;
+    private MeViewModel mMeViewModel;
     private FragmentMeBinding mBinding;
     private MenuItem edit;
     private MenuItem cancel;
@@ -45,7 +45,7 @@ public class MeFragment extends Fragment {
         getLifecycle().addObserver(new FragmentMeObserver());
 
         // View model
-        mFragmentMeViewModel = ViewModelProviders.of(this).get(FragmentMeViewModel.class);
+        mMeViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
     }
 
     @Nullable
@@ -54,7 +54,7 @@ public class MeFragment extends Fragment {
         // Init data binding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_me, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        mBinding.setViewmodel(mFragmentMeViewModel);
+        mBinding.setViewmodel(mMeViewModel);
 
         initSpinner();
 
@@ -184,14 +184,14 @@ public class MeFragment extends Fragment {
 
     private void updateViewModel(String age, String height, String weight, String gender,
                                  String fitnessLevel, String medication, String allergies, String smoking) {
-        mFragmentMeViewModel.setUserAge(age);
-        mFragmentMeViewModel.setHeight(height);
-        mFragmentMeViewModel.setWeight(weight);
-        mFragmentMeViewModel.setGender(gender);
-        mFragmentMeViewModel.setFitnessLevel(fitnessLevel);
-        mFragmentMeViewModel.setTakingMedication(medication);
-        mFragmentMeViewModel.setHasAllergies(allergies);
-        mFragmentMeViewModel.setIsSmoking(smoking);
+        mMeViewModel.setUserAge(age);
+        mMeViewModel.setHeight(height);
+        mMeViewModel.setWeight(weight);
+        mMeViewModel.setGender(gender);
+        mMeViewModel.setFitnessLevel(fitnessLevel);
+        mMeViewModel.setTakingMedication(medication);
+        mMeViewModel.setHasAllergies(allergies);
+        mMeViewModel.setIsSmoking(smoking);
     }
 
     private void saveData() {

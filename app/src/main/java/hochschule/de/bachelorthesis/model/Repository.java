@@ -27,7 +27,7 @@ public class Repository {
     }
 
     /**
-     * API methods for the FragmentMeViewModel
+     * API methods for the MeViewModel
      */
 
 

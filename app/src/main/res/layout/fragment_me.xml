@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="hochschule.de.bachelorthesis.view_model.FragmentMeViewModel" />
+            type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
     </data>
 
     <TableLayout

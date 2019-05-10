@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view_model;
+package hochschule.de.bachelorthesis.view_model.fragments;
 
 import android.app.Application;
 
@@ -7,8 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class FragmentMeViewModel extends AndroidViewModel {
-
+public class MeViewModel extends AndroidViewModel {
     // Personal data
     private MutableLiveData<String> userAge;
     private MutableLiveData<String> height;
@@ -22,7 +21,7 @@ public class FragmentMeViewModel extends AndroidViewModel {
     private MutableLiveData<String> smoking;
 
 
-    public FragmentMeViewModel(@NonNull Application application) {
+    public MeViewModel(@NonNull Application application) {
         super(application);
         userAge = new MutableLiveData<>();
         height = new MutableLiveData<>();

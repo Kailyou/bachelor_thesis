@@ -47,7 +47,7 @@
     </activity>
     <activity
         android:id="@+id/FoodActivity"
-        android:name="hochschule.de.bachelorthesis.view.activities.FoodActivity"
+        android:name="hochschule.de.bachelorthesis.view.activities.FoodInfoActivity"
         android:label="activity_food"
         tools:layout="@layout/activity_food" />
 

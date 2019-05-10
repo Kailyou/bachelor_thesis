@@ -23,13 +23,13 @@ import hochschule.de.bachelorthesis.view.fragments.food.FoodDataFragment;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodMeasurementsFragment;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodOverviewFragment;
 import hochschule.de.bachelorthesis.lifecycle.ActivityFoodObserver;
-import hochschule.de.bachelorthesis.view_model.ActivityFoodViewModel;
+import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
-public class FoodActivity extends AppCompatActivity {
+public class FoodInfoActivity extends AppCompatActivity {
 
-    private static final String TAG = FoodActivity.class.getName();
+    private static final String TAG = FoodInfoActivity.class.getName();
 
-    private ActivityFoodViewModel viewModel;
+    private FoodInfoViewModel viewModel;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -48,7 +48,7 @@ public class FoodActivity extends AppCompatActivity {
         getLifecycle().addObserver(new ActivityFoodObserver());
 
         // view model
-        viewModel = ViewModelProviders.of(this).get(ActivityFoodViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);
 
         // Enable back button
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -118,7 +118,7 @@ public class FoodActivity extends AppCompatActivity {
                 case 2:
                     return new FoodDataFragment();
                 default:
-                    throw new IllegalArgumentException("Unexpected index @FoodActivity");
+                    throw new IllegalArgumentException("Unexpected index @FoodInfoActivity");
             }
         }
 

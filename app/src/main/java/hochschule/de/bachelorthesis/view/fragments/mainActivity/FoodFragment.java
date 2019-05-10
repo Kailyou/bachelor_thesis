@@ -25,7 +25,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.adapter.FoodAdapter;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.Food;
-import hochschule.de.bachelorthesis.view_model.FoodViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.FoodViewModel;
 
 public class FoodFragment extends Fragment {
 
