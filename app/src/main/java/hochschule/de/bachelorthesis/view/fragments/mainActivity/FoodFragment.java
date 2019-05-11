@@ -22,7 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.adapter.FoodAdapter;
+import hochschule.de.bachelorthesis.utility.AdapterFood;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodViewModel;
@@ -51,7 +51,7 @@ public class FoodFragment extends Fragment {
 
         // Adapter
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment);
-        final FoodAdapter adapter = new FoodAdapter(getContext(), navController);
+        final AdapterFood adapter = new AdapterFood(getContext(), navController);
         rv.setAdapter(adapter);
 
         // View model
