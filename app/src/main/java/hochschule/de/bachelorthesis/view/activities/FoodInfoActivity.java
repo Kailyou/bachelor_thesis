@@ -35,12 +35,15 @@ public class FoodInfoActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
 
+    private int mFoodId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AddFoodActivityArgs args = AddFoodActivityArgs.fromBundle(Objects.requireNonNull(getIntent().getExtras()));
-        Log.e("TAG", ""+args.getTest());
+        FoodInfoActivityArgs args = FoodInfoActivityArgs.fromBundle(Objects.requireNonNull(getIntent().getExtras()));
+        mFoodId = args.getFoodId();
+        Log.e("TAG", "" + mFoodId);
 
         setContentView(R.layout.activity_food);
 
@@ -110,13 +113,26 @@ public class FoodInfoActivity extends AppCompatActivity {
         @Override
         @NonNull
         public Fragment getItem(int i) {
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("food_id", mFoodId);
+
             switch (i) {
                 case 0:
-                    return new FoodOverviewFragment();
+                    FoodOverviewFragment overviewFragment = new FoodOverviewFragment();
+                    overviewFragment.setArguments(bundle);
+                    return overviewFragment;
+
                 case 1:
-                    return new FoodMeasurementsFragment();
+                    FoodMeasurementsFragment measurementsFragment = new FoodMeasurementsFragment();
+                    measurementsFragment.setArguments(bundle);
+                    return measurementsFragment;
+
                 case 2:
-                    return new FoodDataFragment();
+                    FoodDataFragment dataFragment = new FoodDataFragment();
+                    dataFragment.setArguments(bundle);
+                    return dataFragment;
+
                 default:
                     throw new IllegalArgumentException("Unexpected index @FoodInfoActivity");
             }

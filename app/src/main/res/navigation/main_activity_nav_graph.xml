@@ -39,16 +39,15 @@
         android:id="@+id/addFoodActivity"
         android:name="hochschule.de.bachelorthesis.view.activities.AddFoodActivity"
         android:label="activity_add_food"
-        tools:layout="@layout/activity_add_food" >
-        <argument
-            android:name="test"
-            app:argType="integer"
-            android:defaultValue="-1" />
-    </activity>
+        tools:layout="@layout/activity_add_food" />
     <activity
         android:id="@+id/FoodActivity"
         android:name="hochschule.de.bachelorthesis.view.activities.FoodInfoActivity"
         android:label="activity_food"
-        tools:layout="@layout/activity_food" />
+        tools:layout="@layout/activity_food" >
+        <argument
+            android:name="foodId"
+            app:argType="integer" />
+    </activity>
 
 </navigation>
