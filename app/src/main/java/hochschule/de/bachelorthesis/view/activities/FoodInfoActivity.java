@@ -86,15 +86,6 @@ public class FoodInfoActivity extends AppCompatActivity {
                  return true;
             case R.id.menu_delete:
                 return true;
-
-            case android.R.id.home:
-              //  Intent parentIntent = NavUtils.getParentActivityIntent(this);
-              //  assert parentIntent != null;
-              //  parentIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-             //   startActivity(parentIntent);
-             //   finish();
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
