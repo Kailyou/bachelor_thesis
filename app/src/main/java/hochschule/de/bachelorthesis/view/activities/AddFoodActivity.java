@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.ActivityAddFoodBinding;
 import hochschule.de.bachelorthesis.lifecycle.ActivityAddFoodObserver;
+import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.view_model.activities.AddFoodViewModel;
 
@@ -79,8 +80,8 @@ public class AddFoodActivity extends AppCompatActivity {
         String brandName = mBinding.editBrandName.getText().toString();
 
         // save data to database
-        //Food newFood = new Food(foodName, brandName,"test");
-        //viewModel.insert(newFood);
+        Food newFood = new Food(foodName, brandName,"test", 0, 0, 0, 0, 0, 0, 0);
+        viewModel.insert(newFood);
         MyToast.createToast(this, foodName + "added to the list..");
     }
 

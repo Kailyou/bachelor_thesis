@@ -42,6 +42,7 @@ public class MeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
         getLifecycle().addObserver(new FragmentMeObserver());
 
         // View model

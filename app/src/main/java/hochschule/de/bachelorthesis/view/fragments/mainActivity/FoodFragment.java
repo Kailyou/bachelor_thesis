@@ -58,9 +58,9 @@ public class FoodFragment extends Fragment {
         FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
         foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
-            @Override
-            public void onChanged(List<Food> foods) {
-                adapter.setFoods(foods);
+                    @Override
+                    public void onChanged(List<Food> foods) {
+                        adapter.setFoods(foods);
             }
         });
 
