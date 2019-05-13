@@ -23,13 +23,6 @@
     <string name="subtext">subtext</string>
     <string name="nutritional_information">Nutritional information</string>
     <string name="energy_kcal">Energy (kcal)</string>
-    <string name="energy_kj">Energy (kJ)</string>
-    <string name="fat">Fat</string>
-    <string name="of_which_saturates">of which saturates</string>
-    <string name="protein">Protein</string>
-    <string name="carbohydrates">Carbohydrates</string>
-    <string name="salt">Salt</string>
-    <string name="of_which_sugars">of which sugars</string>
     <string name="home_fragment">Home fragment</string>
     <string name="personal_data">Personal data</string>
     <string name="age">Age</string>
@@ -46,7 +39,6 @@
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-
     <string name="save_fragment_me_age">save_fragment_me_age</string>
     <string name="save_fragment_me_fitness_level">save_fragment_me_fitness_level</string>
     <string name="save_fragment_me_gender">save_fragment_me_gender</string>
@@ -55,6 +47,24 @@
     <string name="save_fragment_me_smoking">save_fragment_me_smoking</string>
     <string name="save_fragment_me_medication">save_fragment_me_medication</string>
     <string name="save_fragment_me_allergies">save_fragment_me_allergies</string>
+    <string name="general">General</string>
+    <string name="type">Type</string>
+    <string name="kcal_100">kCal (100)</string>
+    <string name="measurements">Measurements</string>
+    <string name="measurements_done">Measurements done</string>
+    <string name="max_glucose">Max. Glucose</string>
+    <string name="average_glucose">Average Glucose</string>
+    <string name="analyses">Analyses</string>
+    <string name="rating">Rating</string>
+    <string name="personal_index">Personal Index</string>
+    <string name="nutreons">Nutreons</string>
+    <string name="energy_kj">Energy (kJ)</string>
+    <string name="fat">Fat</string>
+    <string name="of_which_saturates">of which saturates</string>
+    <string name="protein">Protein</string>
+    <string name="carbohydrates">Carbohydrates</string>
+    <string name="of_which_sugars">of which sugars</string>
+    <string name="salt">Salt</string>
 
 
     <string-array name="activity_add_food_spinner_type">

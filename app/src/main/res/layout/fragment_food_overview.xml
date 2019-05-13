@@ -6,7 +6,6 @@
         <variable
             name="viewModel"
             type="hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel" />
-
     </data>
 
     <TableLayout
@@ -14,192 +13,165 @@
         android:layout_height="match_parent"
         android:stretchColumns="1">
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="General"
+                android:text="@string/general"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Food name"
+                android:text="@string/food_name"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_food_name"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="test"
+                android:text="@{viewModel.foodName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Brand name"
+                android:text="@string/brand_name"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_brand_name"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="Pink Lady"
+                android:text="@{viewModel.brandName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Type"
+                android:text="@string/type"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_type"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="Fruit"
+                android:text="@{viewModel.type}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="kCal (100)"
+                android:text="@string/kcal_100"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_kCal"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="13"
+                android:text="@{`` + viewModel.kcal}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
         <TableRow>
-
             <TextView
                 android:layout_column="1"
+                android:layout_marginTop="16dp"
                 android:padding="3dip"
-                android:text="Measurements"
+                android:text="@string/measurements"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Measurements done"
+                android:text="@string/measurements_done"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_measurements_done"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="1"
+                android:text="@{`` +viewModel.measurementsAmount}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Max. Glucose"
+                android:text="@string/max_glucose"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_max_glucose"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="145"
+                android:text="@{`` +viewModel.maxGlucose}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Average Glucose"
+                android:text="@string/average_glucose"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_avg_glucose"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="104"
+                android:text="@{`` +viewModel.averageGlucose}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
         <TableRow>
-
             <TextView
                 android:layout_column="1"
+                android:layout_marginTop="16dp"
                 android:padding="3dip"
-                android:text="Analyses"
+                android:text="@string/analyses"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Rating"
+                android:text="@string/rating"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_rating"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="good"
+                android:text="@{`` +viewModel.rating}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
-
         <TableRow>
-
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="Personal GI"
+                android:text="@string/personal_index"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/text_personal_gi"
-                android:gravity="right"
+                android:gravity="end"
                 android:padding="3dip"
-                android:text="not calculated yet"
+                android:text="@{`` +viewModel.personalIndex}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
     </TableLayout>
 </layout>
