@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodDataObserver;
@@ -31,6 +33,9 @@ public class FoodDataFragment extends Fragment {
 
         // life cycle component
         getLifecycle().addObserver(new FragmentFoodDataObserver());
+
+        // view model
+        mViewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);
     }
 
     @Nullable
