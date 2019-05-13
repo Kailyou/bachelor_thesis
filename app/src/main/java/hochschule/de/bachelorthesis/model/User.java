@@ -23,6 +23,8 @@ public class User {
     private String allergies;
     private String smoking;
 
+    private int mTest;
+
     public User() {
 
     }

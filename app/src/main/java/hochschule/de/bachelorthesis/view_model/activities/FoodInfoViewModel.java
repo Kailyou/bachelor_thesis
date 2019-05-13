@@ -69,4 +69,152 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mSugar = new MutableLiveData<>();
         mSalt = new MutableLiveData<>();
     }
+
+    /* GETTER */
+
+    public boolean isIsFavorite() {
+        return mIsFavorite;
+    }
+
+    public MutableLiveData<String> getFoodName() {
+        return mFoodName;
+    }
+
+    public MutableLiveData<String> getBrandName() {
+        return mBrandName;
+    }
+
+    public MutableLiveData<String> getType() {
+        return mType;
+    }
+
+    public MutableLiveData<String> getKcal() {
+        return mKcal;
+    }
+
+    public MutableLiveData<Integer> getMeasurementsAmount() {
+        return mMeasurementsAmount;
+    }
+
+    public MutableLiveData<Integer> getMaxGlucose() {
+        return mMaxGlucose;
+    }
+
+    public MutableLiveData<Integer> getAverageGlucose() {
+        return mAverageGlucose;
+    }
+
+    public MutableLiveData<String> getRating() {
+        return mRating;
+    }
+
+    public MutableLiveData<Integer> getPersonalIndex() {
+        return mPersonalIndex;
+    }
+
+    public MutableLiveData<Integer> getEnergyKcal() {
+        return mEnergyKcal;
+    }
+
+    public MutableLiveData<Integer> getEnergyKJ() {
+        return mEnergyKJ;
+    }
+
+    public MutableLiveData<Float> getFat() {
+        return mFat;
+    }
+
+    public MutableLiveData<Float> getSaturates() {
+        return mSaturates;
+    }
+
+    public MutableLiveData<Float> getProtein() {
+        return mProtein;
+    }
+
+    public MutableLiveData<Float> getCarbohydrates() {
+        return mCarbohydrates;
+    }
+
+    public MutableLiveData<Float> getSugar() {
+        return mSugar;
+    }
+
+    public MutableLiveData<Float> getSalt() {
+        return mSalt;
+    }
+
+    /* SETTER */
+
+    public void setIsFavorite(boolean isFavorite) {
+        mIsFavorite = isFavorite;
+    }
+
+    public void setFoodName(MutableLiveData<String> foodName) {
+        mFoodName = foodName;
+    }
+
+    public void setBrandName(MutableLiveData<String> brandName) {
+        mBrandName = brandName;
+    }
+
+    public void setType(MutableLiveData<String> type) {
+        mType = type;
+    }
+
+    public void setKcal(MutableLiveData<String> kCal) {
+        mKcal = kCal;
+    }
+
+    public void setMeasurementsAmount(MutableLiveData<Integer> measurementsAmount) {
+        mMeasurementsAmount = measurementsAmount;
+    }
+
+    public void setMaxGlucose(MutableLiveData<Integer> maxGlucose) {
+        mMaxGlucose = maxGlucose;
+    }
+
+    public void setAverageGlucose(MutableLiveData<Integer> averageGlucose) {
+        mAverageGlucose = averageGlucose;
+    }
+
+    public void setRating(MutableLiveData<String> rating) {
+        mRating = rating;
+    }
+
+    public void setPersonalIndex(MutableLiveData<Integer> personalIndex) {
+        mPersonalIndex = personalIndex;
+    }
+
+    public void setEnergyKcal(MutableLiveData<Integer> energyKcal) {
+        mEnergyKcal = energyKcal;
+    }
+
+    public void setEnergyKJ(MutableLiveData<Integer> energyKJ) {
+        mEnergyKJ = energyKJ;
+    }
+
+    public void setFat(MutableLiveData<Float> fat) {
+        mFat = fat;
+    }
+
+    public void setSaturates(MutableLiveData<Float> saturates) {
+        mSaturates = saturates;
+    }
+
+    public void setProtein(MutableLiveData<Float> protein) {
+        mProtein = protein;
+    }
+
+    public void setCarbohydrates(MutableLiveData<Float> carbohydrates) {
+        mCarbohydrates = carbohydrates;
+    }
+
+    public void setSugar(MutableLiveData<Float> sugar) {
+        mSugar = sugar;
+    }
+
+    public void setsSalt(MutableLiveData<Float> salt) {
+        mSalt = salt;
+    }
 }

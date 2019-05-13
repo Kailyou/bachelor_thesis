@@ -56,6 +56,10 @@ public class Repository {
         return mAllFood;
     }
 
+    public LiveData<Food> getFoodById(int id) {
+        return mFoodDao.getFoodById(id);
+    }
+
     /**
      * Classes for async tasks
      */

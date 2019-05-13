@@ -48,9 +48,7 @@ public class MeViewModel extends AndroidViewModel {
         return weight;
     }
 
-    public LiveData<String> getGender() {
-        return gender;
-    }
+    public LiveData<String> getGender() { return gender; }
 
     public LiveData<String> getFitnessLevel() {
         return fitnessLevel;
@@ -76,17 +74,13 @@ public class MeViewModel extends AndroidViewModel {
         this.userAge.setValue(userAge);
     }
 
-    public void setHeight(String height) {
-        this.height.setValue(height);
-    }
+    public void setHeight(String height) { this.height.setValue(height); }
 
     public void setWeight(String weight) {
         this.weight.setValue(weight);
     }
 
-    public void setGender(String gender) {
-        this.gender.setValue(gender);
-    }
+    public void setGender(String gender) { this.gender.setValue(gender); }
 
     public void setFitnessLevel(String fitnessLevel) {
         this.fitnessLevel.setValue(fitnessLevel);
