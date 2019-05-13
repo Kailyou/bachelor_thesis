@@ -10,29 +10,45 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodMeasurementsBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodMeasurmentsObserver;
 import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
 public class FoodMeasurementsFragment extends Fragment {
 
     private static final String TAG = FoodMeasurementsFragment.class.getName();
 
+    private FragmentFoodMeasurementsBinding mBinding;
+
+    private FoodInfoViewModel mViewModel;
+
     private int mFoodId;
+
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // life cycle component
         getLifecycle().addObserver(new FragmentFoodMeasurmentsObserver());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_food_measurements,container, false);
+        // get passed food id
+        mFoodId = getArguments().getInt("food_id");
 
-        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        // Init data binding
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_measurements, container, false);
+        mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        mBinding.setViewModel(mViewModel);
+
+        // fab
+        FloatingActionButton fab = mBinding.getRoot().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +56,6 @@ public class FoodMeasurementsFragment extends Fragment {
             }
         });
 
-        mFoodId = getArguments().getInt("food_id");
-        MyToast.createToast(getContext(), "" + mFoodId);
-
-        return rootView;
+        return mBinding.getRoot();
     }
 }
