@@ -29,7 +29,7 @@ import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
 import hochschule.de.bachelorthesis.utility.MyToast;
 
 public class MeFragment extends Fragment {
-    private MeViewModel mMeViewModel;
+    private MeViewModel mViewModel;
     private FragmentMeBinding mBinding;
     private MenuItem edit;
     private MenuItem cancel;
@@ -46,7 +46,7 @@ public class MeFragment extends Fragment {
         getLifecycle().addObserver(new FragmentMeObserver());
 
         // View model
-        mMeViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
     }
 
     @Nullable
@@ -55,7 +55,7 @@ public class MeFragment extends Fragment {
         // Init data binding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_me, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        mBinding.setViewmodel(mMeViewModel);
+        mBinding.setViewModel(mViewModel);
 
         initSpinner();
 
@@ -185,14 +185,14 @@ public class MeFragment extends Fragment {
 
     private void updateViewModel(String age, String height, String weight, String gender,
                                  String fitnessLevel, String medication, String allergies, String smoking) {
-        mMeViewModel.setUserAge(age);
-        mMeViewModel.setHeight(height);
-        mMeViewModel.setWeight(weight);
-        mMeViewModel.setGender(gender);
-        mMeViewModel.setFitnessLevel(fitnessLevel);
-        mMeViewModel.setTakingMedication(medication);
-        mMeViewModel.setHasAllergies(allergies);
-        mMeViewModel.setIsSmoking(smoking);
+        mViewModel.setUserAge(age);
+        mViewModel.setHeight(height);
+        mViewModel.setWeight(weight);
+        mViewModel.setGender(gender);
+        mViewModel.setFitnessLevel(fitnessLevel);
+        mViewModel.setTakingMedication(medication);
+        mViewModel.setHasAllergies(allergies);
+        mViewModel.setIsSmoking(smoking);
     }
 
     private void saveData() {

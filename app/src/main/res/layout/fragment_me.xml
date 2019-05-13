@@ -5,13 +5,21 @@
 
     <data>
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
     </data>
 
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:stretchColumns="1"
         tools:context=".view.activities.MainActivity">
@@ -32,7 +40,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_age"
-                android:text="@{viewmodel.userAge}"
+                android:text="@{viewModel.userAge}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -54,7 +62,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_height"
-                android:text="@{viewmodel.height}"
+                android:text="@{viewModel.height}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -76,7 +84,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_weight"
-                android:text="@{viewmodel.weight}"
+                android:text="@{viewModel.weight}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -98,7 +106,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_gender"
-                android:text="@{viewmodel.gender}"
+                android:text="@{viewModel.gender}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -127,7 +135,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_fitness_level"
-                android:text="@{viewmodel.fitnessLevel}"
+                android:text="@{viewModel.fitnessLevel}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -149,7 +157,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_medication"
-                android:text="@{viewmodel.takingMedication}"
+                android:text="@{viewModel.takingMedication}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -181,7 +189,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_allergies"
-                android:text="@{viewmodel.hasAllergies}"
+                android:text="@{viewModel.hasAllergies}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -213,7 +221,7 @@
 
             <TextView
                 android:id="@+id/fragment_me_smoking"
-                android:text="@{viewmodel.isSmoking}"
+                android:text="@{viewModel.isSmoking}"
                 android:gravity="end"
                 android:padding="3dip"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -236,4 +244,7 @@
             </RadioGroup>
         </TableRow>
     </TableLayout>
+        </LinearLayout>
+
+    </ScrollView>
 </layout>
