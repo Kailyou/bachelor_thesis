@@ -4,9 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import hochschule.de.bachelorthesis.model.Repository;
+import hochschule.de.bachelorthesis.room.Food;
 
 public class FoodInfoViewModel extends AndroidViewModel {
 
@@ -68,6 +70,11 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mCarbohydrates = new MutableLiveData<>();
         mSugar = new MutableLiveData<>();
         mSalt = new MutableLiveData<>();
+    }
+
+    /* TEST */
+    public LiveData<Food> getFoodById(int id) {
+        return  repository.getFoodById(id);
     }
 
     /* GETTER */
@@ -150,71 +157,71 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mIsFavorite = isFavorite;
     }
 
-    public void setFoodName(MutableLiveData<String> foodName) {
-        mFoodName = foodName;
+    public void setFoodName(String foodName) {
+        mFoodName.setValue(foodName);
     }
 
-    public void setBrandName(MutableLiveData<String> brandName) {
-        mBrandName = brandName;
+    public void setBrandName(String brandName) {
+        mBrandName.setValue(brandName);
     }
 
-    public void setType(MutableLiveData<String> type) {
-        mType = type;
+    public void setType(String type) {
+        mType.setValue(type);
     }
 
-    public void setKcal(MutableLiveData<String> kCal) {
-        mKcal = kCal;
+    public void setKcal(String kCal) {
+        mKcal.setValue(kCal);
     }
 
-    public void setMeasurementsAmount(MutableLiveData<Integer> measurementsAmount) {
-        mMeasurementsAmount = measurementsAmount;
+    public void setMeasurementsAmount(Integer measurementsAmount) {
+        mMeasurementsAmount.setValue(measurementsAmount);
     }
 
-    public void setMaxGlucose(MutableLiveData<Integer> maxGlucose) {
-        mMaxGlucose = maxGlucose;
+    public void setMaxGlucose(Integer maxGlucose) {
+        mMaxGlucose.setValue(maxGlucose);
     }
 
-    public void setAverageGlucose(MutableLiveData<Integer> averageGlucose) {
-        mAverageGlucose = averageGlucose;
+    public void setAverageGlucose(Integer averageGlucose) {
+        mAverageGlucose.setValue(averageGlucose);
     }
 
-    public void setRating(MutableLiveData<String> rating) {
-        mRating = rating;
+    public void setRating(String rating) {
+        mRating.setValue(rating);
     }
 
-    public void setPersonalIndex(MutableLiveData<Integer> personalIndex) {
-        mPersonalIndex = personalIndex;
+    public void setPersonalIndex(Integer personalIndex) {
+        mPersonalIndex.setValue(personalIndex);
     }
 
-    public void setEnergyKcal(MutableLiveData<Integer> energyKcal) {
-        mEnergyKcal = energyKcal;
+    public void setEnergyKcal(Integer energyKcal) {
+        mEnergyKcal.setValue(energyKcal);
     }
 
-    public void setEnergyKJ(MutableLiveData<Integer> energyKJ) {
-        mEnergyKJ = energyKJ;
+    public void setEnergyKJ(Integer energyKJ) {
+        mEnergyKJ.setValue(energyKJ);
     }
 
-    public void setFat(MutableLiveData<Float> fat) {
-        mFat = fat;
+    public void setFat(Float fat) {
+        mFat.setValue(fat);
     }
 
-    public void setSaturates(MutableLiveData<Float> saturates) {
-        mSaturates = saturates;
+    public void setSaturates(Float saturates) {
+        mSaturates.setValue(saturates);
     }
 
-    public void setProtein(MutableLiveData<Float> protein) {
-        mProtein = protein;
+    public void setProtein(Float protein) {
+        mProtein.setValue(protein);
     }
 
     public void setCarbohydrates(MutableLiveData<Float> carbohydrates) {
         mCarbohydrates = carbohydrates;
     }
 
-    public void setSugar(MutableLiveData<Float> sugar) {
-        mSugar = sugar;
+    public void setSugar(Float sugar) {
+        mSugar.setValue(sugar);
     }
 
-    public void setsSalt(MutableLiveData<Float> salt) {
-        mSalt = salt;
+    public void setsSalt(Float salt) {
+        mSalt.setValue(salt);
     }
 }
