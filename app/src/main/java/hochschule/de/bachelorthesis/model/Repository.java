@@ -19,6 +19,7 @@ public class Repository {
 
     private FoodDao mFoodDao;
     private LiveData<List<Food>> mAllFood;
+    private static Food mResult;
 
     public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
@@ -56,13 +57,12 @@ public class Repository {
         return mAllFood;
     }
 
-    public LiveData<Food> getFoodById(int id) {
-        return mFoodDao.getFoodById(id);
-    }
+    public LiveData<Food> getFoodById(int id) { return mFoodDao.getFoodById(id); }
 
     /**
      * Classes for async tasks
      */
+
     private static class InsertFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
 

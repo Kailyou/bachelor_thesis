@@ -64,7 +64,7 @@ public class FoodFragment extends Fragment {
             }
         });
 
-       return rootView;
+        return rootView;
     }
 
     @Override
