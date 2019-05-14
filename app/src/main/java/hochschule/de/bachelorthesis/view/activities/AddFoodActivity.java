@@ -80,7 +80,18 @@ public class AddFoodActivity extends AppCompatActivity {
         String brandName = mBinding.editBrandName.getText().toString();
 
         // save data to database
-        Food newFood = new Food(foodName, brandName,"test", 0, 0, 0, 0, 0, 0, 0);
+        Food newFood = new Food(foodName,
+                brandName,
+                "test",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0);
+
         viewModel.insert(newFood);
         MyToast.createToast(this, foodName + "added to the list..");
     }

@@ -21,26 +21,29 @@ public class Food {
     private String foodType;
 
     // Food data
-    @ColumnInfo(name = "kcal")
-    private int kcal;
+    @ColumnInfo(name = "kCal")
+    private int kCal;
+
+    @ColumnInfo(name = "kJ")
+    private int kJ;
 
     @ColumnInfo(name = "fat")
-    private double fat;
+    private float fat;
 
     @ColumnInfo(name = "saturates")
-    private double saturates;
+    private float saturates;
 
     @ColumnInfo(name = "protein")
-    private double protein;
+    private float protein;
 
     @ColumnInfo(name = "carbohydrates")
-    private double carbohydrates;
+    private float carbohydrates;
 
     @ColumnInfo(name = "sugar")
-    private double sugar;
+    private float sugar;
 
     @ColumnInfo(name = "salt")
-    private double salt;
+    private float salt;
 
     // Measurements
     @ColumnInfo(name = "measurements_done")
@@ -65,18 +68,20 @@ public class Food {
     public Food(String foodName,
                 String brandName,
                 String foodType,
-                int kcal,
-                double fat,
-                double saturates,
-                double protein,
-                double carbohydrates,
-                double sugar,
-                double salt) {
+                int kCal,
+                int kJ,
+                float fat,
+                float saturates,
+                float protein,
+                float carbohydrates,
+                float sugar,
+                float salt) {
 
         this.foodName = foodName;
         this.brandName = brandName;
         this.foodType = foodType;
-        this.kcal = kcal;
+        this.kCal = kCal;
+        this.kJ = kJ;
         this.fat = fat;
         this.saturates = saturates;
         this.protein = protein;
@@ -87,120 +92,132 @@ public class Food {
         rating = "unrated";
     }
 
+    /* GETTER */
+
     public String getFoodName() {
         return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
     }
 
     public String getBrandName() {
         return brandName;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
     public String getFoodType() {
         return foodType;
     }
 
-    public void setFoodType(String foodType) {
-        this.foodType = foodType;
+    public int getKCal() {
+        return kCal;
     }
 
-    public int getKcal() {
-        return kcal;
+    public int getKJ() {
+        return kJ;
     }
 
-    public void setKcal(int kcal) {
-        this.kcal = kcal;
-    }
-
-    public double getFat() {
+    public float getFat() {
         return fat;
     }
 
-    public void setFat(double fat) {
-        this.fat = fat;
-    }
-
-    public double getSaturates() {
+    public float getSaturates() {
         return saturates;
     }
 
-    public void setSaturates(double saturates) {
-        this.saturates = saturates;
-    }
-
-    public double getProtein() {
+    public float getProtein() {
         return protein;
     }
 
-    public void setProtein(double protein) {
-        this.protein = protein;
-    }
-
-    public double getCarbohydrates() {
+    public float getCarbohydrates() {
         return carbohydrates;
     }
 
-    public void setCarbohydrates(double carbohydrates) {
-        this.carbohydrates = carbohydrates;
-    }
-
-    public double getSugar() {
+    public float getSugar() {
         return sugar;
     }
 
-    public void setSugar(double sugar) {
-        this.sugar = sugar;
-    }
-
-    public double getSalt() {
+    public float getSalt() {
         return salt;
-    }
-
-    public void setSalt(double salt) {
-        this.salt = salt;
     }
 
     public int getMeasurementsDone() {
         return measurementsDone;
     }
 
-    public void setMeasurementsDone(int measurementsDone) {
-        this.measurementsDone = measurementsDone;
-    }
-
     public int getMaxGlucose() {
         return maxGlucose;
-    }
-
-    public void setMaxGlucose(int maxGlucose) {
-        this.maxGlucose = maxGlucose;
     }
 
     public int getAverageGlucose() {
         return averageGlucose;
     }
 
-    public void setAverageGlucose(int averageGlucose) {
-        this.averageGlucose = averageGlucose;
-    }
-
     public String getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
     public int getPersonalIndex() {
         return personalIndex;
+    }
+
+    /* SETTER */
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
+    }
+
+    public void setkCal(int kCal) {
+        this.kCal = kCal;
+    }
+
+    public void setkJ(int kJ) {
+        this.kJ = kJ;
+    }
+
+    public void setFat(float fat) {
+        this.fat = fat;
+    }
+
+    public void setSaturates(float saturates) {
+        this.saturates = saturates;
+    }
+
+    public void setProtein(float protein) {
+        this.protein = protein;
+    }
+
+    public void setCarbohydrates(float carbohydrates) {
+        this.carbohydrates = carbohydrates;
+    }
+
+    public void setSugar(float sugar) {
+        this.sugar = sugar;
+    }
+
+    public void setSalt(float salt) {
+        this.salt = salt;
+    }
+
+    public void setMeasurementsDone(int measurementsDone) {
+        this.measurementsDone = measurementsDone;
+    }
+
+    public void setMaxGlucose(int maxGlucose) {
+        this.maxGlucose = maxGlucose;
+    }
+
+    public void setAverageGlucose(int averageGlucose) {
+        this.averageGlucose = averageGlucose;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public void setPersonalIndex(int personalIndex) {

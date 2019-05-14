@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodDataObserver;
+import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
@@ -21,11 +24,7 @@ public class FoodDataFragment extends Fragment {
 
     private static final String TAG = FoodDataFragment.class.getName();
 
-    private FragmentFoodDataBinding mBinding;
-
     private FoodInfoViewModel mViewModel;
-
-    private int mFoodId;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,14 +40,31 @@ public class FoodDataFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // get passed food id
-        mFoodId = getArguments().getInt("food_id");
-
         // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_data, container, false);
-        mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        mBinding.setViewModel(mViewModel);
+        FragmentFoodDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_data, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        binding.setViewModel(mViewModel);
 
-        return mBinding.getRoot();
+        // get passed food id
+        int foodId = getArguments().getInt("food_id");
+
+        // Observe
+        final LiveData<Food> food = mViewModel.getFoodById(foodId);
+        food.observe(this, new Observer<Food>() {
+            @Override
+            public void onChanged(Food food) {
+                updateViewModel(food);
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    // TODO add missing energy kj to dao
+    private void updateViewModel(Food food) {
+        // general
+        mViewModel.setEnergyKcal(food.getKCal());
+        mViewModel.setEnergyKJ(food.getKJ());
+        mViewModel.setFat(food.getFat());
     }
 }

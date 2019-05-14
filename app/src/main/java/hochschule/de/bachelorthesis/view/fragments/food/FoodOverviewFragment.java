@@ -23,11 +23,7 @@ public class FoodOverviewFragment extends Fragment {
 
     private static final String TAG = FoodOverviewFragment.class.getName();
 
-    private FragmentFoodOverviewBinding mBinding;
-
     private FoodInfoViewModel mViewModel;
-
-    private int mFoodId;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,17 +39,16 @@ public class FoodOverviewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // get passed food id
-        mFoodId = getArguments().getInt("food_id");
-
         // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
-        mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        mBinding.setViewModel(mViewModel);
+        FragmentFoodOverviewBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        binding.setViewModel(mViewModel);
 
-        Food test = mViewModel.getFoodById(mFoodId).getValue();
+        // get passed food id
+        int foodId = getArguments().getInt("food_id");
 
-        final LiveData<Food> food = mViewModel.getFoodById(mFoodId);
+        // Observe
+        final LiveData<Food> food = mViewModel.getFoodById(foodId);
         food.observe(this, new Observer<Food>() {
             @Override
             public void onChanged(Food food) {
@@ -61,7 +56,7 @@ public class FoodOverviewFragment extends Fragment {
             }
         });
 
-        return mBinding.getRoot();
+        return binding.getRoot();
     }
 
     private void updateViewModel(Food food) {
@@ -69,7 +64,7 @@ public class FoodOverviewFragment extends Fragment {
         mViewModel.setFoodName(food.getFoodName());
         mViewModel.setBrandName(food.getBrandName());
         mViewModel.setType(food.getFoodType());
-        mViewModel.setKcal(String.valueOf(food.getKcal()));
+        mViewModel.setKcal(String.valueOf(food.getKCal()));
 
         // measurements
         mViewModel.setMeasurementsAmount(food.getMeasurementsDone());
