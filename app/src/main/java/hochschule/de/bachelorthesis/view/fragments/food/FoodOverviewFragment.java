@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.fragments.food;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodOverviewObserver;
-import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.room.Food;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
-import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 
 public class FoodOverviewFragment extends Fragment {
 
@@ -50,6 +52,37 @@ public class FoodOverviewFragment extends Fragment {
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
 
+        Food test = mViewModel.getFoodById(mFoodId).getValue();
+
+        if(test == null) {
+            Log.e(TAG, "is null ");
+        }
+
+        final LiveData<Food> food = mViewModel.getFoodById(mFoodId);
+        food.observe(this, new Observer<Food>() {
+            @Override
+            public void onChanged(Food food) {
+                updateViewModel(food);
+            }
+        });
+
         return mBinding.getRoot();
+    }
+
+    private void updateViewModel(Food food) {
+        // general
+        mViewModel.setFoodName(food.getFoodName());
+        mViewModel.setBrandName(food.getBrandName());
+        mViewModel.setType(food.getFoodType());
+        mViewModel.setKcal(String.valueOf(food.getKcal()));
+
+        // measurements
+        mViewModel.setMeasurementsAmount(food.getMeasurementsDone());
+        mViewModel.setMaxGlucose(food.getMaxGlucose());
+        mViewModel.setAverageGlucose(food.getAverageGlucose());
+
+        // Analyses
+        mViewModel.setRating(food.getRating());
+        mViewModel.setPersonalIndex(food.getPersonalIndex());
     }
 }
