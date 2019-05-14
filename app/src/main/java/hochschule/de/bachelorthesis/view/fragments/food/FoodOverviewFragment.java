@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.fragments.food;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +52,6 @@ public class FoodOverviewFragment extends Fragment {
         mBinding.setViewModel(mViewModel);
 
         Food test = mViewModel.getFoodById(mFoodId).getValue();
-
-        if(test == null) {
-            Log.e(TAG, "is null ");
-        }
 
         final LiveData<Food> food = mViewModel.getFoodById(mFoodId);
         food.observe(this, new Observer<Food>() {
