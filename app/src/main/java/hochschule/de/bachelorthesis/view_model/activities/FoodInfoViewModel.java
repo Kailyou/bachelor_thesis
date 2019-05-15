@@ -213,8 +213,8 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mProtein.setValue(protein);
     }
 
-    public void setCarbohydrates(MutableLiveData<Float> carbohydrates) {
-        mCarbohydrates = carbohydrates;
+    public void setCarbohydrates(Float carbohydrates) {
+        mCarbohydrates.setValue(carbohydrates);
     }
 
     public void setSugar(Float sugar) {
