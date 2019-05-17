@@ -60,11 +60,14 @@ public class FoodDataFragment extends Fragment {
         return binding.getRoot();
     }
 
-    // TODO add missing energy kj to dao
     private void updateViewModel(Food food) {
-        // general
         mViewModel.setEnergyKcal(food.getKCal());
         mViewModel.setEnergyKJ(food.getKJ());
         mViewModel.setFat(food.getFat());
+        mViewModel.setSaturates(food.getSaturates());
+        mViewModel.setProtein(food.getProtein());
+        mViewModel.setCarbohydrates(food.getCarbohydrates());
+        mViewModel.setSugar(food.getSugar());
+        mViewModel.setsSalt(food.getSalt());
     }
 }

@@ -44,10 +44,7 @@ public class FoodMeasurementsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // get passed food id
-        mFoodId = getArguments().getInt("food_id");
-
-        // Init data binding
+             // Init data binding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_measurements, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
@@ -60,6 +57,9 @@ public class FoodMeasurementsFragment extends Fragment {
                 Log.d(TAG, "Add button pressed");
             }
         });
+
+        // get passed food id
+        mFoodId = getArguments().getInt("food_id");
 
         return mBinding.getRoot();
     }
