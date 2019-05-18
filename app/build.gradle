@@ -51,7 +51,7 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     // ROOM
-    def room_version = "2.1.0-alpha04"
+    def room_version = "2.1.0-beta01"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
