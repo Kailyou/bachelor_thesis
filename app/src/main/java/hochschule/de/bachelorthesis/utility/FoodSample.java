@@ -1,6 +1,6 @@
 package hochschule.de.bachelorthesis.utility;
 
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 
 public class FoodSample {
 

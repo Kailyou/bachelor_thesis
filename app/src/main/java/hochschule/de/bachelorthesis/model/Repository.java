@@ -7,7 +7,7 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
 

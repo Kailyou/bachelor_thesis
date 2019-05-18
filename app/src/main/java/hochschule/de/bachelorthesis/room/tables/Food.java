@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.room;
+package hochschule.de.bachelorthesis.room.tables;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

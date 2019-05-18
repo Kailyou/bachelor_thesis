@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import hochschule.de.bachelorthesis.model.Repository;
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 
 public class FoodViewModel extends AndroidViewModel {
 

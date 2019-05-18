@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.utility.AdapterFood;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodViewModel;
 
 public class FoodFragment extends Fragment {

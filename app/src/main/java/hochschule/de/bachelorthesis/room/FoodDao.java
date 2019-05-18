@@ -8,8 +8,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import hochschule.de.bachelorthesis.room.Food;
-import io.reactivex.Flowable;
+import hochschule.de.bachelorthesis.room.tables.Food;
 
 @Dao
 public interface FoodDao {

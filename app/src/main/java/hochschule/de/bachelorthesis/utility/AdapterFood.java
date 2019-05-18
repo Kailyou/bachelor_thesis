@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view.activities.FoodInfoActivityArgs;
 
 public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {

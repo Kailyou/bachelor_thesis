@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodOverviewObserver;
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
 public class FoodOverviewFragment extends Fragment {

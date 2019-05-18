@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import hochschule.de.bachelorthesis.model.Repository;
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 
 public class FoodInfoViewModel extends AndroidViewModel {
 

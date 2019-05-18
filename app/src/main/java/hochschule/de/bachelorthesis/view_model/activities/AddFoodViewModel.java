@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import hochschule.de.bachelorthesis.model.Repository;
-import hochschule.de.bachelorthesis.room.Food;
+import hochschule.de.bachelorthesis.room.tables.Food;
 
 public class AddFoodViewModel extends AndroidViewModel {
     private Repository repository;
