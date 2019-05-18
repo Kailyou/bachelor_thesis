@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--
+              <androidx.constraintlayout.widget.ConstraintLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="16dp"
+                      android:text="Pre information"
+                      android:textAlignment="center"
+                      android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                      android:textColor="@color/colorPrimary"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintHorizontal_bias="0.0"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toTopOf="parent"/>
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Date: Lorem Ipsum"
+                      tools:layout_editor_absoluteX="16dp"
+                      tools:layout_editor_absoluteY="68dp"
+                      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:onClick="showTimePickerDialog"
+                      android:text="Pick Date"
+                      tools:layout_editor_absoluteX="229dp"
+                      tools:layout_editor_absoluteY="55dp" />
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Time: Lorem Ipsum"
+                      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                      tools:layout_editor_absoluteX="16dp"
+                      tools:layout_editor_absoluteY="113dp" />
+
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:onClick="showTimePickerDialog"
+                      android:text="Pick Time"
+                      tools:layout_editor_absoluteX="231dp"
+                      tools:layout_editor_absoluteY="103dp" />
+
+                  <com.google.android.material.textfield.TextInputLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Amount Food"
+                      android:layout_marginLeft="48dp"
+                      android:layout_marginRight="48dp"
+                      tools:layout_editor_absoluteX="16dp"
+                      tools:layout_editor_absoluteY="161dp">
+
+                      <com.google.android.material.textfield.TextInputEditText
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:inputType="number" />
+
+                  </com.google.android.material.textfield.TextInputLayout>
+              </androidx.constraintlayout.widget.ConstraintLayout>
+
+            -->
+        </ScrollView>
+</layout>
