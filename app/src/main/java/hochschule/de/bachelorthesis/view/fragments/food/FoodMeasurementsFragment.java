@@ -44,14 +44,13 @@ public class FoodMeasurementsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-             // Init data binding
+        // Init data binding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_measurements, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
 
         // fab
-        FloatingActionButton fab = mBinding.getRoot().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mBinding.buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Add button pressed");
