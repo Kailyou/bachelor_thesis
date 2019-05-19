@@ -20,6 +20,10 @@ public class Food {
     @ColumnInfo(name = "food_type")
     private String foodType;
 
+    @ColumnInfo(name = "is_favorite")
+    private Boolean isFavorite;
+
+
     // Food data
     @ColumnInfo(name = "kCal")
     private int kCal;
@@ -89,6 +93,7 @@ public class Food {
         this.sugar = sugar;
         this.salt = salt;
 
+        isFavorite = false;
         rating = "unrated";
     }
 
@@ -106,8 +111,12 @@ public class Food {
         return foodType;
     }
 
-    public int getKCal() {
-        return kCal;
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public int getKiloCalories() {
+        return kiloCalories;
     }
 
     public int getKJ() {
@@ -172,8 +181,12 @@ public class Food {
         this.foodType = foodType;
     }
 
-    public void setkCal(int kCal) {
-        this.kCal = kCal;
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public void setKiloCalories(int kiloCalories) {
+        this.kiloCalories = kiloCalories;
     }
 
     public void setkJ(int kJ) {
