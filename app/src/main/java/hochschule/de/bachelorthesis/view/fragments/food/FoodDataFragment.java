@@ -60,8 +60,8 @@ public class FoodDataFragment extends Fragment {
     }
 
     private void updateViewModel(Food food) {
-        mViewModel.setEnergyKcal(food.getKCal());
-        mViewModel.setEnergyKJ(food.getKJ());
+        mViewModel.setEnergyKcal(food.getKiloCalories());
+        mViewModel.setEnergyKJ(food.getKiloJoules());
         mViewModel.setFat(food.getFat());
         mViewModel.setSaturates(food.getSaturates());
         mViewModel.setProtein(food.getProtein());

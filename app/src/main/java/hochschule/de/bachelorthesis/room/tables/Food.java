@@ -25,11 +25,11 @@ public class Food {
 
 
     // Food data
-    @ColumnInfo(name = "kCal")
-    private int kCal;
+    @ColumnInfo(name = "kilo_calories")
+    private int kiloCalories;
 
-    @ColumnInfo(name = "kJ")
-    private int kJ;
+    @ColumnInfo(name = "kilo_joule")
+    private int kiloJoules;
 
     @ColumnInfo(name = "fat")
     private float fat;
@@ -72,8 +72,8 @@ public class Food {
     public Food(String foodName,
                 String brandName,
                 String foodType,
-                int kCal,
-                int kJ,
+                int kiloCalories,
+                int kiloJoules,
                 float fat,
                 float saturates,
                 float protein,
@@ -84,8 +84,8 @@ public class Food {
         this.foodName = foodName;
         this.brandName = brandName;
         this.foodType = foodType;
-        this.kCal = kCal;
-        this.kJ = kJ;
+        this.kiloCalories = kiloCalories;
+        this.kiloJoules = kiloJoules;
         this.fat = fat;
         this.saturates = saturates;
         this.protein = protein;
@@ -119,8 +119,8 @@ public class Food {
         return kiloCalories;
     }
 
-    public int getKJ() {
-        return kJ;
+    public int getKiloJoules() {
+        return kiloJoules;
     }
 
     public float getFat() {
@@ -189,8 +189,8 @@ public class Food {
         this.kiloCalories = kiloCalories;
     }
 
-    public void setkJ(int kJ) {
-        this.kJ = kJ;
+    public void setKiloJoules(int kiloJoules) {
+        this.kiloJoules = kiloJoules;
     }
 
     public void setFat(float fat) {
