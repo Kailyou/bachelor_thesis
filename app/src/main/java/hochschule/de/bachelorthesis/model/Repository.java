@@ -7,30 +7,27 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
+import hochschule.de.bachelorthesis.room.UserHistoryDao;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
+import hochschule.de.bachelorthesis.room.tables.UserHistory;
 
 /**
  * Is not part of the architecture components library
  * but it is considered best practice.
  */
 public class Repository {
-
     private FoodDao mFoodDao;
+    //private UserHistoryDao mUserHistoryDao;
     private LiveData<List<Food>> mAllFood;
-    private static Food mResult;
 
     public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
         mFoodDao = database.foodDao();
+        //mUserHistoryDao = database.userHistoryDao();
         mAllFood = mFoodDao.getAllFood();
     }
-
-    /**
-     * API methods for the MeViewModel
-     */
-
 
     /**
      * API methods that will be used by outside (View Model)
@@ -58,6 +55,9 @@ public class Repository {
     }
 
     public LiveData<Food> getFoodById(int id) { return mFoodDao.getFoodById(id); }
+
+    //public LiveData<UserHistory> getUserHistoryById(int id) { return mUserHistoryDao.getById(id); }
+    //public LiveData<UserHistory> getUserHistoryLatest() { return mUserHistoryDao.getLatest(); }
 
     /**
      * Classes for async tasks

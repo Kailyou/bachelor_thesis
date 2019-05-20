@@ -65,6 +65,12 @@
     <string name="carbohydrates">Carbohydrates</string>
     <string name="of_which_sugars">of which sugars</string>
     <string name="salt">Salt</string>
+    <string name="advance_information">Advance information</string>
+    <string name="date">Date</string>
+    <string name="amount_food_consumed">Amount food consumed</string>
+    <string name="start_value">Start value</string>
+    <string name="_15_min">15 min</string>
+    <string name="_30_min">30 min</string>
 
     <string-array name="activity_add_food_spinner_type">
         <item>Grains</item>

@@ -15,25 +15,24 @@ public class User {
     private int age;
     private int height;
     private int weight;
-    private String gender;
+    private String sex;
 
     // Lifestyle
     private String fitnessLevel;
-    private String drugs;
+    private String medication;
     private String allergies;
     private String smoking;
 
-    private int mTest;
 
-    public User() {
-
-    }
-
-    public static synchronized User getINSTANCE() {
-        if(INSTANCE == null) {
-            INSTANCE = new User();
-        }
-        return INSTANCE;
+    public User(int age, int height, int weight, String sex, String fitnessLevel, String drugs, String allergies, String smoking) {
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.sex = sex;
+        this.fitnessLevel = fitnessLevel;
+        this.medication = drugs;
+        this.allergies = allergies;
+        this.smoking = smoking;
     }
 
     public int getAge() {
@@ -60,12 +59,12 @@ public class User {
         this.weight = weight;
     }
 
-    public String getGender() {
-        return gender;
+    public String getSex() {
+        return sex;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getFitnessLevel() {
@@ -76,12 +75,12 @@ public class User {
         this.fitnessLevel = fitnessLevel;
     }
 
-    public String getDrugs() {
-        return drugs;
+    public String getMedication() {
+        return medication;
     }
 
-    public void setDrugs(String drugs) {
-        this.drugs = drugs;
+    public void setMedication(String medication) {
+        this.medication = medication;
     }
 
     public String getAllergies() {

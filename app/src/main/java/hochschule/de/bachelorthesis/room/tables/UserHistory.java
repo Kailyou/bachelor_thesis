@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "user_history_table")
 public class UserHistory {
     @PrimaryKey(autoGenerate = true)
-    public int measurementId;
+    public int id;
 
     /* USER DATA* */
     @ColumnInfo(name = "age")

@@ -19,10 +19,12 @@ public class MyToast {
         Toast toast = Toast.makeText(context,text,Toast.LENGTH_SHORT);
 
         //Gets the actual oval background of the Toast then sets the colour filter
+        /*
         View view = toast.getView();
         view.setBackgroundResource(R.color.colorPrimary);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+        */
 
         Snackbar.make(((Activity)context).getWindow().getDecorView().getRootView(), text, Snackbar.LENGTH_LONG)
               .show();

@@ -1,61 +1,42 @@
 package hochschule.de.bachelorthesis.view.activities;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.util.Calendar;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.ActivityAddFoodBinding;
-import hochschule.de.bachelorthesis.lifecycle.ActivityAddFoodObserver;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.activities.AddFoodViewModel;
+import hochschule.de.bachelorthesis.databinding.ActivityAddMeasurementBinding;
+import hochschule.de.bachelorthesis.view_model.activities.AddMeasurementViewModel;
 
 public class AddMeasurementActivity extends AppCompatActivity {
 
     private static final String TAG = "AddFoodActivity";
 
-    private ActivityAddFoodBinding mBinding;
+    private ActivityAddMeasurementBinding mBinding;
 
-    private AddFoodViewModel viewModel;
+    private AddMeasurementViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_food);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_measurement);
 
         // Lifecycle component
-        getLifecycle().addObserver(new ActivityAddFoodObserver());
+        //getLifecycle().addObserver(new ActivityAddFoodObserver());
 
         // Modify action bar
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         setTitle("Add Measurement");
 
         // view model
-        viewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
-
-        // Spinner
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.activity_add_food_spinner_type, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        mBinding.activityAddFoodSpinnerType.setAdapter(adapter);
+        viewModel = ViewModelProviders.of(this).get(AddMeasurementViewModel.class);
     }
 
     /**
@@ -67,47 +48,12 @@ public class AddMeasurementActivity extends AppCompatActivity {
      * Finally, a toast will give the user feedback if it worked or not.
      */
     private void saveFood() {
-        // check for empty strings in food name and brand name
-        // by removing whitespaces from the begin and the and
-        // if the result string is empty, the input was just filled by whitespaces
-        if (mBinding.editFoodName.getText().toString().trim().isEmpty()
-                || mBinding.editBrandName.getText().toString().trim().isEmpty()
-                || mBinding.editEnergyKcal.getText().toString().trim().isEmpty()
-                || mBinding.editEnergyKj.getText().toString().trim().isEmpty()
-                || mBinding.editFat.getText().toString().trim().isEmpty()
-                || mBinding.editSaturates.getText().toString().trim().isEmpty()
-                || mBinding.editProtein.getText().toString().isEmpty()
-                || mBinding.editCarbohydrates.getText().toString().trim().isEmpty()
-                || mBinding.editSugar.getText().toString().trim().isEmpty()
-                || mBinding.editSalt.getText().toString().trim().isEmpty()) {
-            MyToast.createToast(this, "Please enter all values.");
-            return;
-        }
 
-        String foodName = mBinding.editFoodName.getText().toString();
-        String brandName = mBinding.editBrandName.getText().toString();
-
-        // save data to database
-        Food newFood = new Food(foodName,
-                brandName,
-                "test",
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0);
-
-        viewModel.insert(newFood);
-        MyToast.createToast(this, foodName + "added to the list..");
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.save_food:
+        if (item.getItemId() == R.id.save_food) {
                 saveFood();
                 return true;
         }
@@ -123,26 +69,5 @@ public class AddMeasurementActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_food_menu, menu);
         return true;    // displays the menu
-    }
-
-    public class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
-
-        }
     }
 }

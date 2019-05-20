@@ -19,6 +19,7 @@ public abstract class FoodDatabase extends RoomDatabase {
     private static FoodDatabase INSTANCE;
 
     public abstract FoodDao foodDao();
+    public abstract UserHistoryDao userHistoryDao();
 
     // Synchronize just to make sure no two instances will be created
     public static synchronized FoodDatabase getDatabase(Context context) {

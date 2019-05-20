@@ -22,23 +22,26 @@ public class AddFoodActivity extends AppCompatActivity {
 
     private static final String TAG = "AddFoodActivity";
 
-    ActivityAddFoodBinding mBinding;
+    private ActivityAddFoodBinding mBinding;
 
     private AddFoodViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Data binding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_food);
 
+        // Lifecycle component
         getLifecycle().addObserver(new ActivityAddFoodObserver());
+
+        // view model
+        viewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
 
         // Modify action bar
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         setTitle("Add Food");
-
-        // view model
-        viewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
 
         // Spinner
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -98,8 +101,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.save_food:
+        if (item.getItemId() == R.id.save_food) {
                 saveFood();
                 return true;
         }
