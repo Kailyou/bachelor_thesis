@@ -12,7 +12,7 @@ public class MeViewModel extends AndroidViewModel {
     private MutableLiveData<String> userAge;
     private MutableLiveData<String> height;
     private MutableLiveData<String> weight;
-    private MutableLiveData<String> gender;
+    private MutableLiveData<String> sex;
 
     // Lifestyle data
     private MutableLiveData<String> fitnessLevel;
@@ -26,7 +26,7 @@ public class MeViewModel extends AndroidViewModel {
         userAge = new MutableLiveData<>();
         height = new MutableLiveData<>();
         weight = new MutableLiveData<>();
-        gender = new MutableLiveData<>();
+        sex = new MutableLiveData<>();
         fitnessLevel = new MutableLiveData<>();
         medication = new MutableLiveData<>();
         allergies = new MutableLiveData<>();
@@ -48,21 +48,21 @@ public class MeViewModel extends AndroidViewModel {
         return weight;
     }
 
-    public LiveData<String> getGender() { return gender; }
+    public LiveData<String> getSex() { return sex; }
 
     public LiveData<String> getFitnessLevel() {
         return fitnessLevel;
     }
 
-    public LiveData<String> getTakingMedication() {
+    public LiveData<String> getMedication() {
         return medication;
     }
 
-    public LiveData<String> getHasAllergies() {
+    public LiveData<String> getAllergies() {
          return allergies;
     }
 
-    public LiveData<String> getIsSmoking() {
+    public LiveData<String> getSmoking() {
         return smoking;
     }
 
@@ -80,21 +80,21 @@ public class MeViewModel extends AndroidViewModel {
         this.weight.setValue(weight);
     }
 
-    public void setGender(String gender) { this.gender.setValue(gender); }
+    public void setSex(String sex) { this.sex.setValue(sex); }
 
     public void setFitnessLevel(String fitnessLevel) {
         this.fitnessLevel.setValue(fitnessLevel);
     }
 
-    public void setTakingMedication(String medication) {
+    public void setMedication(String medication) {
         this.medication.setValue(medication);
     }
 
-    public void setHasAllergies(String allergies) {
+    public void setAllergies(String allergies) {
         this.allergies.setValue(allergies);
     }
 
-    public void setIsSmoking(String smoking) {
+    public void setSmoking(String smoking) {
         this.smoking.setValue(smoking);
     }
 }
