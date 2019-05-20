@@ -3,9 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable
-            name="viewModel"
-            type="hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel" />
+
     </data>
 
     <TableLayout
@@ -20,7 +18,7 @@
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="@string/general"
+                android:text="@string/advance_information"
                 android:textColor="@color/colorPrimary"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
         </TableRow>
@@ -29,14 +27,13 @@
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="@string/food_name"
+                android:text="@string/date"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_food_name"
-                android:gravity="end"
+                android:layout_column="1"
                 android:padding="3dip"
-                android:text="@{viewModel.foodName}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -48,25 +45,9 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_brand_name"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{viewModel.brandName}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <TableRow>
-            <TextView
                 android:layout_column="1"
                 android:padding="3dip"
-                android:text="@string/type"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:id="@+id/text_type"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{viewModel.type}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -81,7 +62,7 @@
                 android:id="@+id/text_kCal"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.kcal}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -106,7 +87,7 @@
                 android:id="@+id/text_measurements_done"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.measurementsAmount}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -121,7 +102,7 @@
                 android:id="@+id/text_max_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.maxGlucose}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -136,7 +117,7 @@
                 android:id="@+id/text_avg_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.averageGlucose}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -161,7 +142,7 @@
                 android:id="@+id/text_rating"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.rating}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -176,7 +157,7 @@
                 android:id="@+id/text_personal_gi"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.personalIndex}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
     </TableLayout>
