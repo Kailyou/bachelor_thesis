@@ -68,7 +68,7 @@ public class FoodOverviewFragment extends Fragment {
         mViewModel.setFoodName(food.getFoodName());
         mViewModel.setBrandName(food.getBrandName());
         mViewModel.setType(food.getFoodType());
-        mViewModel.setKcal(String.valueOf(food.getKiloCalories()));
+        mViewModel.setEnergyKcal(food.getKiloCalories());
 
         // measurements
         mViewModel.setMeasurementsAmount(food.getMeasurementsDone());

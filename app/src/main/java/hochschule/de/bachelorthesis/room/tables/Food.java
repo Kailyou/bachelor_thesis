@@ -26,10 +26,10 @@ public class Food {
 
     // Food data
     @ColumnInfo(name = "kilo_calories")
-    private int kiloCalories;
+    private float kiloCalories;
 
     @ColumnInfo(name = "kilo_joule")
-    private int kiloJoules;
+    private float kiloJoules;
 
     @ColumnInfo(name = "fat")
     private float fat;
@@ -72,8 +72,8 @@ public class Food {
     public Food(String foodName,
                 String brandName,
                 String foodType,
-                int kiloCalories,
-                int kiloJoules,
+                float kiloCalories,
+                float kiloJoules,
                 float fat,
                 float saturates,
                 float protein,
@@ -115,11 +115,11 @@ public class Food {
         return isFavorite;
     }
 
-    public int getKiloCalories() {
+    public float getKiloCalories() {
         return kiloCalories;
     }
 
-    public int getKiloJoules() {
+    public float getKiloJoules() {
         return kiloJoules;
     }
 
@@ -185,11 +185,11 @@ public class Food {
         isFavorite = favorite;
     }
 
-    public void setKiloCalories(int kiloCalories) {
+    public void setKiloCalories(float kiloCalories) {
         this.kiloCalories = kiloCalories;
     }
 
-    public void setKiloJoules(int kiloJoules) {
+    public void setKiloJoules(float kiloJoules) {
         this.kiloJoules = kiloJoules;
     }
 

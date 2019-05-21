@@ -81,7 +81,7 @@
                 android:id="@+id/text_kCal"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.kcal}"
+                android:text="@{`` + viewModel.energyKcal}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 

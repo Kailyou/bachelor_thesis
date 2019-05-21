@@ -22,7 +22,7 @@ public class FoodInfoViewModel extends AndroidViewModel {
     private MutableLiveData<String> mFoodName;
     private MutableLiveData<String> mBrandName;
     private MutableLiveData<String> mType;
-    private MutableLiveData<String> mKcal;
+    //private MutableLiveData<String> mKcal;
 
     // Measurements
     private MutableLiveData<Integer> mMeasurementsAmount;
@@ -36,8 +36,8 @@ public class FoodInfoViewModel extends AndroidViewModel {
     /* MEASURING TAB */
 
     /* FOOD DATA TAB */
-    private MutableLiveData<Integer> mEnergyKcal;
-    private MutableLiveData<Integer> mEnergyKJ;
+    private MutableLiveData<Float> mEnergyKcal;
+    private MutableLiveData<Float> mEnergyKJ;
     private MutableLiveData<Float> mFat;
     private MutableLiveData<Float> mSaturates;
     private MutableLiveData<Float> mProtein;
@@ -53,7 +53,7 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mFoodName = new MutableLiveData<>();
         mBrandName = new MutableLiveData<>();
         mType = new MutableLiveData<>();
-        mKcal = new MutableLiveData<>();
+        //mKcal = new MutableLiveData<>();
 
         mMeasurementsAmount = new MutableLiveData<>();
         mMaxGlucose = new MutableLiveData<>();
@@ -95,9 +95,9 @@ public class FoodInfoViewModel extends AndroidViewModel {
         return mType;
     }
 
-    public MutableLiveData<String> getKcal() {
-        return mKcal;
-    }
+    //public MutableLiveData<String> getKcal() {
+       // return mKcal;
+  //  }
 
     public MutableLiveData<Integer> getMeasurementsAmount() {
         return mMeasurementsAmount;
@@ -119,11 +119,11 @@ public class FoodInfoViewModel extends AndroidViewModel {
         return mPersonalIndex;
     }
 
-    public MutableLiveData<Integer> getEnergyKcal() {
+    public MutableLiveData<Float> getEnergyKcal() {
         return mEnergyKcal;
     }
 
-    public MutableLiveData<Integer> getEnergyKJ() {
+    public MutableLiveData<Float> getEnergyKJ() {
         return mEnergyKJ;
     }
 
@@ -169,9 +169,9 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mType.setValue(type);
     }
 
-    public void setKcal(String kCal) {
-        mKcal.setValue(kCal);
-    }
+   // public void setKcal(String kCal) {
+      //  mKcal.setValue(kCal);
+    //}
 
     public void setMeasurementsAmount(Integer measurementsAmount) {
         mMeasurementsAmount.setValue(measurementsAmount);
@@ -193,11 +193,11 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mPersonalIndex.setValue(personalIndex);
     }
 
-    public void setEnergyKcal(Integer energyKcal) {
+    public void setEnergyKcal(Float energyKcal) {
         mEnergyKcal.setValue(energyKcal);
     }
 
-    public void setEnergyKJ(Integer energyKJ) {
+    public void setEnergyKJ(Float energyKJ) {
         mEnergyKJ.setValue(energyKJ);
     }
 
