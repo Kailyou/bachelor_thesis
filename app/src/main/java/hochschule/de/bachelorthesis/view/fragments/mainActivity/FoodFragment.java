@@ -32,7 +32,6 @@ public class FoodFragment extends Fragment {
     private FloatingActionButton fab;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).setTitle("My Food");
         super.onCreate(savedInstanceState);
 
         // Lifecycle

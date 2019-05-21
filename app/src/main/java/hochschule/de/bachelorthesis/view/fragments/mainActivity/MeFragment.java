@@ -28,7 +28,6 @@ public class MeFragment extends Fragment {
     private FragmentMeBinding mBinding;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).setTitle("Me");
         super.onCreate(savedInstanceState);
 
         // Lifecycle component

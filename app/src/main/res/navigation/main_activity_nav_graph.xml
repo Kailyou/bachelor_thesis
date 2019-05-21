@@ -9,12 +9,12 @@
     <fragment
         android:id="@+id/main_activity_home_fragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home"/>
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/main_activity_food_fragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.FoodFragment"
-        android:label="MyFoodFragment" >
+        android:label="Foods">
         <action
             android:id="@+id/action_main_activity_food_fragment_to_addFoodActivity"
             app:destination="@id/addFoodActivity"
@@ -28,8 +28,8 @@
     <fragment
         android:id="@+id/main_activity_me_fragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeFragment"
-        android:label="fragment_me"
-        tools:layout="@layout/fragment_me" >
+        android:label="User data"
+        tools:layout="@layout/fragment_me">
         <action
             android:id="@+id/action_main_activity_me_fragment_to_editMeActivity"
             app:destination="@id/editMeActivity"
@@ -38,12 +38,12 @@
     <fragment
         android:id="@+id/main_activity_graphs_fragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.GraphsFragment"
-        android:label="fragment_graphs"
+        android:label="Graphs"
         tools:layout="@layout/fragment_graphs" />
     <activity
         android:id="@+id/addFoodActivity"
         android:name="hochschule.de.bachelorthesis.view.activities.AddFoodActivity"
-        android:label="activity_add_food"
+        android:label="Add new Food"
         tools:layout="@layout/activity_add_food" />
     <activity
         android:id="@+id/FoodActivity"
@@ -57,7 +57,7 @@
     <activity
         android:id="@+id/editMeActivity"
         android:name="hochschule.de.bachelorthesis.view.activities.EditMeActivity"
-        android:label="activity_edit_me"
+        android:label="Edit Data"
         tools:layout="@layout/activity_edit_me" />
 
 </navigation>

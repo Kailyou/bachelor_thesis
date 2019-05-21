@@ -18,9 +18,9 @@ import hochschule.de.bachelorthesis.lifecycle.FragmentHomeObserver;
 public class HomeFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).setTitle("Home");
         super.onCreate(savedInstanceState);
 
+        // Lifecycle component
         getLifecycle().addObserver(new FragmentHomeObserver());
     }
 

@@ -13,6 +13,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.util.Objects;
+
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodOverviewObserver;
@@ -45,6 +47,7 @@ public class FoodOverviewFragment extends Fragment {
         binding.setViewModel(mViewModel);
 
         // get passed food id
+        assert getArguments() != null;
         int foodId = getArguments().getInt("food_id");
 
         // Observe
@@ -53,6 +56,7 @@ public class FoodOverviewFragment extends Fragment {
             @Override
             public void onChanged(Food food) {
                 updateViewModel(food);
+                Objects.requireNonNull(getActivity()).setTitle(food.getFoodName());
             }
         });
 

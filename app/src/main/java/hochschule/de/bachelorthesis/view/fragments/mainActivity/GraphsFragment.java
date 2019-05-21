@@ -21,6 +21,7 @@ public class GraphsFragment extends Fragment {
         Objects.requireNonNull(getActivity()).setTitle("Plan");
         super.onCreate(savedInstanceState);
 
+        // Lifecycle component
         getLifecycle().addObserver(new FragmentGraphsObserver());
     }
 

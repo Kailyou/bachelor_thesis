@@ -29,6 +29,9 @@ public class EditMeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Change title
+        setTitle("Edit user Data");
+
         // Data binding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_me);
 
@@ -42,12 +45,7 @@ public class EditMeActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.fragment_me_spinner_sex));
 
         mBinding.dropdownSex.setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_sex)));
-        //mBinding.dropdownSex.setFocusable(false);
-        //mBinding.dropdownSex.setCursorVisible(false);
         mBinding.dropdownFitnessLevel.setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_fitness_level)));
-
-
-
     }
 
     @Override
