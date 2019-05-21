@@ -8,6 +8,154 @@
             type="hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel" />
     </data>
 
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/energy_kcal"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_kCal_100"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.energyKcal}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/energy_kj"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_brand_name"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.energyKJ}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/fat"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_type"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.fat}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/of_which_saturates"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_kCal"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.saturates}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/protein"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_measurements_done"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.protein}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/carbohydrates"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_max_glucose"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.carbohydrates}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/of_which_sugars"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_avg_glucose"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.sugar}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/salt"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_rating"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` + viewModel.salt}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+
+        <!--
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="@string/personal_index"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:id="@+id/text_personal_gi"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@{`` +viewModel.personalIndex}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </TableRow>
+    </TableLayout>
+
+    HERE
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -157,6 +305,8 @@
         <View
             android:layout_height="2dip"
             android:background="#FF909090" />
+
+        -->
 
     </TableLayout>
 </layout>
