@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
 import hochschule.de.bachelorthesis.utility.AdapterFood;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodViewModel;
 import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
@@ -40,9 +39,6 @@ public class FoodFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Lifecycle
-        getLifecycle().addObserver(new FragmentFoodObserver());
 
         // Enable menu
         setHasOptionsMenu(true);

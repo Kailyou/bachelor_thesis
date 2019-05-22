@@ -10,7 +10,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.lifecycle.ActivityMainObserver;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getLifecycle().addObserver(new ActivityMainObserver());
 
         //bottom bar transition + update action bar
         navController = Navigation.findNavController(this, R.id.main_activity_fragment);

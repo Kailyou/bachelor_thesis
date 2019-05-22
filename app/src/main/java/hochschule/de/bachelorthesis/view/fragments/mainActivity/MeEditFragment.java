@@ -19,10 +19,7 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeEditBinding;
-import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
-import hochschule.de.bachelorthesis.model.User;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.utility.UserSample;
 import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 
 public class MeEditFragment extends Fragment {
@@ -34,9 +31,6 @@ public class MeEditFragment extends Fragment {
 
         // Enable menu
         setHasOptionsMenu(true);
-
-        // Lifecycle component
-        getLifecycle().addObserver(new FragmentMeObserver());
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(MeViewModel.class);

@@ -26,9 +26,6 @@ public class AddMeasurementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_measurement);
 
-        // Lifecycle component
-        //getLifecycle().addObserver(new ActivityAddFoodObserver());
-
         // Modify action bar
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         setTitle("Add Measurement");

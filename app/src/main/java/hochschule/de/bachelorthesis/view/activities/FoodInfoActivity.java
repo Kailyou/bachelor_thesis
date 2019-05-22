@@ -22,7 +22,6 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodDataFragment;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodMeasurementsFragment;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodOverviewFragment;
-import hochschule.de.bachelorthesis.lifecycle.ActivityFoodObserver;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
 public class FoodInfoActivity extends AppCompatActivity {
@@ -46,9 +45,6 @@ public class FoodInfoActivity extends AppCompatActivity {
         Log.e("TAG", "" + mFoodId);
 
         setContentView(R.layout.activity_food);
-
-        // life cycle
-        getLifecycle().addObserver(new ActivityFoodObserver());
 
         // view model
         viewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);

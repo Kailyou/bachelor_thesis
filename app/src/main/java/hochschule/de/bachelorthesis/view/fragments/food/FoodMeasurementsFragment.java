@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -16,8 +14,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodMeasurementsBinding;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodMeasurmentsObserver;
-import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
 public class FoodMeasurementsFragment extends Fragment {
@@ -33,9 +29,6 @@ public class FoodMeasurementsFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // life cycle component
-        getLifecycle().addObserver(new FragmentFoodMeasurmentsObserver());
 
         // view model
         mViewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);
@@ -58,6 +51,7 @@ public class FoodMeasurementsFragment extends Fragment {
         });
 
         // get passed food id
+        assert getArguments() != null;
         mFoodId = getArguments().getInt("food_id");
 
         return mBinding.getRoot();

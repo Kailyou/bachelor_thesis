@@ -17,7 +17,6 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodOverviewObserver;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
@@ -30,9 +29,6 @@ public class FoodOverviewFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // life cycle component
-        getLifecycle().addObserver(new FragmentFoodOverviewObserver());
 
         // view model
         mViewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);

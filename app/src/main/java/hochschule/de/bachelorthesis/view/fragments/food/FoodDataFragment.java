@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
-import hochschule.de.bachelorthesis.lifecycle.FragmentFoodDataObserver;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 
@@ -28,9 +27,6 @@ public class FoodDataFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // life cycle component
-        getLifecycle().addObserver(new FragmentFoodDataObserver());
 
         // view model
         mViewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);
@@ -45,6 +41,7 @@ public class FoodDataFragment extends Fragment {
         binding.setViewModel(mViewModel);
 
         // get passed food id
+        assert getArguments() != null;
         int foodId = getArguments().getInt("food_id");
 
         // Observe

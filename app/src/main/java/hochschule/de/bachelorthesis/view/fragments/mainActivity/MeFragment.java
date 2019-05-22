@@ -21,7 +21,6 @@ import hochschule.de.bachelorthesis.model.User;
 import hochschule.de.bachelorthesis.utility.UserSample;
 import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
-import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
 
 public class MeFragment extends Fragment {
     private MeViewModel mViewModel;
@@ -32,9 +31,6 @@ public class MeFragment extends Fragment {
 
         // Change title
         Objects.requireNonNull(getActivity()).setTitle("Edit user Data");
-
-        // Lifecycle component
-        getLifecycle().addObserver(new FragmentMeObserver());
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
