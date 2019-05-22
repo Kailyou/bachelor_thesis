@@ -16,14 +16,12 @@
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.FoodFragment"
         android:label="Foods">
         <action
-            android:id="@+id/action_main_activity_food_fragment_to_addFoodActivity"
-            app:destination="@id/addFoodActivity"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:popUpTo="@+id/main_activity_food_fragment" />
-        <action
             android:id="@+id/action_main_activity_food_fragment_to_FoodActivity"
             app:destination="@id/FoodActivity"
             app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_main_activity_food_fragment_to_foodAddFragment"
+            app:destination="@id/foodAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/main_activity_me_fragment"
@@ -40,11 +38,6 @@
         android:label="Graphs"
         tools:layout="@layout/fragment_graphs" />
     <activity
-        android:id="@+id/addFoodActivity"
-        android:name="hochschule.de.bachelorthesis.view.activities.AddFoodActivity"
-        android:label="Add new Food"
-        tools:layout="@layout/activity_add_food" />
-    <activity
         android:id="@+id/FoodActivity"
         android:name="hochschule.de.bachelorthesis.view.activities.FoodInfoActivity"
         android:label="activity_food"
@@ -58,5 +51,10 @@
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeEditFragment"
         android:label="Edit User Data"
         tools:layout="@layout/fragment_me_edit" />
+    <fragment
+        android:id="@+id/foodAddFragment"
+        android:name="hochschule.de.bachelorthesis.view.fragments.food.FoodAddFragment"
+        android:label="fragment_food_add"
+        tools:layout="@layout/fragment_food_add" />
 
 </navigation>

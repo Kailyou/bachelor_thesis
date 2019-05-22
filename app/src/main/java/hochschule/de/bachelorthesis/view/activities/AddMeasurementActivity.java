@@ -17,8 +17,6 @@ import hochschule.de.bachelorthesis.view_model.activities.AddMeasurementViewMode
 
 public class AddMeasurementActivity extends AppCompatActivity {
 
-    private static final String TAG = "AddFoodActivity";
-
     private ActivityAddMeasurementBinding mBinding;
 
     private AddMeasurementViewModel viewModel;
@@ -67,7 +65,7 @@ public class AddMeasurementActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.add_food_menu, menu);
+        menuInflater.inflate(R.menu.food_add_menu, menu);
         return true;    // displays the menu
     }
 }

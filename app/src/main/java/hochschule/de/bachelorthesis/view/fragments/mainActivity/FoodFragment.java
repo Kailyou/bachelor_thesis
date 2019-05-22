@@ -35,7 +35,7 @@ public class FoodFragment extends Fragment {
 
     private BetterFloatingActionButton fab;
     private FragmentFoodBinding mBinding;
-    RecyclerView mRecyclverView;
+    private RecyclerView mRecyclverView;
     private AdapterFood adapter;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class FoodFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_addFoodActivity));
+        fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_foodAddFragment));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class FoodFragment extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.sort) {
             return true;
         }
