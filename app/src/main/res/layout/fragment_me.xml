@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />

@@ -4,13 +4,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,36 +24,47 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
 import hochschule.de.bachelorthesis.utility.AdapterFood;
 import hochschule.de.bachelorthesis.lifecycle.FragmentFoodObserver;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodViewModel;
+import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 public class FoodFragment extends Fragment {
 
-    private FloatingActionButton fab;
+    private BetterFloatingActionButton fab;
+    private FragmentFoodBinding mBinding;
+    RecyclerView mRecyclverView;
+    private AdapterFood adapter;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Lifecycle
         getLifecycle().addObserver(new FragmentFoodObserver());
+
+        // Enable menu
+        setHasOptionsMenu(true);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_food, container, false);
+        // Init data binding
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
+        mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        //mBinding.setViewModel(mViewModel);
 
-        fab = rootView.findViewById(R.id.button_add_note);
+        fab = mBinding.buttonAddNote;
 
         // RecyclerView
-        RecyclerView rv = rootView.findViewById(R.id.recycler_view);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setHasFixedSize(true);
+        mRecyclverView = mBinding.recyclerView;
+        mRecyclverView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclverView.setHasFixedSize(true);
 
         // Adapter
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment);
         final AdapterFood adapter = new AdapterFood(getContext(), navController);
-        rv.setAdapter(adapter);
+        mRecyclverView.setAdapter(adapter);
 
         // View model
         FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
@@ -63,7 +76,7 @@ public class FoodFragment extends Fragment {
             }
         });
 
-        return rootView;
+        return mBinding.getRoot();
     }
 
     @Override
@@ -71,6 +84,21 @@ public class FoodFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_addFoodActivity));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.food_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.sort) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 
