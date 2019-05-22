@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="false">
         <activity
             android:name=".view.activities.MainActivity"
             android:label="@string/app_name">
@@ -37,9 +38,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.activities.MainActivity" />
         </activity>
-        <activity android:name=".view.activities.EditMeActivity"
-            android:label="EditMeActivity"
-            android:parentActivityName=".view.activities.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

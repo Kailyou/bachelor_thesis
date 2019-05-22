@@ -30,6 +30,9 @@ public class MeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Change title
+        Objects.requireNonNull(getActivity()).setTitle("Edit user Data");
+
         // Lifecycle component
         getLifecycle().addObserver(new FragmentMeObserver());
 
@@ -45,7 +48,7 @@ public class MeFragment extends Fragment {
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
 
-        mBinding.buttonEditMe.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_me_fragment_to_editMeActivity));
+        mBinding.buttonEditMe.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_me_fragment_to_meEditFragment));
 
         loadUser();
 

@@ -31,9 +31,8 @@
         android:label="User data"
         tools:layout="@layout/fragment_me">
         <action
-            android:id="@+id/action_main_activity_me_fragment_to_editMeActivity"
-            app:destination="@id/editMeActivity"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/action_main_activity_me_fragment_to_meEditFragment"
+            app:destination="@id/meEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/main_activity_graphs_fragment"
@@ -54,10 +53,10 @@
             android:name="foodId"
             app:argType="integer" />
     </activity>
-    <activity
-        android:id="@+id/editMeActivity"
-        android:name="hochschule.de.bachelorthesis.view.activities.EditMeActivity"
-        android:label="Edit Data"
-        tools:layout="@layout/activity_edit_me" />
+    <fragment
+        android:id="@+id/meEditFragment"
+        android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeEditFragment"
+        android:label="Edit User Data"
+        tools:layout="@layout/fragment_me_edit" />
 
 </navigation>

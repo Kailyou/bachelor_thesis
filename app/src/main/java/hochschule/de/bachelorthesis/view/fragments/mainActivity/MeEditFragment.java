@@ -1,83 +1,82 @@
-package hochschule.de.bachelorthesis.view.activities;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+package hochschule.de.bachelorthesis.view.fragments.mainActivity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.ActivityEditMeBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentMeEditBinding;
+import hochschule.de.bachelorthesis.lifecycle.FragmentMeObserver;
+import hochschule.de.bachelorthesis.model.User;
 import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.utility.UserSample;
 import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 
-public class EditMeActivity extends AppCompatActivity {
-
-    private static final String TAG = "EditMeActivity";
-
-    private ActivityEditMeBinding mBinding;
-
+public class MeEditFragment extends Fragment {
     private MeViewModel mViewModel;
+    private FragmentMeEditBinding mBinding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Change title
-        setTitle("Edit user Data");
+        // Enable menu
+        setHasOptionsMenu(true);
 
-        // Data binding
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_me);
+        // Lifecycle component
+        getLifecycle().addObserver(new FragmentMeObserver());
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Init data binding
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_me_edit, container, false);
+        mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        mBinding.setViewModel(mViewModel);
 
         // Spinner
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(this,
-                        R.layout.dropdown_menu_popup_item,
-                        getResources().getStringArray(R.array.fragment_me_spinner_sex));
-
         mBinding.dropdownSex.setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_sex)));
         mBinding.dropdownFitnessLevel.setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_fitness_level)));
+
+        return mBinding.getRoot();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.me_edit_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_me) {
-                save();
-                return true;
+            save();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Override this function to specify the options menu.
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.edit_me_menu, menu);
-        return true;    // displays the menu
-    }
-
-    private ArrayAdapter<String> getAdapter(String[] elements) {
-        return new ArrayAdapter<>(this,
-                R.layout.dropdown_menu_popup_item,
-                elements);
-    }
-
     private void save() {
         if(inPutOkay()) {
             updateViewModel();
-            MyToast.createToast(this, "Information saved.");
+            MyToast.createToast(getContext(), "Information saved.");
         }
     }
 
@@ -152,10 +151,12 @@ public class EditMeActivity extends AppCompatActivity {
     }
 
     private void toast(String msg) {
-        MyToast.createToast(this, msg);
+        MyToast.createToast(getContext(), msg);
     }
 
-    private boolean checkString(String s) {
-        return s.equals("");
+    private ArrayAdapter<String> getAdapter(String[] elements) {
+        return new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                R.layout.dropdown_menu_popup_item,
+                elements);
     }
 }

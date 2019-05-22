@@ -109,7 +109,9 @@
                     android:id="@+id/dropdown_fitness_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/fitness_level"/>
+                    android:hint="@string/fitness_level"
+                    android:focusable="false"
+                    android:cursorVisible="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
