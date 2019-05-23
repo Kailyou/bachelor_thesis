@@ -22,10 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activities.AddMeasurementActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".view.activities.MainActivity"/>
-        <activity
             android:name=".view.activities.FoodInfoActivity"
             android:label="@string/title_activity_food"
             android:parentActivityName=".view.activities.MainActivity"
