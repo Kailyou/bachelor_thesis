@@ -49,7 +49,7 @@ public class FoodDataFragment extends Fragment {
         food.observe(this, new Observer<Food>() {
             @Override
             public void onChanged(Food food) {
-                updateViewModel(food);
+                //updateViewModel(food);
             }
         });
 

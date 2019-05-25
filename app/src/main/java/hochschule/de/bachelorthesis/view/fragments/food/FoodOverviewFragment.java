@@ -51,8 +51,8 @@ public class FoodOverviewFragment extends Fragment {
         food.observe(this, new Observer<Food>() {
             @Override
             public void onChanged(Food food) {
-                updateViewModel(food);
-                Objects.requireNonNull(getActivity()).setTitle(food.getFoodName());
+                //updateViewModel(food);
+                //Objects.requireNonNull(getActivity()).setTitle(food.getFoodName());
             }
         });
 

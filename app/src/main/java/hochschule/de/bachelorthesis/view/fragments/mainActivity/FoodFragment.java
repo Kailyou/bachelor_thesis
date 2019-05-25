@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,6 +73,7 @@ public class FoodFragment extends Fragment {
             }
         });
 
+
         return mBinding.getRoot();
     }
 
@@ -79,6 +81,7 @@ public class FoodFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.e("YOLO", "outer nav: " + Navigation.findNavController(view));
         fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_foodAddFragment));
     }
 

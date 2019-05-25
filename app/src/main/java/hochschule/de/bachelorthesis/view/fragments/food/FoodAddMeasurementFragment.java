@@ -18,17 +18,20 @@ import androidx.lifecycle.ViewModelProviders;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBindingImpl;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodAddViewModel;
 
 public class FoodAddMeasurementFragment extends Fragment {
     private static final String TAG = "FoodAddFragment";
 
-    private FragmentFoodAddBinding mBinding;
+    private FragmentAddMeasurementBinding mBinding;
 
-    private FoodAddViewModel mViewModel;
+    private FoodInfoViewModel mViewModel;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class FoodAddMeasurementFragment extends Fragment {
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(this).get(FoodAddViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);
 
         // Modify action bar
         // Objects.requireNonNull(getActivity().getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
@@ -48,7 +51,7 @@ public class FoodAddMeasurementFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_add, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_measurement, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
 
@@ -56,7 +59,7 @@ public class FoodAddMeasurementFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
                 R.array.activity_add_food_spinner_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mBinding.type.setAdapter(adapter);
+        //mBinding.type.setAdapter(adapter);
 
         return mBinding.getRoot();
     }
@@ -83,6 +86,7 @@ public class FoodAddMeasurementFragment extends Fragment {
      * Save the food to the database.
      */
     private void save() {
+        /*
         String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
         String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
         String type = mBinding.type.getText().toString();
@@ -115,6 +119,7 @@ public class FoodAddMeasurementFragment extends Fragment {
                         fat, saturates, protein, carbohydrates, sugar, salt);
 
         MyToast.createToast(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
+        */
     }
 
     /**
@@ -124,6 +129,7 @@ public class FoodAddMeasurementFragment extends Fragment {
      * returns false otherwise.
      */
     private boolean inPutOkay() {
+        /*
         // checks the text fields
         if(mBinding.foodName.getText() == null || mBinding.foodName.getText().toString().equals("")) {
             toast("Please enter the food's name.");
@@ -180,6 +186,7 @@ public class FoodAddMeasurementFragment extends Fragment {
             toast("Please enter the salt.");
             return false;
         }
+        */
 
         return true;
     }
@@ -192,6 +199,7 @@ public class FoodAddMeasurementFragment extends Fragment {
                                  float fat, float saturates, float protein, float carbohydrates,
                                  float sugar, float salt) {
 
+        /*
         mViewModel.setFoodName(foodName);
         mViewModel.setBrandName(brandName);
         mViewModel.setType(type);
@@ -203,6 +211,7 @@ public class FoodAddMeasurementFragment extends Fragment {
         mViewModel.setCarbohydrates(carbohydrates);
         mViewModel.setSugar(sugar);
         mViewModel.setSalt(salt);
+        */
     }
 
     private void toast(String msg) {

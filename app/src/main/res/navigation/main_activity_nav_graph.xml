@@ -16,12 +16,11 @@
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.FoodFragment"
         android:label="Foods">
         <action
-            android:id="@+id/action_main_activity_food_fragment_to_FoodActivity"
-            app:destination="@id/FoodActivity"
-            app:enterAnim="@anim/nav_default_enter_anim" />
-        <action
             android:id="@+id/action_main_activity_food_fragment_to_foodAddFragment"
             app:destination="@id/foodAddFragment" />
+        <action
+            android:id="@+id/action_main_activity_food_fragment_to_foodInfoFragment"
+            app:destination="@id/foodInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/main_activity_me_fragment"
@@ -37,15 +36,6 @@
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.GraphsFragment"
         android:label="Graphs"
         tools:layout="@layout/fragment_graphs" />
-    <activity
-        android:id="@+id/FoodActivity"
-        android:name="hochschule.de.bachelorthesis.view.activities.FoodInfoActivity"
-        android:label="activity_food"
-        tools:layout="@layout/activity_food" >
-        <argument
-            android:name="foodId"
-            app:argType="integer" />
-    </activity>
     <fragment
         android:id="@+id/meEditFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeEditFragment"
@@ -56,5 +46,24 @@
         android:name="hochschule.de.bachelorthesis.view.fragments.food.FoodAddFragment"
         android:label="fragment_food_add"
         tools:layout="@layout/fragment_food_add" />
+    <fragment
+        android:id="@+id/foodInfoFragment"
+        android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.FoodInfoFragment"
+        android:label="fragment_food_info"
+        tools:layout="@layout/fragment_food_info" >
+        <action
+            android:id="@+id/action_foodInfoFragment_to_foodAddMeasurementFragment2"
+            app:destination="@id/foodAddMeasurementFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodMeasurementsFragment"
+        android:name="hochschule.de.bachelorthesis.view.fragments.food.FoodMeasurementsFragment"
+        android:label="fragment_food_measurements"
+        tools:layout="@layout/fragment_food_measurements" />
+    <fragment
+        android:id="@+id/foodAddMeasurementFragment2"
+        android:name="hochschule.de.bachelorthesis.view.fragments.food.FoodAddMeasurementFragment"
+        android:label="fragment_add_measurement"
+        tools:layout="@layout/fragment_add_measurement" />
 
 </navigation>

@@ -21,15 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activities.FoodInfoActivity"
-            android:label="@string/title_activity_food"
-            android:parentActivityName=".view.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.MainActivity" />
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
