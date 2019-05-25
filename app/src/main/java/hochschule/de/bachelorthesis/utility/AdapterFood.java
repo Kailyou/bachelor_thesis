@@ -52,7 +52,6 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
                 FoodInfoActivityArgs.Builder builder = new FoodInfoActivityArgs.Builder(currentFood.id);
                 mNavController.navigate(R.id.action_main_activity_food_fragment_to_FoodActivity, builder.build().toBundle());
             }
-
         });
     }
 

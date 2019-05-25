@@ -3,98 +3,100 @@ package hochschule.de.bachelorthesis.view_model.fragments;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.Bindable;
+import androidx.databinding.InverseMethod;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class MeViewModel extends AndroidViewModel {
+    private static int mId;
+    private static MutableLiveData<Integer> mUserHistoryId;
+
     // Personal data
-    private MutableLiveData<String> userAge;
-    private MutableLiveData<String> height;
-    private MutableLiveData<String> weight;
-    private MutableLiveData<String> sex;
+    private MutableLiveData<Integer> mUserAge;
+
+    private MutableLiveData<Integer> mHeight;
+    private MutableLiveData<Integer> mWeight;
+    private MutableLiveData<String> mSex;
 
     // Lifestyle data
-    private MutableLiveData<String> fitnessLevel;
-    private MutableLiveData<String> medication;
-    private MutableLiveData<String> allergies;
-    private MutableLiveData<String> smoking;
+    private MutableLiveData<String> mFitnessLevel;
+    private MutableLiveData<String> mMedication;
+    private MutableLiveData<String> mAllergies;
+    private MutableLiveData<String> mSmoking;
 
 
     public MeViewModel(@NonNull Application application) {
         super(application);
-        userAge = new MutableLiveData<>();
-        height = new MutableLiveData<>();
-        weight = new MutableLiveData<>();
-        sex = new MutableLiveData<>();
-        fitnessLevel = new MutableLiveData<>();
-        medication = new MutableLiveData<>();
-        allergies = new MutableLiveData<>();
-        smoking = new MutableLiveData<>();
-     }
+        mUserHistoryId = new MutableLiveData<>();
+        mUserAge = new MutableLiveData<>();
+        mHeight = new MutableLiveData<>();
+        mWeight = new MutableLiveData<>();
+        mSex = new MutableLiveData<>();
+        mFitnessLevel = new MutableLiveData<>();
+        mMedication = new MutableLiveData<>();
+        mAllergies = new MutableLiveData<>();
+        mSmoking = new MutableLiveData<>();
+    }
+
+    public void update(Integer userAge,
+                       Integer height,
+                       Integer weight,
+                                String sex,
+                                String fitnessLevel,
+                                String medication,
+                                String allergies,
+                                String smoking) {
+        mUserAge.setValue(userAge);
+        mHeight.setValue(height);
+        mWeight.setValue(weight);
+        mSex.setValue(sex);
+        mFitnessLevel.setValue(fitnessLevel);
+        mMedication.setValue(medication);
+        mAllergies.setValue(allergies);
+        mSmoking.setValue(smoking);
+
+        mUserHistoryId.setValue(mId++);
+    }
 
     /*
      * GETTER
-      */
-    public MutableLiveData<String> getUserAge() {
-        return userAge;
+     */
+
+    public MutableLiveData<Integer> getUserHistoryId() {
+        return mUserHistoryId;
     }
 
-    public LiveData<String> getHeight() {
-        return height;
+    public MutableLiveData<Integer> getUserAge() {
+        return mUserAge;
     }
 
-    public LiveData<String> getWeight() {
-        return weight;
+    public LiveData<Integer> getHeight() {
+        return mHeight;
     }
 
-    public LiveData<String> getSex() { return sex; }
+    public LiveData<Integer> getWeight() {
+        return mWeight;
+    }
+
+    public LiveData<String> getSex() {
+        return mSex;
+    }
 
     public LiveData<String> getFitnessLevel() {
-        return fitnessLevel;
+        return mFitnessLevel;
     }
 
     public LiveData<String> getMedication() {
-        return medication;
+        return mMedication;
     }
 
     public LiveData<String> getAllergies() {
-         return allergies;
+        return mAllergies;
     }
 
     public LiveData<String> getSmoking() {
-        return smoking;
-    }
-
-    /*
-     * SETTER
-     */
-
-    public void setUserAge(String userAge) {
-        this.userAge.setValue(userAge);
-    }
-
-    public void setHeight(String height) { this.height.setValue(height); }
-
-    public void setWeight(String weight) {
-        this.weight.setValue(weight);
-    }
-
-    public void setSex(String sex) { this.sex.setValue(sex); }
-
-    public void setFitnessLevel(String fitnessLevel) {
-        this.fitnessLevel.setValue(fitnessLevel);
-    }
-
-    public void setMedication(String medication) {
-        this.medication.setValue(medication);
-    }
-
-    public void setAllergies(String allergies) {
-        this.allergies.setValue(allergies);
-    }
-
-    public void setSmoking(String smoking) {
-        this.smoking.setValue(smoking);
+        return mSmoking;
     }
 }

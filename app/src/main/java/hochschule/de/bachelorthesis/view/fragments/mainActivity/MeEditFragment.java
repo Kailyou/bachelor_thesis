@@ -33,7 +33,7 @@ public class MeEditFragment extends Fragment {
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MeViewModel.class);
     }
 
     @Nullable
@@ -68,10 +68,10 @@ public class MeEditFragment extends Fragment {
     }
 
     private void save() {
-        if(inPutOkay()) {
+        //if(inPutOkay()) {
             updateViewModel();
             MyToast.createToast(getContext(), "Information saved.");
-        }
+      //  }
     }
 
     /**
@@ -115,33 +115,31 @@ public class MeEditFragment extends Fragment {
      * Updates the view model.
      */
     private void updateViewModel() {
-        mViewModel.setUserAge(Objects.requireNonNull(mBinding.age.getText()).toString());
-        mViewModel.setHeight(Objects.requireNonNull(mBinding.height.getText()).toString());
-        mViewModel.setWeight(Objects.requireNonNull(mBinding.weight.getText()).toString());
-        mViewModel.setSex(mBinding.dropdownSex.getText().toString());
-        mViewModel.setFitnessLevel(mBinding.dropdownFitnessLevel.getText().toString());
+        /*
+        String age = Objects.requireNonNull(mBinding.age.getText()).toString();
+        String height = Objects.requireNonNull(mBinding.height.getText()).toString();
+        String weight = Objects.requireNonNull(mBinding.weight.getText()).toString();
+        String sex = mBinding.dropdownSex.getText().toString();
+        String fitnessLevel = mBinding.dropdownFitnessLevel.getText().toString();
+        boolean medication = false;
+        boolean allergies = false;
+        boolean smoking = false;
 
         // Checkboxes
         if(mBinding.medication.isChecked()) {
-            mViewModel.setMedication("Yes");
-        }
-        else {
-            mViewModel.setMedication("No");
+            medication = true;
         }
 
         if(mBinding.allergies.isChecked()) {
-            mViewModel.setAllergies("Yes");
-        }
-        else {
-            mViewModel.setAllergies("No");
+            allergies = "yes";
         }
 
         if(mBinding.smoking.isChecked()) {
-            mViewModel.setSmoking("Yes");
+            smoking = "yes";
         }
-        else {
-            mViewModel.setSmoking("No");
-        }
+
+        mViewModel.update(age, height, weight, sex, fitnessLevel, medication, allergies, smoking);
+        */
     }
 
     private void toast(String msg) {

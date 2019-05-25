@@ -33,7 +33,6 @@
                     android:textColor="@color/colorPrimary" />
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -44,13 +43,11 @@
                         android:id="@+id/fragment_me_age"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.userAge}"
+                        android:text="@{String.valueOf(viewModel.userAge)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -61,12 +58,11 @@
                         android:id="@+id/fragment_me_height"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.height}"
+                        android:text="@{String.valueOf(viewModel.height)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -77,12 +73,11 @@
                         android:id="@+id/fragment_me_weight"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.weight}"
+                        android:text="@{String.valueOf(viewModel.weight)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -95,7 +90,6 @@
                         android:padding="3dip"
                         android:text="@{viewModel.sex}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
                 </TableRow>
 
                 <TextView
@@ -107,7 +101,6 @@
                     android:textColor="@color/colorPrimary" />
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -118,13 +111,11 @@
                         android:id="@+id/fragment_me_fitness_level"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.fitnessLevel}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -135,12 +126,11 @@
                         android:id="@+id/fragment_me_medication"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.medication}"
+                        android:text="@{String.valueOf(viewModel.medication)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -151,12 +141,11 @@
                         android:id="@+id/fragment_me_allergies"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.allergies}"
+                        android:text="@{String.valueOf(viewModel.allergies)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:layout_column="1"
                         android:padding="3dip"
@@ -167,7 +156,7 @@
                         android:id="@+id/fragment_me_smoking"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.smoking}"
+                        android:text="@{String.valueOf(viewModel.smoking)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
             </TableLayout>

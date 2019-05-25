@@ -17,8 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.model.User;
-import hochschule.de.bachelorthesis.utility.UserSample;
 import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 
@@ -33,7 +31,7 @@ public class MeFragment extends Fragment {
         Objects.requireNonNull(getActivity()).setTitle("Edit user Data");
 
         // View model
-        mViewModel = ViewModelProviders.of(this).get(MeViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MeViewModel.class);
     }
 
     @Nullable
@@ -63,6 +61,7 @@ public class MeFragment extends Fragment {
      * TODO implement database function
      */
     private void loadUser() {
+        /*
         User user = UserSample.getTestUser1();
         mViewModel.setUserAge(String.valueOf(user.getAge()));
         mViewModel.setHeight(String.valueOf(user.getHeight()));
@@ -72,5 +71,6 @@ public class MeFragment extends Fragment {
         mViewModel.setMedication(user.getMedication());
         mViewModel.setAllergies(user.getAllergies());
         mViewModel.setSmoking(user.getSmoking());
+        */
     }
 }
