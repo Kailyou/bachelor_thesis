@@ -10,9 +10,12 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurements;
+import hochschule.de.bachelorthesis.room.tables.MeasurementsData;
+import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.FoodSample;
 
-@Database(entities = {Food.class}, version = 1, exportSchema = false)
+@Database(entities = {Food.class, Measurements.class, MeasurementsData.class, UserHistory.class}, version = 1, exportSchema = false)
 public abstract class FoodDatabase extends RoomDatabase {
 
     // Only one database instance will be available for the whole APP.
@@ -66,7 +69,6 @@ public abstract class FoodDatabase extends RoomDatabase {
             return null;
         }
     }
-
 
     public static void destroyInstance() {
         INSTANCE = null;

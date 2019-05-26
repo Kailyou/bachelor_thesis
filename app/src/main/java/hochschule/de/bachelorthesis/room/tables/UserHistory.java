@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
 @Entity(tableName = "user_history_table")
 public class UserHistory {
     @PrimaryKey(autoGenerate = true)
@@ -20,26 +19,29 @@ public class UserHistory {
     @ColumnInfo(name = "weight")
     private int weight;
 
-    @ColumnInfo(name = "gender")
-    private String gender;
+    @ColumnInfo(name = "sex")
+    private String sex;
 
     @ColumnInfo(name = "fitness_level")
     private String fitness_level;
 
     @ColumnInfo(name = "medication")
-    private String medication;
+    private Boolean medication;
 
     @ColumnInfo(name = "allergies")
-    private String allergies;
+    private Boolean allergies;
 
     @ColumnInfo(name = "smoking")
-    private String smoking;
+    private Boolean smoking;
 
-    public UserHistory(int age, int height, int weight, String gender, String fitness_level, String medication, String allergies, String smoking) {
+    public UserHistory(int age, int height, int weight,
+                       String sex, String fitness_level,
+                       Boolean medication, Boolean allergies, Boolean smoking)
+    {
         this.age = age;
         this.height = height;
         this.weight = weight;
-        this.gender = gender;
+        this.sex = sex;
         this.fitness_level = fitness_level;
         this.medication = medication;
         this.allergies = allergies;
@@ -70,12 +72,12 @@ public class UserHistory {
         this.weight = weight;
     }
 
-    public String getGender() {
-        return gender;
+    public String getSex() {
+        return sex;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getFitness_level() {
@@ -86,27 +88,27 @@ public class UserHistory {
         this.fitness_level = fitness_level;
     }
 
-    public String getMedication() {
+    public Boolean getMedication() {
         return medication;
     }
 
-    public void setMedication(String medication) {
+    public void setMedication(Boolean medication) {
         this.medication = medication;
     }
 
-    public String getAllergies() {
+    public Boolean getAllergies() {
         return allergies;
     }
 
-    public void setAllergies(String allergies) {
+    public void setAllergies(Boolean allergies) {
         this.allergies = allergies;
     }
 
-    public String getSmoking() {
+    public Boolean getSmoking() {
         return smoking;
     }
 
-    public void setSmoking(String smoking) {
+    public void setSmoking(Boolean smoking) {
         this.smoking = smoking;
     }
 }

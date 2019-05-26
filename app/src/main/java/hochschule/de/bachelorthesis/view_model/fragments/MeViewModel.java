@@ -1,20 +1,19 @@
 package hochschule.de.bachelorthesis.view_model.fragments;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
-import androidx.databinding.Bindable;
-import androidx.databinding.InverseMethod;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import hochschule.de.bachelorthesis.model.Repository;
+import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.ObservableAndroidViewModel;
 
-public class MeViewModel extends AndroidViewModel {
-    private static int mId;
-    private static MutableLiveData<Integer> mUserHistoryId;
+public class MeViewModel extends ObservableAndroidViewModel {
+    private Repository repository;
 
     // Personal data
-    private MutableLiveData<Integer> mUserAge;
+    private MutableLiveData<Integer> mAge;
 
     private MutableLiveData<Integer> mHeight;
     private MutableLiveData<Integer> mWeight;
@@ -22,81 +21,98 @@ public class MeViewModel extends AndroidViewModel {
 
     // Lifestyle data
     private MutableLiveData<String> mFitnessLevel;
-    private MutableLiveData<String> mMedication;
-    private MutableLiveData<String> mAllergies;
-    private MutableLiveData<String> mSmoking;
+    private MutableLiveData<Boolean> mAllergies;
+    private MutableLiveData<Boolean> mSmoking;
+    private MutableLiveData<Boolean> mMedication;
 
 
     public MeViewModel(@NonNull Application application) {
         super(application);
-        mUserHistoryId = new MutableLiveData<>();
-        mUserAge = new MutableLiveData<>();
+        repository = new Repository(application);
+        mAge = new MutableLiveData<>();
         mHeight = new MutableLiveData<>();
         mWeight = new MutableLiveData<>();
         mSex = new MutableLiveData<>();
         mFitnessLevel = new MutableLiveData<>();
-        mMedication = new MutableLiveData<>();
         mAllergies = new MutableLiveData<>();
         mSmoking = new MutableLiveData<>();
+        mMedication = new MutableLiveData<>();
     }
 
-    public void update(Integer userAge,
+    public void load(LifecycleOwner lco) {
+        repository.getUserHistoryLatest().observe(lco, new Observer<UserHistory>() {
+            @Override
+            public void onChanged(UserHistory userHistory) {
+                if (userHistory == null) {
+                    return;
+                }
+
+                mAge.setValue(userHistory.getAge());
+                mHeight.setValue(userHistory.getHeight());
+                mWeight.setValue(userHistory.getWeight());
+                mSex.setValue(userHistory.getSex());
+                mFitnessLevel.setValue(userHistory.getFitness_level());
+                mMedication.setValue(userHistory.getMedication());
+                mAllergies.setValue(userHistory.getAllergies());
+                mSmoking.setValue(userHistory.getSmoking());
+            }
+        });
+    }
+
+    public void insert(Integer age,
                        Integer height,
                        Integer weight,
-                                String sex,
-                                String fitnessLevel,
-                                String medication,
-                                String allergies,
-                                String smoking) {
-        mUserAge.setValue(userAge);
+                       String sex,
+                       String fitnessLevel,
+                       Boolean medication,
+                       Boolean allergies,
+                       Boolean smoking) {
+
+        mAge.setValue(age);
         mHeight.setValue(height);
         mWeight.setValue(weight);
         mSex.setValue(sex);
         mFitnessLevel.setValue(fitnessLevel);
-        mMedication.setValue(medication);
         mAllergies.setValue(allergies);
         mSmoking.setValue(smoking);
 
-        mUserHistoryId.setValue(mId++);
+        UserHistory userHistory = new UserHistory(age, height, weight, sex, fitnessLevel, medication, allergies, smoking);
+        repository.insert(userHistory);
     }
 
     /*
      * GETTER
      */
 
-    public MutableLiveData<Integer> getUserHistoryId() {
-        return mUserHistoryId;
+    public MutableLiveData<Integer> getAge() {
+        return mAge;
     }
 
-    public MutableLiveData<Integer> getUserAge() {
-        return mUserAge;
-    }
-
-    public LiveData<Integer> getHeight() {
+    public MutableLiveData<Integer> getHeight() {
         return mHeight;
     }
 
-    public LiveData<Integer> getWeight() {
+    public MutableLiveData<Integer> getWeight() {
         return mWeight;
     }
 
-    public LiveData<String> getSex() {
+    public MutableLiveData<String> getSex() {
         return mSex;
     }
 
-    public LiveData<String> getFitnessLevel() {
+    public MutableLiveData<String> getFitnessLevel() {
         return mFitnessLevel;
     }
 
-    public LiveData<String> getMedication() {
-        return mMedication;
-    }
-
-    public LiveData<String> getAllergies() {
+    public MutableLiveData<Boolean> getAllergies() {
         return mAllergies;
     }
 
-    public LiveData<String> getSmoking() {
+    public MutableLiveData<Boolean> getSmoking() {
         return mSmoking;
+    }
+
+    public MutableLiveData<Boolean> getMedication() {
+        return mMedication;
     }
 }

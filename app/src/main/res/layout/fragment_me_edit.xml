@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="vm"
             type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
     </data>
 
@@ -38,7 +38,7 @@
                     android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={`` + viewModel.userAge}"
+                    android:text="@{String.valueOf(safeUnbox(vm.age))}"
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,6 +55,7 @@
                     android:id="@+id/height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(safeUnbox(vm.height))}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,6 +72,7 @@
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(safeUnbox(vm.weight))}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,6 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
+                android:checked="@={vm.medication}"
                 android:text="@string/taking_medication" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -127,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
+                android:checked="@{safeUnbox(vm.allergies)}"
                 android:text="@string/allergies_available" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -134,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
+                android:checked="@{safeUnbox(vm.smoking)}"
                 android:text="@string/smoking" />
         </LinearLayout>
     </ScrollView>

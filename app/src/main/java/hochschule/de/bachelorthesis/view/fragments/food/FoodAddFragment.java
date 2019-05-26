@@ -95,7 +95,6 @@ public class FoodAddFragment extends Fragment {
         float sugar = Float.parseFloat(Objects.requireNonNull(mBinding.sugar.getText()).toString());
         float salt = Float.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
 
-
         Food newFood = new Food(
                 foodName,
                 brandName,

@@ -14,20 +14,18 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 
 @Dao
 public interface UserHistoryDao {
-    //@Insert
-    //void insert(UserHistory us);
+    @Insert
+    void insert(UserHistory us);
 
-    //@Update
-    //void update(UserHistory us);
+    @Update
+    void update(UserHistory us);
 
-    //@Delete
-    //void delete(UserHistory us);
+    @Delete
+    void delete(UserHistory us);
 
-   // @Query("SELECT * FROM user_history_table WHERE id=:id")
-    //LiveData<UserHistory> getById(int id);
+    @Query("SELECT * FROM user_history_table WHERE id=:id")
+    LiveData<UserHistory> getById(int id);
 
-    /*
     @Query("SELECT * FROM user_history_table ORDER BY id DESC LIMIT 1")
     LiveData<UserHistory> getLatest();
-    */
 }

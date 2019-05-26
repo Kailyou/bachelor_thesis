@@ -20,7 +20,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodDataFragment;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodMeasurementsFragment;
 import hochschule.de.bachelorthesis.view.fragments.food.FoodOverviewFragment;
-import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
 public class FoodInfoFragment extends Fragment {
     private FoodInfoViewModel viewModel;

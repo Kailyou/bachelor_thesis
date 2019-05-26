@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.room.tables;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
@@ -10,6 +11,7 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
 // then the corresponding records in the child table will automatically be deleted
 @Entity(tableName = "measurement_table",
+        indices = {@Index("food_id"), @Index("user_history_id")},
         foreignKeys = {
                 @ForeignKey(entity = Food.class,
                         parentColumns = "id",
@@ -21,7 +23,6 @@ import hochschule.de.bachelorthesis.room.tables.Food;
                         childColumns = "user_history_id",
                         onDelete = ForeignKey.CASCADE)
         })
-
 public class Measurements {
 
     @PrimaryKey(autoGenerate = true)

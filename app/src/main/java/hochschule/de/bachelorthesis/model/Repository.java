@@ -19,13 +19,13 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
  */
 public class Repository {
     private FoodDao mFoodDao;
-    //private UserHistoryDao mUserHistoryDao;
+    private UserHistoryDao mUserHistoryDao;
     private LiveData<List<Food>> mAllFood;
 
     public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
         mFoodDao = database.foodDao();
-        //mUserHistoryDao = database.userHistoryDao();
+        mUserHistoryDao = database.userHistoryDao();
         mAllFood = mFoodDao.getAllFood();
     }
 
@@ -56,12 +56,24 @@ public class Repository {
 
     public LiveData<Food> getFoodById(int id) { return mFoodDao.getFoodById(id); }
 
-    //public LiveData<UserHistory> getUserHistoryById(int id) { return mUserHistoryDao.getById(id); }
-    //public LiveData<UserHistory> getUserHistoryLatest() { return mUserHistoryDao.getLatest(); }
+    /**
+     * USER HISTORY
+     */
+
+    public void insert(UserHistory userHistory) {
+        new InsertUserHistoryAsyncTask(mUserHistoryDao).execute(userHistory);
+    }
+
+    // public LiveData<UserHistory> getUserHistoryById(int id) { return mUserHistoryDao.getById(id); }
+    public LiveData<UserHistory> getUserHistoryLatest() {
+        return mUserHistoryDao.getLatest();
+    }
 
     /**
      * Classes for async tasks
      */
+
+    /* FOOD */
 
     private static class InsertFoodAsyncTask extends AsyncTask<Food, Void, Void> {
         private FoodDao mFoodDao;
@@ -73,6 +85,20 @@ public class Repository {
         @Override
         protected Void doInBackground(Food... foods) {
             mFoodDao.insert(foods[0]);
+            return null;
+        }
+    }
+
+    private static class InsertUserHistoryAsyncTask extends AsyncTask<UserHistory, Void, Void> {
+        private UserHistoryDao mUserHistoryDao;
+
+        private InsertUserHistoryAsyncTask(UserHistoryDao userHistoryDao) {
+            this.mUserHistoryDao = userHistoryDao;
+        }
+
+        @Override
+        protected Void doInBackground(UserHistory... userHistories) {
+            mUserHistoryDao.insert(userHistories[0]);
             return null;
         }
     }

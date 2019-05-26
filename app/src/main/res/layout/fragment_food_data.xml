@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel" />
+            type="hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel" />
     </data>
 
 

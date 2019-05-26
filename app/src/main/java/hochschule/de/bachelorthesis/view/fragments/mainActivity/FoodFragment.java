@@ -73,7 +73,6 @@ public class FoodFragment extends Fragment {
             }
         });
 
-
         return mBinding.getRoot();
     }
 

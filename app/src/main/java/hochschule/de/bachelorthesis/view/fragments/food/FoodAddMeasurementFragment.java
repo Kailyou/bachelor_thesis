@@ -19,12 +19,8 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
-import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBindingImpl;
-import hochschule.de.bachelorthesis.databinding.FragmentFoodAddBinding;
-import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
-import hochschule.de.bachelorthesis.view_model.fragments.FoodAddViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
 public class FoodAddMeasurementFragment extends Fragment {
     private static final String TAG = "FoodAddFragment";

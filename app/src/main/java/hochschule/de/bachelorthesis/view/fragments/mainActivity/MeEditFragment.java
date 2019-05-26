@@ -33,7 +33,9 @@ public class MeEditFragment extends Fragment {
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(MeViewModel.class);
+        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MeViewModel.class);
+
+        load();
     }
 
     @Nullable
@@ -42,7 +44,7 @@ public class MeEditFragment extends Fragment {
         // Init data binding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_me_edit, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        mBinding.setViewModel(mViewModel);
+        mBinding.setVm(mViewModel);
 
         // Spinner
         mBinding.dropdownSex.setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_sex)));
@@ -67,43 +69,53 @@ public class MeEditFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void load() {
+        // test stuff
+        //mViewModel.update(29, 88, 173, "male", "low",
+        //false, false, false);
+    }
+
     private void save() {
-        //if(inPutOkay()) {
-            updateViewModel();
+        if (inPutOkay()) {
+            mViewModel.insert(Integer.parseInt(mBinding.age.getText().toString()), Integer.parseInt(mBinding.height.getText().toString()),
+                    Integer.parseInt(mBinding.weight.getText().toString()),
+                    mBinding.dropdownSex.getText().toString(), mBinding.dropdownFitnessLevel.getText().toString(),
+                    mBinding.medication.isChecked(), mBinding.allergies.isChecked(), mBinding.smoking.isChecked());
+
             MyToast.createToast(getContext(), "Information saved.");
-      //  }
+        }
     }
 
     /**
      * Checks if the user input has been valid.
-     * @return
-     * returns true if the input was okay.
+     *
+     * @return returns true if the input was okay.
      * returns false otherwise.
      */
     private boolean inPutOkay() {
         // checks the text fields
-        if(mBinding.age.getText() == null || mBinding.age.getText().toString().equals("")) {
+        if (mBinding.age.getText() == null || mBinding.age.getText().toString().equals("")) {
             toast("Please enter your age.");
             return false;
         }
 
-        if(mBinding.height.getText() == null || mBinding.height.getText().toString().equals("")) {
+        if (mBinding.height.getText() == null || mBinding.height.getText().toString().equals("")) {
             toast("Please enter your height.");
             return false;
         }
 
-        if(mBinding.weight.getText() == null || mBinding.weight.getText().toString().equals("")) {
+        if (mBinding.weight.getText() == null || mBinding.weight.getText().toString().equals("")) {
             toast("Please enter your weight.");
             return false;
         }
 
         // checks the drop down menus
-        if(mBinding.dropdownSex.getText() == null || mBinding.dropdownSex.getText().toString().equals("")) {
+        if (mBinding.dropdownSex.getText() == null || mBinding.dropdownSex.getText().toString().equals("")) {
             toast("Please select the sex.");
             return false;
         }
 
-        if(mBinding.dropdownFitnessLevel.getText() == null || mBinding.dropdownFitnessLevel.getText().toString().equals("")) {
+        if (mBinding.dropdownFitnessLevel.getText() == null || mBinding.dropdownFitnessLevel.getText().toString().equals("")) {
             toast("Please select the fitness level.");
             return false;
         }
@@ -116,9 +128,9 @@ public class MeEditFragment extends Fragment {
      */
     private void updateViewModel() {
         /*
-        String age = Objects.requireNonNull(mBinding.age.getText()).toString();
-        String height = Objects.requireNonNull(mBinding.height.getText()).toString();
-        String weight = Objects.requireNonNull(mBinding.weight.getText()).toString();
+        Integer age = Integer.parseInt(Objects.requireNonNull(mBinding.age.getText()).toString());
+        Integer height = Integer.parseInt(Objects.requireNonNull(mBinding.height.getText()).toString());
+        Integer weight = Integer.parseInt(Objects.requireNonNull(mBinding.weight.getText()).toString());
         String sex = mBinding.dropdownSex.getText().toString();
         String fitnessLevel = mBinding.dropdownFitnessLevel.getText().toString();
         boolean medication = false;
@@ -131,11 +143,11 @@ public class MeEditFragment extends Fragment {
         }
 
         if(mBinding.allergies.isChecked()) {
-            allergies = "yes";
+            allergies = true;
         }
 
         if(mBinding.smoking.isChecked()) {
-            smoking = "yes";
+            smoking = true;
         }
 
         mViewModel.update(age, height, weight, sex, fitnessLevel, medication, allergies, smoking);

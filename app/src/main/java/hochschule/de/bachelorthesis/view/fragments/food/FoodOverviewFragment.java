@@ -13,12 +13,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.util.Objects;
-
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
 public class FoodOverviewFragment extends Fragment {
 

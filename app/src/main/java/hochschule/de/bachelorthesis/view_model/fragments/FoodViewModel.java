@@ -39,7 +39,7 @@ public class FoodViewModel extends AndroidViewModel {
 
     // testing if this works
     public LiveData<Food> getFoodById(int id) {
-        return  repository.getFoodById(id);
+        return repository.getFoodById(id);
     }
 
     public LiveData<List<Food>> getAllFood() {

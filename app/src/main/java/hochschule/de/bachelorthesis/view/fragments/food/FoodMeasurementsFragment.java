@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodMeasurementsBinding;
-import hochschule.de.bachelorthesis.view_model.activities.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
 public class FoodMeasurementsFragment extends Fragment {
 

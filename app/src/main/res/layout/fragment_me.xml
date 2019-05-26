@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="vm"
             type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
     </data>
 
@@ -43,7 +43,7 @@
                         android:id="@+id/fragment_me_age"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(viewModel.userAge)}"
+                        android:text="@{String.valueOf(safeUnbox(vm.age))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -58,7 +58,7 @@
                         android:id="@+id/fragment_me_height"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(viewModel.height)}"
+                        android:text="@{String.valueOf(safeUnbox(vm.height))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -73,7 +73,7 @@
                         android:id="@+id/fragment_me_weight"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(viewModel.weight)}"
+                        android:text="@{String.valueOf(safeUnbox(vm.weight))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -88,7 +88,7 @@
                         android:id="@+id/fragment_me_gender"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{viewModel.sex}"
+                        android:text="@{vm.sex}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -126,7 +126,7 @@
                         android:id="@+id/fragment_me_medication"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(viewModel.medication)}"
+                        android:text="@{String.valueOf(vm.medication)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -141,7 +141,7 @@
                         android:id="@+id/fragment_me_allergies"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(viewModel.allergies)}"
+                        android:text="@{String.valueOf(vm.allergies)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -156,7 +156,7 @@
                         android:id="@+id/fragment_me_smoking"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(viewModel.smoking)}"
+                        android:text="@{String.valueOf(vm.smoking)}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
             </TableLayout>
