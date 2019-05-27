@@ -9,13 +9,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/foodFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.FoodFragment"
-        android:label="fragment_food"
-        tools:layout="@layout/fragment_food" >
+        android:label="My Foods"
+        tools:layout="@layout/fragment_food">
         <action
             android:id="@+id/action_foodFragment_to_addFood"
             app:destination="@id/addFood" />
@@ -27,14 +27,14 @@
     <fragment
         android:id="@+id/addFood"
         android:name="hochschule.de.bachelorthesis.view.fragments.foodInfo.AddFood"
-        android:label="fragment_food_add"
+        android:label="Add Food"
         tools:layout="@layout/fragment_food_add" />
 
     <fragment
         android:id="@+id/foodInfoFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.foodInfo.FoodInfoFragment"
-        android:label="fragment_food_info"
-        tools:layout="@layout/fragment_food_info" >
+        android:label="Food Information"
+        tools:layout="@layout/fragment_food_info">
         <action
             android:id="@+id/action_foodInfoFragment_to_addMeasurement"
             app:destination="@id/addMeasurement" />
@@ -43,19 +43,19 @@
     <fragment
         android:id="@+id/addMeasurement"
         android:name="hochschule.de.bachelorthesis.view.fragments.foodInfo.AddMeasurement"
-        android:label="fragment_add_measurement"
+        android:label="Add Measurement"
         tools:layout="@layout/fragment_add_measurement" />
 
     <fragment
         android:id="@+id/graphsFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.GraphsFragment"
-        android:label="fragment_graphs"
+        android:label="Graphs"
         tools:layout="@layout/fragment_graphs" />
     <fragment
         android:id="@+id/meFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeFragment"
-        android:label="fragment_me"
-        tools:layout="@layout/fragment_me" >
+        android:label="Me"
+        tools:layout="@layout/fragment_me">
         <action
             android:id="@+id/action_meFragment_to_meEditFragment"
             app:destination="@id/meEditFragment" />
@@ -63,8 +63,8 @@
     <fragment
         android:id="@+id/meEditFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeEditFragment"
-        android:label="fragment_me_edit"
-        tools:layout="@layout/fragment_me_edit" >
+        android:label="Edit User Data"
+        tools:layout="@layout/fragment_me_edit">
         <action
             android:id="@+id/action_meEditFragment_to_meFragment"
             app:destination="@id/meFragment" />
