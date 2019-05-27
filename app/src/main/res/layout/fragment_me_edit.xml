@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <import type="hochschule.de.bachelorthesis.utility.Converter" />
 
         <variable
@@ -40,8 +41,8 @@
                     android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:text="@{Converter.convertInteger(safeUnbox(vm.age))}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,8 +58,8 @@
                     android:id="@+id/height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:text="@{Converter.convertInteger(safeUnbox(vm.height))}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -74,8 +75,8 @@
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -89,9 +90,9 @@
                     android:id="@+id/dropdown_sex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sex"
+                    android:cursorVisible="false"
                     android:focusable="false"
-                    android:cursorVisible="false"/>
+                    android:hint="@string/sex" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -114,9 +115,9 @@
                     android:id="@+id/dropdown_fitness_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/fitness_level"
+                    android:cursorVisible="false"
                     android:focusable="false"
-                    android:cursorVisible="false"/>
+                    android:hint="@string/fitness_level" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -124,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
-                android:checked="@={vm.medication}"
+                android:checked="@{vm.medication}"
                 android:text="@string/taking_medication" />
 
             <com.google.android.material.checkbox.MaterialCheckBox

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel" />
@@ -20,54 +20,258 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- o_O -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="Time"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/colorPrimary" />
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/amount_food_consumed">
+                android:focusableInTouchMode="true"
+                android:hint="@string/date"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/food_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/start_value">
+                android:hint="@string/time_consumed"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/brand_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Advance information-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/advance_information"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/colorPrimary" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount consumed"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_amount_consumed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/add_measurement_stress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Stress level" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/add_measurement_tired_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Tired level" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Measurement values-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/measurements"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/colorPrimary" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose at begin"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/_15_min">
+                android:hint="glucose after 15 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv15"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/_30_min">
+                android:hint="glucose after 30 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv30"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose after 45 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv45"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose after 60 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv60"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose after 75 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv75"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose after 90 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv90"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose after 105 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv105"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="glucose after 120 min"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add_measurement_mv120"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
     </ScrollView>
