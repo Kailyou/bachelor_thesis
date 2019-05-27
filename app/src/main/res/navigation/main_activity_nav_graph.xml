@@ -40,7 +40,11 @@
         android:id="@+id/meEditFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.mainActivity.MeEditFragment"
         android:label="Edit User Data"
-        tools:layout="@layout/fragment_me_edit" />
+        tools:layout="@layout/fragment_me_edit" >
+        <action
+            android:id="@+id/action_meEditFragment_to_main_activity_me_fragment"
+            app:destination="@id/main_activity_me_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/foodAddFragment"
         android:name="hochschule.de.bachelorthesis.view.fragments.food.FoodAddFragment"

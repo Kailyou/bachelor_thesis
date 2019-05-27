@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import java.util.Objects;
 
@@ -34,8 +35,6 @@ public class MeEditFragment extends Fragment {
 
         // View model
         mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MeViewModel.class);
-
-        load();
     }
 
     @Nullable
@@ -69,12 +68,6 @@ public class MeEditFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void load() {
-        // test stuff
-        //mViewModel.update(29, 88, 173, "male", "low",
-        //false, false, false);
-    }
-
     private void save() {
         if (inPutOkay()) {
             mViewModel.insert(Integer.parseInt(mBinding.age.getText().toString()), Integer.parseInt(mBinding.height.getText().toString()),
@@ -82,7 +75,8 @@ public class MeEditFragment extends Fragment {
                     mBinding.dropdownSex.getText().toString(), mBinding.dropdownFitnessLevel.getText().toString(),
                     mBinding.medication.isChecked(), mBinding.allergies.isChecked(), mBinding.smoking.isChecked());
 
-            MyToast.createToast(getContext(), "Information saved.");
+            // Navigate back to me fragment
+            Navigation.findNavController(getView()).navigate(R.id.action_meEditFragment_to_main_activity_me_fragment);
         }
     }
 
@@ -121,37 +115,6 @@ public class MeEditFragment extends Fragment {
         }
 
         return true;
-    }
-
-    /**
-     * Updates the view model.
-     */
-    private void updateViewModel() {
-        /*
-        Integer age = Integer.parseInt(Objects.requireNonNull(mBinding.age.getText()).toString());
-        Integer height = Integer.parseInt(Objects.requireNonNull(mBinding.height.getText()).toString());
-        Integer weight = Integer.parseInt(Objects.requireNonNull(mBinding.weight.getText()).toString());
-        String sex = mBinding.dropdownSex.getText().toString();
-        String fitnessLevel = mBinding.dropdownFitnessLevel.getText().toString();
-        boolean medication = false;
-        boolean allergies = false;
-        boolean smoking = false;
-
-        // Checkboxes
-        if(mBinding.medication.isChecked()) {
-            medication = true;
-        }
-
-        if(mBinding.allergies.isChecked()) {
-            allergies = true;
-        }
-
-        if(mBinding.smoking.isChecked()) {
-            smoking = true;
-        }
-
-        mViewModel.update(age, height, weight, sex, fitnessLevel, medication, allergies, smoking);
-        */
     }
 
     private void toast(String msg) {
