@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.food;
+package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,8 +22,8 @@ import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
-public class FoodAddMeasurementFragment extends Fragment {
-    private static final String TAG = "FoodAddFragment";
+public class AddMeasurement extends Fragment {
+    private static final String TAG = "AddFood";
 
     private FragmentAddMeasurementBinding mBinding;
 

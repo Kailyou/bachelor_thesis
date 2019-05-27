@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //bottom bar transition + update action bar
-        navController = Navigation.findNavController(this, R.id.main_activity_fragment);
+        navController = Navigation.findNavController(this, R.id.main_activity_fragment_host);
         bottomNav = findViewById(R.id.main_activity_bottom_nav);
         NavigationUI.setupWithNavController(bottomNav, navController);
         NavigationUI.setupActionBarWithNavController(this, navController);

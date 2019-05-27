@@ -48,7 +48,8 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
 
             @Override
             public void onClick(View v) {
-                mNavController.navigate(R.id.action_main_activity_food_fragment_to_foodInfoFragment);
+                mNavController.navigate(R.id.action_foodFragment_to_foodInfoFragment);
+
                // FoodInfoActivityArgs.Builder builder = new FoodInfoActivityArgs.Builder(currentFood.id);
                // mNavController.navigate(R.id.action_main_activity_food_fragment_to_foodInfoFragment, builder.build().toBundle());
             }

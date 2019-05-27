@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.mainActivity;
+package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 
 import android.os.Bundle;
 
@@ -17,9 +17,6 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.view.fragments.food.FoodDataFragment;
-import hochschule.de.bachelorthesis.view.fragments.food.FoodMeasurementsFragment;
-import hochschule.de.bachelorthesis.view.fragments.food.FoodOverviewFragment;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
 public class FoodInfoFragment extends Fragment {

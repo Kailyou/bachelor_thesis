@@ -76,7 +76,7 @@ public class MeEditFragment extends Fragment {
                     mBinding.medication.isChecked(), mBinding.allergies.isChecked(), mBinding.smoking.isChecked());
 
             // Navigate back to me fragment
-            Navigation.findNavController(getView()).navigate(R.id.action_meEditFragment_to_main_activity_me_fragment);
+            Navigation.findNavController(getView()).navigate(R.id.action_meEditFragment_to_meFragment);
         }
     }
 

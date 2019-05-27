@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.food;
+package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,13 +14,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
 
-public class FoodOverviewFragment extends Fragment {
+public class FoodDataFragment extends Fragment {
 
-    private static final String TAG = FoodOverviewFragment.class.getName();
+    private static final String TAG = FoodDataFragment.class.getName();
 
     private FoodInfoViewModel mViewModel;
 
@@ -36,7 +36,7 @@ public class FoodOverviewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Init data binding
-        FragmentFoodOverviewBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
+        FragmentFoodDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_data, container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setViewModel(mViewModel);
 
@@ -50,7 +50,6 @@ public class FoodOverviewFragment extends Fragment {
             @Override
             public void onChanged(Food food) {
                 //updateViewModel(food);
-                //Objects.requireNonNull(getActivity()).setTitle(food.getFoodName());
             }
         });
 
@@ -58,19 +57,13 @@ public class FoodOverviewFragment extends Fragment {
     }
 
     private void updateViewModel(Food food) {
-        // general
-        mViewModel.setFoodName(food.getFoodName());
-        mViewModel.setBrandName(food.getBrandName());
-        mViewModel.setType(food.getFoodType());
         mViewModel.setEnergyKcal(food.getKiloCalories());
-
-        // measurements
-        mViewModel.setMeasurementsAmount(food.getMeasurementsDone());
-        mViewModel.setMaxGlucose(food.getMaxGlucose());
-        mViewModel.setAverageGlucose(food.getAverageGlucose());
-
-        // Analyses
-        mViewModel.setRating(food.getRating());
-        mViewModel.setPersonalIndex(food.getPersonalIndex());
+        mViewModel.setEnergyKJ(food.getKiloJoules());
+        mViewModel.setFat(food.getFat());
+        mViewModel.setSaturates(food.getSaturates());
+        mViewModel.setProtein(food.getProtein());
+        mViewModel.setCarbohydrates(food.getCarbohydrates());
+        mViewModel.setSugar(food.getSugar());
+        mViewModel.setsSalt(food.getSalt());
     }
 }

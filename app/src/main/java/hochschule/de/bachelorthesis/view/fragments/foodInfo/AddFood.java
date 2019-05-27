@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.food;
+package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,8 +23,8 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodAddViewModel;
 
-public class FoodAddFragment extends Fragment {
-    private static final String TAG = "FoodAddFragment";
+public class AddFood extends Fragment {
+    private static final String TAG = "AddFood";
 
     private FragmentFoodAddBinding mBinding;
 

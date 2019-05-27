@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.food.FoodAddMeasurementFragment">
+        tools:context=".view.fragments.foodInfo.AddMeasurement">
 
         <LinearLayout
             android:layout_width="match_parent"

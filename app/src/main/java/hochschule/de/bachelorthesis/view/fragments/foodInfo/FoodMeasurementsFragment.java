@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.food;
+package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +45,7 @@ public class FoodMeasurementsFragment extends Fragment {
 
 
         // fab
-        mBinding.buttonAddNote.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_foodAddMeasurementFragment2));
+        mBinding.buttonAddNote.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement));
 
         // get passed food id
         assert getArguments() != null;

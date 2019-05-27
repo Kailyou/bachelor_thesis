@@ -8,7 +8,7 @@
     tools:context=".view.activities.MainActivity">
 
     <fragment
-        android:id="@+id/main_activity_fragment"
+        android:id="@+id/main_activity_fragment_host"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp"

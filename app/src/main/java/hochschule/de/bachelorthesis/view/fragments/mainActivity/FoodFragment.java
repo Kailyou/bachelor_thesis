@@ -59,7 +59,7 @@ public class FoodFragment extends Fragment {
         mRecyclverView.setHasFixedSize(true);
 
         // Adapter
-        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment);
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
         final AdapterFood adapter = new AdapterFood(getContext(), navController);
         mRecyclverView.setAdapter(adapter);
 
@@ -81,7 +81,7 @@ public class FoodFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.e("YOLO", "outer nav: " + Navigation.findNavController(view));
-        fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_food_fragment_to_foodAddFragment));
+        fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
     }
 
     @Override

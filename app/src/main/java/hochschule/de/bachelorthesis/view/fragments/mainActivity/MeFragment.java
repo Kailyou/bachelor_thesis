@@ -46,7 +46,7 @@ public class MeFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setVm(mViewModel);
 
-        binding.buttonEditMe.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_main_activity_me_fragment_to_meEditFragment));
+        binding.buttonEditMe.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_meFragment_to_meEditFragment));
 
         return binding.getRoot();
     }
