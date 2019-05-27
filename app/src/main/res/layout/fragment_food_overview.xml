@@ -3,8 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="hochschule.de.bachelorthesis.utility.Converter" />
+
         <variable
-            name="viewModel"
+            name="vm"
             type="hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel" />
     </data>
 
@@ -33,10 +35,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_food_name"
+                android:id="@+id/food_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{viewModel.foodName}"
+                android:text="@{vm.foodName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -48,10 +50,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_brand_name"
+                android:id="@+id/brand_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{viewModel.brandName}"
+                android:text="@{vm.brandName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -63,10 +65,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_type"
+                android:id="@+id/type"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{viewModel.type}"
+                android:text="@{vm.type}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -78,10 +80,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_kCal"
+                android:id="@+id/kCal"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.energyKcal}"
+                android:text="@{String.valueOf(safeUnbox(vm.kcal))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -103,10 +105,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_measurements_done"
+                android:id="@+id/measurements_done"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.measurementsAmount}"
+                android:text="@{String.valueOf(safeUnbox(vm.measurementsAmount))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -118,10 +120,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_max_glucose"
+                android:id="@+id/max_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.maxGlucose}"
+                android:text="@{String.valueOf(safeUnbox(vm.maxGlucose))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -133,10 +135,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_avg_glucose"
+                android:id="@+id/avg_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.averageGlucose}"
+                android:text="@{String.valueOf(safeUnbox(vm.averageGlucose))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -158,10 +160,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_rating"
+                android:id="@+id/rating"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.rating}"
+                android:text="@{Converter.convertString(vm.rating)}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -173,10 +175,10 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
-                android:id="@+id/text_personal_gi"
+                android:id="@+id/personal_gi"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` +viewModel.personalIndex}"
+                android:text="@{String.valueOf(safeUnbox(vm.personalIndex))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
     </TableLayout>

@@ -3,11 +3,14 @@ package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,39 +20,52 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
 
 public class FoodInfoFragment extends Fragment {
-    private FoodInfoViewModel viewModel;
+    private static final String TAG = FoodInfoFragment.class.getName();
+
+    private FoodInfoViewModel mViewModel;
     private FoodInfoFragment.SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private int mFoodId;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).setTitle("YOLOOOOOO");
         super.onCreate(savedInstanceState);
-    }
+
+        mFoodId = getArguments().getInt("food_id");
+
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel.load(mFoodId, this);
+      }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_food_info, container, false);
+        // Init data binding
+        FragmentFoodInfoBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_info, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        binding.setVm(mViewModel);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new FoodInfoFragment.SectionsPagerAdapter(getChildFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = view.findViewById(R.id.container);
+        mViewPager = binding.container;
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = view.findViewById(R.id.tabs);
+        TabLayout tabLayout = binding.tabs;
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        return view;
+        return binding.getRoot();
     }
 
     /**

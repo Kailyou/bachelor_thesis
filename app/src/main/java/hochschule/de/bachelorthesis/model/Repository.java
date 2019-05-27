@@ -29,10 +29,13 @@ public class Repository {
         mAllFood = mFoodDao.getAllFood();
     }
 
+
+    // API methods that will be used by outside (View Model)
+
     /**
-     * API methods that will be used by outside (View Model)
-     * FoodViewModel
+     * FOOD
      */
+
     public void insert(Food food) {
         new InsertFoodAsyncTask(mFoodDao).execute(food);
     }

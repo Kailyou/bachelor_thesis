@@ -29,7 +29,7 @@ public class FoodDataFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // view model
-        mViewModel = ViewModelProviders.of(this).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
     }
 
     @Nullable
@@ -38,32 +38,8 @@ public class FoodDataFragment extends Fragment {
         // Init data binding
         FragmentFoodDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_data, container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        binding.setViewModel(mViewModel);
-
-        // get passed food id
-        assert getArguments() != null;
-        int foodId = getArguments().getInt("food_id");
-
-        // Observe
-        final LiveData<Food> food = mViewModel.getFoodById(foodId);
-        food.observe(this, new Observer<Food>() {
-            @Override
-            public void onChanged(Food food) {
-                //updateViewModel(food);
-            }
-        });
+        binding.setVm(mViewModel);
 
         return binding.getRoot();
-    }
-
-    private void updateViewModel(Food food) {
-        mViewModel.setEnergyKcal(food.getKiloCalories());
-        mViewModel.setEnergyKJ(food.getKiloJoules());
-        mViewModel.setFat(food.getFat());
-        mViewModel.setSaturates(food.getSaturates());
-        mViewModel.setProtein(food.getProtein());
-        mViewModel.setCarbohydrates(food.getCarbohydrates());
-        mViewModel.setSugar(food.getSugar());
-        mViewModel.setsSalt(food.getSalt());
     }
 }

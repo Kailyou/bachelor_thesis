@@ -4,38 +4,32 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 
 public class FoodInfoViewModel extends AndroidViewModel {
 
-    private Repository repository;
+    private Repository mRepository;
 
     private boolean mIsFavorite;
 
-    /* OVERVIEW TAB */
-
-    // General
+    // Overview tab
     private MutableLiveData<String> mFoodName;
     private MutableLiveData<String> mBrandName;
     private MutableLiveData<String> mType;
-    //private MutableLiveData<String> mKcal;
-
-    // Measurements
+    private MutableLiveData<Float> mKcal;
     private MutableLiveData<Integer> mMeasurementsAmount;
     private MutableLiveData<Integer> mMaxGlucose;
     private MutableLiveData<Integer> mAverageGlucose;
-
-    // Analyses
     private MutableLiveData<String> mRating;
     private MutableLiveData<Integer> mPersonalIndex;
 
-    /* MEASURING TAB */
-
-    /* FOOD DATA TAB */
+    // Data tab
     private MutableLiveData<Float> mEnergyKcal;
     private MutableLiveData<Float> mEnergyKJ;
     private MutableLiveData<Float> mFat;
@@ -48,12 +42,12 @@ public class FoodInfoViewModel extends AndroidViewModel {
     public FoodInfoViewModel(@NonNull Application application) {
         super(application);
 
-        repository = new Repository(application);
+        mRepository = new Repository(application);
 
         mFoodName = new MutableLiveData<>();
         mBrandName = new MutableLiveData<>();
         mType = new MutableLiveData<>();
-        //mKcal = new MutableLiveData<>();
+        mKcal = new MutableLiveData<>();
 
         mMeasurementsAmount = new MutableLiveData<>();
         mMaxGlucose = new MutableLiveData<>();
@@ -72,14 +66,39 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mSalt = new MutableLiveData<>();
     }
 
-    /* TEST */
-    public LiveData<Food> getFoodById(int id) {
-        return  repository.getFoodById(id);
+    public void load (int id, LifecycleOwner lco) {
+        mRepository.getFoodById(id).observe(lco, new Observer<Food>() {
+            @Override
+            public void onChanged(Food food) {
+                if(food == null) {
+                    return;
+                }
+
+                //overview tab
+                mFoodName.setValue(food.getFoodName());
+                mBrandName.setValue(food.getBrandName());
+                mType.setValue(food.getFoodType());
+                mKcal.setValue(food.getKiloCalories());
+                mMeasurementsAmount.setValue(food.getMeasurementsDone());
+                mMaxGlucose.setValue(food.getMaxGlucose());
+                mAverageGlucose.setValue(food.getAverageGlucose());
+                mRating.setValue(food.getRating());
+                mPersonalIndex.setValue(food.getPersonalIndex());
+
+                //food data tab
+                mEnergyKcal.setValue(food.getKiloCalories());
+                mEnergyKJ.setValue(food.getKiloJoules());
+                mFat.setValue(food.getFat());
+                mSaturates.setValue(food.getSaturates());
+                mProtein.setValue(food.getProtein());
+                mCarbohydrates.setValue(food.getCarbohydrates());
+                mSugar.setValue(food.getSugar());
+                mSalt.setValue(food.getSalt());
+            }
+        });
     }
 
-    /* GETTER */
-
-    public boolean isIsFavorite() {
+    public boolean ismIsFavorite() {
         return mIsFavorite;
     }
 
@@ -95,9 +114,9 @@ public class FoodInfoViewModel extends AndroidViewModel {
         return mType;
     }
 
-    //public MutableLiveData<String> getKcal() {
-       // return mKcal;
-  //  }
+    public MutableLiveData<Float> getKcal() {
+        return mKcal;
+    }
 
     public MutableLiveData<Integer> getMeasurementsAmount() {
         return mMeasurementsAmount;
@@ -149,79 +168,5 @@ public class FoodInfoViewModel extends AndroidViewModel {
 
     public MutableLiveData<Float> getSalt() {
         return mSalt;
-    }
-
-    /* SETTER */
-
-    public void setIsFavorite(boolean isFavorite) {
-        mIsFavorite = isFavorite;
-    }
-
-    public void setFoodName(String foodName) {
-        mFoodName.setValue(foodName);
-    }
-
-    public void setBrandName(String brandName) {
-        mBrandName.setValue(brandName);
-    }
-
-    public void setType(String type) {
-        mType.setValue(type);
-    }
-
-   // public void setKcal(String kCal) {
-      //  mKcal.setValue(kCal);
-    //}
-
-    public void setMeasurementsAmount(Integer measurementsAmount) {
-        mMeasurementsAmount.setValue(measurementsAmount);
-    }
-
-    public void setMaxGlucose(Integer maxGlucose) {
-        mMaxGlucose.setValue(maxGlucose);
-    }
-
-    public void setAverageGlucose(Integer averageGlucose) {
-        mAverageGlucose.setValue(averageGlucose);
-    }
-
-    public void setRating(String rating) {
-        mRating.setValue(rating);
-    }
-
-    public void setPersonalIndex(Integer personalIndex) {
-        mPersonalIndex.setValue(personalIndex);
-    }
-
-    public void setEnergyKcal(Float energyKcal) {
-        mEnergyKcal.setValue(energyKcal);
-    }
-
-    public void setEnergyKJ(Float energyKJ) {
-        mEnergyKJ.setValue(energyKJ);
-    }
-
-    public void setFat(Float fat) {
-        mFat.setValue(fat);
-    }
-
-    public void setSaturates(Float saturates) {
-        mSaturates.setValue(saturates);
-    }
-
-    public void setProtein(Float protein) {
-        mProtein.setValue(protein);
-    }
-
-    public void setCarbohydrates(Float carbohydrates) {
-        mCarbohydrates.setValue(carbohydrates);
-    }
-
-    public void setSugar(Float sugar) {
-        mSugar.setValue(sugar);
-    }
-
-    public void setsSalt(Float salt) {
-        mSalt.setValue(salt);
     }
 }

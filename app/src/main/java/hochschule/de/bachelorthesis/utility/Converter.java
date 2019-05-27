@@ -14,4 +14,14 @@ public class Converter {
         else
             return String.valueOf(i);
     }
+
+    public static String convertString(String s) {
+        if(s == null)
+            return "is null";
+
+        if(s.equals(""))
+            return "unrated";
+        else
+            return s;
+    }
 }

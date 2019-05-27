@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_foodInfoFragment_to_addMeasurement"
             app:destination="@id/addMeasurement" />
+        <argument
+            android:name="food_id"
+            app:argType="integer" />
     </fragment>
 
     <fragment

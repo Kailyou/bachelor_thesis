@@ -3,21 +3,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
-            name="viewModel"
+            name="vm"
             type="hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel" />
     </data>
-
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="16dp"
         android:paddingStart="16dp"
+        android:paddingTop="16dp"
         android:paddingEnd="16dp"
         android:stretchColumns="1">
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -28,11 +29,12 @@
                 android:id="@+id/text_kCal_100"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.energyKcal}"
+                android:text="@{String.valueOf(safeUnbox(vm.energyKcal))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -43,11 +45,12 @@
                 android:id="@+id/text_brand_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.energyKJ}"
+                android:text="@{String.valueOf(safeUnbox(vm.energyKJ))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -58,11 +61,12 @@
                 android:id="@+id/text_type"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.fat}"
+                android:text="@{String.valueOf(safeUnbox(vm.fat))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -73,11 +77,12 @@
                 android:id="@+id/text_kCal"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.saturates}"
+                android:text="@{String.valueOf(safeUnbox(vm.saturates))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -88,11 +93,12 @@
                 android:id="@+id/text_measurements_done"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.protein}"
+                android:text="@{String.valueOf(safeUnbox(vm.protein))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -103,11 +109,12 @@
                 android:id="@+id/text_max_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.carbohydrates}"
+                android:text="@{String.valueOf(safeUnbox(vm.carbohydrates))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -118,11 +125,12 @@
                 android:id="@+id/text_avg_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.sugar}"
+                android:text="@{String.valueOf(safeUnbox(vm.sugar))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_column="1"
                 android:padding="3dip"
@@ -133,180 +141,8 @@
                 android:id="@+id/text_rating"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{`` + viewModel.salt}"
+                android:text="@{String.valueOf(safeUnbox(vm.salt))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
-
-        <!--
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/personal_index"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:id="@+id/text_personal_gi"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.personalIndex}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-    </TableLayout>
-
-    HERE
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:stretchColumns="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nutreons"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/energy_kcal"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.energyKcal}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/energy_kj"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.energyKJ}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/fat"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.fat}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/of_which_saturates"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.saturates}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
-        <TableRow>
-
-            <View
-                android:layout_height="2dip"
-                android:background="#FF909090" />
-
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/protein"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.protein}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/carbohydrates"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.carbohydrates}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/of_which_sugars"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.sugar}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/salt"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-            <TextView
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{`` +viewModel.salt}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
-
-        -->
-
     </TableLayout>
 </layout>

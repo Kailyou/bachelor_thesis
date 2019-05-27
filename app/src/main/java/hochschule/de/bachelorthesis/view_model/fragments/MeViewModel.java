@@ -14,7 +14,6 @@ public class MeViewModel extends ObservableAndroidViewModel {
 
     // Personal data
     private MutableLiveData<Integer> mAge;
-
     private MutableLiveData<Integer> mHeight;
     private MutableLiveData<Integer> mWeight;
     private MutableLiveData<String> mSex;
