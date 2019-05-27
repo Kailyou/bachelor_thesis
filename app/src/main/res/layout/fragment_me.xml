@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="hochschule.de.bachelorthesis.utility.Converter" />
+
         <variable
             name="vm"
             type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
@@ -43,7 +45,7 @@
                         android:id="@+id/fragment_me_age"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(safeUnbox(vm.age))}"
+                        android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -58,7 +60,7 @@
                         android:id="@+id/fragment_me_height"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(safeUnbox(vm.height))}"
+                        android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -73,7 +75,7 @@
                         android:id="@+id/fragment_me_weight"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(safeUnbox(vm.weight))}"
+                        android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -111,8 +113,8 @@
                         android:id="@+id/fragment_me_fitness_level"
                         android:gravity="end"
                         android:padding="3dip"
+                        android:text="@{vm.fitnessLevel}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
                 </TableRow>
 
                 <TableRow>
@@ -126,7 +128,7 @@
                         android:id="@+id/fragment_me_medication"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(vm.medication)}"
+                        android:text="@{Converter.convertBoolean(safeUnbox(vm.medication))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -141,7 +143,7 @@
                         android:id="@+id/fragment_me_allergies"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(vm.allergies)}"
+                        android:text="@{Converter.convertBoolean(safeUnbox(vm.allergies))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
 
@@ -156,7 +158,7 @@
                         android:id="@+id/fragment_me_smoking"
                         android:gravity="end"
                         android:padding="3dip"
-                        android:text="@{String.valueOf(vm.smoking)}"
+                        android:text="@{Converter.convertBoolean(safeUnbox(vm.smoking))}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </TableRow>
             </TableLayout>

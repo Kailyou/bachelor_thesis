@@ -2,6 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="hochschule.de.bachelorthesis.utility.Converter" />
+
         <variable
             name="vm"
             type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
@@ -38,7 +40,7 @@
                     android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(safeUnbox(vm.age))}"
+                    android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +57,7 @@
                     android:id="@+id/height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(safeUnbox(vm.height))}"
+                    android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +74,7 @@
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(safeUnbox(vm.weight))}"
+                    android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
