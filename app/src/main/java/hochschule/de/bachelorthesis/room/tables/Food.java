@@ -22,7 +22,6 @@ public class Food {
     @ColumnInfo(name = "is_favorite")
     private Boolean isFavorite;
 
-
     // Food data
     @ColumnInfo(name = "kilo_calories")
     private float kiloCalories;
@@ -48,7 +47,7 @@ public class Food {
     @ColumnInfo(name = "salt")
     private float salt;
 
-    // Measurements
+    // Measurement
     @ColumnInfo(name = "measurements_done")
     private int measurementsDone;
 
@@ -64,6 +63,7 @@ public class Food {
 
     @ColumnInfo(name = "personal_index")
     private int personalIndex;
+
 
     /**
      * Constructor
@@ -95,6 +95,7 @@ public class Food {
         isFavorite = false;
         rating = "unrated";
     }
+
 
     /* GETTER */
 

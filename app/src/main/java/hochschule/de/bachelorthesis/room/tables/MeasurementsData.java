@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
 // then the corresponding records in the child table will automatically be deleted
 @Entity(tableName = "measurement_data_table",
-        foreignKeys = @ForeignKey(entity = Measurements.class,
+        foreignKeys = @ForeignKey(entity = Measurement.class,
                 parentColumns = "id",
                 childColumns = "measurement_id",
                 onDelete = ForeignKey.CASCADE)
