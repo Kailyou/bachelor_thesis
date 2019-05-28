@@ -9,7 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 
-public class FoodAddViewModel extends AndroidViewModel {
+public class AddFoodViewModel extends AndroidViewModel {
+    private Repository repository;
+
     // Personal data
     private String foodName;
     private String brandName;
@@ -25,9 +27,7 @@ public class FoodAddViewModel extends AndroidViewModel {
     private float sugar;
     private float salt;
 
-    private Repository repository;
-
-    public FoodAddViewModel(@NonNull Application application) {
+    public AddFoodViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
     }

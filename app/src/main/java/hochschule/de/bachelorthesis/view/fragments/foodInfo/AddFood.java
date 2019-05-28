@@ -21,14 +21,14 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.fragments.FoodAddViewModel;
+import hochschule.de.bachelorthesis.view_model.fragments.AddFoodViewModel;
 
 public class AddFood extends Fragment {
     private static final String TAG = "AddFood";
 
     private FragmentFoodAddBinding mBinding;
 
-    private FoodAddViewModel mViewModel;
+    private AddFoodViewModel mViewModel;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class AddFood extends Fragment {
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(this).get(FoodAddViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
 
         // Modify action bar
         // Objects.requireNonNull(getActivity().getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
