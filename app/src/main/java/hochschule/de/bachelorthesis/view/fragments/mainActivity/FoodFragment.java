@@ -33,10 +33,9 @@ import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 public class FoodFragment extends Fragment {
 
-    private BetterFloatingActionButton fab;
-    private FragmentFoodBinding mBinding;
-    private RecyclerView mRecyclverView;
-    private AdapterFood adapter;
+    private static final String TAG = FoodFragment.class.getName();
+
+    private BetterFloatingActionButton mFab;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,21 +46,20 @@ public class FoodFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
-        mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        //mBinding.setViewModel(mViewModel);
+        FragmentFoodBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        fab = mBinding.buttonAddNote;
+        mFab = binding.buttonAddNote;
 
         // RecyclerView
-        mRecyclverView = mBinding.recyclerView;
-        mRecyclverView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclverView.setHasFixedSize(true);
+        RecyclerView recyclerView = binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
 
         // Adapter
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
         final AdapterFood adapter = new AdapterFood(getContext(), navController);
-        mRecyclverView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
         // View model
         FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
@@ -73,7 +71,7 @@ public class FoodFragment extends Fragment {
             }
         });
 
-        return mBinding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
@@ -81,7 +79,7 @@ public class FoodFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.e("YOLO", "outer nav: " + Navigation.findNavController(view));
-        fab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
+        mFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
     }
 
     @Override
