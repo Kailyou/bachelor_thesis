@@ -7,10 +7,12 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
+import hochschule.de.bachelorthesis.room.MeasurementDao;
 import hochschule.de.bachelorthesis.room.UserHistoryDao;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 
 /**
@@ -18,12 +20,14 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
  * but it is considered best practice.
  */
 public class Repository {
+    private MeasurementDao mMeasurementDao;
     private FoodDao mFoodDao;
     private UserHistoryDao mUserHistoryDao;
     private LiveData<List<Food>> mAllFood;
 
     public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
+        mMeasurementDao = database.measurementDao();
         mFoodDao = database.foodDao();
         mUserHistoryDao = database.userHistoryDao();
         mAllFood = mFoodDao.getAllFood();
@@ -31,6 +35,14 @@ public class Repository {
 
 
     // API methods that will be used by outside (View Model)
+
+    /**
+     * MEASUREMENT
+     */
+
+    public void insert(Measurement measurement) {
+        new InsertMeasurementAsyncTask(mMeasurementDao).execute(measurement);
+    }
 
     /**
      * FOOD
@@ -75,6 +87,22 @@ public class Repository {
     /**
      * Classes for async tasks
      */
+
+    /* MEASUREMENT */
+
+    private static class InsertMeasurementAsyncTask extends AsyncTask<Measurement, Void, Void> {
+        private MeasurementDao mMeasurementDao;
+
+        private InsertMeasurementAsyncTask(MeasurementDao mFoodDao) {
+            this.mMeasurementDao = mFoodDao;
+        }
+
+        @Override
+        protected Void doInBackground(Measurement... measurements) {
+            mMeasurementDao.insert(measurements[0]);
+            return null;
+        }
+    }
 
     /* FOOD */
 

@@ -72,7 +72,7 @@
     <string name="_15_min">15 min</string>
     <string name="_30_min">30 min</string>
 
-    <string-array name="activity_add_food_spinner_type">
+    <string-array name="type">
         <item>Grains</item>
         <item>Vegetables</item>
         <item>Fruit</item>
@@ -83,6 +83,19 @@
         <item>Drinks</item>
         <item>Snacks</item>
     </string-array>
+
+    <string-array name="stress">
+        <item>Very stressed</item>
+        <item>A bit stressed</item>
+        <item>Not stressed</item>
+    </string-array>
+
+    <string-array name="tired">
+        <item>Very tired</item>
+        <item>A bit tired</item>
+        <item>Not tired</item>
+    </string-array>
+
     <string-array name="fragment_me_spinner_sex">
         <item>Male</item>
         <item>Female</item>

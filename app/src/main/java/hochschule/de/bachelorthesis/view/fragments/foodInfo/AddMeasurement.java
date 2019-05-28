@@ -53,9 +53,14 @@ public class AddMeasurement extends Fragment {
 
         // Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
-                R.array.activity_add_food_spinner_type, android.R.layout.simple_spinner_item);
+                R.array.stress, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //mBinding.type.setAdapter(adapter);
+        mBinding.stress.setAdapter(adapter);
+
+        adapter = ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
+                R.array.tired, android.R.layout.simple_spinner_item);
+        mBinding.tired.setAdapter(adapter);
 
         return mBinding.getRoot();
     }
@@ -63,15 +68,16 @@ public class AddMeasurement extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.food_add_menu, menu);
+        inflater.inflate(R.menu.add_measurement_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.save_food) {
+        if (item.getItemId() == R.id.save) {
             if(inPutOkay()) {
                 save();
             }
+
             return true;
         }
 
@@ -82,6 +88,9 @@ public class AddMeasurement extends Fragment {
      * Save the food to the database.
      */
     private void save() {
+        int amount = Integer.parseInt(mBinding.amount.getText().toString());
+
+
         /*
         String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
         String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();

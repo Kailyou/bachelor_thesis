@@ -39,7 +39,7 @@
                 android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/food_name"
+                    android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date" />
@@ -55,7 +55,7 @@
                 android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/brand_name"
+                    android:id="@+id/time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -80,7 +80,7 @@
                 android:paddingBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/add_measurement_amount_consumed"
+                    android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -95,7 +95,7 @@
                 android:paddingBottom="16dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/add_measurement_stress"
+                    android:id="@+id/stress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
@@ -111,7 +111,7 @@
                 android:paddingEnd="32dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/add_measurement_tired_level"
+                    android:id="@+id/tired"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
