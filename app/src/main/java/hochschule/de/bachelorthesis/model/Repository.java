@@ -20,10 +20,13 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
  * but it is considered best practice.
  */
 public class Repository {
+
     private MeasurementDao mMeasurementDao;
     private FoodDao mFoodDao;
     private UserHistoryDao mUserHistoryDao;
+
     private LiveData<List<Food>> mAllFood;
+    private LiveData<List<Measurement>> mAllMeasurements;
 
     public Repository(Application application) {
         FoodDatabase database = FoodDatabase.getDatabase(application);
@@ -31,6 +34,7 @@ public class Repository {
         mFoodDao = database.foodDao();
         mUserHistoryDao = database.userHistoryDao();
         mAllFood = mFoodDao.getAllFood();
+        mAllMeasurements = mMeasurementDao.getAllMeasurements();
     }
 
 
@@ -42,6 +46,11 @@ public class Repository {
 
     public void insert(Measurement measurement) {
         new InsertMeasurementAsyncTask(mMeasurementDao).execute(measurement);
+    }
+
+    // already executed on a background thread because of live data
+    public LiveData<List<Measurement>> getAllMeasurements() {
+        return mAllMeasurements;
     }
 
     /**
