@@ -21,7 +21,7 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeEditBinding;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
+import hochschule.de.bachelorthesis.view_model.viewModels.MeViewModel;
 
 public class MeEditFragment extends Fragment {
     private MeViewModel mViewModel;

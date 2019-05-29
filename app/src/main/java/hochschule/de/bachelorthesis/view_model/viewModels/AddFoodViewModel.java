@@ -1,10 +1,9 @@
-package hochschule.de.bachelorthesis.view_model.fragments;
+package hochschule.de.bachelorthesis.view_model.viewModels;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;

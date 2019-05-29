@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.fragments.mainActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,16 +11,13 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.BaseObservable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
+import hochschule.de.bachelorthesis.view_model.viewModels.MeViewModel;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 
 public class MeFragment extends Fragment {

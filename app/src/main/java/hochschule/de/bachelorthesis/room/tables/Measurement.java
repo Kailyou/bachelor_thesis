@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.room.tables;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -73,11 +74,22 @@ public class Measurement {
     @ColumnInfo(name = "glucose_120")
     private int glucose120;
 
+    @ColumnInfo(name = "glucose_max")
+    private int glucoseMax;
 
+    @ColumnInfo(name = "glucose_average")
+    private int glucoseAvg;
+
+    @ColumnInfo(name = "rating")
+    private String rating;
+
+    @Ignore
     public Measurement(int foodId, int userHistoryId,
-                       String timeStamp, int amount, String stress, String tired,
+                       String timeStamp,
+                       int amount, String stress, String tired,
                        int glucoseStart, int glucose15, int glucose30, int glucose45, int glucose60,
-                       int glucose75, int glucose90, int glucose105, int glucose120) {
+                       int glucose75, int glucose90, int glucose105, int glucose120,
+                       int glucoseMax, int glucoseAvg, String rating) {
         this.foodId = foodId;
         this.userHistoryId = userHistoryId;
         this.timeStamp = timeStamp;
@@ -93,8 +105,22 @@ public class Measurement {
         this.glucose90 = glucose90;
         this.glucose105 = glucose105;
         this.glucose120 = glucose120;
+        this.glucoseMax = glucoseMax;
+        this.glucoseAvg = glucoseAvg;
+        this.rating = rating;
     }
 
+    public Measurement(int foodId, int userHistoryId,
+                       String timeStamp, int amount, String stress, String tired,
+                       int glucoseStart) {
+        this.foodId = foodId;
+        this.userHistoryId = userHistoryId;
+        this.timeStamp = timeStamp;
+        this.amount = amount;
+        this.stress = stress;
+        this.tired = tired;
+        this.glucoseStart = glucoseStart;
+    }
 
     /* GETTER */
 
@@ -158,6 +184,18 @@ public class Measurement {
         return glucose120;
     }
 
+    public int getGlucoseMax() {
+        return glucoseMax;
+    }
+
+    public int getGlucoseAvg() {
+        return glucoseAvg;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
     /* SETTER */
 
     public void setFoodId(int foodId) {
@@ -218,5 +256,17 @@ public class Measurement {
 
     public void setGlucose120(int glucose120) {
         this.glucose120 = glucose120;
+    }
+
+    public void setGlucoseMax(int glucoseMax) {
+        this.glucoseMax = glucoseMax;
+    }
+
+    public void setGlucoseAvg(int glucoseAvg) {
+        this.glucoseAvg = glucoseAvg;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }

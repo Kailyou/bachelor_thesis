@@ -21,7 +21,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.view_model.fragments.AddFoodViewModel;
+import hochschule.de.bachelorthesis.view_model.viewModels.AddFoodViewModel;
 
 public class AddFood extends Fragment {
     private static final String TAG = "AddFood";

@@ -28,7 +28,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
 import hochschule.de.bachelorthesis.utility.AdapterFood;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.view_model.fragments.FoodViewModel;
+import hochschule.de.bachelorthesis.view_model.viewModels.FoodViewModel;
 import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 public class FoodFragment extends Fragment {
@@ -49,6 +49,9 @@ public class FoodFragment extends Fragment {
         FragmentFoodBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
+        // View model
+        FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+
         mFab = binding.buttonAddNote;
 
         // RecyclerView
@@ -60,9 +63,6 @@ public class FoodFragment extends Fragment {
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
         final AdapterFood adapter = new AdapterFood(getContext(), navController);
         recyclerView.setAdapter(adapter);
-
-        // View model
-        FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
         foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
                     @Override
@@ -78,7 +78,6 @@ public class FoodFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.e("YOLO", "outer nav: " + Navigation.findNavController(view));
         mFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
     }
 

@@ -10,20 +10,15 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Objects;
-
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
-import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
-import hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel;
-import hochschule.de.bachelorthesis.view_model.fragments.MeViewModel;
+import hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel;
 
 public class FoodInfoFragment extends Fragment {
     private static final String TAG = FoodInfoFragment.class.getName();
@@ -92,7 +87,7 @@ public class FoodInfoFragment extends Fragment {
                     return overviewFragment;
 
                 case 1:
-                    FoodMeasurementsFragment measurementsFragment = new FoodMeasurementsFragment();
+                    MeasurementsFragment measurementsFragment = new MeasurementsFragment();
                     measurementsFragment.setArguments(bundle);
                     return measurementsFragment;
 
