@@ -3,12 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.fragments.foodInfo.FoodMeasurementsFragment">
+    tools:context=".view.fragments.foodInfo.MeasurementsFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="hochschule.de.bachelorthesis.view_model.fragments.FoodInfoViewModel" />
+            type="hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"/>
 
         <hochschule.de.bachelorthesis.widget.BetterFloatingActionButton
-            android:id="@+id/button_add_note"
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

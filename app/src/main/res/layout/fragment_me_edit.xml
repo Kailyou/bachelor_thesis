@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="hochschule.de.bachelorthesis.view_model.fragments.MeViewModel" />
+            type="hochschule.de.bachelorthesis.view_model.viewModels.MeViewModel" />
     </data>
 
     <ScrollView

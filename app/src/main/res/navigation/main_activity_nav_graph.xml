@@ -47,7 +47,11 @@
         android:id="@+id/addMeasurement"
         android:name="hochschule.de.bachelorthesis.view.fragments.foodInfo.AddMeasurement"
         android:label="Add Measurement"
-        tools:layout="@layout/fragment_add_measurement" />
+        tools:layout="@layout/fragment_add_measurement" >
+        <argument
+            android:name="food_id"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/graphsFragment"
