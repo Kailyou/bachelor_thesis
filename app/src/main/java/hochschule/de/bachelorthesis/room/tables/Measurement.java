@@ -35,6 +35,12 @@ public class Measurement {
     @ColumnInfo(name = "user_history_id")
     private int userHistoryId;
 
+    @ColumnInfo(name = "is_done")
+    private boolean isDone;
+
+    @ColumnInfo(name = "is_gi")
+    private boolean isGi;
+
     @ColumnInfo(name = "time_stamp")
     private String timeStamp;
 
@@ -86,6 +92,7 @@ public class Measurement {
     @Ignore
     public Measurement(int foodId, int userHistoryId,
                        String timeStamp,
+                       boolean isGi,
                        int amount, String stress, String tired,
                        int glucoseStart, int glucose15, int glucose30, int glucose45, int glucose60,
                        int glucose75, int glucose90, int glucose105, int glucose120,
@@ -93,6 +100,7 @@ public class Measurement {
         this.foodId = foodId;
         this.userHistoryId = userHistoryId;
         this.timeStamp = timeStamp;
+        this.isGi = isGi;
         this.amount = amount;
         this.stress = stress;
         this.tired = tired;
@@ -196,6 +204,14 @@ public class Measurement {
         return rating;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public boolean isGi() {
+        return isGi;
+    }
+
     /* SETTER */
 
     public void setFoodId(int foodId) {
@@ -268,5 +284,13 @@ public class Measurement {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    public void setGi(boolean gi) {
+        isGi = gi;
     }
 }
