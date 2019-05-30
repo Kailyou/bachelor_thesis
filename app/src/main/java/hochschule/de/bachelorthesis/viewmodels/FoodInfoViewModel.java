@@ -21,7 +21,6 @@ public class FoodInfoViewModel extends AndroidViewModel {
 
     // Database
     private Repository mRepository;
-    private LiveData<UserHistory> mLatestUserHistory;
     private LiveData<List<Measurement>> mAllMeasurements;
 
     /**
@@ -64,7 +63,6 @@ public class FoodInfoViewModel extends AndroidViewModel {
     private MutableLiveData<String> mTimestamp;
     private MutableLiveData<Integer> mAmount;
     private MutableLiveData<String> mTired;
-    private MutableLiveData<String> mSex;
 
     // Measurement values
     private MutableLiveData<Integer> mValue0;
@@ -82,10 +80,7 @@ public class FoodInfoViewModel extends AndroidViewModel {
         super(application);
 
         mRepository = new Repository(application);
-
-        mLatestUserHistory = mRepository.getUserHistoryLatest();
         mAllMeasurements = mRepository.getAllMeasurements();
-
 
         isFavorite = new MutableLiveData<>();
         mFoodName = new MutableLiveData<>();
@@ -111,7 +106,6 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mTimestamp = new MutableLiveData<>();
         mAmount = new MutableLiveData<>();
         mTired = new MutableLiveData<>();
-        mSex = new MutableLiveData<>();
         mValue0 = new MutableLiveData<>();
         mValue15 = new MutableLiveData<>();
         mValue30 = new MutableLiveData<>();
@@ -158,13 +152,6 @@ public class FoodInfoViewModel extends AndroidViewModel {
     /* MEASUREMENTS */
     public void insert(Measurement measurement) { mRepository.insert(measurement);}
 
-    public LiveData<UserHistory> getUserHistoryLatest() {
-        if(mLatestUserHistory == null) {
-            Log.d("yolo", "getUserHistoryId: is null alta");
-        }
-        return mLatestUserHistory;
-    }
-
     public LiveData<List<Measurement>> getmAllMeasurements() {
         return mAllMeasurements;
     }
@@ -181,10 +168,6 @@ public class FoodInfoViewModel extends AndroidViewModel {
 
 
     /* GETTER */
-
-    public LiveData<UserHistory> getLatestUserHistory() {
-        return mLatestUserHistory;
-    }
 
     public MutableLiveData<Boolean> getIsFavorite() {
         return isFavorite;
@@ -272,10 +255,6 @@ public class FoodInfoViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> getTired() {
         return mTired;
-    }
-
-    public MutableLiveData<String> getSex() {
-        return mSex;
     }
 
     public MutableLiveData<Integer> getValue0() {

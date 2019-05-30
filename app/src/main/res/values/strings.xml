@@ -66,11 +66,31 @@
     <string name="of_which_sugars">of which sugars</string>
     <string name="salt">Salt</string>
     <string name="advance_information">Advance information</string>
-    <string name="date">Date</string>
     <string name="amount_food_consumed">Amount food consumed</string>
     <string name="start_value">Start value</string>
     <string name="_15_min">15 min</string>
     <string name="_30_min">30 min</string>
+      <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="time_consumed">Time consumed</string>
+    <string name="add_sample_user">Add sample user (debug)</string>
+    <string name="delete_user_debug">Delete user (debug)</string>
+    <string name="add_sample_measurement_debug">Add sample measurement (debug)</string>
+    <string name="sort">sort</string>
+    <string name="delete_all_measurements">Delete all measurements</string>
+    <string name="chose_date">Chose Date</string>
+    <string name="chose_time">Chose Time</string>
+    <string name="amount_consumed">Amount consumed</string>
+    <string name="stress_level">Stress level</string>
+    <string name="tired_level">Tired level</string>
+    <string name="glucose_at_begin">glucose at begin</string>
+    <string name="glucose_after_15_min">glucose after 15 min</string>
+    <string name="glucose_after_30_min">glucose after 30 min</string>
+    <string name="glucose_after_45_min">glucose after 45 min</string>
+    <string name="glucose_after_60_min">glucose after 60 min</string>
+    <string name="glucose_after_75_min">glucose after 75 min</string>
+    <string name="glucose_after_90_min">glucose after 90 min</string>
+    <string name="glucose_after_105_min">glucose after 105 min</string>
+    <string name="glucose_after_120_min">glucose after 120 min</string>
 
     <string-array name="type">
         <item>Grains</item>
@@ -105,13 +125,4 @@
         <item>average</item>
         <item>good</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="time_consumed">Time consumed</string>
-    <string name="add_sample_user">Add sample user (debug)</string>
-    <string name="delete_user_debug">Delete user (debug)</string>
-    <string name="add_sample_measurement_debug">Add sample measurement (debug)</string>
-    <string name="sort">sort</string>
-    <string name="delete_all_measurements">Delete all measurements</string>
 </resources>

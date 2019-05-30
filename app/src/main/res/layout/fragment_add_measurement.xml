@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.AddMeasurementViewModel" />
     </data>
 
     <ScrollView
@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Time"
+                android:text="@string/time_consumed"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textColor="@color/colorPrimary" />
 
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Chose Date" />
+                    android:text="@string/chose_date" />
 
                 <TextView
                     android:id="@+id/date"
@@ -50,8 +50,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:paddingLeft="32dp"
-                    android:text="Date" />
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Chose Time" />
+                    android:text="@string/chose_time" />
 
                 <TextView
                     android:id="@+id/time"
@@ -76,8 +76,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:paddingLeft="32dp"
-                    android:text="Time" />
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp"/>
             </LinearLayout>
 
 
@@ -94,7 +94,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Amount consumed"
+                android:hint="@string/amount_consumed"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:hint="Stress level" />
+                    android:hint="@string/stress_level" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:hint="Tired level" />
+                    android:hint="@string/tired_level" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Measurement values-->
@@ -152,7 +152,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose at begin"
+                android:hint="@string/glucose_at_begin"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -168,7 +168,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 15 min"
+                android:hint="@string/glucose_after_15_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -184,7 +184,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 30 min"
+                android:hint="@string/glucose_after_30_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -200,7 +200,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 45 min"
+                android:hint="@string/glucose_after_45_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -216,7 +216,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 60 min"
+                android:hint="@string/glucose_after_60_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -232,7 +232,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 75 min"
+                android:hint="@string/glucose_after_75_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -248,7 +248,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 90 min"
+                android:hint="@string/glucose_after_90_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -264,7 +264,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 105 min"
+                android:hint="@string/glucose_after_105_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">
@@ -280,7 +280,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="glucose after 120 min"
+                android:hint="@string/glucose_after_120_min"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="16dp">

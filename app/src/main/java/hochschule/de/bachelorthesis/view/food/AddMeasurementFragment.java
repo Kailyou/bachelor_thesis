@@ -32,17 +32,16 @@ import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.AddMeasurementViewModel;
 
 public class AddMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "AddFoodFragment";
 
     private FragmentAddMeasurementBinding mBinding;
 
-    private FoodInfoViewModel mViewModel;
+    private AddMeasurementViewModel mViewModel;
 
     private int mFoodId;
-    private int mUserHistoryId;
 
     // Time
     private int mYear;
@@ -59,7 +58,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(AddMeasurementViewModel.class);
 
         // Get passed food id
         assert getArguments() != null;
@@ -129,7 +128,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
         int day = c.get(Calendar.DATE);
 
         DatePickerDialog datePickerDialog =
-                new DatePickerDialog(getContext(), this, year, month, day);
+                new DatePickerDialog(Objects.requireNonNull(getContext()), this, year, month, day);
         datePickerDialog.show();
     }
 
@@ -178,9 +177,6 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
                 mViewModel.insert(newMeasurement);
             }
         });
-
-        Log.d("yolo", "history id: " + mUserHistoryId);
-        Log.d("yolo", "food id: " + mFoodId);
     }
 
     /**
