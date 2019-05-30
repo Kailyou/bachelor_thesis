@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.mainActivity;
+package hochschule.de.bachelorthesis.view.me;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

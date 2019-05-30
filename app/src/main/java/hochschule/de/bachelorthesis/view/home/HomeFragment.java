@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.mainActivity;
+package hochschule.de.bachelorthesis.view.home;
 
 import android.os.Bundle;
 
@@ -14,17 +14,16 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 
-public class GraphsFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).setTitle("Plan");
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_graphs, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
 

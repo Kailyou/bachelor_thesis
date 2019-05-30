@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.foodInfo;
+package hochschule.de.bachelorthesis.view.food;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -34,8 +34,8 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
 
-public class AddMeasurement extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private static final String TAG = "AddFood";
+public class AddMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private static final String TAG = "AddFoodFragment";
 
     private FragmentAddMeasurementBinding mBinding;
 

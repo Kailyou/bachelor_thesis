@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view.fragments.mainActivity;
+package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
 
