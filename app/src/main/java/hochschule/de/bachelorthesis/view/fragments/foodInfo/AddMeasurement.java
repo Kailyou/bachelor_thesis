@@ -18,21 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.picker.MaterialStyledDatePickerDialog;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
@@ -40,7 +33,6 @@ import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.view_model.viewModels.AddMeasurementViewModel;
-import hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel;
 
 public class AddMeasurement extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "AddFood";
@@ -94,13 +86,13 @@ public class AddMeasurement extends Fragment implements DatePickerDialog.OnDateS
         mBinding.tired.setAdapter(adapter);
 
         // Date and time picker buttons
-        mBinding.date.setOnClickListener(new View.OnClickListener() {
+        mBinding.dateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 chooseDateDialog();
             }
         });
 
-        mBinding.time.setOnClickListener(new View.OnClickListener() {
+        mBinding.timeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 chooseTimeDialog();
             }
@@ -151,71 +143,44 @@ public class AddMeasurement extends Fragment implements DatePickerDialog.OnDateS
      * Save the food to the database.
      */
     private void save() {
-        mViewModel.getUserHistoryId().observe(this, new Observer<UserHistory>() {
+
+        mViewModel.getUserHistoryLatest().observe(this, new Observer<UserHistory>() {
             @Override
             public void onChanged(UserHistory userHistory) {
                 if(userHistory == null) {
                     MyToast.createToast(getContext(),"ist null alta");
                     return;
                 }
-                mUserHistoryId = userHistory.id;
+
+                // Build timestamp
+                Calendar calender = Calendar.getInstance();
+                calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+                Date date = calender.getTime();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+                String timeStamp = sdf.format(date);
+                Log.d("yolo", "Current Timestamp: " + timeStamp);
+
+                int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
+                String stress = mBinding.stress.getText().toString();
+                String tired = mBinding.tired.getText().toString();
+                int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
+
+                Measurement newMeasurement = new Measurement(
+                        mFoodId,
+                        userHistory.id,
+                        timeStamp,
+                        amount,
+                        stress, tired,
+                        glucose_0
+                );
+
+                mViewModel.insert(newMeasurement);
             }
         });
 
-        // Build timestamp
-        Calendar calender = Calendar.getInstance();
-        calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-        Date date = calender.getTime();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-        String timeStamp = sdf.format(date);
-        Log.d("yolo", "Current Timestamp: " + timeStamp);
-
-        int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
-        String stress = mBinding.stress.getText().toString();
-        String tired = mBinding.tired.getText().toString();
-        int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
-        /*
-        int glucose_15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
-        int glucose_30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
-        int glucose_45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
-        int glucose_60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
-        int glucose_75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
-        int glucose_90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
-        int glucose_105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
-        int glucose_120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
-
-        Measurement newMeasurement = new Measurement(
-                mFoodId,
-                mUserHistoryId,
-                timeStamp,
-                amount,
-                stress, tired,
-                glucose_0,
-                glucose_15,
-                glucose_30,
-                glucose_45,
-                glucose_60,
-                glucose_75,
-                glucose_90,
-                glucose_105,
-                glucose_120,
-                0,
-                0,
-                "unrated"
-                );
-                */
-
-        Measurement newMeasurement = new Measurement(
-                mFoodId,
-                mUserHistoryId,
-                timeStamp,
-                amount,
-                stress, tired,
-                glucose_0
-        );
-
-        mViewModel.insert(newMeasurement);
+        Log.d("yolo", "history id: " + mUserHistoryId);
+        Log.d("yolo", "food id: " + mFoodId);
     }
 
     /**
@@ -262,13 +227,54 @@ public class AddMeasurement extends Fragment implements DatePickerDialog.OnDateS
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-       mYear = year;
-       mMonth = month;
-       mDayOfMonth = dayOfMonth;
+        // Takes the existing time values and add leading zeros to strings smaller than 10.
+        // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
+        String monthFormatted = String.valueOf(month);
+        String dayFormatted = String.valueOf(dayOfMonth);
+
+        if(month < 10){
+            monthFormatted = "0" + month;
+        }
+
+        if(dayOfMonth < 10) {
+            dayFormatted = "0" + dayOfMonth;
+        }
+
+        final String date = "" + dayFormatted + "." + monthFormatted + "." + year;
+        mBinding.date.setText(date);
+
+        mYear = year;
+        mMonth = month;
+        mDayOfMonth = dayOfMonth;
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        // Takes the existing time values and add leading zeros to strings smaller than 10.
+        // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
+        String hoursFormatted = String.valueOf(hourOfDay);
+        String minutesFormatted = String.valueOf(minute);
+
+        if(hourOfDay < 10) {
+            hoursFormatted = "0" + hourOfDay;
+        }
+
+        if(minute < 10) {
+            minutesFormatted = "0" + minute;
+        }
+
+        // Adds either am or pm at the end of the result string
+        String am_pm ;
+
+        if(hourOfDay < 12) {
+            am_pm = "am";
+        } else {
+            am_pm = "pm";
+        }
+
+        final String time = "" + hoursFormatted + ":" + minutesFormatted + am_pm;
+        mBinding.time.setText(time);
+
         mHourOfDay = hourOfDay;
         mMinute = minute;
     }
