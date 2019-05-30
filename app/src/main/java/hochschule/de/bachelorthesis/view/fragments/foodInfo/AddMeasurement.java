@@ -148,7 +148,7 @@ public class AddMeasurement extends Fragment implements DatePickerDialog.OnDateS
             @Override
             public void onChanged(UserHistory userHistory) {
                 if(userHistory == null) {
-                    MyToast.createToast(getContext(),"ist null alta");
+                    MyToast.createToast(getContext(),"Please enter user data first!");
                     return;
                 }
 

@@ -10,7 +10,7 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.ObservableAndroidViewModel;
 
 public class MeViewModel extends ObservableAndroidViewModel {
-    private Repository repository;
+    private Repository mRepository;
 
     // Personal data
     private MutableLiveData<Integer> mAge;
@@ -27,7 +27,7 @@ public class MeViewModel extends ObservableAndroidViewModel {
 
     public MeViewModel(@NonNull Application application) {
         super(application);
-        repository = new Repository(application);
+        mRepository = new Repository(application);
         mAge = new MutableLiveData<>();
         mHeight = new MutableLiveData<>();
         mWeight = new MutableLiveData<>();
@@ -38,8 +38,18 @@ public class MeViewModel extends ObservableAndroidViewModel {
         mMedication = new MutableLiveData<>();
     }
 
+    /**
+     * Loads the last current user data.
+     *
+     * With the latest userHistory reference, the most recent user history data will be loaded
+     * and the viewModel will be updated with those data.
+     *
+     * This will affect the me view to update itself.
+     * @param lco
+     * - life cycle owner
+     */
     public void load(LifecycleOwner lco) {
-        repository.getUserHistoryLatest().observe(lco, new Observer<UserHistory>() {
+        mRepository.getUserHistoryLatest().observe(lco, new Observer<UserHistory>() {
             @Override
             public void onChanged(UserHistory userHistory) {
                 if (userHistory == null) {
@@ -58,6 +68,25 @@ public class MeViewModel extends ObservableAndroidViewModel {
         });
     }
 
+    /**
+     * Inserts a new user history to the database and update the viewModel.
+     * @param age
+     * - the new age of the user.
+     * @param height
+     * - the new height of the user.
+     * @param weight
+     * - the new weight of the user.
+     * @param sex
+     * - the new physical gender of the user.
+     * @param fitnessLevel
+     * - the new fitness level of the user.
+     * @param medication
+     * - the new medication status of the user.
+     * @param allergies
+     * - the new allergies status of the user.
+     * @param smoking
+     * - the new smoking status of the user.
+     */
     public void insert(Integer age,
                        Integer height,
                        Integer weight,
@@ -72,11 +101,39 @@ public class MeViewModel extends ObservableAndroidViewModel {
         mWeight.setValue(weight);
         mSex.setValue(sex);
         mFitnessLevel.setValue(fitnessLevel);
+        mMedication.setValue(medication);
         mAllergies.setValue(allergies);
         mSmoking.setValue(smoking);
 
         UserHistory userHistory = new UserHistory(age, height, weight, sex, fitnessLevel, medication, allergies, smoking);
-        repository.insert(userHistory);
+        mRepository.insert(userHistory);
+    }
+
+    /**
+     * DEBUG ONLY
+     *
+     * Add a template user to the database and update the viewModel with those data.
+     */
+    public void addTemplateUser() {
+        insert(29, 173, 88, "male", "low", false, false, false);
+    }
+
+    /**
+     * DEBUG ONLY
+     *
+     * Removes all existing user history objects from the database and updates the viewModel.
+     */
+    public void deleteAllUserHistoryIds() {
+        mRepository.deleteAllUserHistories();
+
+        mAge.setValue(0);
+        mHeight.setValue(0);
+        mWeight.setValue(0);
+        mSex.setValue("");
+        mFitnessLevel.setValue("");
+        mMedication.setValue(false);
+        mAllergies.setValue(false);
+        mSmoking.setValue(false);
     }
 
     /*

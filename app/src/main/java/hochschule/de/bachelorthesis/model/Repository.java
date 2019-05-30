@@ -88,10 +88,15 @@ public class Repository {
         new InsertUserHistoryAsyncTask(mUserHistoryDao).execute(userHistory);
     }
 
-    // public LiveData<UserHistory> getUserHistoryById(int id) { return mUserHistoryDao.getById(id); }
+    // Already background
     public LiveData<UserHistory> getUserHistoryLatest() {
         return mUserHistoryDao.getLatest();
     }
+
+    public void deleteAllUserHistories() {
+        new DelteAllUserHistoriesAsyncTask(mUserHistoryDao).execute();
+    }
+
 
     /**
      * Classes for async tasks
@@ -181,6 +186,23 @@ public class Repository {
         @Override
         protected Void doInBackground(Void... voids) {
             mFoodDao.deleteAllFood();
+            return null;
+        }
+    }
+
+    /* User History */
+
+    // debug only
+    private static class DelteAllUserHistoriesAsyncTask extends AsyncTask<Void, Void, Void> {
+        private UserHistoryDao mUserHistoryDao;
+
+        private DelteAllUserHistoriesAsyncTask(UserHistoryDao userHistoryDao) {
+            this.mUserHistoryDao = userHistoryDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mUserHistoryDao.deleteAllUserHistories();
             return null;
         }
     }

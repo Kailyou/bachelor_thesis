@@ -23,6 +23,10 @@ public interface UserHistoryDao {
     @Delete
     void delete(UserHistory us);
 
+    // debug only
+    @Query("DELETE FROM food_table")
+    void deleteAllUserHistories();
+
     @Query("SELECT * FROM user_history_table WHERE id=:id")
     LiveData<UserHistory> getById(int id);
 
