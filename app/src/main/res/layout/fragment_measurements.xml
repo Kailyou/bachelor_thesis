@@ -8,7 +8,7 @@
     <data>
         <variable
             name="viewModel"
-            type="hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

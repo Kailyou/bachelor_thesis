@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +27,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
 import hochschule.de.bachelorthesis.utility.AdapterFood;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.view_model.viewModels.FoodViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 public class FoodFragment extends Fragment {

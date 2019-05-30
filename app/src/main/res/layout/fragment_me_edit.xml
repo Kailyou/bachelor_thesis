@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="hochschule.de.bachelorthesis.view_model.viewModels.MeViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.MeViewModel" />
     </data>
 
     <ScrollView
@@ -125,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
-                android:checked="@{vm.medication}"
+                android:checked="@{safeUnbox(vm.medication)}"
                 android:text="@string/taking_medication" />
 
             <com.google.android.material.checkbox.MaterialCheckBox

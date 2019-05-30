@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
-import hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
 
 public class FoodDataFragment extends Fragment {
 

@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="hochschule.de.bachelorthesis.view_model.viewModels.MeViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.MeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

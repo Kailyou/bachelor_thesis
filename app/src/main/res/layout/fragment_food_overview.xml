@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel" />
     </data>
 
     <TableLayout
@@ -38,7 +38,7 @@
                 android:id="@+id/food_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.foodName}"
+                android:text="@{vm.FoodName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -53,7 +53,7 @@
                 android:id="@+id/brand_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.brandName}"
+                android:text="@{vm.BrandName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -83,7 +83,7 @@
                 android:id="@+id/kCal"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.kcal))}"
+                android:text="@{String.valueOf(safeUnbox(vm.kiloCalories))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 

@@ -2,6 +2,9 @@ package hochschule.de.bachelorthesis.view.fragments.foodInfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -24,14 +26,15 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementsBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.AdapterMeasurements;
-import hochschule.de.bachelorthesis.view_model.viewModels.MeasurementsViewModel;
-import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
+import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
 
 public class MeasurementsFragment extends Fragment {
 
     private static final String TAG = MeasurementsFragment.class.getName();
 
-    private BetterFloatingActionButton mFab;
+    private FoodInfoViewModel mViewModel;
+
+    private int mFoodId;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,9 +49,7 @@ public class MeasurementsFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
         // View model
-        MeasurementsViewModel viewModel = ViewModelProviders.of(this).get(MeasurementsViewModel.class);
-
-        mFab = binding.add;
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
 
         // RecyclerView
         RecyclerView recyclerView = binding.recyclerView;
@@ -63,7 +64,7 @@ public class MeasurementsFragment extends Fragment {
 
         // TODO
         // change to getAllMeasurementyById
-        viewModel.getAllMeasurements().observe(this, new Observer<List<Measurement>>() {
+        mViewModel.getmAllMeasurements().observe(this, new Observer<List<Measurement>>() {
             @Override
             public void onChanged(List<Measurement> measurements) {
                 adapter.setMeasurements(measurements);
@@ -72,13 +73,34 @@ public class MeasurementsFragment extends Fragment {
 
         // get passed food id
         assert getArguments() != null;
-        int foodId = getArguments().getInt("food_id");
+        mFoodId = getArguments().getInt("food_id");
 
         // fab
         Bundle bundle = new Bundle();
-        bundle.putInt("food_id", foodId);
+        bundle.putInt("food_id", mFoodId);
         binding.add.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement, bundle));
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.me_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_tmp_user:
+                mViewModel.addTemplateMeasurement();
+                return true;
+            case R.id.delete_user:
+                // TODO
+                mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

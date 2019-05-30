@@ -18,7 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
-import hochschule.de.bachelorthesis.view_model.viewModels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
 
 public class FoodInfoFragment extends Fragment {
     private static final String TAG = FoodInfoFragment.class.getName();

@@ -110,4 +110,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="time_consumed">Time consumed</string>
     <string name="add_sample_user">Add sample user (debug)</string>
+    <string name="delete_user_debug">Delete user (debug)</string>
+    <string name="add_sample_measurement_debug">Add sample measurement (debug)</string>
+    <string name="sort">sort</string>
+    <string name="delete_all_measurements">Delete all measurements</string>
 </resources>

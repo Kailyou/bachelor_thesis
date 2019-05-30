@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.view_model.viewModels.MeViewModel;
+import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 
 public class MeFragment extends Fragment {

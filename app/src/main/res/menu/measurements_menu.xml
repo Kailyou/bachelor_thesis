@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/sort"
+    android:icon="@drawable/ic_sort_white_24dp"
+    android:title="@string/sort"
+    app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/add_tmp_measurement"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="@string/add_sample_measurement_debug"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/delete_measurements"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="@string/delete_all_measurements"
+        app:showAsAction="never" />
+</menu>
