@@ -15,16 +15,16 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 @Dao
 public interface UserHistoryDao {
     @Insert
-    void insert(UserHistory us);
+    void insert(UserHistory uh);
 
     @Update
-    void update(UserHistory us);
+    void update(UserHistory uh);
 
     @Delete
-    void delete(UserHistory us);
+    void delete(UserHistory uh);
 
     // debug only
-    @Query("DELETE FROM food_table")
+    @Query("DELETE FROM user_history_table")
     void deleteAllUserHistories();
 
     @Query("SELECT * FROM user_history_table WHERE id=:id")
