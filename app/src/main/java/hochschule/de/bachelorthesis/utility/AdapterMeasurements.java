@@ -42,13 +42,18 @@ public class AdapterMeasurements extends RecyclerView.Adapter<AdapterMeasurement
     @Override
     public void onBindViewHolder(@NonNull MeasurementHolder holder, final int position) {
         final Measurement currentMeasurement = measurements.get(position);
-        holder.amount.setText(currentMeasurement.getAmount());
-        holder.date.setText(currentMeasurement.getTimeStamp());
-        holder.mp.setText(currentMeasurement.getGlucoseMax());
-        holder.avg.setText(currentMeasurement.getGlucoseAvg());
-        holder.rating.setText(currentMeasurement.getRating());
 
+        holder.amount.setText(String.valueOf(currentMeasurement.getAmount()));
 
+        String ts = currentMeasurement.getTimeStamp();
+        String date = String.copyValueOf(ts.toCharArray(), 0, 10);
+
+        holder.date.setText(date);
+        holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
+        holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAvg()));
+        holder.rating.setText(String.valueOf(currentMeasurement.getRating()));
+
+        /*
         // Click event for the card views, which will start a new activity (FoodInfoActivity)
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -60,6 +65,7 @@ public class AdapterMeasurements extends RecyclerView.Adapter<AdapterMeasurement
                 mNavController.navigate(R.id.action_foodFragment_to_foodInfoFragment, bundle);
             }
         });
+        */
     }
 
     /**
@@ -86,8 +92,8 @@ public class AdapterMeasurements extends RecyclerView.Adapter<AdapterMeasurement
             super(itemView);
             amount = itemView.findViewById(R.id.amount);
             date = itemView.findViewById(R.id.date);
-            mp = itemView.findViewById(R.id.mp);
-            avg = itemView.findViewById(R.id.avg);
+            mp = itemView.findViewById(R.id.max_glucose);
+            avg = itemView.findViewById(R.id.avg_glucose);
             rating = itemView.findViewById(R.id.rating);
         }
     }

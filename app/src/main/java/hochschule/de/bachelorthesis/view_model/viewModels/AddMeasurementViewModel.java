@@ -47,7 +47,7 @@ public class AddMeasurementViewModel extends AndroidViewModel {
 
     public void insert(Measurement measurement) { repository.insert(measurement);}
 
-    public LiveData<UserHistory> getUserHistoryId() {
+    public LiveData<UserHistory> getUserHistoryLatest() {
         if(mLatestUserHistory == null) {
             Log.d("yolo", "getUserHistoryId: is null alta");
         }

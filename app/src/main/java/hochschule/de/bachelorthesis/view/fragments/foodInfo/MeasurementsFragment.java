@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementsBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.AdapterMeasurements;
@@ -52,7 +52,8 @@ public class MeasurementsFragment extends Fragment {
 
         // RecyclerView
         RecyclerView recyclerView = binding.recyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         recyclerView.setHasFixedSize(true);
 
         // Adapter
@@ -60,6 +61,8 @@ public class MeasurementsFragment extends Fragment {
         final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController);
         recyclerView.setAdapter(adapter);
 
+        // TODO
+        // change to getAllMeasurementyById
         viewModel.getAllMeasurements().observe(this, new Observer<List<Measurement>>() {
             @Override
             public void onChanged(List<Measurement> measurements) {
@@ -67,12 +70,14 @@ public class MeasurementsFragment extends Fragment {
             }
         });
 
-        // fab
-        binding.add.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement));
-
         // get passed food id
         assert getArguments() != null;
-        //mFoodId = getArguments().getInt("food_id");
+        int foodId = getArguments().getInt("food_id");
+
+        // fab
+        Bundle bundle = new Bundle();
+        bundle.putInt("food_id", foodId);
+        binding.add.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement, bundle));
 
         return binding.getRoot();
     }
