@@ -38,7 +38,6 @@
                 android:id="@+id/food_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:layout_gravity="end"
                 android:text="@{vm.foodName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>

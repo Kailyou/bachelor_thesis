@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Objects;
-
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
@@ -35,10 +33,9 @@ public class FoodInfoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        assert getArguments() != null;
         mFoodId = getArguments().getInt("food_id");
 
-        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
         mViewModel.load(mFoodId, this);
       }
 
