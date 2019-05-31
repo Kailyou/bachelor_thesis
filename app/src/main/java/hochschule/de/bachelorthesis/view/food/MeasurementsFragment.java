@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +40,8 @@ public class MeasurementsFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -62,18 +65,21 @@ public class MeasurementsFragment extends Fragment {
         final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController);
         recyclerView.setAdapter(adapter);
 
+        // get passed food id
+        assert getArguments() != null;
+        mFoodId = getArguments().getInt("food_id");
+
         // TODO
         // change to getAllMeasurementyById
-        mViewModel.getmAllMeasurements().observe(this, new Observer<List<Measurement>>() {
+        mViewModel.getAllMeasurementsById(mFoodId).observe(this, new Observer<List<Measurement>>() {
             @Override
             public void onChanged(List<Measurement> measurements) {
+                Log.d(TAG, "onChanged: ist drin " + measurements.toString());
                 adapter.setMeasurements(measurements);
             }
         });
 
-        // get passed food id
-        assert getArguments() != null;
-        mFoodId = getArguments().getInt("food_id");
+        Log.d("yolo", "onCreateView: " + mFoodId);
 
         // fab
         Bundle bundle = new Bundle();
@@ -86,17 +92,16 @@ public class MeasurementsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.me_menu, menu);
+        inflater.inflate(R.menu.measurements_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_tmp_user:
-                mViewModel.addTemplateMeasurement();
+            case R.id.add_tmp_measurement:
+                mViewModel.addTemplateMeasurement(this, mFoodId);
                 return true;
-            case R.id.delete_user:
-                // TODO
+            case R.id.delete_measurements:
                 mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
                 return true;
         }

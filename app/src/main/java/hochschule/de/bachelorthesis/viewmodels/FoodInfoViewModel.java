@@ -10,18 +10,27 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.MyToast;
 
 public class FoodInfoViewModel extends AndroidViewModel {
 
     // Database
     private Repository mRepository;
     private LiveData<List<Measurement>> mAllMeasurements;
+    private LiveData<UserHistory> mUserHistoryLatest;
+    private LifecycleOwner mLco;
+
+
 
     /**
      * Food
@@ -81,6 +90,7 @@ public class FoodInfoViewModel extends AndroidViewModel {
 
         mRepository = new Repository(application);
         mAllMeasurements = mRepository.getAllMeasurements();
+        mUserHistoryLatest = mRepository.getUserHistoryLatest();
 
         isFavorite = new MutableLiveData<>();
         mFoodName = new MutableLiveData<>();
@@ -152,16 +162,41 @@ public class FoodInfoViewModel extends AndroidViewModel {
     /* MEASUREMENTS */
     public void insert(Measurement measurement) { mRepository.insert(measurement);}
 
-    public LiveData<List<Measurement>> getmAllMeasurements() {
-        return mAllMeasurements;
+    public LiveData<List<Measurement>> getAllMeasurementsById(int id) {
+        return mRepository.getAllMeasurementsById(id);
     }
 
-    public void addTemplateMeasurement() {
+    public LiveData<UserHistory> getUserHistoryLatest() { return mUserHistoryLatest; }
 
+    /**
+     * DEBUG ONLY
+     *
+     * inserts a test measurement to the table.
+     *
+     * @param lco
+     * - The lifecycle owner, needed for the observe function
+     */
+    public void addTemplateMeasurement(final LifecycleOwner lco, final int foodId) {
+        getUserHistoryLatest().observe(lco, new Observer<UserHistory>() {
+            @Override
+            public void onChanged(UserHistory userHistory) {
+                if(userHistory == null) {
+                    return;
+                }
+
+                // Build timestamp
+                Date date = new Date(); // current date and time
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+                String timeStamp = sdf.format(date);
+
+                insert(new Measurement(foodId, userHistory.id, timeStamp, 100, "not stressed", "not tired", 100 ));
+            }
+        });
     }
 
     public void deleteAllMeasurementFromFoodWithId(int foodId) {
-
+        mRepository.deleteAllMeasurementsWithId(foodId);
     }
 
 

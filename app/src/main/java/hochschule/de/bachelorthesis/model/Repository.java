@@ -53,6 +53,16 @@ public class Repository {
         return mAllMeasurements;
     }
 
+    // already executed on a background thread because of live data
+    public LiveData<List<Measurement>> getAllMeasurementsById(int id) {
+        return mMeasurementDao.getAllMeasurementsById(id);
+    }
+
+    public void deleteAllMeasurementsWithId(int id) {
+        new DeleteAllMeasurementsWithIdAsyncTask(mMeasurementDao).execute(id);
+    }
+
+
     /**
      * FOOD
      */
@@ -117,6 +127,22 @@ public class Repository {
             return null;
         }
     }
+
+    private static class DeleteAllMeasurementsWithIdAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private MeasurementDao mMeasurementDao;
+
+        private DeleteAllMeasurementsWithIdAsyncTask(MeasurementDao measurementDao) {
+            this.mMeasurementDao = measurementDao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            mMeasurementDao.deleteAllMeasurementsWithFoodId(integers[0]);
+            return null;
+        }
+    }
+
+
 
     /* FOOD */
 
