@@ -48,8 +48,8 @@ public class Food {
     private float salt;
 
     // Measurement
-    @ColumnInfo(name = "measurements_done")
-    private int measurementsDone;
+    @ColumnInfo(name = "amount_measurements")
+    private int amountMeasurements;
 
     @ColumnInfo(name = "max_glucose")
     private int maxGlucose;
@@ -147,8 +147,8 @@ public class Food {
         return salt;
     }
 
-    public int getMeasurementsDone() {
-        return measurementsDone;
+    public int getAmountMeasurements() {
+        return amountMeasurements;
     }
 
     public int getMaxGlucose() {
@@ -217,8 +217,8 @@ public class Food {
         this.salt = salt;
     }
 
-    public void setMeasurementsDone(int measurementsDone) {
-        this.measurementsDone = measurementsDone;
+    public void setAmountMeasurements(int amountMeasurements) {
+        this.amountMeasurements = amountMeasurements;
     }
 
     public void setMaxGlucose(int maxGlucose) {
