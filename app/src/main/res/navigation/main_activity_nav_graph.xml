@@ -41,6 +41,9 @@
         <argument
             android:name="food_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_foodInfoFragment_to_editMeasurementFragment"
+            app:destination="@id/editMeasurementFragment" />
     </fragment>
 
     <fragment
@@ -51,6 +54,9 @@
         <argument
             android:name="food_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_addMeasurement_to_foodInfoFragment"
+            app:destination="@id/foodInfoFragment" />
     </fragment>
 
     <fragment
@@ -75,6 +81,18 @@
         <action
             android:id="@+id/action_meEditFragment_to_meFragment"
             app:destination="@id/meFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editMeasurementFragment"
+        android:name="hochschule.de.bachelorthesis.view.food.EditMeasurementFragment"
+        android:label="fragment_edit_measurement"
+        tools:layout="@layout/fragment_edit_measurement" >
+        <argument
+            android:name="food_id"
+            app:argType="integer" />
+        <argument
+            android:name="measurement_id"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
