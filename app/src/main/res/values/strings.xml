@@ -51,7 +51,7 @@
     <string name="type">Type</string>
     <string name="kcal_100">kCal (100g)</string>
     <string name="measurements">Measurements</string>
-    <string name="measurements_done">Measurements done</string>
+    <string name="measurements_done">Measurements mIsDone</string>
     <string name="max_glucose">Max. Glucose</string>
     <string name="average_glucose">Average Glucose</string>
     <string name="analyses">Analyses</string>

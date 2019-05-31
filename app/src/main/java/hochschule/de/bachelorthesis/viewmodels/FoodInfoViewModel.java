@@ -140,7 +140,7 @@ public class FoodInfoViewModel extends AndroidViewModel {
                 mBrandName.setValue(food.getBrandName());
                 mType.setValue(food.getFoodType());
                 mKiloCalories.setValue(food.getKiloCalories());
-                mMeasurementsAmount.setValue(food.getMeasurementsDone());
+                mMeasurementsAmount.setValue(food.getAmountMeasurements());
                 mMaxGlucose.setValue(food.getMaxGlucose());
                 mAverageGlucose.setValue(food.getAverageGlucose());
                 mRating.setValue(food.getRating());
@@ -157,6 +157,10 @@ public class FoodInfoViewModel extends AndroidViewModel {
                 mSalt.setValue(food.getSalt());
             }
         });
+    }
+
+    public void loadEditMeasurement(int measurementId, int foodId) {
+
     }
 
     /* MEASUREMENTS */

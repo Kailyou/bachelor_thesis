@@ -62,15 +62,14 @@ public class MeasurementsFragment extends Fragment {
 
         // Adapter
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-        final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController);
+        final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController, mFoodId);
         recyclerView.setAdapter(adapter);
 
         // get passed food id
         assert getArguments() != null;
         mFoodId = getArguments().getInt("food_id");
 
-        // TODO
-        // change to getAllMeasurementyById
+        // loading the measurement entries
         mViewModel.getAllMeasurementsById(mFoodId).observe(this, new Observer<List<Measurement>>() {
             @Override
             public void onChanged(List<Measurement> measurements) {

@@ -20,7 +20,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,19 +29,22 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentEditMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.viewmodels.AddMeasurementViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
 
-public class AddMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EditMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "AddFoodFragment";
 
-    private FragmentAddMeasurementBinding mBinding;
+    private FragmentEditMeasurementBinding mBinding;
 
-    private AddMeasurementViewModel mViewModel;
+    private FoodInfoViewModel mViewModel;
 
     private int mFoodId;
+    private int mMeasurementId;
 
     // Time
     private int mYear;
@@ -59,18 +61,21 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(AddMeasurementViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
 
         // Get passed food id
         assert getArguments() != null;
         mFoodId = getArguments().getInt("food_id");
+        mMeasurementId = getArguments().getInt("measurement_id");
+
+        mViewModel.loadEditMeasurement(mFoodId, mMeasurementId);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_measurement, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_measurement, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
 
@@ -85,13 +90,14 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
                 R.array.tired, android.R.layout.simple_spinner_item);
         mBinding.tired.setAdapter(adapter);
 
-        // Date and time picker buttons
+        // Date picker button
         mBinding.dateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 chooseDateDialog();
             }
         });
 
+        // Time picker button
         mBinding.timeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 chooseTimeDialog();
@@ -107,21 +113,20 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
         inflater.inflate(R.menu.add_measurement_menu, menu);
     }
 
+    //TODO add delete function
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save) {
-            if(inPutOkay()) {
-                save();
-                // Navigate back to me fragment
-                Navigation.findNavController(getView()).navigate(R.id.action_addMeasurement_to_foodInfoFragment);
-            }
-
+            save();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Opens a dialog to chose the date.
+     */
     private void chooseDateDialog() {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -133,11 +138,98 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
         datePickerDialog.show();
     }
 
+    /**
+     * Opens a dialog to choose the time.
+     */
     private void chooseTimeDialog() {
         TimePickerDialog timePickerDialog =
                 new TimePickerDialog(getContext(),this, 0, 0, false);
         timePickerDialog.show();
     }
+
+
+    /**
+     * Save the food to the database.
+     */
+    private void save() {
+
+        mViewModel.getUserHistoryLatest().observe(this, new Observer<UserHistory>() {
+            @Override
+            public void onChanged(UserHistory userHistory) {
+                if(userHistory == null) {
+                    MyToast.createToast(getContext(),"Please enter user data first!");
+                    return;
+                }
+
+                // Build timestamp
+                Calendar calender = Calendar.getInstance();
+                calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+                Date date = calender.getTime();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+                String timeStamp = sdf.format(date);
+                Log.d("yolo", "Current Timestamp: " + timeStamp);
+
+                int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
+                String stress = mBinding.stress.getText().toString();
+                String tired = mBinding.tired.getText().toString();
+                int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
+
+                Measurement newMeasurement = new Measurement(
+                        mFoodId,
+                        userHistory.id,
+                        timeStamp,
+                        amount,
+                        stress, tired,
+                        glucose_0
+                );
+
+                mViewModel.insert(newMeasurement);
+            }
+        });
+    }
+
+    /**
+     * Checks if the user input has been valid.
+     * @return
+     * returns true if the input was okay.
+     * returns false otherwise.
+     */
+    private boolean inPutOkay() {
+        // checks the text fields
+        if(mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
+            toast("Please enter the food's name.");
+            return false;
+        }
+
+        if(mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
+            toast("Please enter the food's brand name.");
+            return false;
+        }
+
+        if(mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
+            toast("Please enter the food's type.");
+            return false;
+        }
+
+        // checks the drop down menus
+        if(mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
+            toast("Please enter the kilo calories.");
+            return false;
+        }
+
+        if(mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
+            toast("Please enter the kilo joules.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void toast(String msg) {
+        MyToast.createToast(getContext(), msg);
+    }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -191,93 +283,5 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
 
         mHourOfDay = hourOfDay;
         mMinute = minute;
-    }
-
-    /**
-     * Checks if the user input has been valid.
-     *
-     * The input is okay if valid data has been entered
-     * @return
-     * returns true if the input was okay.
-     * returns false otherwise.
-     */
-    private boolean inPutOkay() {
-        // checks the text fields
-        if(mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
-            toast("Please select the date.");
-            return false;
-        }
-
-        if(mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
-            toast("Please select a time.");
-            return false;
-        }
-
-        if(mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
-            toast("Please enter the amount consumed.");
-            return false;
-        }
-
-        // checks the drop down menus
-        if(mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
-            toast("Please select the stress level.");
-            return false;
-        }
-
-        if(mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
-            toast("Please select the tired level.");
-            return false;
-        }
-
-        if(mBinding.mv0.getText() == null || mBinding.mv0.getText().toString().equals("")) {
-            toast("Please select a start glucose value.");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Save the food to the database.
-     */
-    private void save() {
-        mViewModel.getUserHistoryLatest().observe(this, new Observer<UserHistory>() {
-            @Override
-            public void onChanged(UserHistory userHistory) {
-                if(userHistory == null) {
-                    MyToast.createToast(getContext(),"Please enter user data first!");
-                    return;
-                }
-
-                // Build timestamp
-                Calendar calender = Calendar.getInstance();
-                calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-                Date date = calender.getTime();
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-                String timeStamp = sdf.format(date);
-                Log.d("yolo", "Current Timestamp: " + timeStamp);
-
-                int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
-                String stress = mBinding.stress.getText().toString();
-                String tired = mBinding.tired.getText().toString();
-                int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
-
-                Measurement newMeasurement = new Measurement(
-                        mFoodId,
-                        userHistory.id,
-                        timeStamp,
-                        amount,
-                        stress, tired,
-                        glucose_0
-                );
-
-                mViewModel.insert(newMeasurement);
-            }
-        });
-    }
-
-    private void toast(String msg) {
-        MyToast.createToast(getContext(), msg);
     }
 }

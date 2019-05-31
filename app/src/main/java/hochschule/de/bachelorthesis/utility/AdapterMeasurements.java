@@ -25,9 +25,12 @@ public class AdapterMeasurements extends RecyclerView.Adapter<AdapterMeasurement
 
     private List<Measurement> measurements = new ArrayList<>();
 
-    public AdapterMeasurements(Context context, NavController navController) {
+    private int mFoodId;
+
+    public AdapterMeasurements(Context context, NavController navController, int foodId) {
         mContext = context;
         mNavController = navController;
+        mFoodId = foodId;
     }
 
     @NonNull
@@ -53,7 +56,6 @@ public class AdapterMeasurements extends RecyclerView.Adapter<AdapterMeasurement
         holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAvg()));
         holder.rating.setText(String.valueOf(currentMeasurement.getRating()));
 
-        /*
         // Click event for the card views, which will start a new activity (FoodInfoActivity)
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -61,11 +63,11 @@ public class AdapterMeasurements extends RecyclerView.Adapter<AdapterMeasurement
             public void onClick(View v) {
                 // Navigate to food info fragment and pass the food's id
                 Bundle bundle = new Bundle();
-                bundle.putInt("food_id", currentMeasurement.id);
-                mNavController.navigate(R.id.action_foodFragment_to_foodInfoFragment, bundle);
+                bundle.putInt("food_id", mFoodId);
+                bundle.putInt("measurement_id", currentMeasurement.id);
+                mNavController.navigate(R.id.action_foodInfoFragment_to_editMeasurementFragment, bundle);
             }
         });
-        */
     }
 
     /**

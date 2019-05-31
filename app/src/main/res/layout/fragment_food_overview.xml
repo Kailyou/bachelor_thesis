@@ -38,7 +38,8 @@
                 android:id="@+id/food_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.FoodName}"
+                android:layout_gravity="end"
+                android:text="@{vm.foodName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -53,7 +54,7 @@
                 android:id="@+id/brand_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.BrandName}"
+                android:text="@{vm.brandName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 

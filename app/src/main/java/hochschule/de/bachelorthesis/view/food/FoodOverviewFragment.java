@@ -1,6 +1,8 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,8 @@ public class FoodOverviewFragment extends Fragment {
         // get passed food id
         assert getArguments() != null;
         int foodId = getArguments().getInt("food_id");
+
+        Log.d("yolo", "food name " + mBinding.foodName.getText().toString());
 
         return mBinding.getRoot();
     }
