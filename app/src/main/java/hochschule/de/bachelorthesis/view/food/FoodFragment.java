@@ -32,67 +32,71 @@ import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 public class FoodFragment extends Fragment {
 
-    private static final String TAG = FoodFragment.class.getName();
+  private static final String TAG = FoodFragment.class.getName();
 
-    private BetterFloatingActionButton mFab;
+  private BetterFloatingActionButton mFab;
 
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        // Enable menu
-        setHasOptionsMenu(true);
+    // Enable menu
+    setHasOptionsMenu(true);
+  }
+
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    // Init data binding
+    FragmentFoodBinding binding = DataBindingUtil
+        .inflate(inflater, R.layout.fragment_food, container, false);
+    binding.setLifecycleOwner(getViewLifecycleOwner());
+
+    // View model
+    FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+
+    mFab = binding.buttonAddNote;
+
+    // RecyclerView
+    RecyclerView recyclerView = binding.recyclerView;
+    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    recyclerView.setHasFixedSize(true);
+
+    // Adapter
+    NavController navController = Navigation
+        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
+    final AdapterFood adapter = new AdapterFood(getContext(), navController);
+    recyclerView.setAdapter(adapter);
+
+    foodViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
+      @Override
+      public void onChanged(List<Food> foods) {
+        adapter.setFoods(foods);
+      }
+    });
+
+    return binding.getRoot();
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    mFab.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
+  }
+
+  @Override
+  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.food_menu, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    if (item.getItemId() == R.id.sort) {
+      return true;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Init data binding
-        FragmentFoodBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-
-        // View model
-        FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
-
-        mFab = binding.buttonAddNote;
-
-        // RecyclerView
-        RecyclerView recyclerView = binding.recyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-
-        // Adapter
-        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-        final AdapterFood adapter = new AdapterFood(getContext(), navController);
-        recyclerView.setAdapter(adapter);
-
-        foodViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
-                    @Override
-                    public void onChanged(List<Food> foods) {
-                        adapter.setFoods(foods);
-            }
-        });
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.food_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.sort) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+    return super.onOptionsItemSelected(item);
+  }
 }
 

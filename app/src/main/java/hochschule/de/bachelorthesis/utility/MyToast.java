@@ -15,8 +15,9 @@ import hochschule.de.bachelorthesis.R;
 
 public class MyToast {
 
-    public static void createToast(Context context, String text) {
-        Snackbar.make(((Activity)context).getWindow().getDecorView().getRootView(), text, Snackbar.LENGTH_LONG)
-              .show();
-    }
+  public static void createToast(Context context, String text) {
+    Snackbar.make(((Activity) context).getWindow().getDecorView().getRootView(), text,
+        Snackbar.LENGTH_LONG)
+        .show();
+  }
 }

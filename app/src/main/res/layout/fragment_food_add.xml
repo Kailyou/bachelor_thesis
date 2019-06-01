@@ -1,218 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.food.AddFoodFragment">
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".view.food.AddFoodFragment">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel" />
-    </data>
+  <data>
+    <variable
+      name="viewModel"
+      type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
+  </data>
 
-    <ScrollView
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <!-- About the food -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/about_the_food"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:hint="@string/food_name"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/food_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="text"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- About the food -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/about_the_food"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/colorPrimary" />
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/brand_name"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:hint="@string/food_name"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/brand_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="text"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/food_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/brand_name"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <AutoCompleteTextView
+          android:id="@+id/type"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/type"
+          android:focusable="false"
+          android:cursorVisible="false"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/brand_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <!-- Nutritional information-->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/nutritional_information"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp">
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/energy_kcal"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/type"
-                    android:focusable="false"
-                    android:cursorVisible="false"/>
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/energy_kcal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Nutritional information-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/nutritional_information"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/colorPrimary" />
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/energy_kj"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/energy_kcal"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/energy_kj"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/energy_kcal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/fat"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/energy_kj"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/fat"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/energy_kj"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/of_which_saturates"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/fat"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/saturates"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/protein"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/of_which_saturates"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/protein"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/saturates"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/carbohydrate"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/protein"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/carbohydrate"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/protein"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/of_which_sugars"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/carbohydrates"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/sugars"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/carbohydrates"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/salt"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/of_which_sugars"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/salt"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/salt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-    </ScrollView>
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/salt"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"/>
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+  </ScrollView>
 </layout>

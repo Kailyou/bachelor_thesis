@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+
+  </data>
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:id="@+id/scroll"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Time information -->
+        <TextView
+          android:id="@+id/time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:text="@string/time_information"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/date"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="01/06/2019"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/time_started"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="02:00 pm"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/time_ended"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="04:00 pm"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <!-- Advance information -->
+        <TextView
+          android:id="@+id/textView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:text="@string/advance_information"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Amount consumed"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="200g"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/stress_level"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="not stressed"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tired_level"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="A bit tired"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Amount consumed"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="200g"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <!-- Measurement -->
+        <TextView
+          android:id="@+id/glucose_values"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="32dp"
+          android:text="Glucose Values"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Start Value"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="102"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:text="Glucose after..."
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="... 15 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="102"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...30 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="110"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...45 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="115"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...60 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="110"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...75 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="110"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...90 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="110"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...105 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="110"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="...120 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="110"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+      </LinearLayout>
+    </ScrollView>
+
+    <hochschule.de.bachelorthesis.widget.BetterFloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/fab_margin"
+      app:srcCompat="@drawable/ic_edit_white"/>
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

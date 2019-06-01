@@ -1,119 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.home.HomeFragment">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".view.home.HomeFragment">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="665dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_activity_bottom_nav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+  <ScrollView
+    android:id="@+id/scrollView2"
+    android:layout_width="0dp"
+    android:layout_height="665dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintBottom_toTopOf="@+id/main_activity_bottom_nav"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Currently Measuring"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+      <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Currently Measuring"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+      <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-                <TableRow>
+        <TableRow>
 
-                    <TextView
-                        android:padding="3dip"
-                        android:text="Product Name"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+          <TextView
+            android:padding="3dip"
+            android:text="Product Name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:gravity="start"
-                        android:padding="3dip"
-                        android:text="Lorem"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-                </TableRow>
+          <TextView
+            android:gravity="start"
+            android:padding="3dip"
+            android:text="Lorem"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+        </TableRow>
 
-                <TableRow>
+        <TableRow>
 
-                    <TextView
-                        android:padding="3dip"
-                        android:text="Start time"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+          <TextView
+            android:padding="3dip"
+            android:text="Start time"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:gravity="start"
-                        android:padding="3dip"
-                        android:text="02:00pm"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-                </TableRow>
+          <TextView
+            android:gravity="start"
+            android:padding="3dip"
+            android:text="02:00pm"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+        </TableRow>
 
-                <TableRow>
+        <TableRow>
 
-                    <TextView
-                        android:padding="3dip"
-                        android:text="End time"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+          <TextView
+            android:padding="3dip"
+            android:text="End time"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:gravity="start"
-                        android:padding="3dip"
-                        android:text="04:00pm"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-                </TableRow>
+          <TextView
+            android:gravity="start"
+            android:padding="3dip"
+            android:text="04:00pm"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+        </TableRow>
 
-                <TableRow>
+        <TableRow>
 
-                    <TextView
-                        android:padding="3dip"
-                        android:text="Measurment intervall"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+          <TextView
+            android:padding="3dip"
+            android:text="Measurment intervall"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:gravity="start"
-                        android:padding="3dip"
-                        android:text="15 minutes"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-                </TableRow>
+          <TextView
+            android:gravity="start"
+            android:padding="3dip"
+            android:text="15 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+        </TableRow>
 
-                <TableRow>
+        <TableRow>
 
-                    <TextView
-                        android:padding="3dip"
-                        android:paddingEnd="20dp"
-                        android:text="Next measurement in"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+          <TextView
+            android:padding="3dip"
+            android:paddingEnd="20dp"
+            android:text="Next measurement in"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:gravity="start"
-                        android:padding="3dip"
-                        android:text="4 minutes"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-                </TableRow>
-            </TableLayout>
+          <TextView
+            android:gravity="start"
+            android:padding="3dip"
+            android:text="4 minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+        </TableRow>
+      </TableLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="enter value" />
+      <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="enter value"/>
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+  </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

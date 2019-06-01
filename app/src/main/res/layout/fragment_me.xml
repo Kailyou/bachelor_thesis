@@ -1,175 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <import type="hochschule.de.bachelorthesis.utility.Converter" />
+  <data>
+    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
 
-        <variable
-            name="vm"
-            type="hochschule.de.bachelorthesis.viewmodels.MeViewModel" />
-    </data>
+    <variable
+      name="vm"
+      type="hochschule.de.bachelorthesis.viewmodels.MeViewModel"/>
+  </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:stretchColumns="1"
+        tools:context=".view.MainActivity">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingTop="16dp"
+          android:text="@string/personal_data"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:stretchColumns="1"
-                tools:context=".view.MainActivity">
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/age"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:text="@string/personal_data"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textColor="@color/colorPrimary" />
+          <TextView
+            android:id="@+id/fragment_me_age"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/age"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/height"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_age"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+          <TextView
+            android:id="@+id/fragment_me_height"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/height"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/weight"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_height"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+          <TextView
+            android:id="@+id/fragment_me_weight"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/weight"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/sex"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_weight"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+          <TextView
+            android:id="@+id/fragment_me_gender"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{vm.sex}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/sex"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingTop="20dp"
+          android:text="@string/lifestyle"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_gender"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{vm.sex}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/fitness_level"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
-                    android:text="@string/lifestyle"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textColor="@color/colorPrimary" />
+          <TextView
+            android:id="@+id/fragment_me_fitness_level"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{vm.fitnessLevel}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/fitness_level"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/taking_medication"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_fitness_level"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{vm.fitnessLevel}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+          <TextView
+            android:id="@+id/fragment_me_medication"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{Converter.convertBoolean(safeUnbox(vm.medication))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/taking_medication"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/allergies_available"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_medication"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{Converter.convertBoolean(safeUnbox(vm.medication))}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+          <TextView
+            android:id="@+id/fragment_me_allergies"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{Converter.convertBoolean(safeUnbox(vm.allergies))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/allergies_available"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        <TableRow>
+          <TextView
+            android:layout_column="1"
+            android:padding="3dip"
+            android:text="@string/smoking"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-                    <TextView
-                        android:id="@+id/fragment_me_allergies"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{Converter.convertBoolean(safeUnbox(vm.allergies))}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
+          <TextView
+            android:id="@+id/fragment_me_smoking"
+            android:gravity="end"
+            android:padding="3dip"
+            android:text="@{Converter.convertBoolean(safeUnbox(vm.smoking))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </TableRow>
+      </TableLayout>
+    </ScrollView>
 
-                <TableRow>
-                    <TextView
-                        android:layout_column="1"
-                        android:padding="3dip"
-                        android:text="@string/smoking"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                    <TextView
-                        android:id="@+id/fragment_me_smoking"
-                        android:gravity="end"
-                        android:padding="3dip"
-                        android:text="@{Converter.convertBoolean(safeUnbox(vm.smoking))}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </TableRow>
-            </TableLayout>
-        </ScrollView>
-
-        <hochschule.de.bachelorthesis.widget.BetterFloatingActionButton
-            android:id="@+id/button_edit_me"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_edit_white" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <hochschule.de.bachelorthesis.widget.BetterFloatingActionButton
+      android:id="@+id/button_edit_me"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/fab_margin"
+      app:srcCompat="@drawable/ic_edit_white"/>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -6,234 +6,235 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "food_table")
 public class Food {
-    // General
-    @PrimaryKey(autoGenerate = true)
-    public int id;
 
-    @ColumnInfo(name = "food_name")
-    private String foodName;
+  // General
+  @PrimaryKey(autoGenerate = true)
+  public int id;
 
-    @ColumnInfo(name = "brand_name")
-    private String brandName;
+  @ColumnInfo(name = "food_name")
+  private String foodName;
 
-    @ColumnInfo(name = "food_type")
-    private String foodType;
+  @ColumnInfo(name = "brand_name")
+  private String brandName;
 
-    @ColumnInfo(name = "is_favorite")
-    private Boolean isFavorite;
+  @ColumnInfo(name = "food_type")
+  private String foodType;
 
-    // Food data
-    @ColumnInfo(name = "kilo_calories")
-    private float kiloCalories;
+  @ColumnInfo(name = "is_favorite")
+  private Boolean isFavorite;
 
-    @ColumnInfo(name = "kilo_joule")
-    private float kiloJoules;
+  // Food data
+  @ColumnInfo(name = "kilo_calories")
+  private float kiloCalories;
 
-    @ColumnInfo(name = "fat")
-    private float fat;
+  @ColumnInfo(name = "kilo_joules")
+  private float kiloJoules;
 
-    @ColumnInfo(name = "saturates")
-    private float saturates;
+  @ColumnInfo(name = "fat")
+  private float fat;
 
-    @ColumnInfo(name = "protein")
-    private float protein;
+  @ColumnInfo(name = "saturates")
+  private float saturates;
 
-    @ColumnInfo(name = "carbohydrates")
-    private float carbohydrates;
+  @ColumnInfo(name = "protein")
+  private float protein;
 
-    @ColumnInfo(name = "sugar")
-    private float sugar;
+  @ColumnInfo(name = "carbohydrate")
+  private float carbohydrate;
 
-    @ColumnInfo(name = "salt")
-    private float salt;
+  @ColumnInfo(name = "sugars")
+  private float sugars;
 
-    // Measurement
-    @ColumnInfo(name = "amount_measurements")
-    private int amountMeasurements;
+  @ColumnInfo(name = "salt")
+  private float salt;
 
-    @ColumnInfo(name = "max_glucose")
-    private int maxGlucose;
+  // Measurement
+  @ColumnInfo(name = "amount_measurements")
+  private int amountMeasurements;
 
-    @ColumnInfo(name = "average_glucose")
-    private int averageGlucose;
+  @ColumnInfo(name = "max_glucose")
+  private int maxGlucose;
 
-    // Analyses
-    @ColumnInfo(name = "rating")
-    private String rating;
+  @ColumnInfo(name = "average_glucose")
+  private int averageGlucose;
 
-    @ColumnInfo(name = "personal_index")
-    private int personalIndex;
+  // Analyses
+  @ColumnInfo(name = "rating")
+  private String rating;
 
-
-    /**
-     * Constructor
-     */
-    public Food(String foodName,
-                String brandName,
-                String foodType,
-                float kiloCalories,
-                float kiloJoules,
-                float fat,
-                float saturates,
-                float protein,
-                float carbohydrates,
-                float sugar,
-                float salt) {
-
-        this.foodName = foodName;
-        this.brandName = brandName;
-        this.foodType = foodType;
-        this.kiloCalories = kiloCalories;
-        this.kiloJoules = kiloJoules;
-        this.fat = fat;
-        this.saturates = saturates;
-        this.protein = protein;
-        this.carbohydrates = carbohydrates;
-        this.sugar = sugar;
-        this.salt = salt;
-
-        isFavorite = false;
-        rating = "unrated";
-    }
+  @ColumnInfo(name = "personal_index")
+  private int personalIndex;
 
 
-    /* GETTER */
+  /**
+   * Constructor
+   */
+  public Food(String foodName,
+      String brandName,
+      String foodType,
+      float kiloCalories,
+      float kiloJoules,
+      float fat,
+      float saturates,
+      float protein,
+      float carbohydrate,
+      float sugars,
+      float salt) {
 
-    public String getFoodName() {
-        return foodName;
-    }
+    this.foodName = foodName;
+    this.brandName = brandName;
+    this.foodType = foodType;
+    this.kiloCalories = kiloCalories;
+    this.kiloJoules = kiloJoules;
+    this.fat = fat;
+    this.saturates = saturates;
+    this.protein = protein;
+    this.carbohydrate = carbohydrate;
+    this.sugars = sugars;
+    this.salt = salt;
 
-    public String getBrandName() {
-        return brandName;
-    }
+    isFavorite = false;
+    rating = "unrated";
+  }
 
-    public String getFoodType() {
-        return foodType;
-    }
 
-    public Boolean getFavorite() {
-        return isFavorite;
-    }
+  /* GETTER */
 
-    public float getKiloCalories() {
-        return kiloCalories;
-    }
+  public String getFoodName() {
+    return foodName;
+  }
 
-    public float getKiloJoules() {
-        return kiloJoules;
-    }
+  public String getBrandName() {
+    return brandName;
+  }
 
-    public float getFat() {
-        return fat;
-    }
+  public String getFoodType() {
+    return foodType;
+  }
 
-    public float getSaturates() {
-        return saturates;
-    }
+  public Boolean getFavorite() {
+    return isFavorite;
+  }
 
-    public float getProtein() {
-        return protein;
-    }
+  public float getKiloCalories() {
+    return kiloCalories;
+  }
 
-    public float getCarbohydrates() {
-        return carbohydrates;
-    }
+  public float getKiloJoules() {
+    return kiloJoules;
+  }
 
-    public float getSugar() {
-        return sugar;
-    }
+  public float getFat() {
+    return fat;
+  }
 
-    public float getSalt() {
-        return salt;
-    }
+  public float getSaturates() {
+    return saturates;
+  }
 
-    public int getAmountMeasurements() {
-        return amountMeasurements;
-    }
+  public float getProtein() {
+    return protein;
+  }
 
-    public int getMaxGlucose() {
-        return maxGlucose;
-    }
+  public float getCarbohydrate() {
+    return carbohydrate;
+  }
 
-    public int getAverageGlucose() {
-        return averageGlucose;
-    }
+  public float getSugars() {
+    return sugars;
+  }
 
-    public String getRating() {
-        return rating;
-    }
+  public float getSalt() {
+    return salt;
+  }
 
-    public int getPersonalIndex() {
-        return personalIndex;
-    }
+  public int getAmountMeasurements() {
+    return amountMeasurements;
+  }
 
-    /* SETTER */
+  public int getMaxGlucose() {
+    return maxGlucose;
+  }
 
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
+  public int getAverageGlucose() {
+    return averageGlucose;
+  }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
+  public String getRating() {
+    return rating;
+  }
 
-    public void setFoodType(String foodType) {
-        this.foodType = foodType;
-    }
+  public int getPersonalIndex() {
+    return personalIndex;
+  }
 
-    public void setFavorite(Boolean favorite) {
-        isFavorite = favorite;
-    }
+  /* SETTER */
 
-    public void setKiloCalories(float kiloCalories) {
-        this.kiloCalories = kiloCalories;
-    }
+  public void setFoodName(String foodName) {
+    this.foodName = foodName;
+  }
 
-    public void setKiloJoules(float kiloJoules) {
-        this.kiloJoules = kiloJoules;
-    }
+  public void setBrandName(String brandName) {
+    this.brandName = brandName;
+  }
 
-    public void setFat(float fat) {
-        this.fat = fat;
-    }
+  public void setFoodType(String foodType) {
+    this.foodType = foodType;
+  }
 
-    public void setSaturates(float saturates) {
-        this.saturates = saturates;
-    }
+  public void setFavorite(Boolean favorite) {
+    isFavorite = favorite;
+  }
 
-    public void setProtein(float protein) {
-        this.protein = protein;
-    }
+  public void setKiloCalories(float kiloCalories) {
+    this.kiloCalories = kiloCalories;
+  }
 
-    public void setCarbohydrates(float carbohydrates) {
-        this.carbohydrates = carbohydrates;
-    }
+  public void setKiloJoules(float kiloJoules) {
+    this.kiloJoules = kiloJoules;
+  }
 
-    public void setSugar(float sugar) {
-        this.sugar = sugar;
-    }
+  public void setFat(float fat) {
+    this.fat = fat;
+  }
 
-    public void setSalt(float salt) {
-        this.salt = salt;
-    }
+  public void setSaturates(float saturates) {
+    this.saturates = saturates;
+  }
 
-    public void setAmountMeasurements(int amountMeasurements) {
-        this.amountMeasurements = amountMeasurements;
-    }
+  public void setProtein(float protein) {
+    this.protein = protein;
+  }
 
-    public void setMaxGlucose(int maxGlucose) {
-        this.maxGlucose = maxGlucose;
-    }
+  public void setCarbohydrate(float carbohydrate) {
+    this.carbohydrate = carbohydrate;
+  }
 
-    public void setAverageGlucose(int averageGlucose) {
-        this.averageGlucose = averageGlucose;
-    }
+  public void setSugars(float sugars) {
+    this.sugars = sugars;
+  }
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
+  public void setSalt(float salt) {
+    this.salt = salt;
+  }
 
-    public void setPersonalIndex(int personalIndex) {
-        this.personalIndex = personalIndex;
-    }
+  public void setAmountMeasurements(int amountMeasurements) {
+    this.amountMeasurements = amountMeasurements;
+  }
+
+  public void setMaxGlucose(int maxGlucose) {
+    this.maxGlucose = maxGlucose;
+  }
+
+  public void setAverageGlucose(int averageGlucose) {
+    this.averageGlucose = averageGlucose;
+  }
+
+  public void setRating(String rating) {
+    this.rating = rating;
+  }
+
+  public void setPersonalIndex(int personalIndex) {
+    this.personalIndex = personalIndex;
+  }
 }

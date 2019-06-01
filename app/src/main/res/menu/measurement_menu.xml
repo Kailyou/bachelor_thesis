@@ -2,9 +2,10 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <item
-    android:id="@+id/save_me"
-    android:icon="@drawable/ic_save_white_24dp"
-    android:title="@string/save"
+    android:id="@+id/delete_measurement"
+    android:icon="@drawable/ic_delete_white_24dp"
+    android:title="@string/delete_measurement"
     app:showAsAction="ifRoom"/>
 </menu>

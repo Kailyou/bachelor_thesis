@@ -2,184 +2,184 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <import type="hochschule.de.bachelorthesis.utility.Converter" />
+  <data>
+    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
 
-        <variable
-            name="vm"
-            type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel" />
-    </data>
+    <variable
+      name="vm"
+      type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
+  </data>
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:stretchColumns="1">
+  <TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:stretchColumns="1">
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/general"
-                android:textColor="@color/colorPrimary"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-        </TableRow>
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/general"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/food_name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/food_name"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/food_name"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{vm.foodInfoOverviewModel.foodName}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/food_name"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{vm.foodInfoOverviewModel.foodName}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/brand_name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/brand_name"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/brand_name"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{vm.foodInfoOverviewModel.brandName}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/brand_name"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{vm.foodInfoOverviewModel.brandName}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/type"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/type"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/type"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{vm.foodInfoOverviewModel.type}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/type"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{vm.foodInfoOverviewModel.type}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/kcal_100"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/kcal_100"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/kCal"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.kiloCalories))}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/kCal"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.kiloCalories))}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:layout_marginTop="16dp"
-                android:padding="3dip"
-                android:text="@string/measurements"
-                android:textColor="@color/colorPrimary"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-        </TableRow>
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:layout_marginTop="16dp"
+        android:padding="3dip"
+        android:text="@string/measurements"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/measurements_done"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/measurements_done"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/measurements_done"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/measurements_done"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/max_glucose"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/max_glucose"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/max_glucose"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.maxGlucose))}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/max_glucose"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.maxGlucose))}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/average_glucose"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/average_glucose"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/avg_glucose"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.averageGlucose))}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/avg_glucose"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.averageGlucose))}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:layout_marginTop="16dp"
-                android:padding="3dip"
-                android:text="@string/analyses"
-                android:textColor="@color/colorPrimary"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-        </TableRow>
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:layout_marginTop="16dp"
+        android:padding="3dip"
+        android:text="@string/analyses"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/rating"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/rating"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/rating"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{Converter.convertString(vm.foodInfoOverviewModel.rating)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
+      <TextView
+        android:id="@+id/rating"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{Converter.convertString(vm.foodInfoOverviewModel.rating)}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_column="1"
-                android:padding="3dip"
-                android:text="@string/personal_index"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+    <TableRow>
+      <TextView
+        android:layout_column="1"
+        android:padding="3dip"
+        android:text="@string/personal_index"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-            <TextView
-                android:id="@+id/personal_gi"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.personalIndex))}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-        </TableRow>
-    </TableLayout>
+      <TextView
+        android:id="@+id/personal_gi"
+        android:gravity="end"
+        android:padding="3dip"
+        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.personalIndex))}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    </TableRow>
+  </TableLayout>
 </layout>

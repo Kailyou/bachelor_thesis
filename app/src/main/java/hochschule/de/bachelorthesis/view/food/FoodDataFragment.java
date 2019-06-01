@@ -17,26 +17,28 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class FoodDataFragment extends Fragment {
 
-    private static final String TAG = FoodDataFragment.class.getName();
+  private static final String TAG = FoodDataFragment.class.getName();
 
-    private FoodViewModel mViewModel;
+  private FoodViewModel mViewModel;
 
 
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        // view model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
-    }
+    // view model
+    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Init data binding
-        FragmentFoodDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_data, container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-        binding.setVm(mViewModel);
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    // Init data binding
+    FragmentFoodDataBinding binding = DataBindingUtil
+        .inflate(inflater, R.layout.fragment_food_data, container, false);
+    binding.setLifecycleOwner(getViewLifecycleOwner());
+    binding.setVm(mViewModel);
 
-        return binding.getRoot();
-    }
+    return binding.getRoot();
+  }
 }

@@ -15,63 +15,67 @@ import hochschule.de.bachelorthesis.room.tables.MeasurementsData;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.FoodSample;
 
-@Database(entities = {Food.class, Measurement.class, MeasurementsData.class, UserHistory.class}, version = 1, exportSchema = false)
+@Database(entities = {Food.class, Measurement.class, MeasurementsData.class,
+    UserHistory.class}, version = 1, exportSchema = false)
 public abstract class FoodDatabase extends RoomDatabase {
 
-    // Only one database instance will be available for the whole APP.
-    private static FoodDatabase INSTANCE;
+  // Only one database instance will be available for the whole APP.
+  private static FoodDatabase INSTANCE;
 
-    public abstract MeasurementDao measurementDao();
-    public abstract FoodDao foodDao();
-    public abstract UserHistoryDao userHistoryDao();
+  public abstract MeasurementDao measurementDao();
 
-    // Synchronize just to make sure no two instances will be created
-    public static synchronized FoodDatabase getDatabase(Context context) {
-        if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                    FoodDatabase.class, "word_database")
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
-                    .build();
-        }
+  public abstract FoodDao foodDao();
 
-        return INSTANCE;
+  public abstract UserHistoryDao userHistoryDao();
+
+  // Synchronize just to make sure no two instances will be created
+  public static synchronized FoodDatabase getDatabase(Context context) {
+    if (INSTANCE == null) {
+      INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+          FoodDatabase.class, "word_database")
+          .fallbackToDestructiveMigration()
+          .addCallback(roomCallback)
+          .build();
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        /**
-         * Called when the database is created for the first time. This is called after all the
-         * tables are created.
-         *
-         * @param db The database.
-         */
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(INSTANCE).execute();
-        }
-    };
+    return INSTANCE;
+  }
 
+  private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
     /**
-     * This task is used to get a first population for the database.
+     * Called when the database is created for the first time. This is called after all the
+     * tables are created.
+     *
+     * @param db The database.
      */
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private FoodDao foodDao;
+    @Override
+    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+      super.onCreate(db);
+      new PopulateDbAsyncTask(INSTANCE).execute();
+    }
+  };
 
-        private PopulateDbAsyncTask(FoodDatabase db) {
-            foodDao = db.foodDao();
-        }
+  /**
+   * This task is used to get a first population for the database.
+   */
+  private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            foodDao.insert(FoodSample.getApple());
-            foodDao.insert(FoodSample.getPizza());
-            foodDao.insert(FoodSample.getCola());
-            return null;
-        }
+    private FoodDao foodDao;
+
+    private PopulateDbAsyncTask(FoodDatabase db) {
+      foodDao = db.foodDao();
     }
 
-    public static void destroyInstance() {
-        INSTANCE = null;
+    @Override
+    protected Void doInBackground(Void... voids) {
+      foodDao.insert(FoodSample.getApple());
+      foodDao.insert(FoodSample.getPizza());
+      foodDao.insert(FoodSample.getCola());
+      return null;
     }
+  }
+
+  public static void destroyInstance() {
+    INSTANCE = null;
+  }
 }

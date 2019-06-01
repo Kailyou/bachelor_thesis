@@ -18,34 +18,36 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 
 public class FoodOverviewFragment extends Fragment {
-    private static final String TAG = FoodOverviewFragment.class.getName();
 
-    private FragmentFoodOverviewBinding mBinding;
+  private static final String TAG = FoodOverviewFragment.class.getName();
 
-    private FoodViewModel mViewModel;
+  private FragmentFoodOverviewBinding mBinding;
+
+  private FoodViewModel mViewModel;
 
 
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        // view model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
-    }
+    // view model
+    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
-        mBinding.setLifecycleOwner(getViewLifecycleOwner());
-        mBinding.setVm(mViewModel);
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    // Init data binding
+    mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
+    mBinding.setLifecycleOwner(getViewLifecycleOwner());
+    mBinding.setVm(mViewModel);
 
-        // get passed food id
-        assert getArguments() != null;
-        int foodId = getArguments().getInt("food_id");
+    // get passed food id
+    assert getArguments() != null;
+    int foodId = getArguments().getInt("food_id");
 
-        Log.d("yolo", "food name " + mBinding.foodName.getText().toString());
+    Log.d("yolo", "food name " + mBinding.foodName.getText().toString());
 
-        return mBinding.getRoot();
-    }
+    return mBinding.getRoot();
+  }
 }

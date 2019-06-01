@@ -14,21 +14,22 @@ import hochschule.de.bachelorthesis.room.tables.Measurement;
 
 @Dao
 public interface MeasurementDao {
-    @Insert
-    void insert(Measurement measurement);
 
-    @Update
-    void update(Measurement measurement);
+  @Insert
+  void insert(Measurement measurement);
 
-    @Delete
-    void delete(Measurement measurement);
+  @Update
+  void update(Measurement measurement);
 
-    @Query("DELETE FROM measurement_table WHERE food_id=:foodId")
-    void deleteAllMeasurementsWithFoodId(int foodId);
+  @Delete
+  void delete(Measurement measurement);
 
-    @Query("SELECT * FROM measurement_table WHERE food_id=:foodId")
-    LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId);
+  @Query("DELETE FROM measurement_table WHERE food_id=:foodId")
+  void deleteAllMeasurementsWithFoodId(int foodId);
 
-    @Query("SELECT * FROM measurement_table ORDER BY id DESC")
-    LiveData<List<Measurement>> getAllMeasurements();
+  @Query("SELECT * FROM measurement_table WHERE food_id=:foodId")
+  LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId);
+
+  @Query("SELECT * FROM measurement_table ORDER BY id DESC")
+  LiveData<List<Measurement>> getAllMeasurements();
 }

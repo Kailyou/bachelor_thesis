@@ -1,14 +1,13 @@
-package hochschule.de.bachelorthesis.view.me;
+package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,25 +17,22 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
-import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
-public class MeFragment extends Fragment {
+public class MeasurementFragment extends Fragment {
 
-  private MeViewModel mViewModel;
+  private static final String TAG = MeasurementFragment.class.getName();
+
+  private FoodViewModel mViewModel;
+
+  private int mMeasurementId;
+
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    // Change title
-    Objects.requireNonNull(getActivity()).setTitle("Edit user Data");
-
-    // Enable menu
     setHasOptionsMenu(true);
-
-    // View model
-    mViewModel = ViewModelProviders.of(getActivity()).get(MeViewModel.class);
-    mViewModel.load(this);
   }
 
   @Nullable
@@ -44,13 +40,24 @@ public class MeFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     // Init data binding
-    FragmentMeBinding binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_me, container, false);
+    //
+    FragmentMeasurementBinding binding = DataBindingUtil
+        .inflate(inflater, R.layout.fragment_measurement, container, false);
     binding.setLifecycleOwner(getViewLifecycleOwner());
-    binding.setVm(mViewModel);
 
-    binding.buttonEditMe.setOnClickListener(
-        Navigation.createNavigateOnClickListener(R.id.action_meFragment_to_meEditFragment));
+    // View model
+    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+
+    // get passed measurement id
+    assert getArguments() != null;
+    mMeasurementId = getArguments().getInt("measurement_id");
+
+    // fab
+    Bundle bundle = new Bundle();
+    bundle.putInt("measurement_id", mMeasurementId);
+
+    binding.fab.setOnClickListener(Navigation
+        .createNavigateOnClickListener(R.id.action_measurementFragment_to_editMeasurementFragment));
 
     return binding.getRoot();
   }
@@ -58,18 +65,14 @@ public class MeFragment extends Fragment {
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.me_menu, menu);
+    inflater.inflate(R.menu.measurement_menu, menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.add_tmp_user:
-        mViewModel.addTemplateUser();
-        return true;
-      case R.id.delete_user:
-        mViewModel.deleteAllUserHistoryIds();
-        return true;
+    if (item.getItemId()
+        == R.id.delete_measurement) {//mViewModel.deleteMeasurement(mMeasurementId);
+      return true;
     }
 
     return super.onOptionsItemSelected(item);

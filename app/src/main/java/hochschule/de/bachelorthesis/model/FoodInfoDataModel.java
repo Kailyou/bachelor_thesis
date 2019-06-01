@@ -4,93 +4,93 @@ import androidx.lifecycle.MutableLiveData;
 
 public class FoodInfoDataModel {
 
-    private MutableLiveData<Float> mKiloCalories;
-    private MutableLiveData<Float> mKiloJoules;
-    private MutableLiveData<Float> mFat;
-    private MutableLiveData<Float> mSaturates;
-    private MutableLiveData<Float> mProtein;
-    private MutableLiveData<Float> mCarbohydrates;
-    private MutableLiveData<Float> mSugar;
-    private MutableLiveData<Float> mSalt;
+  private MutableLiveData<Float> mKiloCalories;
+  private MutableLiveData<Float> mKiloJoules;
+  private MutableLiveData<Float> mFat;
+  private MutableLiveData<Float> mSaturates;
+  private MutableLiveData<Float> mProtein;
+  private MutableLiveData<Float> mCarbohydrate;
+  private MutableLiveData<Float> mSugars;
+  private MutableLiveData<Float> mSalt;
 
 
-    public FoodInfoDataModel() {
-        mKiloCalories = new MutableLiveData<>();
-        mKiloJoules = new MutableLiveData<>();
+  public FoodInfoDataModel() {
+    mKiloCalories = new MutableLiveData<>();
+    mKiloJoules = new MutableLiveData<>();
 
-        mFat = new MutableLiveData<>();
-        mSaturates = new MutableLiveData<>();
-        mProtein = new MutableLiveData<>();
-        mCarbohydrates = new MutableLiveData<>();
-        mSugar = new MutableLiveData<>();
-        mSalt = new MutableLiveData<>();
-    }
+    mFat = new MutableLiveData<>();
+    mSaturates = new MutableLiveData<>();
+    mProtein = new MutableLiveData<>();
+    mCarbohydrate = new MutableLiveData<>();
+    mSugars = new MutableLiveData<>();
+    mSalt = new MutableLiveData<>();
+  }
 
-    /* GETTER */
+  /* GETTER */
 
-    public MutableLiveData<Float> getKiloCalories() {
-        return mKiloCalories;
-    }
+  public MutableLiveData<Float> getKiloCalories() {
+    return mKiloCalories;
+  }
 
-    public MutableLiveData<Float> getKiloJoules() {
-        return mKiloJoules;
-    }
+  public MutableLiveData<Float> getKiloJoules() {
+    return mKiloJoules;
+  }
 
-    public MutableLiveData<Float> getFat() {
-        return mFat;
-    }
+  public MutableLiveData<Float> getFat() {
+    return mFat;
+  }
 
-    public MutableLiveData<Float> getSaturates() {
-        return mSaturates;
-    }
+  public MutableLiveData<Float> getSaturates() {
+    return mSaturates;
+  }
 
-    public MutableLiveData<Float> getProtein() {
-        return mProtein;
-    }
+  public MutableLiveData<Float> getProtein() {
+    return mProtein;
+  }
 
-    public MutableLiveData<Float> getCarbohydrates() {
-        return mCarbohydrates;
-    }
+  public MutableLiveData<Float> getCarbohydrate() {
+    return mCarbohydrate;
+  }
 
-    public MutableLiveData<Float> getSugar() {
-        return mSugar;
-    }
+  public MutableLiveData<Float> getSugars() {
+    return mSugars;
+  }
 
-    public MutableLiveData<Float> getSalt() {
-        return mSalt;
-    }
+  public MutableLiveData<Float> getSalt() {
+    return mSalt;
+  }
 
-    /* SETTER */
+  /* SETTER */
 
-    public void setKiloCalories(Float kiloCalories) {
-        mKiloCalories.setValue(kiloCalories);
-    }
+  public void setKiloCalories(Float kiloCalories) {
+    mKiloCalories.setValue(kiloCalories);
+  }
 
-    public void setKiloJoules(Float kiloJoules) {
-        mKiloJoules.setValue(kiloJoules);
-    }
+  public void setKiloJoules(Float kiloJoules) {
+    mKiloJoules.setValue(kiloJoules);
+  }
 
-    public void setFat(Float fat) {
-        mFat.setValue(fat);
-    }
+  public void setFat(Float fat) {
+    mFat.setValue(fat);
+  }
 
-    public void setSaturates(Float saturates) {
-        mSaturates.setValue(saturates);
-    }
+  public void setSaturates(Float saturates) {
+    mSaturates.setValue(saturates);
+  }
 
-    public void setProtein(Float protein) {
-        mProtein.setValue(protein);
-    }
+  public void setProtein(Float protein) {
+    mProtein.setValue(protein);
+  }
 
-    public void setCarbohydrates(Float carbohydrates) {
-        mCarbohydrates.setValue(carbohydrates);
-    }
+  public void setCarbohydrates(Float carbohydrates) {
+    mCarbohydrate.setValue(carbohydrates);
+  }
 
-    public void setSugar(Float sugar) {
-        mSugar.setValue(sugar);
-    }
+  public void setSugar(Float sugar) {
+    mSugars.setValue(sugar);
+  }
 
-    public void setSalt(Float salt) {
-        mSugar.setValue(salt);
-    }
+  public void setSalt(Float salt) {
+    mSugars.setValue(salt);
+  }
 }

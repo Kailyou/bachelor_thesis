@@ -3,67 +3,68 @@ package hochschule.de.bachelorthesis.model;
 import androidx.lifecycle.MutableLiveData;
 
 public class MeasurementAddModel {
-    // General
-    private MutableLiveData<Boolean> mIsGi;
 
-    // Time & Advance information
-    private MutableLiveData<String> mTimestamp;
-    private MutableLiveData<Integer> mAmount;
-    private MutableLiveData<String> mStressed;
-    private MutableLiveData<String> mTired;
+  // General
+  private MutableLiveData<Boolean> mIsGi;
 
-    // Measurement values
-    private MutableLiveData<Integer> mValue0;
+  // Time & Advance information
+  private MutableLiveData<String> mTimestamp;
+  private MutableLiveData<Integer> mAmount;
+  private MutableLiveData<String> mStressed;
+  private MutableLiveData<String> mTired;
 
-    public MeasurementAddModel() {
-        mIsGi = new MutableLiveData<>();
-        mTimestamp = new MutableLiveData<>();
-        mAmount = new MutableLiveData<>();
-        mTired = new MutableLiveData<>();
-        mValue0 = new MutableLiveData<>();
-    }
+  // Measurement values
+  private MutableLiveData<Integer> mValue0;
 
-    /* GETTER */
+  public MeasurementAddModel() {
+    mIsGi = new MutableLiveData<>();
+    mTimestamp = new MutableLiveData<>();
+    mAmount = new MutableLiveData<>();
+    mTired = new MutableLiveData<>();
+    mValue0 = new MutableLiveData<>();
+  }
 
-    public MutableLiveData<Boolean> isGi() {
-        return mIsGi;
-    }
+  /* GETTER */
 
-    public MutableLiveData<String> getTimestamp() {
-        return mTimestamp;
-    }
+  public MutableLiveData<Boolean> isGi() {
+    return mIsGi;
+  }
 
-    public MutableLiveData<Integer> getAmount() {
-        return mAmount;
-    }
+  public MutableLiveData<String> getTimestamp() {
+    return mTimestamp;
+  }
 
-    public MutableLiveData<String> getTired() {
-        return mTired;
-    }
+  public MutableLiveData<Integer> getAmount() {
+    return mAmount;
+  }
 
-    public MutableLiveData<Integer> getValue0() {
-        return mValue0;
-    }
+  public MutableLiveData<String> getTired() {
+    return mTired;
+  }
 
-    /* SETTER */
+  public MutableLiveData<Integer> getValue0() {
+    return mValue0;
+  }
 
-    public void setGi(boolean isGi) {
-        mIsGi.setValue(isGi);
-    }
+  /* SETTER */
 
-    public void setTimestamp(String timestamp) {
-        mTimestamp.setValue(timestamp);
-    }
+  public void setGi(boolean isGi) {
+    mIsGi.setValue(isGi);
+  }
 
-    public void setAmount(Integer amount) {
-        mAmount.setValue(amount);
-    }
+  public void setTimestamp(String timestamp) {
+    mTimestamp.setValue(timestamp);
+  }
 
-    public void setTired(String tired) {
-        mTired.setValue(tired);
-    }
+  public void setAmount(Integer amount) {
+    mAmount.setValue(amount);
+  }
 
-    public void setValue0(Integer value0) {
-        mValue0.setValue(value0);
-    }
+  public void setTired(String tired) {
+    mTired.setValue(tired);
+  }
+
+  public void setValue0(Integer value0) {
+    mValue0.setValue(value0);
+  }
 }

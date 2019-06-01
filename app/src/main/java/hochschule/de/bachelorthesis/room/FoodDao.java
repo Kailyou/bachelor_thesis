@@ -12,21 +12,22 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 
 @Dao
 public interface FoodDao {
-    @Insert
-    void insert(Food food);
 
-    @Update
-    void update(Food food);
+  @Insert
+  void insert(Food food);
 
-    @Delete
-    void delete(Food food);
+  @Update
+  void update(Food food);
 
-    @Query("DELETE FROM food_table")
-    void deleteAllFoods();
+  @Delete
+  void delete(Food food);
 
-    @Query("SELECT * FROM food_table WHERE id=:id")
-    LiveData<Food> getFoodById(int id);
+  @Query("DELETE FROM food_table")
+  void deleteAllFoods();
 
-    @Query("SELECT * FROM food_table ORDER BY id DESC")
-    LiveData<List<Food>> getAllFoods();
+  @Query("SELECT * FROM food_table WHERE id=:id")
+  LiveData<Food> getFoodById(int id);
+
+  @Query("SELECT * FROM food_table ORDER BY id DESC")
+  LiveData<List<Food>> getAllFoods();
 }

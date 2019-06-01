@@ -1,128 +1,133 @@
 <resources>
-    <string name="app_name">BachelorThesis</string>
-    <string name="title_home">Home</string>
-    <string name="title_my_food">My Food</string>
-    <string name="title_plan">Plan</string>
-    <string name="tab_left">left</string>
-    <string name="tab_middle">middle</string>
-    <string name="tab_right">right</string>
-    <string name="title_activity_food">FoodActivity</string>
-    <string name="tab_text_1">Overview</string>
-    <string name="tab_text_2">Measuring</string>
-    <string name="tab_text_3">Food data</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello World from section: %1$d</string>
-    <string name="food_list_main_text">Main Text</string>
-    <string name="food_list_sub_text">Sub text</string>,
-    <string name="food_list_meta_data">Meta data</string>
-    <string name="about_the_food">About the food</string>
-    <string name="food_name">Food name</string>
-    <string name="brand_name">Brand name</string>
-    <string name="main_text">Main Text</string>
-    <string name="_1">1</string>
-    <string name="subtext">subtext</string>
-    <string name="nutritional_information">Nutritional information</string>
-    <string name="energy_kcal">Energy (kcal)</string>
-    <string name="home_fragment">Home fragment</string>
-    <string name="personal_data">Personal data</string>
-    <string name="age">Age</string>
-    <string name="height">Height</string>
-    <string name="weight">Weight</string>
-    <string name="sex">Sex</string>
-    <string name="lifestyle">Lifestyle</string>
-    <string name="fitness_level">Fitness Level</string>
-    <string name="taking_medication">Medication</string>
-    <string name="yes">yes</string>
-    <string name="no">no</string>
-    <string name="allergies_available">Allergies</string>
-    <string name="smoking">Smoking</string>
-    <string name="edit">Edit</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="save_fragment_me_age">save_fragment_me_age</string>
-    <string name="save_fragment_me_fitness_level">save_fragment_me_fitness_level</string>
-    <string name="save_fragment_me_gender">save_fragment_me_gender</string>
-    <string name="save_fragment_me_height">save_fragment_me_height</string>
-    <string name="save_fragment_me_weight">save_fragment_me_weight</string>
-    <string name="save_fragment_me_smoking">save_fragment_me_smoking</string>
-    <string name="save_fragment_me_medication">save_fragment_me_medication</string>
-    <string name="save_fragment_me_allergies">save_fragment_me_allergies</string>
-    <string name="general">General</string>
-    <string name="type">Type</string>
-    <string name="kcal_100">kCal (100g)</string>
-    <string name="measurements">Measurements</string>
-    <string name="measurements_done">Amount</string>
-    <string name="max_glucose">Max. Glucose</string>
-    <string name="average_glucose">Average Glucose</string>
-    <string name="analyses">Analyses</string>
-    <string name="rating">Rating</string>
-    <string name="personal_index">Personal Index</string>
-    <string name="nutreons">Nutreons</string>
-    <string name="energy_kj">Energy (kJ)</string>
-    <string name="fat">Fat</string>
-    <string name="of_which_saturates">of which saturates</string>
-    <string name="protein">Protein</string>
-    <string name="carbohydrates">Carbohydrates</string>
-    <string name="of_which_sugars">of which sugars</string>
-    <string name="salt">Salt</string>
-    <string name="advance_information">Advance information</string>
-    <string name="amount_food_consumed">Amount food consumed</string>
-    <string name="start_value">Start value</string>
-    <string name="_15_min">15 min</string>
-    <string name="_30_min">30 min</string>
-      <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="time_consumed">Time consumed</string>
-    <string name="add_sample_user">Add sample user (debug)</string>
-    <string name="delete_user_debug">Delete user (debug)</string>
-    <string name="add_sample_measurement_debug">Add sample measurement (debug)</string>
-    <string name="sort">sort</string>
-    <string name="delete_all_measurements">Delete all measurements</string>
-    <string name="chose_date">Chose Date</string>
-    <string name="chose_time">Chose Time</string>
-    <string name="amount_consumed">Amount consumed</string>
-    <string name="stress_level">Stress level</string>
-    <string name="tired_level">Tired level</string>
-    <string name="glucose_at_begin">glucose at begin</string>
-    <string name="glucose_after_15_min">glucose after 15 min</string>
-    <string name="glucose_after_30_min">glucose after 30 min</string>
-    <string name="glucose_after_45_min">glucose after 45 min</string>
-    <string name="glucose_after_60_min">glucose after 60 min</string>
-    <string name="glucose_after_75_min">glucose after 75 min</string>
-    <string name="glucose_after_90_min">glucose after 90 min</string>
-    <string name="glucose_after_105_min">glucose after 105 min</string>
-    <string name="glucose_after_120_min">glucose after 120 min</string>
+  <string name="app_name">BachelorThesis</string>
+  <string name="title_home">Home</string>
+  <string name="title_my_food">My Food</string>
+  <string name="title_plan">Plan</string>
+  <string name="tab_left">left</string>
+  <string name="tab_middle">middle</string>
+  <string name="tab_right">right</string>
+  <string name="title_activity_food">FoodActivity</string>
+  <string name="tab_text_1">Overview</string>
+  <string name="tab_text_2">Measuring</string>
+  <string name="tab_text_3">Food data</string>
+  <string name="action_settings">Settings</string>
+  <string name="hello_world">Hello World from section: %1$d</string>
+  <string name="food_list_main_text">Main Text</string>
+  <string name="food_list_sub_text">Sub text</string>,
+  <string name="food_list_meta_data">Meta data</string>
+  <string name="about_the_food">About the food</string>
+  <string name="food_name">Food name</string>
+  <string name="brand_name">Brand name</string>
+  <string name="main_text">Main Text</string>
+  <string name="_1">1</string>
+  <string name="subtext">subtext</string>
+  <string name="nutritional_information">Nutritional information</string>
+  <string name="energy_kcal">Energy (kcal)</string>
+  <string name="home_fragment">Home fragment</string>
+  <string name="personal_data">Personal data</string>
+  <string name="age">Age</string>
+  <string name="height">Height</string>
+  <string name="weight">Weight</string>
+  <string name="sex">Sex</string>
+  <string name="lifestyle">Lifestyle</string>
+  <string name="fitness_level">Fitness Level</string>
+  <string name="taking_medication">Medication</string>
+  <string name="yes">yes</string>
+  <string name="no">no</string>
+  <string name="allergies_available">Allergies</string>
+  <string name="smoking">Smoking</string>
+  <string name="edit">Edit</string>
+  <string name="cancel">Cancel</string>
+  <string name="save">Save</string>
+  <string name="save_fragment_me_age">save_fragment_me_age</string>
+  <string name="save_fragment_me_fitness_level">save_fragment_me_fitness_level</string>
+  <string name="save_fragment_me_gender">save_fragment_me_gender</string>
+  <string name="save_fragment_me_height">save_fragment_me_height</string>
+  <string name="save_fragment_me_weight">save_fragment_me_weight</string>
+  <string name="save_fragment_me_smoking">save_fragment_me_smoking</string>
+  <string name="save_fragment_me_medication">save_fragment_me_medication</string>
+  <string name="save_fragment_me_allergies">save_fragment_me_allergies</string>
+  <string name="general">General</string>
+  <string name="type">Type</string>
+  <string name="kcal_100">kCal (100g)</string>
+  <string name="measurements">Measurements</string>
+  <string name="measurements_done">Amount</string>
+  <string name="max_glucose">Max. Glucose</string>
+  <string name="average_glucose">Average Glucose</string>
+  <string name="analyses">Analyses</string>
+  <string name="rating">Rating</string>
+  <string name="personal_index">Personal Index</string>
+  <string name="nutreons">Nutreons</string>
+  <string name="energy_kj">Energy (kJ)</string>
+  <string name="fat">Fat</string>
+  <string name="of_which_saturates">of which saturates</string>
+  <string name="protein">Protein</string>
+  <string name="carbohydrate">Carbohydrates</string>
+  <string name="of_which_sugars">of which sugars</string>
+  <string name="salt">Salt</string>
+  <string name="advance_information">Advance information</string>
+  <string name="amount_food_consumed">Amount food consumed</string>
+  <string name="start_value">Start value</string>
+  <string name="_15_min">15 min</string>
+  <string name="_30_min">30 min</string>
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="time_consumed">Time consumed</string>
+  <string name="add_sample_user">Add sample user (debug)</string>
+  <string name="delete_user_debug">Delete user (debug)</string>
+  <string name="add_sample_measurement_debug">Add sample measurement (debug)</string>
+  <string name="sort">sort</string>
+  <string name="delete_all_measurements">Delete all measurements</string>
+  <string name="chose_date">Chose Date</string>
+  <string name="chose_time">Chose Time</string>
+  <string name="amount_consumed">Amount consumed</string>
+  <string name="stress_level">Stress level</string>
+  <string name="tired_level">Tired level</string>
+  <string name="glucose_at_begin">glucose at begin</string>
+  <string name="glucose_after_15_min">glucose after 15 min</string>
+  <string name="glucose_after_30_min">glucose after 30 min</string>
+  <string name="glucose_after_45_min">glucose after 45 min</string>
+  <string name="glucose_after_60_min">glucose after 60 min</string>
+  <string name="glucose_after_75_min">glucose after 75 min</string>
+  <string name="glucose_after_90_min">glucose after 90 min</string>
+  <string name="glucose_after_105_min">glucose after 105 min</string>
+  <string name="glucose_after_120_min">glucose after 120 min</string>
+  <string name="time_information">Time information</string>
+  <string name="date">Date</string>
+  <string name="time_started">Time started</string>
+  <string name="time_ended">Time ended</string>
+  <string name="delete_measurement">Delete Measurement</string>
 
-    <string-array name="type">
-        <item>Grains</item>
-        <item>Vegetables</item>
-        <item>Fruit</item>
-        <item>Protein</item>
-        <item>Dairy</item>
-        <item>Oils</item>
-        <item>Solid Fats and Added Sugar</item>
-        <item>Drinks</item>
-        <item>Snacks</item>
-    </string-array>
+  <string-array name="type">
+    <item>Grains</item>
+    <item>Vegetables</item>
+    <item>Fruit</item>
+    <item>Protein</item>
+    <item>Dairy</item>
+    <item>Oils</item>
+    <item>Solid Fats and Added Sugar</item>
+    <item>Drinks</item>
+    <item>Snacks</item>
+  </string-array>
 
-    <string-array name="stress">
-        <item>Very stressed</item>
-        <item>A bit stressed</item>
-        <item>Not stressed</item>
-    </string-array>
+  <string-array name="stress">
+    <item>Very stressed</item>
+    <item>A bit stressed</item>
+    <item>Not stressed</item>
+  </string-array>
 
-    <string-array name="tired">
-        <item>Very tired</item>
-        <item>A bit tired</item>
-        <item>Not tired</item>
-    </string-array>
+  <string-array name="tired">
+    <item>Very tired</item>
+    <item>A bit tired</item>
+    <item>Not tired</item>
+  </string-array>
 
-    <string-array name="fragment_me_spinner_sex">
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
-    <string-array name="fragment_me_spinner_fitness_level">
-        <item>low</item>
-        <item>average</item>
-        <item>good</item>
-    </string-array>
+  <string-array name="fragment_me_spinner_sex">
+    <item>Male</item>
+    <item>Female</item>
+  </string-array>
+  <string-array name="fragment_me_spinner_fitness_level">
+    <item>low</item>
+    <item>average</item>
+    <item>good</item>
+  </string-array>
 </resources>

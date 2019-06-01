@@ -1,148 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+  <data>
 
-        <import type="hochschule.de.bachelorthesis.utility.Converter" />
+    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
 
-        <variable
-            name="vm"
-            type="hochschule.de.bachelorthesis.viewmodels.MeViewModel" />
-    </data>
+    <variable
+      name="vm"
+      type="hochschule.de.bachelorthesis.viewmodels.MeViewModel"/>
+  </data>
 
-    <ScrollView
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/personal_data"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:hint="@string/age"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/age"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/personal_data"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/colorPrimary" />
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/height"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:hint="@string/age"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/height"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/age"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@{Converter.convertInteger(safeUnbox(vm.age))}" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/weight"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/height"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/weight"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/height"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@{Converter.convertInteger(safeUnbox(vm.height))}" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/weight"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+        <AutoCompleteTextView
+          android:id="@+id/dropdown_sex"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:cursorVisible="false"
+          android:focusable="false"
+          android:hint="@string/sex"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}" />
-            </com.google.android.material.textfield.TextInputLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/lifestyle"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp">
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/dropdown_sex"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:hint="@string/sex" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <AutoCompleteTextView
+          android:id="@+id/dropdown_fitness_level"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:cursorVisible="false"
+          android:focusable="false"
+          android:hint="@string/fitness_level"/>
+      </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/lifestyle"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/colorPrimary" />
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/medication"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.medication)}"
+        android:text="@string/taking_medication"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp">
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/allergies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.allergies)}"
+        android:text="@string/allergies_available"/>
 
-                <AutoCompleteTextView
-                    android:id="@+id/dropdown_fitness_level"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:hint="@string/fitness_level" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/medication"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="32dp"
-                android:checked="@{safeUnbox(vm.medication)}"
-                android:text="@string/taking_medication" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/allergies"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="32dp"
-                android:checked="@{safeUnbox(vm.allergies)}"
-                android:text="@string/allergies_available" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/smoking"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="32dp"
-                android:checked="@{safeUnbox(vm.smoking)}"
-                android:text="@string/smoking" />
-        </LinearLayout>
-    </ScrollView>
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/smoking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.smoking)}"
+        android:text="@string/smoking"/>
+    </LinearLayout>
+  </ScrollView>
 </layout>

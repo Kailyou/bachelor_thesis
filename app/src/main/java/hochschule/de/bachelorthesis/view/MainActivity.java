@@ -14,60 +14,60 @@ import hochschule.de.bachelorthesis.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getName();
+  private static final String TAG = MainActivity.class.getName();
 
-    private NavController navController;
-    private BottomNavigationView bottomNav;
+  private NavController navController;
+  private BottomNavigationView bottomNav;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        //bottom bar transition + update action bar
-        navController = Navigation.findNavController(this, R.id.main_activity_fragment_host);
-        bottomNav = findViewById(R.id.main_activity_bottom_nav);
-        NavigationUI.setupWithNavController(bottomNav, navController);
-        NavigationUI.setupActionBarWithNavController(this, navController);
-    }
+    //bottom bar transition + update action bar
+    navController = Navigation.findNavController(this, R.id.main_activity_fragment_host);
+    bottomNav = findViewById(R.id.main_activity_bottom_nav);
+    NavigationUI.setupWithNavController(bottomNav, navController);
+    NavigationUI.setupActionBarWithNavController(this, navController);
+  }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+  @Override
+  protected void onStart() {
+    super.onStart();
+  }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+  @Override
+  protected void onPause() {
+    super.onPause();
+  }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+  }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
+  @Override
+  protected void onStop() {
+    super.onStop();
+  }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, (DrawerLayout) null);
-    }
+  @Override
+  public boolean onSupportNavigateUp() {
+    return NavigationUI.navigateUp(navController, (DrawerLayout) null);
+  }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+  }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
+  @Override
+  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+  }
 }
