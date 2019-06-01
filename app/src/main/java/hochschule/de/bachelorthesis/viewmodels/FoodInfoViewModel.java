@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.viewmodels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,78 +10,28 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import hochschule.de.bachelorthesis.model.CurrentMeasurementModel;
+import hochschule.de.bachelorthesis.model.FoodInfoDataModel;
+import hochschule.de.bachelorthesis.model.FoodInfoOverviewModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MyToast;
 
 public class FoodInfoViewModel extends AndroidViewModel {
-
     // Database
     private Repository mRepository;
     private LiveData<List<Measurement>> mAllMeasurements;
     private LiveData<UserHistory> mUserHistoryLatest;
     private LifecycleOwner mLco;
 
-
-
-    /**
-     * Food
-     */
-    // General
-    private MutableLiveData<Boolean> isFavorite;
-    private MutableLiveData<String> mFoodName;
-    private MutableLiveData<String> mBrandName;
-    private MutableLiveData<String> mType;
-
-    // Food data
-    private MutableLiveData<Float> mKiloCalories;
-    private MutableLiveData<Float> mKiloJoules;
-    private MutableLiveData<Float> mFat;
-    private MutableLiveData<Float> mSaturates;
-    private MutableLiveData<Float> mProtein;
-    private MutableLiveData<Float> mCarbohydrates;
-    private MutableLiveData<Float> mSugar;
-    private MutableLiveData<Float> mSalt;
-
-    /**
-     * MEASUREMENT
-     */
-
-    // General
-    private MutableLiveData<Integer> mMeasurementsAmount;
-    private MutableLiveData<Integer> mMaxGlucose;
-    private MutableLiveData<Integer> mAverageGlucose;
-    private MutableLiveData<String> mRating;
-    private MutableLiveData<Integer> mPersonalIndex;
-
-    /* CURRENT MEASUREMENT */
-
-    // General
-    private boolean isDone;
-    private boolean isGi;
-
-    // Time & Advance information
-    private MutableLiveData<String> mTimestamp;
-    private MutableLiveData<Integer> mAmount;
-    private MutableLiveData<String> mTired;
-
-    // Measurement values
-    private MutableLiveData<Integer> mValue0;
-    private MutableLiveData<Integer> mValue15;
-    private MutableLiveData<Integer> mValue30;
-    private MutableLiveData<Integer> mValue45;
-    private MutableLiveData<Integer> mValue60;
-    private MutableLiveData<Integer> mValue75;
-    private MutableLiveData<Integer> mValue90;
-    private MutableLiveData<Integer> mValue105;
-    private MutableLiveData<Integer> mValue120;
+    private FoodInfoOverviewModel mFoodInfoOverviewModel;
+    private FoodInfoDataModel mFoodInfoDataModel;
+    private CurrentMeasurementModel mCurrentMeasurementModel;
 
 
     public FoodInfoViewModel(@NonNull Application application) {
@@ -92,69 +41,39 @@ public class FoodInfoViewModel extends AndroidViewModel {
         mAllMeasurements = mRepository.getAllMeasurements();
         mUserHistoryLatest = mRepository.getUserHistoryLatest();
 
-        isFavorite = new MutableLiveData<>();
-        mFoodName = new MutableLiveData<>();
-        mBrandName = new MutableLiveData<>();
-        mType = new MutableLiveData<>();
-        mKiloCalories = new MutableLiveData<>();
-        mKiloJoules = new MutableLiveData<>();
-
-        mMeasurementsAmount = new MutableLiveData<>();
-        mMaxGlucose = new MutableLiveData<>();
-        mAverageGlucose = new MutableLiveData<>();
-
-        mRating = new MutableLiveData<>();
-        mPersonalIndex = new MutableLiveData<>();
-
-        mFat = new MutableLiveData<>();
-        mSaturates = new MutableLiveData<>();
-        mProtein = new MutableLiveData<>();
-        mCarbohydrates = new MutableLiveData<>();
-        mSugar = new MutableLiveData<>();
-        mSalt = new MutableLiveData<>();
-
-        mTimestamp = new MutableLiveData<>();
-        mAmount = new MutableLiveData<>();
-        mTired = new MutableLiveData<>();
-        mValue0 = new MutableLiveData<>();
-        mValue15 = new MutableLiveData<>();
-        mValue30 = new MutableLiveData<>();
-        mValue45 = new MutableLiveData<>();
-        mValue60 = new MutableLiveData<>();
-        mValue75 = new MutableLiveData<>();
-        mValue90 = new MutableLiveData<>();
-        mValue105 = new MutableLiveData<>();
-        mValue120 = new MutableLiveData<>();
+        mFoodInfoOverviewModel = new FoodInfoOverviewModel();
+        mFoodInfoDataModel = new FoodInfoDataModel();
+        mCurrentMeasurementModel = new CurrentMeasurementModel();
     }
 
-    public void load (int id, LifecycleOwner lco) {
+    public void load(int id, LifecycleOwner lco) {
         mRepository.getFoodById(id).observe(lco, new Observer<Food>() {
             @Override
             public void onChanged(Food food) {
-                if(food == null) {
+                if (food == null) {
                     return;
                 }
 
                 //overview tab
-                mFoodName.setValue(food.getFoodName());
-                mBrandName.setValue(food.getBrandName());
-                mType.setValue(food.getFoodType());
-                mKiloCalories.setValue(food.getKiloCalories());
-                mMeasurementsAmount.setValue(food.getAmountMeasurements());
-                mMaxGlucose.setValue(food.getMaxGlucose());
-                mAverageGlucose.setValue(food.getAverageGlucose());
-                mRating.setValue(food.getRating());
-                mPersonalIndex.setValue(food.getPersonalIndex());
+                mFoodInfoOverviewModel.setFoodName(food.getFoodName());
+                mFoodInfoOverviewModel.setBrandName(food.getBrandName());
+                mFoodInfoOverviewModel.setType(food.getFoodType());
+                mFoodInfoOverviewModel.setKiloCalories(food.getKiloCalories());
+                mFoodInfoOverviewModel.setMeasurementsAmount(food.getAmountMeasurements());
+                mFoodInfoOverviewModel.setMaxGlucose(food.getMaxGlucose());
+                mFoodInfoOverviewModel.setAverageGlucose(food.getAverageGlucose());
+                mFoodInfoOverviewModel.setRating(food.getRating());
+                mFoodInfoOverviewModel.setPersonalIndex(food.getPersonalIndex());
 
                 //food data tab
-                mKiloCalories.setValue(food.getKiloCalories());
-                mKiloJoules.setValue(food.getKiloJoules());
-                mFat.setValue(food.getFat());
-                mSaturates.setValue(food.getSaturates());
-                mProtein.setValue(food.getProtein());
-                mCarbohydrates.setValue(food.getCarbohydrates());
-                mSugar.setValue(food.getSugar());
-                mSalt.setValue(food.getSalt());
+                mFoodInfoDataModel.setKiloJoules(food.getKiloCalories());
+                mFoodInfoDataModel.setKiloJoules(food.getKiloJoules());
+                mFoodInfoDataModel.setFat(food.getFat());
+                mFoodInfoDataModel.setSaturates(food.getSaturates());
+                mFoodInfoDataModel.setProtein(food.getProtein());
+                mFoodInfoDataModel.setCarbohydrates(food.getCarbohydrates());
+                mFoodInfoDataModel.setSugar(food.getSugar());
+                mFoodInfoDataModel.setSalt(food.getSalt());
             }
         });
     }
@@ -164,27 +83,30 @@ public class FoodInfoViewModel extends AndroidViewModel {
     }
 
     /* MEASUREMENTS */
-    public void insert(Measurement measurement) { mRepository.insert(measurement);}
+    public void insert(Measurement measurement) {
+        mRepository.insert(measurement);
+    }
 
     public LiveData<List<Measurement>> getAllMeasurementsById(int id) {
         return mRepository.getAllMeasurementsById(id);
     }
 
-    public LiveData<UserHistory> getUserHistoryLatest() { return mUserHistoryLatest; }
+    public LiveData<UserHistory> getUserHistoryLatest() {
+        return mUserHistoryLatest;
+    }
 
     /**
      * DEBUG ONLY
-     *
+     * <p>
      * inserts a test measurement to the table.
      *
-     * @param lco
-     * - The lifecycle owner, needed for the observe function
+     * @param lco - The lifecycle owner, needed for the observe function
      */
     public void addTemplateMeasurement(final LifecycleOwner lco, final int foodId) {
         getUserHistoryLatest().observe(lco, new Observer<UserHistory>() {
             @Override
             public void onChanged(UserHistory userHistory) {
-                if(userHistory == null) {
+                if (userHistory == null) {
                     return;
                 }
 
@@ -194,7 +116,7 @@ public class FoodInfoViewModel extends AndroidViewModel {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
                 String timeStamp = sdf.format(date);
 
-                insert(new Measurement(foodId, userHistory.id, timeStamp, 100, "not stressed", "not tired", 100 ));
+                insert(new Measurement(foodId, userHistory.id, timeStamp, 100, "not stressed", "not tired", 100));
             }
         });
     }
@@ -204,131 +126,137 @@ public class FoodInfoViewModel extends AndroidViewModel {
     }
 
 
+    /**
+     * GETTER
+     */
 
-
-    /* GETTER */
-
+    /* OVERVIEW */
     public MutableLiveData<Boolean> getIsFavorite() {
-        return isFavorite;
+        return mFoodInfoOverviewModel.isFavorite();
     }
 
     public MutableLiveData<String> getFoodName() {
-        return mFoodName;
+        return mFoodInfoOverviewModel.getFoodName();
     }
 
     public MutableLiveData<String> getBrandName() {
-        return mBrandName;
+        return mFoodInfoOverviewModel.getBrandName();
     }
 
     public MutableLiveData<String> getType() {
-        return mType;
-    }
-
-    public MutableLiveData<Float> getKiloCalories() {
-        return mKiloCalories;
-    }
-
-    public MutableLiveData<Float> getKiloJoules() {
-        return mKiloJoules;
+        return mFoodInfoOverviewModel.getType();
     }
 
     public MutableLiveData<Integer> getMeasurementsAmount() {
-        return mMeasurementsAmount;
+        return mFoodInfoOverviewModel.getMeasurementsAmount();
     }
 
     public MutableLiveData<Integer> getMaxGlucose() {
-        return mMaxGlucose;
+        return mFoodInfoOverviewModel.getMaxGlucose();
     }
 
     public MutableLiveData<Integer> getAverageGlucose() {
-        return mAverageGlucose;
+        return mFoodInfoOverviewModel.getAverageGlucose();
     }
 
     public MutableLiveData<String> getRating() {
-        return mRating;
+        return mFoodInfoOverviewModel.getRating();
     }
 
     public MutableLiveData<Integer> getPersonalIndex() {
-        return mPersonalIndex;
+        return mFoodInfoOverviewModel.getPersonalIndex();
     }
 
+    /* FOOD DATA */
+
+    public MutableLiveData<Float> getKiloCalories() {
+        return mFoodInfoDataModel.getKiloCalories();
+    }
+
+    public MutableLiveData<Float> getKiloJoules() {
+        return mFoodInfoDataModel.getKiloJoules();
+    }
+
+
     public MutableLiveData<Float> getFat() {
-        return mFat;
+        return mFoodInfoDataModel.getFat();
     }
 
     public MutableLiveData<Float> getSaturates() {
-        return mSaturates;
+        return mFoodInfoDataModel.getSaturates();
     }
 
     public MutableLiveData<Float> getProtein() {
-        return mProtein;
+        return mFoodInfoDataModel.getProtein();
     }
 
     public MutableLiveData<Float> getCarbohydrates() {
-        return mCarbohydrates;
+        return mFoodInfoDataModel.getCarbohydrates();
     }
 
     public MutableLiveData<Float> getSugar() {
-        return mSugar;
+        return mFoodInfoDataModel.getSugar();
     }
 
     public MutableLiveData<Float> getSalt() {
-        return mSalt;
+        return mFoodInfoDataModel.getSalt();
     }
 
+
+    /* Measurements */
     public boolean isDone() {
-        return isDone;
+        return mCurrentMeasurementModel.isDone();
     }
 
-    public boolean isGi() {
-        return isGi;
+    public MutableLiveData<Boolean> isGi() {
+        return mCurrentMeasurementModel.isGi();
     }
 
     public MutableLiveData<String> getTimestamp() {
-        return mTimestamp;
+        return mCurrentMeasurementModel.getTimestamp();
     }
 
     public MutableLiveData<Integer> getAmount() {
-        return mAmount;
+        return mCurrentMeasurementModel.getAmount();
     }
 
     public MutableLiveData<String> getTired() {
-        return mTired;
+        return mCurrentMeasurementModel.getTired();
     }
 
     public MutableLiveData<Integer> getValue0() {
-        return mValue0;
+        return mCurrentMeasurementModel.getValue0();
     }
 
     public MutableLiveData<Integer> getValue15() {
-        return mValue15;
+        return mCurrentMeasurementModel.getValue15();
     }
 
     public MutableLiveData<Integer> getValue30() {
-        return mValue30;
+        return mCurrentMeasurementModel.getValue30();
     }
 
     public MutableLiveData<Integer> getValue45() {
-        return mValue45;
+        return mCurrentMeasurementModel.getValue45();
     }
 
     public MutableLiveData<Integer> getValue60() {
-        return mValue60;
+        return mCurrentMeasurementModel.getValue60();
     }
 
     public MutableLiveData<Integer> getValue75() {
-        return mValue75;
+        return mCurrentMeasurementModel.getValue75();
     }
 
     public MutableLiveData<Integer> getValue90() {
-        return mValue90;
+        return mCurrentMeasurementModel.getValue90();
     }
 
     public MutableLiveData<Integer> getValue105() {
-        return mValue105;
+        return mCurrentMeasurementModel.getValue105();
     }
 
     public MutableLiveData<Integer> getValue120() {
-        return mValue120;
+        return mCurrentMeasurementModel.getValue120();
     }
 }
