@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="hochschule.de.bachelorthesis.viewmodels.AddFoodViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel" />
     </data>
 
     <ScrollView

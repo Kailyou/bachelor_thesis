@@ -33,14 +33,14 @@ import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.viewmodels.AddMeasurementViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class AddMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "AddFoodFragment";
 
     private FragmentAddMeasurementBinding mBinding;
 
-    private AddMeasurementViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
     private int mFoodId;
 
@@ -59,7 +59,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(AddMeasurementViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
 
         // Get passed food id
         assert getArguments() != null;
@@ -272,7 +272,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
                         glucose_0
                 );
 
-                mViewModel.insert(newMeasurement);
+                mViewModel.insertMeasurement(newMeasurement);
             }
         });
     }

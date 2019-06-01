@@ -21,14 +21,14 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.viewmodels.AddFoodViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class AddFoodFragment extends Fragment {
     private static final String TAG = "AddFoodFragment";
 
     private FragmentFoodAddBinding mBinding;
 
-    private AddFoodViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class AddFoodFragment extends Fragment {
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
 
         // Modify action bar
         // Objects.requireNonNull(getActivity().getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
@@ -109,10 +109,7 @@ public class AddFoodFragment extends Fragment {
                 sugar,
                 salt);
 
-        mViewModel.insert(newFood);
-
-        updateViewModel(foodName, brandName, type, kiloCalories, kiloJoules,
-                        fat, saturates, protein, carbohydrates, sugar, salt);
+        mViewModel.insertFood(newFood);
 
         MyToast.createToast(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
     }
@@ -182,27 +179,6 @@ public class AddFoodFragment extends Fragment {
         }
 
         return true;
-    }
-
-    /**
-     * Updates the view model.
-     */
-    private void updateViewModel(String foodName, String brandName, String type,
-                                 float kiloCalories, float kiloJoules,
-                                 float fat, float saturates, float protein, float carbohydrates,
-                                 float sugar, float salt) {
-
-        mViewModel.setFoodName(foodName);
-        mViewModel.setBrandName(brandName);
-        mViewModel.setType(type);
-        mViewModel.setKiloCalories(kiloCalories);
-        mViewModel.setKiloJoules(kiloJoules);
-        mViewModel.setFat(fat);
-        mViewModel.setSaturates(saturates);
-        mViewModel.setProtein(protein);
-        mViewModel.setCarbohydrates(carbohydrates);
-        mViewModel.setSugar(sugar);
-        mViewModel.setSalt(salt);
     }
 
     private void toast(String msg) {

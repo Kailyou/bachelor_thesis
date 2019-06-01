@@ -13,20 +13,20 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
-import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class FoodDataFragment extends Fragment {
 
     private static final String TAG = FoodDataFragment.class.getName();
 
-    private FoodInfoViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // view model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
     }
 
     @Nullable

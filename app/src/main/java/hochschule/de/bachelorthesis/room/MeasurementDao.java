@@ -27,7 +27,7 @@ public interface MeasurementDao {
     void deleteAllMeasurementsWithFoodId(int foodId);
 
     @Query("SELECT * FROM measurement_table WHERE food_id=:foodId")
-    LiveData<List<Measurement>> getAllMeasurementsById(int foodId);
+    LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId);
 
     @Query("SELECT * FROM measurement_table ORDER BY id DESC")
     LiveData<List<Measurement>> getAllMeasurements();

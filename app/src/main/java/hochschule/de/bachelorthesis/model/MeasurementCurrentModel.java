@@ -2,7 +2,7 @@ package hochschule.de.bachelorthesis.model;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class CurrentMeasurementModel {
+public class MeasurementCurrentModel {
     // General
     private boolean mIsDone;
     private MutableLiveData<Boolean> mIsGi;
@@ -10,6 +10,7 @@ public class CurrentMeasurementModel {
     // Time & Advance information
     private MutableLiveData<String> mTimestamp;
     private MutableLiveData<Integer> mAmount;
+    private MutableLiveData<String> mStressed;
     private MutableLiveData<String> mTired;
 
     // Measurement values
@@ -24,10 +25,11 @@ public class CurrentMeasurementModel {
     private MutableLiveData<Integer> mValue120;
 
 
-    public CurrentMeasurementModel() {
+    public MeasurementCurrentModel() {
         mIsGi = new MutableLiveData<>();
         mTimestamp = new MutableLiveData<>();
         mAmount = new MutableLiveData<>();
+        mStressed = new MutableLiveData<>();
         mTired = new MutableLiveData<>();
         mValue0 = new MutableLiveData<>();
         mValue15 = new MutableLiveData<>();
@@ -56,6 +58,10 @@ public class CurrentMeasurementModel {
 
     public MutableLiveData<Integer> getAmount() {
         return mAmount;
+    }
+
+    public MutableLiveData<String> getStressed() {
+        return mStressed;
     }
 
     public MutableLiveData<String> getTired() {
@@ -98,6 +104,7 @@ public class CurrentMeasurementModel {
         return mValue120;
     }
 
+
     /* SETTER */
 
     public void setDone(boolean isDone) {
@@ -115,6 +122,8 @@ public class CurrentMeasurementModel {
     public void setAmount(Integer amount) {
         mAmount.setValue(amount);
     }
+
+    public void setStressed(String stressed) {mStressed.setValue(stressed);}
 
     public void setTired(String tired) {
         mTired.setValue(tired);

@@ -18,12 +18,12 @@ import com.google.android.material.tabs.TabLayout;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
-import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class FoodInfoFragment extends Fragment {
     private static final String TAG = FoodInfoFragment.class.getName();
 
-    private FoodInfoViewModel mViewModel;
+    private FoodViewModel mViewModel;
     private FoodInfoFragment.SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private int mFoodId;
@@ -35,7 +35,7 @@ public class FoodInfoFragment extends Fragment {
 
         mFoodId = getArguments().getInt("food_id");
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
         mViewModel.load(mFoodId, this);
       }
 

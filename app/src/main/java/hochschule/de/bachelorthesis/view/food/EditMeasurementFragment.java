@@ -28,20 +28,18 @@ import java.util.Locale;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentAddMeasurementBinding;
 import hochschule.de.bachelorthesis.databinding.FragmentEditMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.viewmodels.AddMeasurementViewModel;
-import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class EditMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "AddFoodFragment";
 
     private FragmentEditMeasurementBinding mBinding;
 
-    private FoodInfoViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
     private int mFoodId;
     private int mMeasurementId;
@@ -61,7 +59,7 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
 
         // Get passed food id
         assert getArguments() != null;
@@ -184,7 +182,7 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
                         glucose_0
                 );
 
-                mViewModel.insert(newMeasurement);
+                mViewModel.insertMeasurement(newMeasurement);
             }
         });
     }

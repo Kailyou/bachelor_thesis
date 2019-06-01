@@ -22,11 +22,11 @@ public interface FoodDao {
     void delete(Food food);
 
     @Query("DELETE FROM food_table")
-    void deleteAllFood();
+    void deleteAllFoods();
 
     @Query("SELECT * FROM food_table WHERE id=:id")
     LiveData<Food> getFoodById(int id);
 
     @Query("SELECT * FROM food_table ORDER BY id DESC")
-    LiveData<List<Food>> getAllFood();
+    LiveData<List<Food>> getAllFoods();
 }

@@ -63,7 +63,7 @@ public class FoodFragment extends Fragment {
         final AdapterFood adapter = new AdapterFood(getContext(), navController);
         recyclerView.setAdapter(adapter);
 
-        foodViewModel.getAllFood().observe(this, new Observer<List<Food>>() {
+        foodViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
                     @Override
                     public void onChanged(List<Food> foods) {
                         adapter.setFoods(foods);

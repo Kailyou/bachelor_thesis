@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel" />
+            type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel" />
     </data>
 
     <TableLayout
@@ -38,7 +38,7 @@
                 android:id="@+id/food_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.foodName}"
+                android:text="@{vm.foodInfoOverviewModel.foodName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -53,7 +53,7 @@
                 android:id="@+id/brand_name"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.brandName}"
+                android:text="@{vm.foodInfoOverviewModel.brandName}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -68,7 +68,7 @@
                 android:id="@+id/type"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{vm.type}"
+                android:text="@{vm.foodInfoOverviewModel.type}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -83,7 +83,7 @@
                 android:id="@+id/kCal"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.kiloCalories))}"
+                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.kiloCalories))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -108,7 +108,7 @@
                 android:id="@+id/measurements_done"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.measurementsAmount))}"
+                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -123,7 +123,7 @@
                 android:id="@+id/max_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.maxGlucose))}"
+                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.maxGlucose))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -138,7 +138,7 @@
                 android:id="@+id/avg_glucose"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.averageGlucose))}"
+                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.averageGlucose))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -163,7 +163,7 @@
                 android:id="@+id/rating"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{Converter.convertString(vm.rating)}"
+                android:text="@{Converter.convertString(vm.foodInfoOverviewModel.rating)}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
 
@@ -178,7 +178,7 @@
                 android:id="@+id/personal_gi"
                 android:gravity="end"
                 android:padding="3dip"
-                android:text="@{String.valueOf(safeUnbox(vm.personalIndex))}"
+                android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.personalIndex))}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </TableRow>
     </TableLayout>

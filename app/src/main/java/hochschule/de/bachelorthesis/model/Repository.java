@@ -33,7 +33,7 @@ public class Repository {
         mMeasurementDao = database.measurementDao();
         mFoodDao = database.foodDao();
         mUserHistoryDao = database.userHistoryDao();
-        mAllFood = mFoodDao.getAllFood();
+        mAllFood = mFoodDao.getAllFoods();
         mAllMeasurements = mMeasurementDao.getAllMeasurements();
     }
 
@@ -54,8 +54,8 @@ public class Repository {
     }
 
     // already executed on a background thread because of live data
-    public LiveData<List<Measurement>> getAllMeasurementsById(int id) {
-        return mMeasurementDao.getAllMeasurementsById(id);
+    public LiveData<List<Measurement>> getAllMeasurementsByFoodId(int id) {
+        return mMeasurementDao.getAllMeasurementsByFoodId(id);
     }
 
     public void deleteAllMeasurementsWithId(int id) {
@@ -84,7 +84,7 @@ public class Repository {
     }
 
     // already executed on a background thread because of live data
-    public LiveData<List<Food>> getAllFood() {
+    public LiveData<List<Food>> getAllFoods() {
         return mAllFood;
     }
 
@@ -211,7 +211,7 @@ public class Repository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mFoodDao.deleteAllFood();
+            mFoodDao.deleteAllFoods();
             return null;
         }
     }

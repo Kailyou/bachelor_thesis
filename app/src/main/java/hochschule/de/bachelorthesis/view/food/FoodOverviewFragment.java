@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
-import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 
 public class FoodOverviewFragment extends Fragment {
@@ -23,14 +22,14 @@ public class FoodOverviewFragment extends Fragment {
 
     private FragmentFoodOverviewBinding mBinding;
 
-    private FoodInfoViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // view model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
     }
 
     @Nullable

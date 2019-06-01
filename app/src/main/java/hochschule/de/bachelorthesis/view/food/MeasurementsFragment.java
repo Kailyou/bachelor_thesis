@@ -27,13 +27,13 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementsBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.AdapterMeasurements;
-import hochschule.de.bachelorthesis.viewmodels.FoodInfoViewModel;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementsFragment extends Fragment {
 
     private static final String TAG = MeasurementsFragment.class.getName();
 
-    private FoodInfoViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
     private int mFoodId;
 
@@ -52,7 +52,7 @@ public class MeasurementsFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(FoodInfoViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
 
         // RecyclerView
         RecyclerView recyclerView = binding.recyclerView;
