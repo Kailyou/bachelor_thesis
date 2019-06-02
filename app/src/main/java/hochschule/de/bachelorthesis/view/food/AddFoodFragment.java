@@ -1,20 +1,25 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import hochschule.de.bachelorthesis.utility.Converter;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
@@ -31,6 +36,10 @@ public class AddFoodFragment extends Fragment {
 
   private FoodViewModel mViewModel;
 
+  // Typed dropdown view
+  private boolean hasSelected;  // Check if item has been selected, or if position is default 0
+  private int mTypePosition;
+
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -40,9 +49,6 @@ public class AddFoodFragment extends Fragment {
 
     // View model
     mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
-
-    // Modify action bar
-    // Objects.requireNonNull(getActivity().getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
   }
 
   @Nullable
@@ -52,14 +58,34 @@ public class AddFoodFragment extends Fragment {
     // Init data binding
     mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_add, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setViewModel(mViewModel);
+    mBinding.setVm(mViewModel);
 
     // Spinner
     ArrayAdapter<CharSequence> adapter = ArrayAdapter
         .createFromResource(Objects.requireNonNull(getContext()),
             R.array.type, android.R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
     mBinding.type.setAdapter(adapter);
+
+    // Observe the type dropdown view and remember if an item has been selected + save the index
+    mBinding.type.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mTypePosition = position;
+        hasSelected = true;
+      }
+    });
+
+    // load the last user input by observing the view model object
+    // filter has to be false otherwise auto complete will destroy the dropdown element.
+    mViewModel.getFoodAddDataModel().getType().observe(this, new Observer<String>() {
+      @Override
+      public void onChanged(String s) {
+        mBinding.type
+            .setText(mViewModel.getFoodAddDataModel().getType().getValue(), false);
+      }
+    });
 
     return mBinding.getRoot();
   }
@@ -84,6 +110,65 @@ public class AddFoodFragment extends Fragment {
   }
 
   /**
+   * Saving the current state to the viewModel.
+   *
+   * Uses a function to parse a Float value.
+   *
+   * If the float value is empty, the result will be a -1.
+   *
+   * The view will convert that -1 to an empty String.
+   */
+  @Override
+  public void onStop() {
+    super.onStop();
+
+    // The normal String values can just be taken
+    mViewModel.getFoodAddDataModel().getFoodName().setValue(
+        Objects.requireNonNull(mBinding.foodName.getText()).toString());
+
+    mViewModel.getFoodAddDataModel().getBrandName()
+        .setValue(Objects.requireNonNull(mBinding.brandName.getText()).toString());
+
+    mViewModel.getFoodAddDataModel().getType().setValue(mBinding.type.getText().toString());
+
+    // The exposed drop down
+    // get the needed string out of the string array resource and update the vm.
+    if (hasSelected) {
+      String s = getResources().getStringArray(R.array.type)[mTypePosition];
+      mViewModel.getFoodAddDataModel().getType().setValue(s);
+    }
+
+    // The float values have to be parsed first
+    mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getKiloJoules().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getFat().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getSaturates().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getProtein().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getCarbohydrates().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getSugars().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getSalt().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString()));
+  }
+
+
+  /**
    * Save the food to the database.
    */
   private void save() {
@@ -91,9 +176,9 @@ public class AddFoodFragment extends Fragment {
     String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
     String type = mBinding.type.getText().toString();
     float kiloCalories = Float
-        .parseFloat(Objects.requireNonNull(mBinding.energyKcal.getText()).toString());
+        .parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString());
     float kiloJoules = Float
-        .parseFloat(Objects.requireNonNull(mBinding.energyKj.getText()).toString());
+        .parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString());
     float fat = Float.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString());
     float saturates = Float
         .parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString());
@@ -146,13 +231,14 @@ public class AddFoodFragment extends Fragment {
     }
 
     // checks the drop down menus
-    if (mBinding.energyKcal.getText() == null || mBinding.energyKcal.getText().toString()
+    if (mBinding.kiloCalories.getText() == null || mBinding.kiloCalories.getText().toString()
         .equals("")) {
       toast("Please enter the kilo calories.");
       return false;
     }
 
-    if (mBinding.energyKj.getText() == null || mBinding.energyKj.getText().toString().equals("")) {
+    if (mBinding.kiloJoules.getText() == null || mBinding.kiloJoules.getText().toString()
+        .equals("")) {
       toast("Please enter the kilo joules.");
       return false;
     }

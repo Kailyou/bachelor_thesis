@@ -211,9 +211,11 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
     boolean isDone = checkIsDone(measurements);
 
     if (isDone) {
+      int glucoseMaxCurrent = calculateGlucoseMax(measurements, food.getMaxGlucose());
+      int glucoseAverageCurrent = CalculateGlucoseAverage(measurements);
+
       int amountMeasurements = food.getAmountMeasurements() + 1;
-      int glucoseMax = calculateGlucoseMax(measurements, food.getMaxGlucose());
-      int glucoseAverage = CalculateGlucoseAverage(measurements);
+
     }
 
     // mViewModel.insertMeasurement(newMeasurement)

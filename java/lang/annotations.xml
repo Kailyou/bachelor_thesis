@@ -1,5 +1,2 @@
 <root>
-    <item name='java.lang.CharSequence java.lang.String toString()'>
-        <annotation name='androidx.annotation.NonNull' />
-    </item>
 </root>

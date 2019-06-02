@@ -22,7 +22,7 @@ public class FoodAddDataModel {
   private MutableLiveData<Float> mSaturates;
   private MutableLiveData<Float> mProtein;
   private MutableLiveData<Float> mCarbohydrates;
-  private MutableLiveData<Float> mSugar;
+  private MutableLiveData<Float> mSugars;
   private MutableLiveData<Float> mSalt;
 
 
@@ -37,7 +37,7 @@ public class FoodAddDataModel {
     mSaturates = new MutableLiveData<>();
     mProtein = new MutableLiveData<>();
     mCarbohydrates = new MutableLiveData<>();
-    mSugar = new MutableLiveData<>();
+    mSugars = new MutableLiveData<>();
     mSalt = new MutableLiveData<>();
   }
 
@@ -79,8 +79,8 @@ public class FoodAddDataModel {
     return mCarbohydrates;
   }
 
-  public MutableLiveData<Float> getSugar() {
-    return mSugar;
+  public MutableLiveData<Float> getSugars() {
+    return mSugars;
   }
 
   public MutableLiveData<Float> getSalt() {
@@ -125,8 +125,8 @@ public class FoodAddDataModel {
     mCarbohydrates.setValue(carbohydrates);
   }
 
-  public void setSugar(Float sugar) {
-    mSugar.setValue(sugar);
+  public void setSugars(Float sugars) {
+    mSugars.setValue(sugars);
   }
 
   public void setSalt(Float salt) {

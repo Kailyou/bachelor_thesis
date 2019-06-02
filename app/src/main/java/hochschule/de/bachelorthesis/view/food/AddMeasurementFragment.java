@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -73,6 +74,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
     // Init data binding
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_add_measurement, container, false);
@@ -105,6 +107,16 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
     });
 
     return mBinding.getRoot();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
   }
 
   @Override
@@ -265,7 +277,6 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
         String timeStamp = sdf.format(date);
-        Log.d("yolo", "Current Timestamp: " + timeStamp);
 
         int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
         String stress = mBinding.stress.getText().toString();

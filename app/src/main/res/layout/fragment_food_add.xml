@@ -4,8 +4,9 @@
   tools:context=".view.food.AddFoodFragment">
 
   <data>
+    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
     <variable
-      name="viewModel"
+      name="vm"
       type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
   </data>
 
@@ -32,33 +33,37 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/food_name"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:focusableInTouchMode="true"
+        android:hint="@string/food_name">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/food_name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="text"/>
+          android:inputType="text"
+          android:text="@{vm.foodAddDataModel.foodName}"
+          />
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/brand_name"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/brand_name">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/brand_name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="text"/>
+          android:inputType="text"
+          android:text="@{vm.foodAddDataModel.brandName}"
+          />
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -72,9 +77,9 @@
           android:id="@+id/type"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/type"
+          android:cursorVisible="false"
           android:focusable="false"
-          android:cursorVisible="false"/>
+          android:hint="@string/type"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <!-- Nutritional information-->
@@ -90,128 +95,136 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/energy_kcal"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/energy_kcal">
 
         <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/energy_kcal"
+          android:id="@+id/kilo_calories"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.kiloCalories)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/energy_kj"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/energy_kj">
 
         <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/energy_kj"
+          android:id="@+id/kilo_joules"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.kiloJoules)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/fat"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/fat">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/fat"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.fat)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/of_which_saturates"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/of_which_saturates">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/saturates"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.saturates)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/protein"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/protein">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/protein"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.protein)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/carbohydrate"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/carbohydrate">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/carbohydrate"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.carbohydrates)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/of_which_sugars"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/of_which_sugars">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/sugars"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.sugars)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/salt"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/salt">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/salt"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="numberDecimal"/>
+          android:inputType="numberDecimal"
+          android:text="@{Converter.convertFloat(vm.foodAddDataModel.salt)}"/>
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
   </ScrollView>
