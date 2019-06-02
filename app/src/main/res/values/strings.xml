@@ -96,6 +96,7 @@
   <string name="time_started">Time started</string>
   <string name="time_ended">Time ended</string>
   <string name="delete_measurement">Delete Measurement</string>
+  <string name="clear">Clear</string>
 
   <string-array name="type">
     <item>Grains</item>

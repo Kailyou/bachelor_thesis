@@ -225,6 +225,36 @@ public class FoodViewModel extends AndroidViewModel {
   /* UPDATE MODELS */
 
   /**
+   * This method will update the food add model.
+   * @param foodName - Name of the food.
+   * @param brandName - Brand of the food.
+   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
+   * @param kiloCalories - Kilo calories (kCal) of the food.
+   * @param kiloJoules - Kilo joules (kJ) of the food.
+   * @param fat - Fat of the food.
+   * @param saturates - Saturates of the food.
+   * @param protein - Proteins of the food.
+   * @param carbohydrates - Carbohydrates of the food.
+   * @param sugars - Sugar of the food.
+   * @param salt - Salt of the food.
+   */
+  public void updateFoodAddOverviewModeL(String foodName, String brandName, String foodType,
+      float kiloCalories, float kiloJoules, float fat, float saturates, float protein,
+      float carbohydrates, float sugars, float salt) {
+    mFoodAddDataModel.setFoodName(foodName);
+    mFoodAddDataModel.setBrandName(brandName);
+    mFoodAddDataModel.setType(foodType);
+    mFoodAddDataModel.setKiloCalories(kiloCalories);
+    mFoodAddDataModel.setKiloJoules(kiloJoules);
+    mFoodAddDataModel.setFat(fat);
+    mFoodAddDataModel.setSaturates(saturates);
+    mFoodAddDataModel.setProtein(protein);
+    mFoodAddDataModel.setCarbohydrates(carbohydrates);
+    mFoodAddDataModel.setSugars(sugars);
+    mFoodAddDataModel.setSalt(salt);
+  }
+
+  /**
    * This method will update the food overview model.
    *
    * @param foodName - Name of the food.
@@ -255,26 +285,26 @@ public class FoodViewModel extends AndroidViewModel {
   /**
    * This method will update the food data model.
    *
-   * @param kiloCalories - Kilo calories of the food.
-   * @param kiloJoules - Kilo Joules of the food.
+   * @param kiloCalories - Kilo calories (kCal) of the food.
+   * @param kiloJoules - Kilo joules (kJ) of the food.
    * @param fat - Fat of the food.
    * @param saturates - Saturates of the food.
    * @param protein - Proteins of the food.
    * @param carbohydrates - Carbohydrates of the food.
-   * @param sugar - Sugar of the food.
+   * @param sugars - Sugar of the food.
    * @param salt - Salt of the food.
    */
   private void updateFoodDataModel(float kiloCalories, float kiloJoules,
       float fat, float saturates,
       float protein, float carbohydrates,
-      float sugar, float salt) {
+      float sugars, float salt) {
     mFoodInfoDataModel.setKiloCalories(kiloCalories);
     mFoodInfoDataModel.setKiloJoules(kiloJoules);
     mFoodInfoDataModel.setFat(fat);
     mFoodInfoDataModel.setSaturates(saturates);
     mFoodInfoDataModel.setProtein(protein);
     mFoodInfoDataModel.setCarbohydrates(carbohydrates);
-    mFoodInfoDataModel.setSugar(sugar);
+    mFoodInfoDataModel.setSugar(sugars);
     mFoodInfoDataModel.setSalt(salt);
   }
 

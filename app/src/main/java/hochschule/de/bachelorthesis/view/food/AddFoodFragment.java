@@ -28,17 +28,25 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
+/**
+ * @author Maik T.
+ *
+ * This class handles the add food feature.
+ *
+ * The user will be able to add a new food to the list by filling out the views and pressing the
+ * save button on the toolbar. Also filled out view data will be restored as long as the user does
+ * not quit the APP.
+ *
+ * The user can do the following actions:
+ *
+ * Save food: A new food object will be created and added to the list. Clear list: The views will be
+ * cleared
+ */
 public class AddFoodFragment extends Fragment {
-
-  private static final String TAG = "AddFoodFragment";
 
   private FragmentFoodAddBinding mBinding;
 
   private FoodViewModel mViewModel;
-
-  // Typed dropdown view
-  private boolean hasSelected;  // Check if item has been selected, or if position is default 0
-  private int mTypePosition;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +56,8 @@ public class AddFoodFragment extends Fragment {
     setHasOptionsMenu(true);
 
     // View model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
   }
 
   @Nullable
@@ -68,45 +77,17 @@ public class AddFoodFragment extends Fragment {
 
     mBinding.type.setAdapter(adapter);
 
-    // Observe the type dropdown view and remember if an item has been selected + save the index
-    mBinding.type.setOnItemClickListener(new OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mTypePosition = position;
-        hasSelected = true;
-      }
-    });
-
     // load the last user input by observing the view model object
     // filter has to be false otherwise auto complete will destroy the dropdown element.
     mViewModel.getFoodAddDataModel().getType().observe(this, new Observer<String>() {
       @Override
       public void onChanged(String s) {
         mBinding.type
-            .setText(mViewModel.getFoodAddDataModel().getType().getValue(), false);
+            .setText(s, false);
       }
     });
 
     return mBinding.getRoot();
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.add_food_menu, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.save) {
-      if (inPutOkay()) {
-        save();
-      }
-
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
   }
 
   /**
@@ -133,10 +114,7 @@ public class AddFoodFragment extends Fragment {
 
     // The exposed drop down
     // get the needed string out of the string array resource and update the vm.
-    if (hasSelected) {
-      String s = getResources().getStringArray(R.array.type)[mTypePosition];
-      mViewModel.getFoodAddDataModel().getType().setValue(s);
-    }
+    mViewModel.getFoodAddDataModel().getType().setValue(mBinding.type.getText().toString());
 
     // The float values have to be parsed first
     mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
@@ -167,6 +145,29 @@ public class AddFoodFragment extends Fragment {
         Converter.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString()));
   }
 
+  @Override
+  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.add_food_menu, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.save:
+        if (inPutOkay()) {
+          save();
+          return true;
+        }
+
+      case R.id.clear: {
+        mViewModel.updateFoodAddOverviewModeL("", "", "", -1, -1, -1, -1, -1, -1, -1, -1);
+        return true;
+      }
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
 
   /**
    * Save the food to the database.
