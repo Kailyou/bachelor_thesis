@@ -96,18 +96,12 @@ public class MeViewModel extends ObservableAndroidViewModel {
    * DEBUG ONLY
    *
    * Removes all existing user history objects from the database and updates the viewModel.
+   * -1 will be converted to an empty String.
+   *
    */
   public void deleteAllUserHistoryIds() {
     mRepository.deleteAllUserHistories();
-
-    mAge.setValue(0);
-    mHeight.setValue(0);
-    mWeight.setValue(0);
-    mSex.setValue("");
-    mFitnessLevel.setValue("");
-    mMedication.setValue(false);
-    mAllergies.setValue(false);
-    mSmoking.setValue(false);
+    updateViewModel(-1, -1, -1, "", "", false, false, false);
   }
 
   private void updateViewModel(int age, int height, int weight, String sex,

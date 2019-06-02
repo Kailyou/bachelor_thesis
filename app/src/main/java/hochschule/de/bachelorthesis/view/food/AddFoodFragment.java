@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.utility.Converter;
+import hochschule.de.bachelorthesis.utility.Parser;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
@@ -118,31 +119,31 @@ public class AddFoodFragment extends Fragment {
 
     // The float values have to be parsed first
     mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getKiloJoules().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getFat().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getSaturates().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getProtein().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getCarbohydrates().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getSugars().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString()));
 
     mViewModel.getFoodAddDataModel().getSalt().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString()));
+        Parser.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString()));
   }
 
   @Override

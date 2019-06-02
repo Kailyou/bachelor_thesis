@@ -10,28 +10,19 @@ public class Converter {
     }
   }
 
-  public static String convertInteger(Integer i) {
-    if (i == 0) {
-      return "";
-    } else {
-      return String.valueOf(i);
-    }
-  }
-
-
-
   /**
-   * Converts a given String to a float.
-   * @param s - The given String.
-   * @return - The float value if the string is a valid string. Else -1, this will be used
-   * to get a "" string.
+   * Converts a given Integer to a String.
+   * @param i - The given Integer.
+   * @return - returns empty string if the Integer is null or -1 (error code), else return a String
+   * created out of the float value.
    */
-  public static float parseFloat(String s) {
-    if (s != null && s.length() > 0) {
-        return Float.parseFloat(s);
-      }
-    return -1;
+  public static String convertInteger(Integer i) {
+    if(i == null || i == -1) {
+      return "";
+    }
+    return String.valueOf(i);
   }
+
 
   /**
    * Converts a given float to a String.

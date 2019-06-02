@@ -3,8 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,8 +38,6 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 public class AddMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
-  private static final String TAG = "AddFoodFragment";
-
   private FragmentAddMeasurementBinding mBinding;
 
   private FoodViewModel mViewModel;
@@ -63,7 +59,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
     setHasOptionsMenu(true);
 
     // View model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
 
     // Get passed food id
     assert getArguments() != null;
@@ -109,14 +105,54 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
     return mBinding.getRoot();
   }
 
+  /**
+   * Saving the current state to the viewModel.
+   *
+   * Uses a function to parse a Float value.
+   *
+   * If the float value is empty, the result will be a -1.
+   *
+   * The view will convert that -1 to an empty String.
+   */
   @Override
   public void onStop() {
     super.onStop();
-  }
 
-  @Override
-  public void onResume() {
-    super.onResume();
+    /*
+    // The float values have to be parsed first
+    mViewModel.getmMeasurementAddModel().getAmount().setValue(
+        Parser.parseFloat(Objects.requireNonNull(mBinding.amount.getText().toString())));
+
+    // The exposed drop down
+    // get the needed string out of the string array resource and update the vm.
+    mViewModel.getFoodAddDataModel().getType().setValue(mBinding.type.getText().toString());
+
+
+
+    mViewModel.getFoodAddDataModel().getKiloJoules().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getFat().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getSaturates().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getProtein().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getCarbohydrates().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getSugars().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString()));
+
+    mViewModel.getFoodAddDataModel().getSalt().setValue(
+        Converter.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString()));
+        */
   }
 
   @Override
@@ -131,7 +167,7 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
       if (inPutOkay()) {
         save();
         // Navigate back to me fragment
-        Navigation.findNavController(getView())
+        Navigation.findNavController(Objects.requireNonNull(getView()))
             .navigate(R.id.action_addMeasurement_to_foodInfoFragment);
       }
 

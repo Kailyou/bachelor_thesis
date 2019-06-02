@@ -33,10 +33,10 @@ import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
  * The user will be able to update his user data by filling out the views and pressing the save
  * button on the toolbar.
  *
- * After that, there will be a new user history object created, which will be passed to the database.
+ * After that, there will be a new user history object created, which will be passed to the
+ * database.
  *
  * The user is not able to delete old user histories since he does not know about them.
- *
  */
 public class MeEditFragment extends Fragment {
 
@@ -108,8 +108,7 @@ public class MeEditFragment extends Fragment {
   }
 
   /**
-   * If the user input is okay,
-   * save the data by passing the new user history data to the database
+   * If the user input is okay, save the data by passing the new user history data to the database
    * VM will update itself.
    */
   private void save() {
@@ -128,7 +127,8 @@ public class MeEditFragment extends Fragment {
       mViewModel.insertUserHistory(uh);
 
       // Navigate back to me fragment
-      Navigation.findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_meEditFragment_to_meFragment);
+      Navigation.findNavController(Objects.requireNonNull(getView()))
+          .navigate(R.id.action_meEditFragment_to_meFragment);
     }
   }
 
@@ -172,6 +172,7 @@ public class MeEditFragment extends Fragment {
 
   /**
    * Faster toasts ;)
+   *
    * @param msg - Message to deliver!
    */
   private void toast(String msg) {
@@ -180,6 +181,7 @@ public class MeEditFragment extends Fragment {
 
   /**
    * Helper function which will an ArrayAdapter object
+   *
    * @param elements - The String array to build the adapter with
    * @return - Returns an ArrayAdapter of the given Strings.
    */
