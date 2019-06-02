@@ -1,15 +1,12 @@
 package hochschule.de.bachelorthesis.view.me;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -28,15 +25,23 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
 
+/**
+ * @author Maik T.
+ *
+ * This class handles the User edit feature.
+ *
+ * The user will be able to update his user data by filling out the views and pressing the save
+ * button on the toolbar.
+ *
+ * After that, there will be a new user history object created, which will be passed to the database.
+ *
+ * The user is not able to delete old user histories since he does not know about them.
+ *
+ */
 public class MeEditFragment extends Fragment {
 
   private MeViewModel mViewModel;
   private FragmentMeEditBinding mBinding;
-
-  private boolean mHasSelectedSexDropdown;
-  private boolean mhasSelectedFitnessLevelDropdown;
-  private int mSexDropdownIndex;
-  private int mFitnessLevelDropdownIndex;
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -62,13 +67,7 @@ public class MeEditFragment extends Fragment {
     mBinding.dropdownSex
         .setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_sex)));
 
-    mBinding.dropdownSex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mHasSelectedSexDropdown = true;
-      }
-    });
-
+    // gets the current value and updates the view
     mViewModel.getSex().observe(this, new Observer<String>() {
       @Override
       public void onChanged(String s) {
@@ -77,17 +76,10 @@ public class MeEditFragment extends Fragment {
       }
     });
 
-    mBinding.dropdownSex.setText("Female", false);
     mBinding.dropdownFitnessLevel.setAdapter(
         getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_fitness_level)));
 
-    mBinding.dropdownFitnessLevel.setOnItemClickListener(new OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mhasSelectedFitnessLevelDropdown = true;
-      }
-    });
-
+    // gets the current value and updates the view
     mViewModel.getFitnessLevel().observe(this, new Observer<String>() {
       @Override
       public void onChanged(String s) {
@@ -115,11 +107,16 @@ public class MeEditFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * If the user input is okay,
+   * save the data by passing the new user history data to the database
+   * VM will update itself.
+   */
   private void save() {
     if (inPutOkay()) {
-      int age = Integer.parseInt(mBinding.age.getText().toString());
-      int height = Integer.parseInt(mBinding.height.getText().toString());
-      int weight = Integer.parseInt(mBinding.weight.getText().toString());
+      int age = Integer.parseInt(Objects.requireNonNull(mBinding.age.getText()).toString());
+      int height = Integer.parseInt(Objects.requireNonNull(mBinding.height.getText()).toString());
+      int weight = Integer.parseInt(Objects.requireNonNull(mBinding.weight.getText()).toString());
       String sex = mBinding.dropdownSex.getText().toString();
       String fitnessLevel = mBinding.dropdownFitnessLevel.getText().toString();
       boolean medication = mBinding.medication.isChecked();
@@ -131,7 +128,7 @@ public class MeEditFragment extends Fragment {
       mViewModel.insertUserHistory(uh);
 
       // Navigate back to me fragment
-      Navigation.findNavController(getView()).navigate(R.id.action_meEditFragment_to_meFragment);
+      Navigation.findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_meEditFragment_to_meFragment);
     }
   }
 
@@ -173,10 +170,19 @@ public class MeEditFragment extends Fragment {
     return true;
   }
 
+  /**
+   * Faster toasts ;)
+   * @param msg - Message to deliver!
+   */
   private void toast(String msg) {
     MyToast.createToast(getContext(), msg);
   }
 
+  /**
+   * Helper function which will an ArrayAdapter object
+   * @param elements - The String array to build the adapter with
+   * @return - Returns an ArrayAdapter of the given Strings.
+   */
   private ArrayAdapter<String> getAdapter(String[] elements) {
     return new ArrayAdapter<>(Objects.requireNonNull(getContext()),
         R.layout.dropdown_menu_popup_item, elements);
