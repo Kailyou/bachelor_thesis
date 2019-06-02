@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -30,6 +32,11 @@ public class MeEditFragment extends Fragment {
 
   private MeViewModel mViewModel;
   private FragmentMeEditBinding mBinding;
+
+  private boolean mHasSelectedSexDropdown;
+  private boolean mhasSelectedFitnessLevelDropdown;
+  private int mSexDropdownIndex;
+  private int mFitnessLevelDropdownIndex;
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -51,20 +58,43 @@ public class MeEditFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 
-    // Spinner
-    // TODO, save current to viewModel
+    // dropdown
     mBinding.dropdownSex
         .setAdapter(getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_sex)));
+
     mBinding.dropdownSex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mHasSelectedSexDropdown = true;
+      }
+    });
 
+    mViewModel.getSex().observe(this, new Observer<String>() {
+      @Override
+      public void onChanged(String s) {
+        mBinding.dropdownSex
+            .setText(s, false);
       }
     });
 
     mBinding.dropdownSex.setText("Female", false);
     mBinding.dropdownFitnessLevel.setAdapter(
         getAdapter(getResources().getStringArray(R.array.fragment_me_spinner_fitness_level)));
+
+    mBinding.dropdownFitnessLevel.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mhasSelectedFitnessLevelDropdown = true;
+      }
+    });
+
+    mViewModel.getFitnessLevel().observe(this, new Observer<String>() {
+      @Override
+      public void onChanged(String s) {
+        mBinding.dropdownFitnessLevel
+            .setText(s, false);
+      }
+    });
 
     return mBinding.getRoot();
   }
@@ -83,8 +113,6 @@ public class MeEditFragment extends Fragment {
     }
 
     return super.onOptionsItemSelected(item);
-
-
   }
 
   private void save() {
