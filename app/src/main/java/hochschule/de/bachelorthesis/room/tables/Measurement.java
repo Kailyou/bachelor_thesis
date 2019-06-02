@@ -87,37 +87,20 @@ public class Measurement {
   @ColumnInfo(name = "glucose_average")
   private int glucoseAvg;
 
+  // Measurement
+  @ColumnInfo(name = "max_glucose")
+  private int maxGlucose;
+
+  @ColumnInfo(name = "average_glucose")
+  private int averageGlucose;
+
+  // Analyses
   @ColumnInfo(name = "rating")
   private String rating;
 
-  @Ignore
-  public Measurement(int foodId, int userHistoryId,
-      String timeStamp,
-      boolean isGi,
-      int amount, String stress, String tired,
-      int glucoseStart, int glucose15, int glucose30, int glucose45, int glucose60,
-      int glucose75, int glucose90, int glucose105, int glucose120,
-      int glucoseMax, int glucoseAvg, String rating) {
-    this.foodId = foodId;
-    this.userHistoryId = userHistoryId;
-    this.timeStamp = timeStamp;
-    this.isGi = isGi;
-    this.amount = amount;
-    this.stress = stress;
-    this.tired = tired;
-    this.glucoseStart = glucoseStart;
-    this.glucose15 = glucose15;
-    this.glucose30 = glucose30;
-    this.glucose45 = glucose45;
-    this.glucose60 = glucose60;
-    this.glucose75 = glucose75;
-    this.glucose90 = glucose90;
-    this.glucose105 = glucose105;
-    this.glucose120 = glucose120;
-    this.glucoseMax = glucoseMax;
-    this.glucoseAvg = glucoseAvg;
-    this.rating = rating;
-  }
+  @ColumnInfo(name = "personal_index")
+  private int personalIndex;
+
 
   public Measurement(int foodId, int userHistoryId,
       String timeStamp, int amount, String stress, String tired,
@@ -213,6 +196,18 @@ public class Measurement {
     return isGi;
   }
 
+  public int getMaxGlucose() {
+    return maxGlucose;
+  }
+
+  public int getAverageGlucose() {
+    return averageGlucose;
+  }
+
+  public int getPersonalIndex() {
+    return personalIndex;
+  }
+
   /* SETTER */
 
   public void setFoodId(int foodId) {
@@ -293,5 +288,17 @@ public class Measurement {
 
   public void setGi(boolean gi) {
     isGi = gi;
+  }
+
+  public void setMaxGlucose(int maxGlucose) {
+    this.maxGlucose = maxGlucose;
+  }
+
+  public void setAverageGlucose(int averageGlucose) {
+    this.averageGlucose = averageGlucose;
+  }
+
+  public void setPersonalIndex(int personalIndex) {
+    this.personalIndex = personalIndex;
   }
 }
