@@ -80,7 +80,7 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_edit_measurement, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setViewModel(mViewModel);
+    mBinding.setVm(mViewModel);
 
     // Spinner
     ArrayAdapter<CharSequence> adapter = ArrayAdapter

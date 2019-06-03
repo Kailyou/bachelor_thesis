@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.Objects;
 
 public class EditFoodDataFragment extends Fragment {
 
@@ -24,7 +25,7 @@ public class EditFoodDataFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     // view model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
   }
 
   @Nullable

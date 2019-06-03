@@ -136,7 +136,8 @@ public class FoodViewModel extends AndroidViewModel {
             food.getAverageGlucose(), food.getRating(), food.getPersonalIndex());
 
         //food data tab
-        updateFoodDataModel(food.getKiloCalories(), food.getKiloJoules(),
+        updateFoodDataModel(food.getFoodName(), food.getBrandName(), food.getFoodType(),
+            food.getKiloCalories(), food.getKiloJoules(),
             food.getFat(), food.getSaturates(), food.getProtein(),
             food.getCarbohydrate(), food.getSugars(), food.getSalt());
       }
@@ -293,6 +294,9 @@ public class FoodViewModel extends AndroidViewModel {
   /**
    * This method will update the food data model.
    *
+   * @param foodName - Name of the food.
+   * @param brandName - Brand of the food.
+   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
    * @param kiloCalories - Kilo calories (kCal) of the food.
    * @param kiloJoules - Kilo joules (kJ) of the food.
    * @param fat - Fat of the food.
@@ -302,10 +306,14 @@ public class FoodViewModel extends AndroidViewModel {
    * @param sugars - Sugar of the food.
    * @param salt - Salt of the food.
    */
-  private void updateFoodDataModel(float kiloCalories, float kiloJoules,
+  private void updateFoodDataModel(String foodName, String brandName, String foodType,
+      float kiloCalories, float kiloJoules,
       float fat, float saturates,
       float protein, float carbohydrates,
       float sugars, float salt) {
+    mFoodInfoDataModel.setFoodName(foodName);
+    mFoodInfoDataModel.setBrandName(brandName);
+    mFoodInfoDataModel.setType(foodType);
     mFoodInfoDataModel.setKiloCalories(kiloCalories);
     mFoodInfoDataModel.setKiloJoules(kiloJoules);
     mFoodInfoDataModel.setFat(fat);

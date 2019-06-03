@@ -2,9 +2,15 @@ package hochschule.de.bachelorthesis.model;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class FoodInfoDataModel {
+/**
+ * This model class will be used to store data of the add food view.
+ *
+ * This will affect, once the user leaves the add food fragment to save the input and when the user
+ * opens the view again, the data will be restored.
+ */
+public class FoodEditDataModel {
 
-  // General
+  // About the food
   private MutableLiveData<String> mFoodName;
   private MutableLiveData<String> mBrandName;
   private MutableLiveData<String> mType;
@@ -15,12 +21,12 @@ public class FoodInfoDataModel {
   private MutableLiveData<Float> mFat;
   private MutableLiveData<Float> mSaturates;
   private MutableLiveData<Float> mProtein;
-  private MutableLiveData<Float> mCarbohydrate;
+  private MutableLiveData<Float> mCarbohydrates;
   private MutableLiveData<Float> mSugars;
   private MutableLiveData<Float> mSalt;
 
 
-  public FoodInfoDataModel() {
+  public FoodEditDataModel() {
     mFoodName = new MutableLiveData<>();
     mBrandName = new MutableLiveData<>();
     mType = new MutableLiveData<>();
@@ -30,7 +36,7 @@ public class FoodInfoDataModel {
     mFat = new MutableLiveData<>();
     mSaturates = new MutableLiveData<>();
     mProtein = new MutableLiveData<>();
-    mCarbohydrate = new MutableLiveData<>();
+    mCarbohydrates = new MutableLiveData<>();
     mSugars = new MutableLiveData<>();
     mSalt = new MutableLiveData<>();
   }
@@ -69,8 +75,8 @@ public class FoodInfoDataModel {
     return mProtein;
   }
 
-  public MutableLiveData<Float> getCarbohydrate() {
-    return mCarbohydrate;
+  public MutableLiveData<Float> getCarbohydrates() {
+    return mCarbohydrates;
   }
 
   public MutableLiveData<Float> getSugars() {
@@ -116,14 +122,14 @@ public class FoodInfoDataModel {
   }
 
   public void setCarbohydrates(Float carbohydrates) {
-    mCarbohydrate.setValue(carbohydrates);
+    mCarbohydrates.setValue(carbohydrates);
   }
 
-  public void setSugar(Float sugar) {
-    mSugars.setValue(sugar);
+  public void setSugars(Float sugars) {
+    mSugars.setValue(sugars);
   }
 
   public void setSalt(Float salt) {
-    mSugars.setValue(salt);
+    mSalt.setValue(salt);
   }
 }

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
@@ -39,6 +40,9 @@ public class FoodDataFragment extends Fragment {
     binding.setLifecycleOwner(getViewLifecycleOwner());
     binding.setVm(mViewModel);
 
+    // Fab
+    binding.fab.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_meFragment_to_meEditFragment));
     return binding.getRoot();
   }
 }
