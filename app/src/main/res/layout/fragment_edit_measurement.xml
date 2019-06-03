@@ -6,7 +6,7 @@
   <data>
 
     <variable
-      name="viewModel"
+      name="vm"
       type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
   </data>
 
@@ -51,7 +51,9 @@
           android:layout_weight="1"
           android:gravity="center"
           android:paddingStart="32dp"
-          android:paddingEnd="32dp"/>
+          android:paddingEnd="32dp"
+          android:text="@{vm.MeasurementCurrentModel"
+          />
       </LinearLayout>
 
       <LinearLayout

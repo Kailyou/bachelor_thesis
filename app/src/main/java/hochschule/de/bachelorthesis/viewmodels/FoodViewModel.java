@@ -36,7 +36,7 @@ public class FoodViewModel extends AndroidViewModel {
   private FoodInfoOverviewModel mFoodInfoOverviewModel;
   private FoodInfoDataModel mFoodInfoDataModel;
   private MeasurementAddModel mMeasurementAddModel;
-  private MeasurementCurrentModel mMeasurementCurrentModel;
+  private MeasurementCurrentModel mMeasurementModel;
 
   // Others
   private LifecycleOwner mLco;
@@ -54,7 +54,7 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodInfoOverviewModel = new FoodInfoOverviewModel();
     mFoodInfoDataModel = new FoodInfoDataModel();
     mMeasurementAddModel = new MeasurementAddModel();
-    mMeasurementCurrentModel = new MeasurementCurrentModel();
+    mMeasurementModel = new MeasurementCurrentModel();
   }
 
   /* FOOD */
@@ -120,9 +120,12 @@ public class FoodViewModel extends AndroidViewModel {
    * @param lco - Lifecycle owner
    */
   public void load(int foodId, LifecycleOwner lco) {
-    mRepository.getFoodById(foodId).observe(lco, new Observer<Food>() {
+    final LiveData<Food> ldf = getFoodById(foodId);
+
+    ldf.observe(lco, new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
+        ldf.removeObserver(this);
         if (food == null) {
           return;
         }
@@ -139,7 +142,6 @@ public class FoodViewModel extends AndroidViewModel {
       }
     });
   }
-
 
   /* MEASUREMENT */
 
@@ -169,6 +171,10 @@ public class FoodViewModel extends AndroidViewModel {
    */
   public LiveData<List<Measurement>> getAllMeasurementsById(int foodId) {
     return mRepository.getAllMeasurementsByFoodId(foodId);
+  }
+
+  public LiveData<Measurement> getMeasurementById(int id) {
+    return mRepository.getMeasurementById(id);
   }
 
   public void loadEditMeasurement(int measurementId, int foodId) {
@@ -226,6 +232,7 @@ public class FoodViewModel extends AndroidViewModel {
 
   /**
    * This method will update the food add model.
+   *
    * @param foodName - Name of the food.
    * @param brandName - Brand of the food.
    * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
@@ -275,6 +282,7 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodInfoOverviewModel.setBrandName(brandName);
     mFoodInfoOverviewModel.setType(foodType);
     mFoodInfoOverviewModel.setKiloCalories(kiloCalories);
+
     mFoodInfoOverviewModel.setMeasurementsAmount(measurementsAmount);
     mFoodInfoOverviewModel.setMaxGlucose(glucoseMax);
     mFoodInfoOverviewModel.setAverageGlucose(glucoseAverage);
@@ -323,11 +331,11 @@ public class FoodViewModel extends AndroidViewModel {
     return mFoodInfoDataModel;
   }
 
-  public MeasurementAddModel getmMeasurementAddModel() {
+  public MeasurementAddModel getMeasurementAddModel() {
     return mMeasurementAddModel;
   }
 
-  public MeasurementCurrentModel getmMeasurementCurrentModel() {
-    return mMeasurementCurrentModel;
+  public MeasurementCurrentModel getMeasurementCurrentModel() {
+    return mMeasurementModel;
   }
 }

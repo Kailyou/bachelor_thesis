@@ -151,172 +151,6 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
     timePickerDialog.show();
   }
 
-
-  /**
-   * Updates the current measurement database entry.
-   * <p>
-   * If the measurement is done get the viewModel updated - The amount of measurements - The max
-   * glucose value - The average glucose value - The rating - The personal index
-   */
-  private void save() {
-    // Get all measurements
-    final LiveData<List<Measurement>> am = mViewModel.getAllMeasurementsById(mFoodId);
-    am.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-      @Override
-      public void onChanged(final List<Measurement> allMeasurements) {
-        am.removeObserver(this);
-
-        // Get the food object
-        final LiveData<Food> f = mViewModel.getFoodById(mFoodId);
-        f.observe(getViewLifecycleOwner(), new Observer<Food>() {
-          @Override
-          public void onChanged(Food food) {
-            f.removeObserver(this);
-            updateMeasurement(food, allMeasurements);
-          }
-        });
-      }
-    });
-  }
-
-
-  private void updateMeasurement(Food food, List<Measurement> allMeasurements) {
-    // Build timestamp
-    Calendar calender = Calendar.getInstance();
-    calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-    Date date = calender.getTime();
-
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-
-    // New values
-    String timeStamp = sdf.format(date);
-    int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
-    String stress = mBinding.stress.getText().toString();
-    String tired = mBinding.tired.getText().toString();
-
-    int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
-    int glucose_15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
-    int glucose_30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
-    int glucose_45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
-    int glucose_60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
-    int glucose_75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
-    int glucose_90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
-    int glucose_105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
-    int glucose_120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
-
-    int[] measurements = new int[]{glucose_0, glucose_15, glucose_30, glucose_45,
-        glucose_60, glucose_75, glucose_90, glucose_105, glucose_120};
-
-    // check if all measurements have been entered
-    boolean isDone = checkIsDone(measurements);
-
-    if (isDone) {
-      int glucoseMaxCurrent = calculateGlucoseMax(measurements, food.getMaxGlucose());
-      int glucoseAverageCurrent = CalculateGlucoseAverage(measurements);
-
-      int amountMeasurements = food.getAmountMeasurements() + 1;
-
-    }
-
-    // mViewModel.insertMeasurement(newMeasurement)
-  }
-
-  /**
-   * Checks if the measurement is done, by checking the elements in the measurement array. If only
-   * one value is zero, the measurement cannot be completed yet.
-   *
-   * @param measurements - An array with the current measurement values.
-   * @return - Returns true if the measurement has been completed, false otherwise.
-   */
-  private boolean checkIsDone(int[] measurements) {
-    for (int i : measurements) {
-      if (i == 0) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  /**
-   * Calculates the new glucose max value, which is the current max peak of all measurements for
-   * that food.
-   * <p>
-   * A given array with the current measurement values will be compared with the current max value.
-   * <p>
-   * The biggest will be returned.
-   *
-   * @param measurements - Array with current measurement values.
-   * @param currentMaxPeak - The current glucose max value.
-   * @return - The new glucose max value.
-   */
-  private int calculateGlucoseMax(int[] measurements, int currentMaxPeak) {
-    int newGlucoseMax = currentMaxPeak;
-
-    for (int i = 1; i < measurements.length; i++) {
-      if (measurements[i] > newGlucoseMax) {
-        newGlucoseMax = measurements[i];
-      }
-    }
-
-    return newGlucoseMax;
-  }
-
-  // TODO
-// need getAllMeasurementsByIdWhereIsDone=true
-  private int CalculateGlucoseAverage(int[] measurements) {
-    mViewModel.getAllMeasurementsById(mFoodId)
-        .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-          @Override
-          public void onChanged(List<Measurement> measurements) {
-
-          }
-        });
-
-    return 0;
-  }
-
-  /**
-   * Checks if the user input has been valid.
-   *
-   * @return returns true if the input was okay. returns false otherwise.
-   */
-  private boolean inPutOkay() {
-    // checks the text fields
-    if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
-      toast("Please enter the food's name.");
-      return false;
-    }
-
-    if (mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
-      toast("Please enter the food's brand name.");
-      return false;
-    }
-
-    if (mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
-      toast("Please enter the food's type.");
-      return false;
-    }
-
-    // checks the drop down menus
-    if (mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
-      toast("Please enter the kilo calories.");
-      return false;
-    }
-
-    if (mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
-      toast("Please enter the kilo joules.");
-      return false;
-    }
-
-    return true;
-  }
-
-  private void toast(String msg) {
-    MyToast.createToast(getContext(), msg);
-  }
-
-
   @Override
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     // Takes the existing time values and add leading zeros to strings smaller than 10.
@@ -369,5 +203,191 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
 
     mHourOfDay = hourOfDay;
     mMinute = minute;
+  }
+
+  /**
+   * Updates the current measurement database entry.
+   * <p>
+   * If the measurement is done get the viewModel updated - The amount of measurements - The max
+   * glucose value - The average glucose value - The rating - The personal index
+   */
+  private void save() {
+    // Get the current measurement
+    final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mFoodId);
+    ldm.observe(getViewLifecycleOwner(), new Observer<Measurement>() {
+      @Override
+      public void onChanged(final Measurement measurement) {
+        ldm.removeObserver(this);
+
+        // Get the food object
+        final LiveData<Food> f = mViewModel.getFoodById(mFoodId);
+        f.observe(getViewLifecycleOwner(), new Observer<Food>() {
+          @Override
+          public void onChanged(Food food) {
+            f.removeObserver(this);
+            updateMeasurement(food, measurement);
+          }
+        });
+      }
+    });
+  }
+
+
+  private void updateMeasurement(Food food, final Measurement measurement) {
+    // Build timestamp
+    Calendar calender = Calendar.getInstance();
+    calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+    Date date = calender.getTime();
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+
+    // New values
+    String timeStamp = sdf.format(date);
+    int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
+    String stress = mBinding.stress.getText().toString();
+    String tired = mBinding.tired.getText().toString();
+
+    int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
+    int glucose_15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
+    int glucose_30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
+    int glucose_45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
+    int glucose_60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
+    int glucose_75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
+    int glucose_90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
+    int glucose_105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
+    int glucose_120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
+
+    final int[] glucoseValues = new int[]{glucose_0, glucose_15, glucose_30, glucose_45,
+        glucose_60, glucose_75, glucose_90, glucose_105, glucose_120};
+
+    // check if all measurements have been entered
+    boolean isDone = checkIsDone(glucoseValues);
+
+    if (isDone) {
+      // For the single measurement
+      int glucoseMaxCurrent = calculateGlucoseMax(glucoseValues, food.getMaxGlucose());
+      int glucoseAverageCurrent = CalculateGlucoseAverage(glucoseValues);
+
+      measurement.setMaxGlucose(glucoseMaxCurrent);
+      measurement.setAverageGlucose(glucoseAverageCurrent);
+
+      mViewModel.updateMeasurement(measurement);
+
+      // For all measurements
+      final LiveData<List<Measurement>> am = mViewModel.getAllMeasurementsById(mFoodId);
+      am.observe(this, new Observer<List<Measurement>>() {
+        @Override
+        public void onChanged(List<Measurement> measurements) {
+          am.removeObserver(this);
+          //TODO
+          //updateFood(food, measurement, glucoseValues);
+        }
+      });
+
+      int amountMeasurements = food.getAmountMeasurements() + 1;
+      int glucoseMaxAll = calculateGlucoseMaxAll(food, glucoseValues);
+      //int glucoseAverageAll = CalculateGlucoseAverageAll(allMeasurements, glucoseValues);
+    }
+  }
+
+  /**
+   * Checks if the measurement is done, by checking the elements in the measurement array. If only
+   * one value is zero, the measurement cannot be completed yet.
+   *
+   * @param measurements - An array with the current measurement values.
+   * @return - Returns true if the measurement has been completed, false otherwise.
+   */
+  private boolean checkIsDone(int[] measurements) {
+    for (int i : measurements) {
+      if (i == 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Calculates the new glucose max value, which is the current max peak of all measurements for
+   * that food.
+   * <p>
+   * A given array with the current measurement values will be compared with the current max value.
+   * <p>
+   * The biggest will be returned.
+   *
+   * @param measurements - Array with current measurement values.
+   * @param currentMaxPeak - The current glucose max value.
+   * @return - The new glucose max value.
+   */
+  private int calculateGlucoseMax(int[] measurements, int currentMaxPeak) {
+    int newGlucoseMax = currentMaxPeak;
+
+    for (int i = 1; i < measurements.length; i++) {
+      if (measurements[i] > newGlucoseMax) {
+        newGlucoseMax = measurements[i];
+      }
+    }
+
+    return newGlucoseMax;
+  }
+
+  private int calculateGlucoseMaxAll(Food food, final int[] measurements) {
+    return Math.max(food.getMaxGlucose(), calculateGlucoseMax(measurements, 0));
+  }
+
+  private int CalculateGlucoseAverage(int[] measurements) {
+    int sum = 0; //average will have decimal point
+
+    for (int measurement : measurements) {
+      sum += measurement;
+    }
+
+    return (int) Math.round(1.0d * sum / measurements.length);
+  }
+
+  /*
+  private int CalculateGlucoseAverageAll(int[] measurements) {
+
+  }
+  */
+
+  /**
+   * Checks if the user input has been valid.
+   *
+   * @return returns true if the input was okay. returns false otherwise.
+   */
+  private boolean inPutOkay() {
+    // checks the text fields
+    if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
+      toast("Please enter the food's name.");
+      return false;
+    }
+
+    if (mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
+      toast("Please enter the food's brand name.");
+      return false;
+    }
+
+    if (mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
+      toast("Please enter the food's type.");
+      return false;
+    }
+
+    // checks the drop down menus
+    if (mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
+      toast("Please enter the kilo calories.");
+      return false;
+    }
+
+    if (mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
+      toast("Please enter the kilo joules.");
+      return false;
+    }
+
+    return true;
+  }
+
+  private void toast(String msg) {
+    MyToast.createToast(getContext(), msg);
   }
 }

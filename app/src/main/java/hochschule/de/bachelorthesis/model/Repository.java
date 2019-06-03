@@ -58,6 +58,11 @@ public class Repository {
     return mMeasurementDao.getAllMeasurementsByFoodId(id);
   }
 
+  // already executed on a background thread because of live data
+  public LiveData<Measurement> getMeasurementById(int id) {
+    return mMeasurementDao.getMeasurementById(id);
+  }
+
   public void deleteAllMeasurementsWithId(int id) {
     new DeleteAllMeasurementsWithIdAsyncTask(mMeasurementDao).execute(id);
   }

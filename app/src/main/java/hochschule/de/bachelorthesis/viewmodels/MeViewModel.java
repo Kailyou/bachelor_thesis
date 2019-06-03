@@ -30,8 +30,14 @@ public class MeViewModel extends ObservableAndroidViewModel {
     super(application);
     mRepository = new Repository(application);
     mAge = new MutableLiveData<>();
+    mAge.setValue(-1);
+
     mHeight = new MutableLiveData<>();
+    mHeight.setValue(-1);
+
     mWeight = new MutableLiveData<>();
+    mWeight.setValue(-1);
+
     mSex = new MutableLiveData<>();
     mFitnessLevel = new MutableLiveData<>();
     mAllergies = new MutableLiveData<>();
@@ -57,14 +63,9 @@ public class MeViewModel extends ObservableAndroidViewModel {
           return;
         }
 
-        mAge.setValue(userHistory.getAge());
-        mHeight.setValue(userHistory.getHeight());
-        mWeight.setValue(userHistory.getWeight());
-        mSex.setValue(userHistory.getSex());
-        mFitnessLevel.setValue(userHistory.getFitness_level());
-        mMedication.setValue(userHistory.getMedication());
-        mAllergies.setValue(userHistory.getAllergies());
-        mSmoking.setValue(userHistory.getSmoking());
+        updateViewModel(userHistory.getAge(), userHistory.getHeight(), userHistory.getWeight(),
+            userHistory.getSex(), userHistory.getFitness_level(), userHistory.getMedication(),
+            userHistory.getAllergies(), userHistory.getSmoking());
       }
     });
   }
@@ -95,9 +96,8 @@ public class MeViewModel extends ObservableAndroidViewModel {
   /**
    * DEBUG ONLY
    *
-   * Removes all existing user history objects from the database and updates the viewModel.
-   * -1 will be converted to an empty String.
-   *
+   * Removes all existing user history objects from the database and updates the viewModel. -1 will
+   * be converted to an empty String.
    */
   public void deleteAllUserHistoryIds() {
     mRepository.deleteAllUserHistories();
