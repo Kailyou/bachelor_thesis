@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import hochschule.de.bachelorthesis.model.FoodEditDataModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,7 @@ public class FoodViewModel extends AndroidViewModel {
 
   // Models
   private FoodAddDataModel mFoodAddDataModel;
+  private FoodEditDataModel mFoodEditDataModel;
   private FoodInfoOverviewModel mFoodInfoOverviewModel;
   private FoodInfoDataModel mFoodInfoDataModel;
   private MeasurementAddModel mMeasurementAddModel;
@@ -51,6 +53,7 @@ public class FoodViewModel extends AndroidViewModel {
     mUserHistoryLatest = mRepository.getUserHistoryLatest();
 
     mFoodAddDataModel = new FoodAddDataModel();
+    mFoodEditDataModel = new FoodEditDataModel();
     mFoodInfoOverviewModel = new FoodInfoOverviewModel();
     mFoodInfoDataModel = new FoodInfoDataModel();
     mMeasurementAddModel = new MeasurementAddModel();
@@ -113,13 +116,13 @@ public class FoodViewModel extends AndroidViewModel {
   }
 
   /**
-   * This function will load the current food from database and update the viewModel (overview and
+   * This function will loadFood the current food from database and update the viewModel (overview and
    * data models). This will cause the UI to update itself due to the live data.
    *
    * @param foodId - ID of the food clicked
    * @param lco - Lifecycle owner
    */
-  public void load(int foodId, LifecycleOwner lco) {
+  public void loadFood(int foodId, LifecycleOwner lco) {
     final LiveData<Food> ldf = getFoodById(foodId);
 
     ldf.observe(lco, new Observer<Food>() {
@@ -129,6 +132,12 @@ public class FoodViewModel extends AndroidViewModel {
         if (food == null) {
           return;
         }
+
+        //edit food fragment
+        updateFoodDataEditOverviewModeL(food.getFoodName(), food.getBrandName(), food.getFoodType(),
+            food.getKiloCalories(), food.getKiloJoules(),
+            food.getFat(), food.getSaturates(), food.getProtein(),
+            food.getCarbohydrate(), food.getSugars(), food.getSalt());
 
         //overview tab
         updateFoodOverviewModel(food.getFoodName(), food.getBrandName(), food.getFoodType(),
@@ -263,6 +272,37 @@ public class FoodViewModel extends AndroidViewModel {
   }
 
   /**
+   * This method will update the food add model.
+   *
+   * @param foodName - Name of the food.
+   * @param brandName - Brand of the food.
+   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
+   * @param kiloCalories - Kilo calories (kCal) of the food.
+   * @param kiloJoules - Kilo joules (kJ) of the food.
+   * @param fat - Fat of the food.
+   * @param saturates - Saturates of the food.
+   * @param protein - Proteins of the food.
+   * @param carbohydrates - Carbohydrates of the food.
+   * @param sugars - Sugar of the food.
+   * @param salt - Salt of the food.
+   */
+  private void updateFoodDataEditOverviewModeL(String foodName, String brandName, String foodType,
+      float kiloCalories, float kiloJoules, float fat, float saturates, float protein,
+      float carbohydrates, float sugars, float salt) {
+    mFoodEditDataModel.setFoodName(foodName);
+    mFoodEditDataModel.setBrandName(brandName);
+    mFoodEditDataModel.setType(foodType);
+    mFoodEditDataModel.setKiloCalories(kiloCalories);
+    mFoodEditDataModel.setKiloJoules(kiloJoules);
+    mFoodEditDataModel.setFat(fat);
+    mFoodEditDataModel.setSaturates(saturates);
+    mFoodEditDataModel.setProtein(protein);
+    mFoodEditDataModel.setCarbohydrates(carbohydrates);
+    mFoodEditDataModel.setSugars(sugars);
+    mFoodEditDataModel.setSalt(salt);
+  }
+
+  /**
    * This method will update the food overview model.
    *
    * @param foodName - Name of the food.
@@ -330,6 +370,8 @@ public class FoodViewModel extends AndroidViewModel {
   public FoodAddDataModel getFoodAddDataModel() {
     return mFoodAddDataModel;
   }
+
+  public FoodEditDataModel getFoodEditDataModel() { return mFoodEditDataModel; }
 
   public FoodInfoOverviewModel getFoodInfoOverviewModel() {
     return mFoodInfoOverviewModel;

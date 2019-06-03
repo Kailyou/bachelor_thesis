@@ -11,14 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodDataEditBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
 public class EditFoodDataFragment extends Fragment {
 
-  private static final String TAG = EditFoodDataFragment.class.getName();
-
   private FoodViewModel mViewModel;
+
+  private int mFoodId;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,10 +34,14 @@ public class EditFoodDataFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     // Init data binding
-    FragmentFoodDataBinding binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_food_data, container, false);
+    FragmentFoodDataEditBinding binding = DataBindingUtil
+        .inflate(inflater, R.layout.fragment_food_data_edit, container, false);
     binding.setLifecycleOwner(getViewLifecycleOwner());
     binding.setVm(mViewModel);
+
+    // get passed measurement id
+    assert getArguments() != null;
+    mFoodId = getArguments().getInt("food_id");
 
     return binding.getRoot();
   }

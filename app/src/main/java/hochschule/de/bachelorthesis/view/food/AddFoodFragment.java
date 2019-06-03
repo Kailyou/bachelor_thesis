@@ -78,7 +78,7 @@ public class AddFoodFragment extends Fragment {
 
     mBinding.type.setAdapter(adapter);
 
-    // load the last user input by observing the view model object
+    // loadFood the last user input by observing the view model object
     // filter has to be false otherwise auto complete will destroy the dropdown element.
     mViewModel.getFoodAddDataModel().getType().observe(this, new Observer<String>() {
       @Override

@@ -44,6 +44,9 @@
     <action
       android:id="@+id/action_foodInfoFragment_to_measurementFragment"
       app:destination="@id/measurementFragment"/>
+    <action
+      android:id="@+id/action_foodInfoFragment_to_editFoodDataFragment2"
+      app:destination="@id/editFoodDataFragment2"/>
   </fragment>
 
   <fragment
@@ -100,6 +103,16 @@
       android:id="@+id/action_measurementFragment_to_editMeasurementFragment"
       app:destination="@id/editMeasurementFragment"/>
   </fragment>
+  <fragment
+    android:id="@+id/editFoodDataFragment2"
+    android:label="Edit Food"
+    android:name="hochschule.de.bachelorthesis.view.food.EditFoodDataFragment"
+    tools:layout="@layout/fragment_food_data_edit">
+    <argument
+      android:name="food_id"
+      app:argType="integer"/>
+  </fragment>
+
 
 </navigation>
 

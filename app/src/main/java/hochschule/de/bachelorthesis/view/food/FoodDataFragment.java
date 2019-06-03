@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.Objects;
 
 public class FoodDataFragment extends Fragment {
 
@@ -27,7 +28,7 @@ public class FoodDataFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     // view model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
   }
 
   @Nullable
@@ -40,9 +41,17 @@ public class FoodDataFragment extends Fragment {
     binding.setLifecycleOwner(getViewLifecycleOwner());
     binding.setVm(mViewModel);
 
+    // Get passed food id
+    assert getArguments() != null;
+    int foodId = getArguments().getInt("food_id");
+
     // Fab
+    Bundle bundle = new Bundle();
+    bundle.putInt("food_id", foodId);
+
     binding.fab.setOnClickListener(
-        Navigation.createNavigateOnClickListener(R.id.action_meFragment_to_meEditFragment));
+        Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_editFoodDataFragment2,
+            bundle));
     return binding.getRoot();
   }
 }

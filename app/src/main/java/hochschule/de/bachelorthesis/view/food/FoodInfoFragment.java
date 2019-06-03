@@ -19,14 +19,11 @@ import com.google.android.material.tabs.TabLayout;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.Objects;
 
 public class FoodInfoFragment extends Fragment {
 
-  private static final String TAG = FoodInfoFragment.class.getName();
-
   private FoodViewModel mViewModel;
-  private FoodInfoFragment.SectionsPagerAdapter mSectionsPagerAdapter;
-  private ViewPager mViewPager;
   private int mFoodId;
 
 
@@ -34,14 +31,15 @@ public class FoodInfoFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    assert getArguments() != null;
     mFoodId = getArguments().getInt("food_id");
 
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
-    mViewModel.load(mFoodId, this);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
+    mViewModel.loadFood(mFoodId, this);
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Init data binding
     FragmentFoodInfoBinding binding = DataBindingUtil
@@ -51,16 +49,17 @@ public class FoodInfoFragment extends Fragment {
 
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
-    mSectionsPagerAdapter = new FoodInfoFragment.SectionsPagerAdapter(getChildFragmentManager());
+    SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(
+        getChildFragmentManager());
 
     // Set up the ViewPager with the sections adapter.
-    mViewPager = binding.container;
-    mViewPager.setAdapter(mSectionsPagerAdapter);
+    ViewPager viewPager = binding.container;
+    viewPager.setAdapter(mSectionsPagerAdapter);
 
     TabLayout tabLayout = binding.tabs;
 
-    mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
     return binding.getRoot();
   }
