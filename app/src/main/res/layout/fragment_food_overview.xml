@@ -10,176 +10,241 @@
       type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
   </data>
 
-  <TableLayout
+  <ScrollView
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="16dp"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:stretchColumns="1">
+    android:layout_height="wrap_content">
 
-    <TableRow>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <!-- GENERAL -->
       <TextView
-        android:layout_column="1"
-        android:padding="3dip"
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="@string/general"
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-    </TableRow>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/food_name"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp">
 
-      <TextView
-        android:id="@+id/food_name"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{vm.foodInfoOverviewModel.foodName}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/food_name"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/brand_name"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <TextView
+          android:id="@+id/food_name"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{vm.foodInfoOverviewModel.foodName}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
 
-      <TextView
-        android:id="@+id/brand_name"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{vm.foodInfoOverviewModel.brandName}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/type"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/brand_name"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-      <TextView
-        android:id="@+id/type"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{vm.foodInfoOverviewModel.type}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+        <TextView
+          android:id="@+id/brand_name"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{vm.foodInfoOverviewModel.brandName}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/kcal_100"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-      <TextView
-        android:id="@+id/kCal"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.kiloCalories))}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/type"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <TableRow>
+        <TextView
+          android:id="@+id/type"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:text="@{vm.foodInfoOverviewModel.type}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/kcal_100"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+          android:id="@+id/kilo_calories"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:text="@{Converter.convertFloat((safeUnbox(vm.foodInfoOverviewModel.kiloCalories)))}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+
+      <!-- MEASUREMENTS -->
       <TextView
-        android:layout_column="1"
-        android:layout_marginTop="16dp"
-        android:padding="3dip"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="@string/measurements"
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-    </TableRow>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/measurements_done"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
-      <TextView
-        android:id="@+id/measurements_done"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/amount"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/max_glucose"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <TextView
+          android:id="@+id/amount"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
 
-      <TextView
-        android:id="@+id/max_glucose"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.maxGlucose))}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/average_glucose"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/max_glucose"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-      <TextView
-        android:id="@+id/avg_glucose"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.averageGlucose))}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+        <TextView
+          android:id="@+id/glucose_max"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.maxGlucose))}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
 
-    <TableRow>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/average_glucose"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+          android:id="@+id/glucose_average"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.averageGlucose))}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+
+
+      <!-- ANALYSES -->
       <TextView
-        android:layout_column="1"
-        android:layout_marginTop="16dp"
-        android:padding="3dip"
+        android:id="@+id/glucose_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="@string/analyses"
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-    </TableRow>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/rating"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
-      <TextView
-        android:id="@+id/rating"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{Converter.convertString(vm.foodInfoOverviewModel.rating)}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/rating"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <TableRow>
-      <TextView
-        android:layout_column="1"
-        android:padding="3dip"
-        android:text="@string/personal_index"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <TextView
+          android:id="@+id/rating"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value0))}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
 
-      <TextView
-        android:id="@+id/personal_gi"
-        android:gravity="end"
-        android:padding="3dip"
-        android:text="@{String.valueOf(safeUnbox(vm.foodInfoOverviewModel.personalIndex))}"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </TableRow>
-  </TableLayout>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/personal_index"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+          android:id="@+id/personal_index"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.personalIndex))}"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
 </layout>
