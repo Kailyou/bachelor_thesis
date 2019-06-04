@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.MainThread;
+import androidx.lifecycle.ViewModelProviders;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +19,19 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import java.util.Objects;
 
 public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
+
+  private FoodViewModel mViewmodel;
 
   private Context mContext;
   private NavController mNavController;
 
   private List<Food> foods = new ArrayList<>();
 
-  public AdapterFood(Context context, NavController navController) {
+  public AdapterFood(FoodViewModel viewModel, Context context, NavController navController) {
+    mViewmodel = viewModel;
     mContext = context;
     mNavController = navController;
   }

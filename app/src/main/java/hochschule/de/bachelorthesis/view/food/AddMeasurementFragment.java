@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import hochschule.de.bachelorthesis.room.tables.Food;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,7 +60,8 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
     setHasOptionsMenu(true);
 
     // View model
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
 
     // Get passed food id
     assert getArguments() != null;
@@ -306,29 +308,38 @@ public class AddMeasurementFragment extends Fragment implements DatePickerDialog
           return;
         }
 
-        // Build timestamp
-        Calendar calender = Calendar.getInstance();
-        calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-        Date date = calender.getTime();
+        final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+        ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+          @Override
+          public void onChanged(Food food) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-        String timeStamp = sdf.format(date);
+            // Build timestamp
+            Calendar calender = Calendar.getInstance();
+            calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+            Date date = calender.getTime();
 
-        int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
-        String stress = mBinding.stress.getText().toString();
-        String tired = mBinding.tired.getText().toString();
-        int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+            String timeStamp = sdf.format(date);
 
-        Measurement newMeasurement = new Measurement(
-            mFoodId,
-            userHistory.id,
-            timeStamp,
-            amount,
-            stress, tired,
-            glucose_0
-        );
+            int amount = Integer
+                .parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
+            String stress = mBinding.stress.getText().toString();
+            String tired = mBinding.tired.getText().toString();
+            int glucose_0 = Integer
+                .parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
 
-        mViewModel.insertMeasurement(newMeasurement);
+            Measurement newMeasurement = new Measurement(
+                mFoodId,
+                Objects.requireNonNull(uh.getValue()).id,
+                timeStamp,
+                amount,
+                stress, tired,
+                glucose_0
+            );
+
+            mViewModel.insertMeasurement(newMeasurement, food);
+          }
+        });
       }
     });
   }

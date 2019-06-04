@@ -9,11 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
+import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.utility.FoodSample;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
@@ -29,6 +33,8 @@ public class FoodDataFragment extends Fragment {
 
     // view model
     mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
+
+    mViewModel.loadDataFragment(FoodSample.getEmptyFood());
   }
 
   @Nullable
@@ -52,6 +58,16 @@ public class FoodDataFragment extends Fragment {
     binding.fab.setOnClickListener(
         Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_editFoodDataFragment2,
             bundle));
+
+    final LiveData<Food> ldf = mViewModel.getFoodById(foodId);
+    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+      @Override
+      public void onChanged(Food food) {
+        ldf.removeObserver(this);
+        mViewModel.loadDataFragment(food);
+      }
+    });
+
     return binding.getRoot();
   }
 }

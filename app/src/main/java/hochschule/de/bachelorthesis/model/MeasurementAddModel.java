@@ -38,6 +38,10 @@ public class MeasurementAddModel {
     return mAmount;
   }
 
+  public MutableLiveData<String> getStressed() {
+    return mStressed;
+  }
+
   public MutableLiveData<String> getTired() {
     return mTired;
   }
@@ -59,6 +63,8 @@ public class MeasurementAddModel {
   public void setAmount(Integer amount) {
     mAmount.setValue(amount);
   }
+
+  public void setStressed(String stressed) {mStressed.setValue(stressed);}
 
   public void setTired(String tired) {
     mTired.setValue(tired);

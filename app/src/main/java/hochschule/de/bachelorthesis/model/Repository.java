@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.annotation.MainThread;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -44,7 +45,6 @@ public class Repository {
    */
 
   public void insert(Measurement measurement) {
-    Log.w("YOLO", Log.getStackTraceString(new Exception()));
     new InsertMeasurementAsyncTask(mMeasurementDao).execute(measurement);
   }
 
@@ -93,6 +93,7 @@ public class Repository {
     return mAllFood;
   }
 
+  @MainThread
   public LiveData<Food> getFoodById(int id) {
     return mFoodDao.getFoodById(id);
   }

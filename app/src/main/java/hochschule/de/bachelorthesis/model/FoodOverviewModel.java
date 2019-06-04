@@ -2,7 +2,7 @@ package hochschule.de.bachelorthesis.model;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class FoodInfoOverviewModel {
+public class FoodOverviewModel {
 
   // Menu
   private MutableLiveData<Boolean> mIsFavorite;
@@ -22,7 +22,7 @@ public class FoodInfoOverviewModel {
   private MutableLiveData<String> mRating;
   private MutableLiveData<Integer> mPersonalIndex;
 
-  public FoodInfoOverviewModel() {
+  public FoodOverviewModel() {
     mIsFavorite = new MutableLiveData<>();
     mFoodName = new MutableLiveData<>();
     mBrandName = new MutableLiveData<>();

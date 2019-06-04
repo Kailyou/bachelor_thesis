@@ -62,14 +62,12 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
     setHasOptionsMenu(true);
 
     // View model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
 
     // Get passed food id
     assert getArguments() != null;
     mFoodId = getArguments().getInt("food_id");
     mMeasurementId = getArguments().getInt("measurement_id");
-
-    mViewModel.loadEditMeasurement(mFoodId, mMeasurementId);
   }
 
   @Nullable

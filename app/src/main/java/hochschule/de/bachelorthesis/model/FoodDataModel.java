@@ -2,7 +2,7 @@ package hochschule.de.bachelorthesis.model;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class FoodInfoDataModel {
+public class FoodDataModel {
 
   // General
   private MutableLiveData<String> mFoodName;
@@ -20,7 +20,7 @@ public class FoodInfoDataModel {
   private MutableLiveData<Float> mSalt;
 
 
-  public FoodInfoDataModel() {
+  public FoodDataModel() {
     mFoodName = new MutableLiveData<>();
     mBrandName = new MutableLiveData<>();
     mType = new MutableLiveData<>();

@@ -51,7 +51,7 @@ public class FoodFragment extends Fragment {
     binding.setLifecycleOwner(getViewLifecycleOwner());
 
     // View model
-    FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+    FoodViewModel viewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
     mFab = binding.buttonAddNote;
 
@@ -63,10 +63,10 @@ public class FoodFragment extends Fragment {
     // Adapter
     NavController navController = Navigation
         .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-    final AdapterFood adapter = new AdapterFood(getContext(), navController);
+    final AdapterFood adapter = new AdapterFood(viewModel, getContext(), navController);
     recyclerView.setAdapter(adapter);
 
-    foodViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
+    viewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
         adapter.setFoods(foods);

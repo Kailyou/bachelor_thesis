@@ -1,15 +1,12 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -19,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.Parser;
 import java.util.Objects;
 
@@ -160,53 +156,15 @@ public class AddFoodFragment extends Fragment {
           save();
           return true;
         }
-
+        // pass an empty food object
       case R.id.clear: {
-        mViewModel.updateFoodAddOverviewModeL("", "", "", -1, -1, -1, -1, -1, -1, -1, -1);
+        mViewModel.updateFoodAddModeL(new Food("", "", "",
+            -1, -1, -1, -1, -1, -1, -1, -1));
         return true;
       }
     }
 
     return super.onOptionsItemSelected(item);
-  }
-
-  /**
-   * Save the food to the database.
-   */
-  private void save() {
-    String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
-    String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
-    String type = mBinding.type.getText().toString();
-    float kiloCalories = Float
-        .parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString());
-    float kiloJoules = Float
-        .parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString());
-    float fat = Float.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString());
-    float saturates = Float
-        .parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString());
-    float protein = Float.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString());
-    float carbohydrate = Float
-        .parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString());
-    float sugars = Float.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString());
-    float salt = Float.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
-
-    Food newFood = new Food(
-        foodName,
-        brandName,
-        type,
-        kiloCalories,
-        kiloJoules,
-        fat,
-        saturates,
-        protein,
-        carbohydrate,
-        sugars,
-        salt);
-
-    mViewModel.insertFood(newFood);
-
-    MyToast
-        .createToast(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
   }
 
   /**
@@ -278,6 +236,45 @@ public class AddFoodFragment extends Fragment {
     }
 
     return true;
+  }
+
+  /**
+   * Save the food to the database.
+   */
+  private void save() {
+    String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
+    String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
+    String type = mBinding.type.getText().toString();
+    float kiloCalories = Float
+        .parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString());
+    float kiloJoules = Float
+        .parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString());
+    float fat = Float.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString());
+    float saturates = Float
+        .parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString());
+    float protein = Float.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString());
+    float carbohydrate = Float
+        .parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString());
+    float sugars = Float.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString());
+    float salt = Float.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
+
+    Food newFood = new Food(
+        foodName,
+        brandName,
+        type,
+        kiloCalories,
+        kiloJoules,
+        fat,
+        saturates,
+        protein,
+        carbohydrate,
+        sugars,
+        salt);
+
+    mViewModel.insertFood(newFood);
+
+    MyToast
+        .createToast(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
   }
 
   private void toast(String msg) {

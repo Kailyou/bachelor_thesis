@@ -6,15 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
+import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.utility.BetterLiveData;
+import hochschule.de.bachelorthesis.utility.FoodSample;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.Objects;
 
 
 public class FoodOverviewFragment extends Fragment {
@@ -30,15 +37,17 @@ public class FoodOverviewFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     // view model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
+    mViewModel.loadOverviewFragment(FoodSample.getEmptyFood());
   }
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
     // Init data binding
-    mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
+    FragmentFoodOverviewBinding mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 
@@ -46,7 +55,13 @@ public class FoodOverviewFragment extends Fragment {
     assert getArguments() != null;
     int foodId = getArguments().getInt("food_id");
 
-    Log.d("yolo", "food name " + mBinding.foodName.getText().toString());
+    final LiveData<Food> ldf = mViewModel.getFoodById(foodId);
+    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+      @Override
+      public void onChanged(Food food) {
+        mViewModel.loadOverviewFragment(food);
+      }
+    });
 
     return mBinding.getRoot();
   }

@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
  * This will affect, once the user leaves the add food fragment to save the input and when the user
  * opens the view again, the data will be restored.
  */
-public class FoodEditDataModel {
+public class FoodAddModel {
 
   // About the food
   private MutableLiveData<String> mFoodName;
@@ -26,7 +26,7 @@ public class FoodEditDataModel {
   private MutableLiveData<Float> mSalt;
 
 
-  public FoodEditDataModel() {
+  public FoodAddModel() {
     mFoodName = new MutableLiveData<>();
     mBrandName = new MutableLiveData<>();
     mType = new MutableLiveData<>();

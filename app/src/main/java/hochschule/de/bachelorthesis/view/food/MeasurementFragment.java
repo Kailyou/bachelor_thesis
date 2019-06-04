@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,12 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
+import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.FoodSample;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.Objects;
 
 public class MeasurementFragment extends Fragment {
 
@@ -33,20 +40,24 @@ public class MeasurementFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     setHasOptionsMenu(true);
+
+    // View model
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
+
+   // mViewModel.loadMeasurementFragment(MeasurementSample.getEmptyMeasurement());
   }
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
     // Init data binding
-    //
     FragmentMeasurementBinding binding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_measurement, container, false);
     binding.setLifecycleOwner(getViewLifecycleOwner());
-
-    // View model
-    mViewModel = ViewModelProviders.of(getActivity()).get(FoodViewModel.class);
+    binding.setVm(mViewModel);
 
     // get passed measurement id
     assert getArguments() != null;
@@ -59,6 +70,17 @@ public class MeasurementFragment extends Fragment {
     binding.fab.setOnClickListener(Navigation
         .createNavigateOnClickListener(R.id.action_measurementFragment_to_editMeasurementFragment));
 
+    /*
+    final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mMeasurementId);
+    ldm.observe(getViewLifecycleOwner(), new Observer<Measurement>() {
+      @Override
+      public void onChanged(Measurement measurement) {
+        ldm.removeObserver(this);
+        mViewModel.loadMeasurementFragment(measurement);
+      }
+    });
+
+*/
     return binding.getRoot();
   }
 
@@ -71,7 +93,7 @@ public class MeasurementFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId()
-        == R.id.delete_measurement) {//mViewModel.deleteMeasurement(mMeasurementId);
+        == R.id.delete_measurement) {
       return true;
     }
 

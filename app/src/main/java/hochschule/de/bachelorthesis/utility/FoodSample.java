@@ -4,6 +4,20 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 
 public class FoodSample {
 
+  public static Food getEmptyFood() {
+    return new Food("",
+        "",
+        "",
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1);
+  }
+
   public static Food getApple() {
     return new Food("Apple",
         "Pink Lady",

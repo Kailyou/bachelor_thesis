@@ -2,23 +2,20 @@ package hochschule.de.bachelorthesis.viewmodels;
 
 import android.app.Application;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
-import hochschule.de.bachelorthesis.model.FoodEditDataModel;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import androidx.lifecycle.MutableLiveData;
+import hochschule.de.bachelorthesis.model.FoodAddModel;
+import hochschule.de.bachelorthesis.model.FoodEditModel;
+import hochschule.de.bachelorthesis.model.FoodOverviewModel;
+import hochschule.de.bachelorthesis.model.MeasurementModel;
 import java.util.List;
-import java.util.Locale;
 
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
-import hochschule.de.bachelorthesis.model.MeasurementCurrentModel;
-import hochschule.de.bachelorthesis.model.FoodAddDataModel;
-import hochschule.de.bachelorthesis.model.FoodInfoDataModel;
-import hochschule.de.bachelorthesis.model.FoodInfoOverviewModel;
+import hochschule.de.bachelorthesis.model.FoodDataModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -29,19 +26,16 @@ public class FoodViewModel extends AndroidViewModel {
   // Database
   private Repository mRepository;
   private LiveData<List<Food>> mAllFoods;
-  private LiveData<List<Measurement>> mAllMeasurements;
   private LiveData<UserHistory> mUserHistoryLatest;
+  private LiveData<Food> mSelectedFood;
 
   // Models
-  private FoodAddDataModel mFoodAddDataModel;
-  private FoodEditDataModel mFoodEditDataModel;
-  private FoodInfoOverviewModel mFoodInfoOverviewModel;
-  private FoodInfoDataModel mFoodInfoDataModel;
+  private FoodAddModel mFoodAddModel;
+  private FoodEditModel mFoodEditModel;
+  private FoodOverviewModel mFoodOverviewModel;
+  private FoodDataModel mFoodDataModel;
+  private MeasurementModel mMeasurementModel;
   private MeasurementAddModel mMeasurementAddModel;
-  private MeasurementCurrentModel mMeasurementModel;
-
-  // Others
-  private LifecycleOwner mLco;
 
 
   public FoodViewModel(@NonNull Application application) {
@@ -49,18 +43,153 @@ public class FoodViewModel extends AndroidViewModel {
 
     mRepository = new Repository(application);
     mAllFoods = mRepository.getAllFoods();
-    mAllMeasurements = mRepository.getAllMeasurements();
     mUserHistoryLatest = mRepository.getUserHistoryLatest();
+    mSelectedFood = new MutableLiveData<>();
 
-    mFoodAddDataModel = new FoodAddDataModel();
-    mFoodEditDataModel = new FoodEditDataModel();
-    mFoodInfoOverviewModel = new FoodInfoOverviewModel();
-    mFoodInfoDataModel = new FoodInfoDataModel();
+    mFoodDataModel = new FoodDataModel();
+    mFoodAddModel = new FoodAddModel();
+    mFoodEditModel = new FoodEditModel();
+    mFoodOverviewModel = new FoodOverviewModel();
+
+    mMeasurementModel = new MeasurementModel();
     mMeasurementAddModel = new MeasurementAddModel();
-    mMeasurementModel = new MeasurementCurrentModel();
   }
 
-  /* FOOD */
+  /* LOAD FUNCTIONS */
+  public void loadOverviewFragment(Food food) {
+    updateFoodOverviewModel(food);
+  }
+
+  public void loadFoodAddFragment(Food food) {
+    updateFoodAddModeL(food);
+  }
+
+  public void loadDataFragment(Food food) {
+    updateFoodDataModel(food);
+  }
+
+  public void loadFoodEditFragment(Food food) {
+    //updateFoodEditModeL(food);
+  }
+
+  /* UPDATE MODELS */
+
+  /**
+   * This method will update the food overview model.
+   *
+   */
+  private void updateFoodOverviewModel(Food food) {
+    mFoodOverviewModel.setFoodName(food.getFoodName());
+    mFoodOverviewModel.setBrandName(food.getBrandName());
+    mFoodOverviewModel.setType(food.getFoodType());
+    mFoodOverviewModel.setKiloCalories(food.getKiloCalories());
+
+    mFoodOverviewModel.setMeasurementsAmount(food.getAmountMeasurements());
+    mFoodOverviewModel.setMaxGlucose(food.getMaxGlucose());
+    mFoodOverviewModel.setAverageGlucose(food.getAverageGlucose());
+    mFoodOverviewModel.setRating(food.getRating());
+    mFoodOverviewModel.setPersonalIndex(food.getPersonalIndex());
+  }
+
+  /**
+   * This method will update the food add model.
+   *
+   */
+  public void updateFoodAddModeL(Food food) {
+    mFoodAddModel.setFoodName(food.getFoodName());
+    mFoodAddModel.setBrandName(food.getBrandName());
+    mFoodAddModel.setType(food.getFoodType());
+    mFoodAddModel.setKiloCalories(food.getKiloCalories());
+    mFoodAddModel.setKiloJoules(food.getKiloJoules());
+    mFoodAddModel.setFat(food.getFat());
+    mFoodAddModel.setSaturates(food.getSaturates());
+    mFoodAddModel.setProtein(food.getProtein());
+    mFoodAddModel.setCarbohydrates(food.getCarbohydrate());
+    mFoodAddModel.setSugars(food.getSugars());
+    mFoodAddModel.setSalt(food.getSalt());
+  }
+
+  /**
+   * This method will update the food data model.
+   *
+   */
+  private void updateFoodDataModel(Food food) {
+    mFoodDataModel.setFoodName(food.getFoodName());
+    mFoodDataModel.setBrandName(food.getBrandName());
+    mFoodDataModel.setType(food.getFoodType());
+    mFoodDataModel.setKiloCalories(food.getKiloCalories());
+    mFoodDataModel.setKiloJoules(food.getKiloJoules());
+    mFoodDataModel.setFat(food.getFat());
+    mFoodDataModel.setSaturates(food.getSaturates());
+    mFoodDataModel.setProtein(food.getProtein());
+    mFoodDataModel.setCarbohydrates(food.getCarbohydrate());
+    mFoodDataModel.setSugar(food.getSugars());
+    mFoodDataModel.setSalt(food.getSalt());
+  }
+
+  /**
+   * This method will update the food add model.
+   *
+   */
+  /*
+  private void updateFoodEditModeL(Food food) {
+    mFoodEditModel.setFoodName(food.getFoodName());
+    mFoodEditModel.setBrandName(food.getBrandName());
+    mFoodEditModel.setType(food.getFoodType());
+    mFoodEditModel.setKiloCalories(food.getKiloCalories());
+    mFoodEditModel.setKiloJoules(food.getKiloJoules());
+    mFoodEditModel.setFat(food.getFat());
+    mFoodEditModel.setSaturates(food.getSaturates());
+    mFoodEditModel.setProtein(food.getProtein());
+    mFoodEditModel.setCarbohydrates(food.getCarbohydrate());
+    mFoodEditModel.setSugars(food.getSugars());
+    mFoodEditModel.setSalt(food.getSalt());
+  }
+  */
+
+  private void updateMeasurementModel(Measurement measurement) {
+    mMeasurementModel.setTimestamp(measurement.getTimeStamp());
+    mMeasurementModel.setAmount(measurement.getAmount());
+    mMeasurementModel.setStressed(measurement.getStress());
+    mMeasurementModel.setTired(measurement.getTired());
+    mMeasurementModel.setValue0(measurement.getGlucoseStart());
+    mMeasurementModel.setValue15(measurement.getGlucose15());
+    mMeasurementModel.setValue30(measurement.getGlucose30());
+    mMeasurementModel.setValue45(measurement.getGlucose45());
+    mMeasurementModel.setValue60(measurement.getGlucose60());
+    mMeasurementModel.setValue75(measurement.getGlucose75());
+    mMeasurementModel.setValue90(measurement.getGlucose90());
+    mMeasurementModel.setValue105(measurement.getGlucose105());
+    mMeasurementModel.setValue120(measurement.getGlucose120());
+  }
+
+  private void updateMeasurementAddModel(Measurement measurement) {
+    mMeasurementAddModel.setTimestamp(measurement.getTimeStamp());
+    mMeasurementAddModel.setAmount(measurement.getAmount());
+    mMeasurementAddModel.setStressed(measurement.getStress());
+    mMeasurementAddModel.setTired(measurement.getTired());
+    mMeasurementAddModel.setValue0(measurement.getGlucoseStart());
+  }
+
+  private void updateMeasurementEditModel(Measurement measurement) {
+    /*
+    mMeasurementEditModel.setTimestamp(measurement.getTimeStamp());
+    mMeasurementEditModel.setAmount(measurement.getAmount());
+    mMeasurementEditModel.setStressed(measurement.getStress());
+    mMeasurementEditModel.setTired(measurement.getTired());
+    mMeasurementEditModel.setValue0(measurement.getGlucoseStart());
+    mMeasurementEditModel.setValue15(measurement.getGlucose15());
+    mMeasurementEditModel.setValue30(measurement.getGlucose30());
+    mMeasurementEditModel.setValue45(measurement.getGlucose45());
+    mMeasurementEditModel.setValue60(measurement.getGlucose60());
+    mMeasurementEditModel.setValue75(measurement.getGlucose75());
+    mMeasurementEditModel.setValue90(measurement.getGlucose90());
+    mMeasurementEditModel.setValue105(measurement.getGlucose105());
+    mMeasurementEditModel.setValue120(measurement.getGlucose120());
+    */
+  }
+
+
 
   /**
    * Inserts a food to the database.
@@ -111,47 +240,12 @@ public class FoodViewModel extends AndroidViewModel {
    * @param id - The food's id.
    * @return - A live data object with the food.
    */
+  @MainThread
   public LiveData<Food> getFoodById(int id) {
-    return mRepository.getFoodById(id);
+    mSelectedFood = mRepository.getFoodById(id);
+    return mSelectedFood;
   }
 
-  /**
-   * This function will loadFood the current food from database and update the viewModel (overview and
-   * data models). This will cause the UI to update itself due to the live data.
-   *
-   * @param foodId - ID of the food clicked
-   * @param lco - Lifecycle owner
-   */
-  public void loadFood(int foodId, LifecycleOwner lco) {
-    final LiveData<Food> ldf = getFoodById(foodId);
-
-    ldf.observe(lco, new Observer<Food>() {
-      @Override
-      public void onChanged(Food food) {
-        ldf.removeObserver(this);
-        if (food == null) {
-          return;
-        }
-
-        //edit food fragment
-        updateFoodDataEditOverviewModeL(food.getFoodName(), food.getBrandName(), food.getFoodType(),
-            food.getKiloCalories(), food.getKiloJoules(),
-            food.getFat(), food.getSaturates(), food.getProtein(),
-            food.getCarbohydrate(), food.getSugars(), food.getSalt());
-
-        //overview tab
-        updateFoodOverviewModel(food.getFoodName(), food.getBrandName(), food.getFoodType(),
-            food.getKiloCalories(), food.getAmountMeasurements(), food.getMaxGlucose(),
-            food.getAverageGlucose(), food.getRating(), food.getPersonalIndex());
-
-        //food data tab
-        updateFoodDataModel(food.getFoodName(), food.getBrandName(), food.getFoodType(),
-            food.getKiloCalories(), food.getKiloJoules(),
-            food.getFat(), food.getSaturates(), food.getProtein(),
-            food.getCarbohydrate(), food.getSugars(), food.getSalt());
-      }
-    });
-  }
 
   /* MEASUREMENT */
 
@@ -160,8 +254,11 @@ public class FoodViewModel extends AndroidViewModel {
    *
    * @param measurement - The measurement to insert to the database.
    */
-  public void insertMeasurement(Measurement measurement) {
+  public synchronized void insertMeasurement(Measurement measurement, Food food) {
     mRepository.insert(measurement);
+    updateFoodOverviewModel(food);
+    updateMeasurementModel(measurement);
+    notifyAll();
   }
 
   /**
@@ -187,11 +284,6 @@ public class FoodViewModel extends AndroidViewModel {
     return mRepository.getMeasurementById(id);
   }
 
-  public void loadEditMeasurement(int measurementId, int foodId) {
-
-  }
-
-
   /* USER HISTORY */
 
   /**
@@ -203,189 +295,35 @@ public class FoodViewModel extends AndroidViewModel {
     return mUserHistoryLatest;
   }
 
-  /**
-   * DEBUG ONLY
-   * <p>
-   * inserts a test measurement to the table.
-   *
-   * @param lco - The lifecycle owner, needed for the observe function
-   */
-  public void addTemplateMeasurement(final LifecycleOwner lco, final int foodId) {
-    final LiveData<UserHistory> uh = getUserHistoryLatest();
-    uh.observe(lco, new Observer<UserHistory>() {
-      @Override
-      public void onChanged(UserHistory userHistory) {
-        uh.removeObserver(this);
-
-        if (userHistory == null) {
-          return;
-        }
-
-        // Build timestamp
-        Date date = new Date(); // current date and time
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-        String timeStamp = sdf.format(date);
-
-        insertMeasurement(
-            new Measurement(foodId, userHistory.id, timeStamp, 100, "not stressed", "not tired",
-                100));
-      }
-    });
-  }
-
   public void deleteAllMeasurementFromFoodWithId(int foodId) {
     mRepository.deleteAllMeasurementsWithId(foodId);
   }
 
-  /* UPDATE MODELS */
-
-  /**
-   * This method will update the food add model.
-   *
-   * @param foodName - Name of the food.
-   * @param brandName - Brand of the food.
-   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
-   * @param kiloCalories - Kilo calories (kCal) of the food.
-   * @param kiloJoules - Kilo joules (kJ) of the food.
-   * @param fat - Fat of the food.
-   * @param saturates - Saturates of the food.
-   * @param protein - Proteins of the food.
-   * @param carbohydrates - Carbohydrates of the food.
-   * @param sugars - Sugar of the food.
-   * @param salt - Salt of the food.
-   */
-  public void updateFoodAddOverviewModeL(String foodName, String brandName, String foodType,
-      float kiloCalories, float kiloJoules, float fat, float saturates, float protein,
-      float carbohydrates, float sugars, float salt) {
-    mFoodAddDataModel.setFoodName(foodName);
-    mFoodAddDataModel.setBrandName(brandName);
-    mFoodAddDataModel.setType(foodType);
-    mFoodAddDataModel.setKiloCalories(kiloCalories);
-    mFoodAddDataModel.setKiloJoules(kiloJoules);
-    mFoodAddDataModel.setFat(fat);
-    mFoodAddDataModel.setSaturates(saturates);
-    mFoodAddDataModel.setProtein(protein);
-    mFoodAddDataModel.setCarbohydrates(carbohydrates);
-    mFoodAddDataModel.setSugars(sugars);
-    mFoodAddDataModel.setSalt(salt);
-  }
-
-  /**
-   * This method will update the food add model.
-   *
-   * @param foodName - Name of the food.
-   * @param brandName - Brand of the food.
-   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
-   * @param kiloCalories - Kilo calories (kCal) of the food.
-   * @param kiloJoules - Kilo joules (kJ) of the food.
-   * @param fat - Fat of the food.
-   * @param saturates - Saturates of the food.
-   * @param protein - Proteins of the food.
-   * @param carbohydrates - Carbohydrates of the food.
-   * @param sugars - Sugar of the food.
-   * @param salt - Salt of the food.
-   */
-  private void updateFoodDataEditOverviewModeL(String foodName, String brandName, String foodType,
-      float kiloCalories, float kiloJoules, float fat, float saturates, float protein,
-      float carbohydrates, float sugars, float salt) {
-    mFoodEditDataModel.setFoodName(foodName);
-    mFoodEditDataModel.setBrandName(brandName);
-    mFoodEditDataModel.setType(foodType);
-    mFoodEditDataModel.setKiloCalories(kiloCalories);
-    mFoodEditDataModel.setKiloJoules(kiloJoules);
-    mFoodEditDataModel.setFat(fat);
-    mFoodEditDataModel.setSaturates(saturates);
-    mFoodEditDataModel.setProtein(protein);
-    mFoodEditDataModel.setCarbohydrates(carbohydrates);
-    mFoodEditDataModel.setSugars(sugars);
-    mFoodEditDataModel.setSalt(salt);
-  }
-
-  /**
-   * This method will update the food overview model.
-   *
-   * @param foodName - Name of the food.
-   * @param brandName - Brand of the food.
-   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
-   * @param kiloCalories - Kilo calories (kCal) of the food.
-   * @param measurementsAmount - Amount of measurements done so far.
-   * @param glucoseMax - Max Glucose outcome so far.
-   * @param glucoseAverage - Average Glucose so far.
-   * @param rating - Rating for that food
-   * @param personalIndex - Personal index
-   */
-  private void updateFoodOverviewModel(String foodName, String brandName, String foodType,
-      Float kiloCalories, int measurementsAmount,
-      int glucoseMax, int glucoseAverage,
-      String rating, int personalIndex) {
-    mFoodInfoOverviewModel.setFoodName(foodName);
-    mFoodInfoOverviewModel.setBrandName(brandName);
-    mFoodInfoOverviewModel.setType(foodType);
-    mFoodInfoOverviewModel.setKiloCalories(kiloCalories);
-
-    mFoodInfoOverviewModel.setMeasurementsAmount(measurementsAmount);
-    mFoodInfoOverviewModel.setMaxGlucose(glucoseMax);
-    mFoodInfoOverviewModel.setAverageGlucose(glucoseAverage);
-    mFoodInfoOverviewModel.setRating(rating);
-    mFoodInfoOverviewModel.setPersonalIndex(personalIndex);
-  }
-
-  /**
-   * This method will update the food data model.
-   *
-   * @param foodName - Name of the food.
-   * @param brandName - Brand of the food.
-   * @param foodType - Type of the food (e.g. fruit, snacks, drinks, ...).
-   * @param kiloCalories - Kilo calories (kCal) of the food.
-   * @param kiloJoules - Kilo joules (kJ) of the food.
-   * @param fat - Fat of the food.
-   * @param saturates - Saturates of the food.
-   * @param protein - Proteins of the food.
-   * @param carbohydrates - Carbohydrates of the food.
-   * @param sugars - Sugar of the food.
-   * @param salt - Salt of the food.
-   */
-  private void updateFoodDataModel(String foodName, String brandName, String foodType,
-      float kiloCalories, float kiloJoules,
-      float fat, float saturates,
-      float protein, float carbohydrates,
-      float sugars, float salt) {
-    mFoodInfoDataModel.setFoodName(foodName);
-    mFoodInfoDataModel.setBrandName(brandName);
-    mFoodInfoDataModel.setType(foodType);
-    mFoodInfoDataModel.setKiloCalories(kiloCalories);
-    mFoodInfoDataModel.setKiloJoules(kiloJoules);
-    mFoodInfoDataModel.setFat(fat);
-    mFoodInfoDataModel.setSaturates(saturates);
-    mFoodInfoDataModel.setProtein(protein);
-    mFoodInfoDataModel.setCarbohydrates(carbohydrates);
-    mFoodInfoDataModel.setSugar(sugars);
-    mFoodInfoDataModel.setSalt(salt);
-  }
-
-
   /* GETTER */
 
-  public FoodAddDataModel getFoodAddDataModel() {
-    return mFoodAddDataModel;
+  public LiveData<Food> getSelectedFood() { return mSelectedFood;}
+
+  public FoodAddModel getFoodAddDataModel() {
+    return mFoodAddModel;
   }
 
-  public FoodEditDataModel getFoodEditDataModel() { return mFoodEditDataModel; }
-
-  public FoodInfoOverviewModel getFoodInfoOverviewModel() {
-    return mFoodInfoOverviewModel;
+  public FoodEditModel getFoodEditDataModel() {
+    return mFoodEditModel;
   }
 
-  public FoodInfoDataModel getFoodInfoDataModel() {
-    return mFoodInfoDataModel;
+  public FoodOverviewModel getFoodInfoOverviewModel() {
+    return mFoodOverviewModel;
+  }
+
+  public FoodDataModel getFoodInfoDataModel() {
+    return mFoodDataModel;
   }
 
   public MeasurementAddModel getMeasurementAddModel() {
     return mMeasurementAddModel;
   }
 
-  public MeasurementCurrentModel getMeasurementCurrentModel() {
+  public MeasurementModel getMeasurementModel() {
     return mMeasurementModel;
   }
 }
