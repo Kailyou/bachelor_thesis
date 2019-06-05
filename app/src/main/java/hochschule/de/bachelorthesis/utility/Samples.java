@@ -2,7 +2,7 @@ package hochschule.de.bachelorthesis.utility;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
 
-public class FoodSample {
+public class Samples {
 
   public static Food getEmptyFood() {
     return new Food("",

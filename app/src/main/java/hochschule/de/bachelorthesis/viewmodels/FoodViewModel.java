@@ -242,8 +242,7 @@ public class FoodViewModel extends AndroidViewModel {
    */
   @MainThread
   public LiveData<Food> getFoodById(int id) {
-    mSelectedFood = mRepository.getFoodById(id);
-    return mSelectedFood;
+    return mRepository.getFoodById(id);
   }
 
 

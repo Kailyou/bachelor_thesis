@@ -17,7 +17,7 @@ import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.utility.FoodSample;
+import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
@@ -34,7 +34,7 @@ public class FoodDataFragment extends Fragment {
     // view model
     mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
 
-    mViewModel.loadDataFragment(FoodSample.getEmptyFood());
+    mViewModel.loadDataFragment(Samples.getEmptyFood());
   }
 
   @Nullable

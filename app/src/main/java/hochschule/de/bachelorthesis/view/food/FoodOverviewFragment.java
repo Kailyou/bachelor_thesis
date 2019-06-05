@@ -1,12 +1,10 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -18,8 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.utility.BetterLiveData;
-import hochschule.de.bachelorthesis.utility.FoodSample;
+import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
@@ -38,7 +35,7 @@ public class FoodOverviewFragment extends Fragment {
 
     // view model
     mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
-    mViewModel.loadOverviewFragment(FoodSample.getEmptyFood());
+    mViewModel.loadOverviewFragment(Samples.getEmptyFood());
   }
 
   @Nullable

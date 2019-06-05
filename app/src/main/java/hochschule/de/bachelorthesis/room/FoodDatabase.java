@@ -13,7 +13,7 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.MeasurementsData;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.FoodSample;
+import hochschule.de.bachelorthesis.utility.Samples;
 
 @Database(entities = {Food.class, Measurement.class, MeasurementsData.class,
     UserHistory.class}, version = 1, exportSchema = false)
@@ -68,9 +68,9 @@ public abstract class FoodDatabase extends RoomDatabase {
 
     @Override
     protected Void doInBackground(Void... voids) {
-      foodDao.insert(FoodSample.getApple());
-      foodDao.insert(FoodSample.getPizza());
-      foodDao.insert(FoodSample.getCola());
+      foodDao.insert(Samples.getApple());
+      foodDao.insert(Samples.getPizza());
+      foodDao.insert(Samples.getCola());
       return null;
     }
   }

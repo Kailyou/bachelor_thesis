@@ -23,16 +23,11 @@ import java.util.Objects;
 
 public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
 
-  private FoodViewModel mViewmodel;
-
-  private Context mContext;
   private NavController mNavController;
 
   private List<Food> foods = new ArrayList<>();
 
-  public AdapterFood(FoodViewModel viewModel, Context context, NavController navController) {
-    mViewmodel = viewModel;
-    mContext = context;
+  public AdapterFood(NavController navController) {
     mNavController = navController;
   }
 
