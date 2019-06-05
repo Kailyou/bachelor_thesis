@@ -110,7 +110,7 @@ public class MeasurementsFragment extends Fragment {
         createTemplateMeasurement(mFoodId);
         return true;
       case R.id.delete_measurements:
-        mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+        deleteMeasurements();
         return true;
     }
 
@@ -141,7 +141,7 @@ public class MeasurementsFragment extends Fragment {
               @Override
               public void onChanged(List<Measurement> measurements) {
                 ldlm.removeObserver(this);
-                test(userHistory, food, measurements);
+                buildsNewMeasurementAndUpdateDatabase(userHistory, food, measurements);
               }
             });
           }
@@ -150,7 +150,28 @@ public class MeasurementsFragment extends Fragment {
     });
   }
 
-  private void test(UserHistory userHistory, Food food, List<Measurement> measurements) {
+  private void deleteMeasurements() {
+    final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+      @Override
+      public void onChanged(Food food) {
+        ldf.removeObserver(this);
+
+        // Update food object
+        food.setAmountMeasurements(0);
+        food.setMaxGlucose(0);
+        food.setAverageGlucose(0);
+
+        // Update database
+        mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+        mViewModel.update(food);
+      }
+    });
+
+
+  }
+
+  private void buildsNewMeasurementAndUpdateDatabase(UserHistory userHistory, Food food, List<Measurement> measurements) {
     final Measurement newMeasurement = Samples.getRandomMeasurement(
         Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
 
@@ -180,7 +201,7 @@ public class MeasurementsFragment extends Fragment {
     int glucoseMax = MyMath.getMaxFromArrayList(glucoseValuesList);
 
     if (glucoseMax > food.getMaxGlucose()) {
-      Log.d("yolo", "test: joa");
+      Log.d("yolo", "buildsNewMeasurementAndUpdateDatabase: joa");
       food.setMaxGlucose(glucoseMax);
     }
 

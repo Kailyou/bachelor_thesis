@@ -108,6 +108,7 @@
   <string name="_90_minutes">… 90 minutes</string>
   <string name="_105_minutes">… 105 minutes</string>
   <string name="_120_minutes">… 120 minutes</string>
+  <string name="add_random_measurement">Add random measurement</string>
 
   <string-array name="type">
     <item>Grains</item>
