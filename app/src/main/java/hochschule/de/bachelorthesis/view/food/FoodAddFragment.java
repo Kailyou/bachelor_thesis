@@ -164,10 +164,9 @@ public class FoodAddFragment extends Fragment {
         mViewModel.updateFoodAddModeL(new Food("", "", "",
             -1, -1, -1, -1, -1, -1, -1, -1));
         return true;
-
-      default:
-        return super.onOptionsItemSelected(item);
     }
+
+    return super.onOptionsItemSelected(item);
   }
 
   /**

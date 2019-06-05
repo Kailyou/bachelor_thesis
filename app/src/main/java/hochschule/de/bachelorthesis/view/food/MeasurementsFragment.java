@@ -203,7 +203,7 @@ public class MeasurementsFragment extends Fragment {
     food.setAverageGlucose(MyMath.getAverageFromArrayList(measurementsAll));
 
     mViewModel.update(food);
-    mViewModel.insertMeasurement(newMeasurement, food);
+    mViewModel.insertMeasurement(newMeasurement);
   }
 }
 

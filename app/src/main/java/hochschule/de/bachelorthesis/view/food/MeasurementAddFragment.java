@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -168,9 +169,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     if (item.getItemId() == R.id.save) {
       if (inPutOkay()) {
         save();
-        // Navigate back to me fragment
-        Navigation.findNavController(Objects.requireNonNull(getView()))
-            .navigate(R.id.action_addMeasurement_to_foodInfoFragment);
       }
 
       return true;
@@ -312,6 +310,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
           @Override
           public void onChanged(Food food) {
+            ldf.removeObserver(this);
 
             // Build timestamp
             Calendar calendar = Calendar.getInstance();
@@ -337,7 +336,16 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
                 glucose_0
             );
 
-            mViewModel.insertMeasurement(newMeasurement, food);
+            Log.d("yolo", "onChanged: food id = " + mFoodId);
+
+            mViewModel.insertMeasurement(newMeasurement);
+
+            // Navigate back to me fragment
+            Bundle bundle = new Bundle();
+            bundle.putInt("food_id", mFoodId);
+
+            Navigation.findNavController(Objects.requireNonNull(getView()))
+                .navigate(R.id.action_addMeasurement_to_foodInfoFragment, bundle);
           }
         });
       }

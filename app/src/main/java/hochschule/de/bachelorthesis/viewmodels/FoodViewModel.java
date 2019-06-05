@@ -122,6 +122,10 @@ public class FoodViewModel extends AndroidViewModel {
    *
    */
   private void updateFoodDataModel(Food food) {
+    if(food == null) {
+      return;
+    }
+
     mFoodDataModel.setFoodName(food.getFoodName());
     mFoodDataModel.setBrandName(food.getBrandName());
     mFoodDataModel.setType(food.getFoodType());
@@ -263,11 +267,8 @@ public class FoodViewModel extends AndroidViewModel {
    *
    * @param measurement - The measurement to insert to the database.
    */
-  public synchronized void insertMeasurement(Measurement measurement, Food food) {
+  public void insertMeasurement(Measurement measurement) {
     mRepository.insert(measurement);
-    updateFoodOverviewModel(food);
-    updateMeasurementModel(measurement);
-    notifyAll();
   }
 
   /**
