@@ -60,8 +60,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -83,7 +83,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
+          android:layout_marginTop="8dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -136,7 +136,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
+          android:layout_marginTop="8dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -156,8 +156,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -195,6 +195,50 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:text="@string/max_glucose"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/glucose_max"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.glucoseMax))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/average_glucose"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/glucose_average"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.glucoseAverage))}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/start_value"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
@@ -210,16 +254,16 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
           android:text="@string/glucose_after"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -240,8 +284,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -262,8 +306,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -284,8 +328,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -306,8 +350,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -328,8 +372,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -351,8 +395,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -373,8 +417,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
