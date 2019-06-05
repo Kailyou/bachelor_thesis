@@ -1,10 +1,7 @@
 package hochschule.de.bachelorthesis.viewmodels;
 
 import android.app.Application;
-import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.databinding.Observable;
-import androidx.databinding.PropertyChangeRegistry;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,8 +9,6 @@ import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 
 public class MeViewModel extends AndroidViewModel {
-  private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
-
   private Repository mRepository;
   private LiveData<UserHistory> mUserHistoryLatest;
 
@@ -67,7 +62,7 @@ public class MeViewModel extends AndroidViewModel {
   /**
    * Inserts a new user history to the database and update the viewModel.
    *
-   * @param userHistory - omegalul
+   * @param userHistory - The new userHistory object
    */
   public void insertUserHistory(UserHistory userHistory) {
     mRepository.insert(userHistory);
