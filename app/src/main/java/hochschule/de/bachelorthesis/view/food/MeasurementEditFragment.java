@@ -266,8 +266,8 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
       int glucoseMaxCurrent = calculateGlucoseMax(glucoseValues, food.getMaxGlucose());
       int glucoseAverageCurrent = CalculateGlucoseAverage(glucoseValues);
 
-      measurement.setMaxGlucose(glucoseMaxCurrent);
-      measurement.setAverageGlucose(glucoseAverageCurrent);
+      measurement.setGlucoseMax(glucoseMaxCurrent);
+      measurement.setGlucoseAvg(glucoseAverageCurrent);
 
       mViewModel.updateMeasurement(measurement);
 

@@ -30,6 +30,7 @@ public class Measurement {
   @PrimaryKey(autoGenerate = true)
   public int id;
 
+  // general
   @ColumnInfo(name = "food_id")
   private int foodId;
 
@@ -54,8 +55,15 @@ public class Measurement {
   @ColumnInfo(name = "tired")
   private String tired;
 
+  // glucose values
   @ColumnInfo(name = "glucose_start")
   private int glucoseStart;
+
+  @ColumnInfo(name = "glucose_max")
+  private int glucoseMax;
+
+  @ColumnInfo(name = "glucose_average")
+  private int glucoseAvg;
 
   @ColumnInfo(name = "glucose_15")
   private int glucose15;
@@ -80,19 +88,6 @@ public class Measurement {
 
   @ColumnInfo(name = "glucose_120")
   private int glucose120;
-
-  @ColumnInfo(name = "glucose_max")
-  private int glucoseMax;
-
-  @ColumnInfo(name = "glucose_average")
-  private int glucoseAvg;
-
-  // Measurement
-  @ColumnInfo(name = "max_glucose")
-  private int maxGlucose;
-
-  @ColumnInfo(name = "average_glucose")
-  private int averageGlucose;
 
   // Analyses
   @ColumnInfo(name = "rating")
@@ -196,14 +191,6 @@ public class Measurement {
     return isGi;
   }
 
-  public int getMaxGlucose() {
-    return maxGlucose;
-  }
-
-  public int getAverageGlucose() {
-    return averageGlucose;
-  }
-
   public int getPersonalIndex() {
     return personalIndex;
   }
@@ -288,14 +275,6 @@ public class Measurement {
 
   public void setGi(boolean gi) {
     isGi = gi;
-  }
-
-  public void setMaxGlucose(int maxGlucose) {
-    this.maxGlucose = maxGlucose;
-  }
-
-  public void setAverageGlucose(int averageGlucose) {
-    this.averageGlucose = averageGlucose;
   }
 
   public void setPersonalIndex(int personalIndex) {

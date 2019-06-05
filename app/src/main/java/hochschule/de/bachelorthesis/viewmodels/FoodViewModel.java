@@ -83,6 +83,10 @@ public class FoodViewModel extends AndroidViewModel {
    *
    */
   private void updateFoodOverviewModel(Food food) {
+    if(food == null) {
+      return;
+    }
+
     mFoodOverviewModel.setFoodName(food.getFoodName());
     mFoodOverviewModel.setBrandName(food.getBrandName());
     mFoodOverviewModel.setType(food.getFoodType());
@@ -156,6 +160,8 @@ public class FoodViewModel extends AndroidViewModel {
     mMeasurementModel.setAmount(measurement.getAmount());
     mMeasurementModel.setStressed(measurement.getStress());
     mMeasurementModel.setTired(measurement.getTired());
+    mMeasurementModel.setGlucoseMax(measurement.getGlucoseMax());
+    mMeasurementModel.setGlucoseAverage(measurement.getGlucoseAvg());
     mMeasurementModel.setValue0(measurement.getGlucoseStart());
     mMeasurementModel.setValue15(measurement.getGlucose15());
     mMeasurementModel.setValue30(measurement.getGlucose30());

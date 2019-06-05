@@ -156,8 +156,7 @@ public class MeasurementsFragment extends Fragment {
     final Measurement newMeasurement = Samples.getRandomMeasurement(
         Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
 
-    // Increment measurement amount
-    food.setAmountMeasurements(food.getAmountMeasurements() + 1);
+    /* Update Measurement */
 
     // Max glucose
     Integer[] glucoseValuesArray = {
@@ -174,9 +173,16 @@ public class MeasurementsFragment extends Fragment {
 
     ArrayList<Integer> glucoseValuesList = new ArrayList<>(Arrays.asList(glucoseValuesArray));
 
+    newMeasurement.setGlucoseMax(MyMath.getMaxFromArrayList(glucoseValuesList));
+    newMeasurement.setGlucoseAvg(MyMath.getAverageFromArrayList(glucoseValuesList));
+
+    // Increment measurement amount
+    food.setAmountMeasurements(food.getAmountMeasurements() + 1);
+
     int glucoseMax = MyMath.getMaxFromArrayList(glucoseValuesList);
 
     if (glucoseMax > food.getMaxGlucose()) {
+      Log.d("yolo", "test: joa");
       food.setMaxGlucose(glucoseMax);
     }
 
@@ -197,6 +203,7 @@ public class MeasurementsFragment extends Fragment {
     }
 
     food.setAverageGlucose(MyMath.getAverageFromArrayList(measurementsAll));
+
     mViewModel.update(food);
     mViewModel.insertMeasurement(newMeasurement, food);
   }
