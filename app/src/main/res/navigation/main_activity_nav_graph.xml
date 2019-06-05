@@ -96,8 +96,8 @@
   </fragment>
   <fragment
     android:id="@+id/measurementFragment"
+    android:label="Measurement"
     android:name="hochschule.de.bachelorthesis.view.food.MeasurementFragment"
-    android:label="fragment_measurement"
     tools:layout="@layout/fragment_measurement">
     <action
       android:id="@+id/action_measurementFragment_to_editMeasurementFragment"

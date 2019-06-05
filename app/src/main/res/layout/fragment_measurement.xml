@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.measurementModel.timestamp}"
+            android:text="@{Converter.convertTimeStampToDate(vm.measurementModel.timestamp)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.measurementModel.timestamp}"
+            android:text="@{Converter.convertTimeStampToTimeStart(vm.measurementModel.timestamp)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{vm.measurementModel.timestamp}"
+            android:text="@{Converter.convertTimeStampToTimeEnd(vm.measurementModel.timestamp)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 

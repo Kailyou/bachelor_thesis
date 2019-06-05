@@ -1,6 +1,5 @@
 package hochschule.de.bachelorthesis.utility;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,6 +11,10 @@ public class MyMath {
   }
 
   public static int getAverageFromArrayList(ArrayList<Integer> al) {
+    if(al.size() == 0) {
+      return 0;
+    }
+
     float avg = al.get(0);
 
     for (int i = 1; i < al.size(); i++) {
@@ -27,16 +30,16 @@ public class MyMath {
    * @param arr - The array.
    * @return - Returns -1 if the array is empty, else the highest value inside.
    */
-  public static int getMaxFromArray(int[] arr) {
-    if (arr.length <= 0) {
+  public static int getMaxFromArrayList(ArrayList<Integer> arr) {
+    if (arr.size() <= 0) {
       return -1;
     }
 
-    int res = arr[0];
+    int res = arr.get(0);
 
-    for (int i = 1; i < arr.length; ++i) {
-      if (arr[i] > res) {
-        res = arr[i];
+    for (int i = 1; i < arr.size(); ++i) {
+      if (arr.get(i) > res) {
+        res = arr.get(i);
       }
     }
 

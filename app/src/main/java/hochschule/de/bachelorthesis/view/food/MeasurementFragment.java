@@ -13,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
@@ -38,8 +40,6 @@ public class MeasurementFragment extends Fragment {
     // View model
     mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
         .get(FoodViewModel.class);
-
-   // mViewModel.loadMeasurementFragment(MeasurementSample.getEmptyMeasurement());
   }
 
   @Nullable
@@ -64,17 +64,14 @@ public class MeasurementFragment extends Fragment {
     binding.fab.setOnClickListener(Navigation
         .createNavigateOnClickListener(R.id.action_measurementFragment_to_editMeasurementFragment));
 
-    /*
-    final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mMeasurementId);
-    ldm.observe(getViewLifecycleOwner(), new Observer<Measurement>() {
-      @Override
-      public void onChanged(Measurement measurement) {
-        ldm.removeObserver(this);
-        mViewModel.loadMeasurementFragment(measurement);
-      }
-    });
+    mViewModel.getMeasurementById(mMeasurementId).observe(getViewLifecycleOwner(),
+        new Observer<Measurement>() {
+          @Override
+          public void onChanged(Measurement measurement) {
+            mViewModel.loadMeasurementFragment(measurement);
+          }
+        });
 
-*/
     return binding.getRoot();
   }
 

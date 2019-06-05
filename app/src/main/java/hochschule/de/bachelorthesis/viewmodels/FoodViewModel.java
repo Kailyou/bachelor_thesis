@@ -72,6 +72,10 @@ public class FoodViewModel extends AndroidViewModel {
     //updateFoodEditModeL(food);
   }
 
+  public void loadMeasurementFragment(Measurement measurement) {
+    updateMeasurementModel(measurement);
+  }
+
   /* UPDATE MODELS */
 
   /**

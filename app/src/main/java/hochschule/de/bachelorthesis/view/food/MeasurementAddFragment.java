@@ -314,9 +314,9 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
           public void onChanged(Food food) {
 
             // Build timestamp
-            Calendar calender = Calendar.getInstance();
-            calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-            Date date = calender.getTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+            Date date = calendar.getTime();
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
             String timeStamp = sdf.format(date);
