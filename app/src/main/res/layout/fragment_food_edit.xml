@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  tools:context=".view.food.AddFoodFragment">
+  tools:context=".view.food.FoodAddFragment">
 
   <data>
     <import type="hochschule.de.bachelorthesis.utility.Converter"/>

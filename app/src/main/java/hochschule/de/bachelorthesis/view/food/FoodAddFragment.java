@@ -39,7 +39,7 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
  * Save food: A new food object will be created and added to the list. Clear list: The views will be
  * cleared
  */
-public class AddFoodFragment extends Fragment {
+public class FoodAddFragment extends Fragment {
 
   private FragmentFoodAddBinding mBinding;
 
@@ -73,16 +73,6 @@ public class AddFoodFragment extends Fragment {
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     mBinding.type.setAdapter(adapter);
-
-    // loadFood the last user input by observing the view model object
-    // filter has to be false otherwise auto complete will destroy the dropdown element.
-    mViewModel.getFoodAddDataModel().getType().observe(this, new Observer<String>() {
-      @Override
-      public void onChanged(String s) {
-        mBinding.type
-            .setText(s, false);
-      }
-    });
 
     return mBinding.getRoot();
   }

@@ -52,8 +52,7 @@ public class FoodOverviewFragment extends Fragment {
     assert getArguments() != null;
     int foodId = getArguments().getInt("food_id");
 
-    final LiveData<Food> ldf = mViewModel.getFoodById(foodId);
-    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+    mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
         mViewModel.loadOverviewFragment(food);

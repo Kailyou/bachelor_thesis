@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import hochschule.de.bachelorthesis.databinding.FragmentMeasurementEditBinding;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,18 +30,17 @@ import java.util.Locale;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentEditMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
-public class EditMeasurementFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
+public class MeasurementEditFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
-  private static final String TAG = "AddFoodFragment";
+  private static final String TAG = "FoodAddFragment";
 
-  private FragmentEditMeasurementBinding mBinding;
+  private FragmentMeasurementEditBinding mBinding;
 
   private FoodViewModel mViewModel;
 
@@ -76,7 +76,7 @@ public class EditMeasurementFragment extends Fragment implements DatePickerDialo
       @Nullable Bundle savedInstanceState) {
     // Init data binding
     mBinding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_edit_measurement, container, false);
+        .inflate(inflater, R.layout.fragment_measurement_edit, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 

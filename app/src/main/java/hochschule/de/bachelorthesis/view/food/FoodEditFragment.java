@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,20 +16,19 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
-import hochschule.de.bachelorthesis.databinding.FragmentFoodDataEditBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodEditBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
-public class EditFoodDataFragment extends Fragment {
+public class FoodEditFragment extends Fragment {
 
   private FoodViewModel mViewModel;
 
   private int mFoodId;
 
-  private FragmentFoodDataEditBinding mBinding;
+  private FragmentFoodEditBinding mBinding;
 
   private boolean hasChanged;
 
@@ -51,7 +49,7 @@ public class EditFoodDataFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     // Init data binding
     mBinding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_food_data_edit, container, false);
+        .inflate(inflater, R.layout.fragment_food_edit, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 
@@ -225,14 +223,11 @@ public class EditFoodDataFragment extends Fragment {
 
           mViewModel.update(food);
 
-
           MyToast
               .createToast(getContext(), mBinding.foodName.getText().toString() + "updated..");
         }
       }
     });
-
-
   }
 
   private String test(String s1, String s2) {

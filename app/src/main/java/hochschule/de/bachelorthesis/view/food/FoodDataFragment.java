@@ -59,11 +59,9 @@ public class FoodDataFragment extends Fragment {
         Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_editFoodDataFragment2,
             bundle));
 
-    final LiveData<Food> ldf = mViewModel.getFoodById(foodId);
-    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+    mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
-        ldf.removeObserver(this);
         mViewModel.loadDataFragment(food);
       }
     });
