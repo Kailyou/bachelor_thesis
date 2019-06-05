@@ -1,17 +1,21 @@
 package hochschule.de.bachelorthesis.viewmodels;
 
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
+import androidx.databinding.Observable;
+import androidx.databinding.PropertyChangeRegistry;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.ObservableAndroidViewModel;
 
-public class MeViewModel extends ObservableAndroidViewModel {
+public class MeViewModel extends AndroidViewModel {
+  private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
 
   private Repository mRepository;
+  private LiveData<UserHistory> mUserHistoryLatest;
 
   // Personal data
   private MutableLiveData<Integer> mAge;
@@ -29,6 +33,8 @@ public class MeViewModel extends ObservableAndroidViewModel {
   public MeViewModel(@NonNull Application application) {
     super(application);
     mRepository = new Repository(application);
+    mUserHistoryLatest = mRepository.getUserHistoryLatest();
+
     mAge = new MutableLiveData<>();
     mAge.setValue(-1);
 
@@ -53,21 +59,9 @@ public class MeViewModel extends ObservableAndroidViewModel {
    *
    * This will affect the me view to update itself.
    *
-   * @param lco - life cycle owner
    */
-  public void load(LifecycleOwner lco) {
-    mRepository.getUserHistoryLatest().observe(lco, new Observer<UserHistory>() {
-      @Override
-      public void onChanged(UserHistory userHistory) {
-        if (userHistory == null) {
-          return;
-        }
-
-        updateViewModel(userHistory.getAge(), userHistory.getHeight(), userHistory.getWeight(),
-            userHistory.getSex(), userHistory.getFitness_level(), userHistory.getMedication(),
-            userHistory.getAllergies(), userHistory.getSmoking());
-      }
-    });
+  public synchronized void load(UserHistory uh) {
+        updateViewModel(uh);
   }
 
   /**
@@ -77,44 +71,29 @@ public class MeViewModel extends ObservableAndroidViewModel {
    */
   public void insertUserHistory(UserHistory userHistory) {
     mRepository.insert(userHistory);
-
-    updateViewModel(userHistory.getAge(), userHistory.getHeight(), userHistory.getWeight(),
-        userHistory.getSex(), userHistory.getFitness_level(),
-        userHistory.getMedication(), userHistory.getAllergies(), userHistory.getSmoking());
+    updateViewModel(userHistory);
   }
 
   /**
-   * DEBUG ONLY
-   *
-   * Add a template user to the database and update the viewModel with those data.
+   * Returns the latest user history from database.
+   * @return A live data object with the latest UserHistory object
    */
-  public void addTemplateUser() {
-    UserHistory userHistory = new UserHistory(29, 173, 88, "male", "low", false, false, false);
-    insertUserHistory(userHistory);
+  public LiveData<UserHistory> getUserHistoryLatest() {
+    return mUserHistoryLatest;
   }
 
-  /**
-   * DEBUG ONLY
-   *
-   * Removes all existing user history objects from the database and updates the viewModel. -1 will
-   * be converted to an empty String.
-   */
-  public void deleteAllUserHistoryIds() {
-    mRepository.deleteAllUserHistories();
-    updateViewModel(-1, -1, -1, "", "", false, false, false);
-  }
+  private void updateViewModel(UserHistory userHistory) {
+    if(userHistory == null)
+      return;
 
-  private void updateViewModel(int age, int height, int weight, String sex,
-      String fitnessLevel, boolean medication,
-      boolean allergies, boolean smoking) {
-    mAge.setValue(age);
-    mHeight.setValue(height);
-    mWeight.setValue(weight);
-    mSex.setValue(sex);
-    mFitnessLevel.setValue(fitnessLevel);
-    mMedication.setValue(medication);
-    mAllergies.setValue(allergies);
-    mSmoking.setValue(smoking);
+    mAge.setValue(userHistory.getAge());
+    mHeight.setValue(userHistory.getHeight());
+    mWeight.setValue(userHistory.getWeight());
+    mSex.setValue(userHistory.getSex());
+    mFitnessLevel.setValue(userHistory.getFitness_level());
+    mMedication.setValue(userHistory.getMedication());
+    mAllergies.setValue(userHistory.getAllergies());
+    mSmoking.setValue(userHistory.getSmoking());
   }
 
   /*

@@ -7,10 +7,4 @@
     android:orderInCategory="100"
     android:title="@string/add_sample_user"
     app:showAsAction="never"/>
-
-  <item
-    android:id="@+id/delete_user"
-    android:orderInCategory="100"
-    android:title="@string/delete_user_debug"
-    app:showAsAction="never"/>
 </menu>

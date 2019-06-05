@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.me;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -122,9 +124,21 @@ public class MeEditFragment extends Fragment {
       boolean allergies = mBinding.allergies.isChecked();
       boolean smoking = mBinding.smoking.isChecked();
 
-      UserHistory uh = new UserHistory(age, height, weight, sex, fitnessLevel, medication,
+      final UserHistory uh = new UserHistory(age, height, weight, sex, fitnessLevel, medication,
           allergies, smoking);
-      mViewModel.insertUserHistory(uh);
+
+      final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
+      ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
+        @Override
+        public void onChanged(UserHistory userHistory) {
+          ldu.removeObserver(this);
+
+          // Only save the new one, if something changed
+          if (!uh.equals(userHistory)) {
+            mViewModel.insertUserHistory(uh);
+          }
+        }
+      });
 
       // Navigate back to me fragment
       Navigation.findNavController(Objects.requireNonNull(getView()))

@@ -140,7 +140,7 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/energy_kcal"
+            android:text="@string/fitness_level"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
@@ -206,7 +206,7 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/of_which_saturates"
+            android:text="@string/smoking"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView

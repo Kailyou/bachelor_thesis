@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.me;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -36,24 +40,35 @@ public class MeFragment extends Fragment {
 
     // View model
     mViewModel = ViewModelProviders.of(getActivity()).get(MeViewModel.class);
-    mViewModel.load(this);
   }
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
     // Init data binding
-    FragmentMeBinding binding = DataBindingUtil
+    final FragmentMeBinding binding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_me, container, false);
-    binding.setLifecycleOwner(getViewLifecycleOwner());
+    binding.setLifecycleOwner(this);
     binding.setVm(mViewModel);
 
     binding.buttonEditMe.setOnClickListener(
         Navigation.createNavigateOnClickListener(R.id.action_meFragment_to_meEditFragment));
 
+    final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
+    ldu.observe(this, new Observer<UserHistory>() {
+      @Override
+      public void onChanged(UserHistory userHistory) {
+        mViewModel.load(userHistory);
+        if(userHistory != null)
+          Log.d("yolo", "id: " + userHistory.id);
+      }
+    });
+
     return binding.getRoot();
   }
+
 
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -63,15 +78,30 @@ public class MeFragment extends Fragment {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.add_tmp_user:
-        mViewModel.addTemplateUser();
-        return true;
-      case R.id.delete_user:
-        mViewModel.deleteAllUserHistoryIds();
-        return true;
+    if (item.getItemId() == R.id.add_tmp_user) {
+      addTemplateUser();
+      return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * Adding a temp userHistory object to the database.
+   */
+  private void addTemplateUser() {
+    final UserHistory newUh = new UserHistory(29, 173, 88, "male", "low", false, false, false);
+
+    final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
+    ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
+      @Override
+      public void onChanged(UserHistory userHistory) {
+        ldu.removeObserver(this);
+
+        //Insert
+        if(!newUh.equals(userHistory))
+          mViewModel.insertUserHistory(newUh);
+        }
+    });
   }
 }

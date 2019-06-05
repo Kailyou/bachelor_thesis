@@ -48,6 +48,25 @@ public class UserHistory {
     this.smoking = smoking;
   }
 
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserHistory userHistory = (UserHistory) o;
+    return age == userHistory.getAge() &&
+        height == userHistory.getHeight() &&
+        weight == userHistory.getWeight() &&
+        sex.equals(userHistory.getSex()) &&
+        fitness_level.equals(userHistory.getFitness_level()) &&
+        medication == userHistory.getMedication() &&
+        allergies == userHistory.getAllergies() &&
+        allergies == userHistory.getAllergies() &&
+        smoking == userHistory.getSmoking();
+  }
+
   public int getAge() {
     return age;
   }
