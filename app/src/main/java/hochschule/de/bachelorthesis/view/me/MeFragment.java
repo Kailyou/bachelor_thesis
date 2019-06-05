@@ -61,8 +61,6 @@ public class MeFragment extends Fragment {
       @Override
       public void onChanged(UserHistory userHistory) {
         mViewModel.load(userHistory);
-        if(userHistory != null)
-          Log.d("yolo", "id: " + userHistory.id);
       }
     });
 

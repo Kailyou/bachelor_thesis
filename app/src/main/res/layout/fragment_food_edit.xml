@@ -43,7 +43,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="text"
-          android:text="@{vm.foodEditDataModel.foodName}"
+          android:text="@{vm.foodInfoOverviewModel.foodName}"
           />
       </com.google.android.material.textfield.TextInputLayout>
 

@@ -38,8 +38,6 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementsFragment extends Fragment {
 
-  private static final String TAG = MeasurementsFragment.class.getName();
-
   private FoodViewModel mViewModel;
 
   private int mFoodId;

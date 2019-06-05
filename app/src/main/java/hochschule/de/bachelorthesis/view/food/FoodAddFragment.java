@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,6 +75,17 @@ public class FoodAddFragment extends Fragment {
 
     mBinding.type.setAdapter(adapter);
 
+    // load the last user input by observing the view model object
+    // filter has to be false otherwise auto complete will destroy the dropdown element.
+    mViewModel.getFoodAddDataModel().getType()
+        .observe(getViewLifecycleOwner(), new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.type
+                .setText(s, false);
+          }
+        });
+
     return mBinding.getRoot();
   }
 
@@ -141,20 +153,21 @@ public class FoodAddFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
+
       case R.id.save:
         if (inPutOkay()) {
           save();
-          return true;
         }
-        // pass an empty food object
-      case R.id.clear: {
+        return true;
+
+      case R.id.clear:
         mViewModel.updateFoodAddModeL(new Food("", "", "",
             -1, -1, -1, -1, -1, -1, -1, -1));
         return true;
-      }
-    }
 
-    return super.onOptionsItemSelected(item);
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 
   /**
