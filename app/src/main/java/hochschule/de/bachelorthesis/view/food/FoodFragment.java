@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.LiveData;
 import hochschule.de.bachelorthesis.utility.Samples;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,6 +40,9 @@ public class FoodFragment extends Fragment {
 
   private BetterFloatingActionButton mFab;
 
+  private AdapterFood mAdapter;
+
+
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -57,21 +63,22 @@ public class FoodFragment extends Fragment {
 
     mFab = binding.buttonAddNote;
 
+    // Adapter
+    NavController mNavcontroller = Navigation
+        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
+
+    mAdapter = new AdapterFood(mNavcontroller);
+
     // RecyclerView
     RecyclerView recyclerView = binding.recyclerView;
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setHasFixedSize(true);
-
-    // Adapter
-    NavController navController = Navigation
-        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-    final AdapterFood adapter = new AdapterFood(navController);
-    recyclerView.setAdapter(adapter);
+    recyclerView.setAdapter(mAdapter);
 
     mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
-        adapter.setFoods(foods);
+        mAdapter.setFoods(foods);
       }
     });
 
@@ -96,6 +103,7 @@ public class FoodFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.sort:
+        sort();
         return true;
 
       case R.id.add_apple:
@@ -116,6 +124,29 @@ public class FoodFragment extends Fragment {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * Will sort the list alphanumeric
+   */
+  private void sort() {
+    final LiveData<List<Food>> ldf = mViewModel.getAllFoods();
+    ldf.observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
+      @Override
+      public void onChanged(List<Food> foods) {
+        ldf.removeObserver(this);
+
+        Comparator<Food> comparator = new Comparator<Food>() {
+          @Override
+          public int compare(Food o1, Food o2) {
+            return String.CASE_INSENSITIVE_ORDER.compare(o1.getFoodName(), o2.getFoodName());
+          }
+        };
+
+        Collections.sort(foods, comparator);
+        mAdapter.setFoods(foods);
+      }
+    });
   }
 }
 
