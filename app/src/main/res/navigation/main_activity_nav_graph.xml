@@ -47,6 +47,9 @@
     <action
       android:id="@+id/action_foodInfoFragment_to_editFoodDataFragment2"
       app:destination="@id/editFoodDataFragment2"/>
+    <action
+      android:id="@+id/action_foodInfoFragment_to_foodFragment"
+      app:destination="@id/foodFragment"/>
   </fragment>
 
   <fragment

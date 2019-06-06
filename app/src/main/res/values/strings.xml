@@ -113,6 +113,7 @@
   <string name="add_pizza_debug">Add Pizza (Debug)</string>
   <string name="add_apple_debug">Add Apple (Debug)</string>
   <string name="delete_all_foods">Delete all foods</string>
+  <string name="delete_food">Delete Food</string>
 
   <string-array name="type">
     <item>Grains</item>

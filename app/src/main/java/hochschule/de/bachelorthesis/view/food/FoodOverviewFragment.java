@@ -2,6 +2,9 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,6 +16,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
@@ -23,19 +27,23 @@ import java.util.Objects;
 
 public class FoodOverviewFragment extends Fragment {
 
-  private static final String TAG = FoodOverviewFragment.class.getName();
-
-  private FragmentFoodOverviewBinding mBinding;
-
   private FoodViewModel mViewModel;
+
+  private int mFoodId;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    setHasOptionsMenu(true);
+
     // view model
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
     mViewModel.loadOverviewFragment(Samples.getEmptyFood());
+
+    assert getArguments() != null;
+    mFoodId = getArguments().getInt("food_id");
   }
 
   @Nullable
@@ -44,7 +52,8 @@ public class FoodOverviewFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     // Init data binding
-    FragmentFoodOverviewBinding mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_overview, container, false);
+    FragmentFoodOverviewBinding mBinding = DataBindingUtil
+        .inflate(inflater, R.layout.fragment_food_overview, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 
@@ -60,5 +69,31 @@ public class FoodOverviewFragment extends Fragment {
     });
 
     return mBinding.getRoot();
+  }
+
+  @Override
+  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.food_overview_menu, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    if (item.getItemId() == R.id.delete) {
+
+      final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+      ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+        @Override
+        public void onChanged(Food food) {
+          mViewModel.delete(food);
+
+          // Navigate back to food fragment
+          Navigation.findNavController(Objects.requireNonNull(getView()))
+              .navigate(R.id.action_foodInfoFragment_to_foodFragment);
+        }
+      });
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 }
