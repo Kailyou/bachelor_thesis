@@ -78,7 +78,7 @@ public class FoodFragment extends Fragment {
     mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
-        mAdapter.setFoods(foods);
+        sortFoodList("alphanumeric", mAdapter, foods);
       }
     });
 
@@ -135,18 +135,30 @@ public class FoodFragment extends Fragment {
       @Override
       public void onChanged(List<Food> foods) {
         ldf.removeObserver(this);
-
-        Comparator<Food> comparator = new Comparator<Food>() {
-          @Override
-          public int compare(Food o1, Food o2) {
-            return String.CASE_INSENSITIVE_ORDER.compare(o1.getFoodName(), o2.getFoodName());
-          }
-        };
-
-        Collections.sort(foods, comparator);
-        mAdapter.setFoods(foods);
+        sortFoodList("alphanumeric", mAdapter, foods);
       }
     });
+  }
+
+  private void sortFoodList(String sortType, AdapterFood adapter, List<Food> list) {
+
+    Comparator<Food> comparator = null;
+
+    switch (sortType) {
+      case "alphanumeric":
+        comparator = new Comparator<Food>() {
+          @Override
+          public int compare(Food food1, Food food2) {
+            return String.CASE_INSENSITIVE_ORDER.compare(food1.getFoodName(), food2.getFoodName());
+          }
+        };
+        break;
+    }
+
+    if (comparator != null) {
+      Collections.sort(list, comparator);
+      mAdapter.setFoods(list);
+    }
   }
 }
 
