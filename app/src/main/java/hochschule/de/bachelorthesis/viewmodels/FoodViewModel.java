@@ -104,6 +104,9 @@ public class FoodViewModel extends AndroidViewModel {
    *
    */
   public void updateFoodAddModeL(Food food) {
+    if(food == null)
+      return;
+
     mFoodAddModel.setFoodName(food.getFoodName());
     mFoodAddModel.setBrandName(food.getBrandName());
     mFoodAddModel.setType(food.getFoodType());
@@ -122,9 +125,8 @@ public class FoodViewModel extends AndroidViewModel {
    *
    */
   private void updateFoodDataModel(Food food) {
-    if(food == null) {
+    if(food == null)
       return;
-    }
 
     mFoodDataModel.setFoodName(food.getFoodName());
     mFoodDataModel.setBrandName(food.getBrandName());
@@ -160,6 +162,9 @@ public class FoodViewModel extends AndroidViewModel {
   */
 
   private void updateMeasurementModel(Measurement measurement) {
+    if(measurement == null)
+      return;
+
     mMeasurementModel.setTimestamp(measurement.getTimeStamp());
     mMeasurementModel.setAmount(measurement.getAmount());
     mMeasurementModel.setStressed(measurement.getStress());
@@ -178,6 +183,9 @@ public class FoodViewModel extends AndroidViewModel {
   }
 
   private void updateMeasurementAddModel(Measurement measurement) {
+    if(measurement == null)
+      return;
+
     mMeasurementAddModel.setTimestamp(measurement.getTimeStamp());
     mMeasurementAddModel.setAmount(measurement.getAmount());
     mMeasurementAddModel.setStressed(measurement.getStress());

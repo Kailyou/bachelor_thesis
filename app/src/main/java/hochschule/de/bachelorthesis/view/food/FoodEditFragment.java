@@ -65,15 +65,23 @@ public class FoodEditFragment extends Fragment {
 
     mBinding.type.setAdapter(adapter);
 
-    // loadFood the last user input by observing the view model object
-    // filter has to be false otherwise auto complete will destroy the dropdown element.
-    mViewModel.getFoodEditDataModel().getType().observe(this, new Observer<String>() {
+    mViewModel.getFoodById(mFoodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
-      public void onChanged(String s) {
-        mBinding.type
-            .setText(s, false);
+      public void onChanged(Food food) {
+        mViewModel.loadDataFragment(food);
       }
     });
+
+    // load the last user input by observing the view model object
+    // filter has to be false otherwise auto complete will destroy the dropdown element.
+    mViewModel.getFoodInfoDataModel().getType()
+        .observe(getViewLifecycleOwner(), new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.type
+                .setText(s, false);
+          }
+        });
 
     return mBinding.getRoot();
   }
@@ -185,31 +193,38 @@ public class FoodEditFragment extends Fragment {
 
         if (food.getAmountMeasurements() > 0) {
           toast(
-              "You cannot change food once you entered measurements Already. Delete them first and try again");
+              "You cannot change food once you entered measurements Already. Delete them and try again.");
           return;
         }
 
-        String newFoodName = test(Objects.requireNonNull(mBinding.foodName.getText()).toString(), food.getFoodName());
-        String newBrandName = test(Objects.requireNonNull(mBinding.brandName.getText()).toString(), food.getBrandName());
-        String newFoodType = test(mBinding.type.getText().toString(), food.getFoodType());
+        String newFoodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
+        String newBrandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
+        String newFoodType = Objects.requireNonNull(mBinding.type.getText()).toString();
 
         float newKiloCalories = Float
-            .parseFloat(test(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString(), food.getFoodType()));
+            .parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString());
         float newKiloJoules = Float
-            .parseFloat(test(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString(), String.valueOf(food.getKiloJoules())));
+            .parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString());
         float newFat = Float
-            .parseFloat(test(Objects.requireNonNull(mBinding.fat.getText()).toString(), String.valueOf(food.getFat())));
+            .parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString());
         float newSaturates = Float
-            .parseFloat(test(Objects.requireNonNull(mBinding.saturates.getText()).toString(), String.valueOf(food.getSaturates())));
+            .parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString());
+        float newProtein = Float
+            .parseFloat(
+                Objects.requireNonNull(mBinding.protein.getText()).toString());
         float newCarbohydrates = Float
             .parseFloat(
-                test(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString(), String.valueOf(food.getCarbohydrate())));
+                Objects.requireNonNull(mBinding.carbohydrate.getText()).toString());
         float newSugars = Float
-            .parseFloat(test(Objects.requireNonNull(mBinding.sugars.getText()).toString(), String.valueOf(food.getSugars())));
+            .parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString());
         float newSalt = Float
-            .parseFloat(test(Objects.requireNonNull(mBinding.salt.getText()).toString(), String.valueOf(food.getSalt())));
+            .parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
 
-        if (hasChanged) {
+        Food newFood = new Food(newFoodName, newBrandName, newFoodType,
+            newKiloCalories, newKiloJoules, newFat, newSaturates, newProtein, newCarbohydrates,
+            newSugars, newSalt);
+
+        if (!newFood.equals(food)) {
           food.setFoodName(newFoodName);
           food.setBrandName(newBrandName);
           food.setFoodType(newFoodType);
@@ -224,19 +239,14 @@ public class FoodEditFragment extends Fragment {
           mViewModel.update(food);
 
           MyToast
-              .createToast(getContext(), mBinding.foodName.getText().toString() + "updated..");
+              .createToast(getContext(), mBinding.foodName.getText().toString() + " updated...");
+        }
+        else {
+          MyToast
+              .createToast(getContext(), "You cannot update the same food!");
         }
       }
     });
-  }
-
-  private String test(String s1, String s2) {
-    if (!s1.equals(s2)) {
-      hasChanged = true;
-      return s1;
-    }
-
-    return s2;
   }
 
   private void toast(String msg) {

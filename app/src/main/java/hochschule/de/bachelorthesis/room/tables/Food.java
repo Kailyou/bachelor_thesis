@@ -97,6 +97,26 @@ public class Food {
     rating = "unrated";
   }
 
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Food food = (Food) o;
+    return foodName.equals(food.getFoodName()) &&
+        brandName.equals(food.getBrandName()) &&
+        foodType.equals(food.getFoodType()) &&
+        kiloCalories == food.getKiloCalories() &&
+        kiloJoules == food.getKiloJoules() &&
+        fat == food.getFat() &&
+        saturates == food.getSaturates() &&
+        protein == food.getProtein() &&
+        carbohydrate == food.getCarbohydrate() &&
+        sugars == food.getSugars() &&
+        salt == food.getSalt();
+  }
 
   /* GETTER */
 

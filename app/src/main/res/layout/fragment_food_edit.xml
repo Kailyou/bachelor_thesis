@@ -43,7 +43,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="text"
-          android:text="@{vm.foodInfoOverviewModel.foodName}"
+          android:text="@{vm.foodInfoDataModel.foodName}"
           />
       </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +61,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="text"
-          android:text="@{vm.foodEditDataModel.brandName}"
+          android:text="@{vm.foodInfoDataModel.brandName}"
           />
       </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +104,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.kiloCalories)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.kiloCalories)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -121,7 +121,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.kiloJoules)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.kiloJoules)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -138,7 +138,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.fat)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.fat)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -155,7 +155,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.saturates)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.saturates)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -172,7 +172,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.protein)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.protein)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -189,7 +189,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.carbohydrates)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.carbohydrate)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -206,7 +206,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.sugars)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.sugars)}"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -223,7 +223,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="numberDecimal"
-          android:text="@{Converter.convertFloat(vm.foodEditDataModel.salt)}"/>
+          android:text="@{Converter.convertFloat(vm.foodInfoDataModel.salt)}"/>
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
   </ScrollView>
