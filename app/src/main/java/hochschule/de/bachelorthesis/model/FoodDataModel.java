@@ -124,6 +124,6 @@ public class FoodDataModel {
   }
 
   public void setSalt(Float salt) {
-    mSugars.setValue(salt);
+    mSalt.setValue(salt);
   }
 }
