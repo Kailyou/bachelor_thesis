@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import hochschule.de.bachelorthesis.utility.Samples;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,12 +33,16 @@ import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 public class FoodFragment extends Fragment {
 
-  private static final String TAG = FoodFragment.class.getName();
+  private FoodViewModel mViewModel;
 
   private BetterFloatingActionButton mFab;
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    // View model
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
 
     // Enable menu
     setHasOptionsMenu(true);
@@ -49,9 +54,6 @@ public class FoodFragment extends Fragment {
     FragmentFoodBinding binding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_food, container, false);
     binding.setLifecycleOwner(getViewLifecycleOwner());
-
-    // View model
-    FoodViewModel viewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
     mFab = binding.buttonAddNote;
 
@@ -66,7 +68,7 @@ public class FoodFragment extends Fragment {
     final AdapterFood adapter = new AdapterFood(navController);
     recyclerView.setAdapter(adapter);
 
-    viewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
+    mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
         adapter.setFoods(foods);
@@ -92,8 +94,25 @@ public class FoodFragment extends Fragment {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.sort) {
-      return true;
+    switch (item.getItemId()) {
+      case R.id.sort:
+        return true;
+
+      case R.id.add_apple:
+        mViewModel.insertFood(Samples.getApple());
+        return true;
+
+      case R.id.add_coke:
+        mViewModel.insertFood(Samples.getCoke());
+        return true;
+
+      case R.id.add_pizza:
+        mViewModel.insertFood(Samples.getPizza());
+        return true;
+
+      case R.id.delete_foods:
+        mViewModel.deleteAllFoods();
+        return true;
     }
 
     return super.onOptionsItemSelected(item);

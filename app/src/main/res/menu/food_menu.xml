@@ -7,4 +7,24 @@
     android:icon="@drawable/ic_sort_white_24dp"
     android:title="@string/save"
     app:showAsAction="ifRoom"/>
+
+  <item
+    android:id="@+id/add_apple"
+    android:title="@string/add_apple_debug"
+    app:showAsAction="never"/>
+
+  <item
+    android:id="@+id/add_coke"
+    android:title="@string/add_coke_debug"
+    app:showAsAction="never"/>
+
+  <item
+    android:id="@+id/add_pizza"
+    android:title="@string/add_pizza_debug"
+    app:showAsAction="never"/>
+
+  <item
+    android:id="@+id/delete_foods"
+    android:title="@string/delete_all_foods"
+    app:showAsAction="never"/>
 </menu>

@@ -70,7 +70,7 @@ public abstract class FoodDatabase extends RoomDatabase {
     protected Void doInBackground(Void... voids) {
       foodDao.insert(Samples.getApple());
       foodDao.insert(Samples.getPizza());
-      foodDao.insert(Samples.getCola());
+      foodDao.insert(Samples.getCoke());
       return null;
     }
   }

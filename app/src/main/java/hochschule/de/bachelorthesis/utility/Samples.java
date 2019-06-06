@@ -53,7 +53,7 @@ public class Samples {
         1.4f);
   }
 
-  public static Food getCola() {
+  public static Food getCoke() {
     return new Food("Coca-Cola",
         "Coca-Cola Company",
         "Drink",

@@ -109,6 +109,10 @@
   <string name="_105_minutes">… 105 minutes</string>
   <string name="_120_minutes">… 120 minutes</string>
   <string name="add_random_measurement">Add random measurement</string>
+  <string name="add_coke_debug">Add Coke (Debug)</string>
+  <string name="add_pizza_debug">Add Pizza (Debug)</string>
+  <string name="add_apple_debug">Add Apple (Debug)</string>
+  <string name="delete_all_foods">Delete all foods</string>
 
   <string-array name="type">
     <item>Grains</item>
