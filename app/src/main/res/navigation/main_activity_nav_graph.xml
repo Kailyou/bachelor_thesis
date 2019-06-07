@@ -32,8 +32,8 @@
 
   <fragment
     android:id="@+id/foodInfoFragment"
+    android:label="Food information"
     android:name="hochschule.de.bachelorthesis.view.food.FoodInfoFragment"
-    android:label="Food Information"
     tools:layout="@layout/fragment_food_info">
     <action
       android:id="@+id/action_foodInfoFragment_to_addMeasurement"

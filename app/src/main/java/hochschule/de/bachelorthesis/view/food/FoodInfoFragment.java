@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodInfoBinding;
+import hochschule.de.bachelorthesis.view.MainActivity;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 

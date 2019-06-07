@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import android.graphics.Color;
+import android.icu.util.Measure;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -17,10 +19,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MeasurementFragment extends Fragment {
@@ -28,6 +37,8 @@ public class MeasurementFragment extends Fragment {
   private static final String TAG = MeasurementFragment.class.getName();
 
   private FoodViewModel mViewModel;
+
+  private FragmentMeasurementBinding mBinding;
 
   private int mMeasurementId;
 
@@ -48,10 +59,10 @@ public class MeasurementFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     // Init data binding
-    FragmentMeasurementBinding binding = DataBindingUtil
+    mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_measurement, container, false);
-    binding.setLifecycleOwner(getViewLifecycleOwner());
-    binding.setVm(mViewModel);
+    mBinding.setLifecycleOwner(getViewLifecycleOwner());
+    mBinding.setVm(mViewModel);
 
     // get passed measurement id
     assert getArguments() != null;
@@ -61,7 +72,7 @@ public class MeasurementFragment extends Fragment {
     Bundle bundle = new Bundle();
     bundle.putInt("measurement_id", mMeasurementId);
 
-    binding.fab.setOnClickListener(Navigation
+    mBinding.fab.setOnClickListener(Navigation
         .createNavigateOnClickListener(R.id.action_measurementFragment_to_editMeasurementFragment));
 
     mViewModel.getMeasurementById(mMeasurementId).observe(getViewLifecycleOwner(),
@@ -69,10 +80,11 @@ public class MeasurementFragment extends Fragment {
           @Override
           public void onChanged(Measurement measurement) {
             mViewModel.loadMeasurementFragment(measurement);
+            buildGraph(measurement);
           }
         });
 
-    return binding.getRoot();
+    return mBinding.getRoot();
   }
 
   @Override
@@ -89,5 +101,71 @@ public class MeasurementFragment extends Fragment {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * Builds a line graph of the given measurement values
+   *
+   * @param measurement - The selected measurement
+   *
+   * TODO - maybe add something like the following point's won't be drawn if the previous one was
+   * zero (wrong input?)
+   */
+  private void buildGraph(Measurement measurement) {
+    // test
+    ArrayList<Entry> values = new ArrayList<>();
+    values.add(new Entry(0, measurement.getGlucoseStart()));
+    if (measurement.getGlucose15() != 0) {
+      values.add(new Entry(15, measurement.getGlucose15()));
+    }
+
+    if (measurement.getGlucose30() != 0) {
+      values.add(new Entry(30, measurement.getGlucose30()));
+    }
+
+    if (measurement.getGlucose45() != 0) {
+      values.add(new Entry(45, measurement.getGlucose45()));
+    }
+
+    if (measurement.getGlucose60() != 0) {
+      values.add(new Entry(60, measurement.getGlucose60()));
+    }
+
+    if (measurement.getGlucose75() != 0) {
+      values.add(new Entry(75, measurement.getGlucose75()));
+    }
+
+    if (measurement.getGlucose90() != 0) {
+      values.add(new Entry(90, measurement.getGlucose90()));
+    }
+
+    if (measurement.getGlucose105() != 0) {
+      values.add(new Entry(105, measurement.getGlucose105()));
+    }
+
+    if (measurement.getGlucose120() != 0) {
+      values.add(new Entry(120, measurement.getGlucose120()));
+    }
+
+    LineDataSet set = new LineDataSet(values, "Glucose");
+    set.setFillAlpha(110);
+    set.setColor(getResources().getColor(R.color.colorPrimary));
+    set.setLineWidth(3f);  // how fat is the line
+    set.setValueTextSize(10f);
+    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+
+    XAxis xAxis = mBinding.test.getXAxis();
+    xAxis.setAxisMinimum(0f);
+    xAxis.setAxisMaximum(120f);
+    xAxis.setPosition(XAxisPosition.BOTTOM);
+
+    ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+    dataSets.add(set);
+
+    LineData data = new LineData(dataSets);
+    mBinding.test.setData(data);
+    mBinding.test.getDescription().setEnabled(false);
+    mBinding.test.notifyDataSetChanged();
+    mBinding.test.invalidate();
   }
 }

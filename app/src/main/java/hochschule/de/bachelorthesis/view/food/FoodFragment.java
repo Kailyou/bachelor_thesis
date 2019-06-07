@@ -56,6 +56,7 @@ public class FoodFragment extends Fragment {
 
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
+
     // Init data binding
     FragmentFoodBinding binding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_food, container, false);
