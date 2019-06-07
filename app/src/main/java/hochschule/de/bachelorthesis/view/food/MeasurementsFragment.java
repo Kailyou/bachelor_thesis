@@ -107,7 +107,7 @@ public class MeasurementsFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.add_tmp_measurement:
-        createTemplateMeasurement(mFoodId);
+        createTemplateMeasurement();
         return true;
       case R.id.delete_measurements:
         deleteMeasurements();
@@ -117,7 +117,7 @@ public class MeasurementsFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
-  private void createTemplateMeasurement(final int foodId) {
+  private void createTemplateMeasurement() {
     final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
     ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
       @Override
@@ -128,7 +128,7 @@ public class MeasurementsFragment extends Fragment {
           return;
         }
 
-        buildsNewMeasurementAndUpdateDatabase();
+        buildsNewMeasurementAndUpdateDatabase(userHistory.id);
 
       }
     });
@@ -148,10 +148,10 @@ public class MeasurementsFragment extends Fragment {
     });
   }
 
-  private void buildsNewMeasurementAndUpdateDatabase() {
+  private void buildsNewMeasurementAndUpdateDatabase(int userHistoryId) {
 
     final Measurement newMeasurement = Samples.getRandomMeasurement(
-        Objects.requireNonNull(getContext()), mFoodId, mFoodId);
+        Objects.requireNonNull(getContext()), mFoodId, userHistoryId);
 
     /* Update Measurement */
 
