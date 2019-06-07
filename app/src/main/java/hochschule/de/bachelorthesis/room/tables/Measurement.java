@@ -37,9 +37,6 @@ public class Measurement {
   @ColumnInfo(name = "user_history_id")
   private int userHistoryId;
 
-  @ColumnInfo(name = "is_done")
-  private boolean isDone;
-
   @ColumnInfo(name = "is_gi")
   private boolean isGi;
 
@@ -58,12 +55,6 @@ public class Measurement {
   // glucose values
   @ColumnInfo(name = "glucose_start")
   private int glucoseStart;
-
-  @ColumnInfo(name = "glucose_max")
-  private int glucoseMax;
-
-  @ColumnInfo(name = "glucose_average")
-  private int glucoseAvg;
 
   @ColumnInfo(name = "glucose_15")
   private int glucose15;
@@ -88,14 +79,6 @@ public class Measurement {
 
   @ColumnInfo(name = "glucose_120")
   private int glucose120;
-
-  // Analyses
-  @ColumnInfo(name = "rating")
-  private String rating;
-
-  @ColumnInfo(name = "personal_index")
-  private int personalIndex;
-
 
   public Measurement(int foodId, int userHistoryId,
       String timeStamp, int amount, String stress, String tired,
@@ -171,29 +154,10 @@ public class Measurement {
     return glucose120;
   }
 
-  public int getGlucoseMax() {
-    return glucoseMax;
-  }
-
-  public int getGlucoseAvg() {
-    return glucoseAvg;
-  }
-
-  public String getRating() {
-    return rating;
-  }
-
-  public boolean isDone() {
-    return isDone;
-  }
-
   public boolean isGi() {
     return isGi;
   }
 
-  public int getPersonalIndex() {
-    return personalIndex;
-  }
 
   /* SETTER */
 
@@ -257,27 +221,7 @@ public class Measurement {
     this.glucose120 = glucose120;
   }
 
-  public void setGlucoseMax(int glucoseMax) {
-    this.glucoseMax = glucoseMax;
-  }
-
-  public void setGlucoseAvg(int glucoseAvg) {
-    this.glucoseAvg = glucoseAvg;
-  }
-
-  public void setRating(String rating) {
-    this.rating = rating;
-  }
-
-  public void setDone(boolean done) {
-    isDone = done;
-  }
-
   public void setGi(boolean gi) {
     isGi = gi;
-  }
-
-  public void setPersonalIndex(int personalIndex) {
-    this.personalIndex = personalIndex;
   }
 }

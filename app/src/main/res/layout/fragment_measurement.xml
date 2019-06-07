@@ -229,7 +229,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.glucoseMax))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -251,7 +250,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.glucoseAverage))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 

@@ -186,65 +186,74 @@ public class FoodEditFragment extends Fragment {
 
     ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
-      public void onChanged(Food food) {
+      public void onChanged(final Food food) {
         ldf.removeObserver(this);
 
         // If measurements have been done, user cannot update the food object
 
-        if (food.getAmountMeasurements() > 0) {
-          toast(
-              "You cannot change food once you entered measurements Already. Delete them and try again.");
-          return;
-        }
+        mViewModel.getMeasurementAmountRows(mFoodId).observe(getViewLifecycleOwner(),
+            new Observer<Integer>() {
+              @Override
+              public void onChanged(Integer integer) {
 
-        String newFoodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
-        String newBrandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
-        String newFoodType = Objects.requireNonNull(mBinding.type.getText()).toString();
+                if (integer > 0) {
+                  toast(
+                      "You cannot change food once you entered measurements Already. Delete them and try again.");
+                  return;
+                }
 
-        float newKiloCalories = Float
-            .parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString());
-        float newKiloJoules = Float
-            .parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString());
-        float newFat = Float
-            .parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString());
-        float newSaturates = Float
-            .parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString());
-        float newProtein = Float
-            .parseFloat(
-                Objects.requireNonNull(mBinding.protein.getText()).toString());
-        float newCarbohydrates = Float
-            .parseFloat(
-                Objects.requireNonNull(mBinding.carbohydrate.getText()).toString());
-        float newSugars = Float
-            .parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString());
-        float newSalt = Float
-            .parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
+                String newFoodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
+                String newBrandName = Objects.requireNonNull(mBinding.brandName.getText())
+                    .toString();
+                String newFoodType = Objects.requireNonNull(mBinding.type.getText()).toString();
 
-        Food newFood = new Food(newFoodName, newBrandName, newFoodType,
-            newKiloCalories, newKiloJoules, newFat, newSaturates, newProtein, newCarbohydrates,
-            newSugars, newSalt);
+                float newKiloCalories = Float
+                    .parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString());
+                float newKiloJoules = Float
+                    .parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString());
+                float newFat = Float
+                    .parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString());
+                float newSaturates = Float
+                    .parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString());
+                float newProtein = Float
+                    .parseFloat(
+                        Objects.requireNonNull(mBinding.protein.getText()).toString());
+                float newCarbohydrates = Float
+                    .parseFloat(
+                        Objects.requireNonNull(mBinding.carbohydrate.getText()).toString());
+                float newSugars = Float
+                    .parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString());
+                float newSalt = Float
+                    .parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
 
-        if (!newFood.equals(food)) {
-          food.setFoodName(newFoodName);
-          food.setBrandName(newBrandName);
-          food.setFoodType(newFoodType);
-          food.setKiloCalories(newKiloCalories);
-          food.setKiloJoules(newKiloJoules);
-          food.setFat(newFat);
-          food.setSaturates(newSaturates);
-          food.setCarbohydrate(newCarbohydrates);
-          food.setSugars(newSugars);
-          food.setSalt(newSalt);
+                Food newFood = new Food(newFoodName, newBrandName, newFoodType,
+                    newKiloCalories, newKiloJoules, newFat, newSaturates, newProtein,
+                    newCarbohydrates,
+                    newSugars, newSalt);
 
-          mViewModel.update(food);
+                if (!newFood.equals(food)) {
+                  food.setFoodName(newFoodName);
+                  food.setBrandName(newBrandName);
+                  food.setFoodType(newFoodType);
+                  food.setKiloCalories(newKiloCalories);
+                  food.setKiloJoules(newKiloJoules);
+                  food.setFat(newFat);
+                  food.setSaturates(newSaturates);
+                  food.setCarbohydrate(newCarbohydrates);
+                  food.setSugars(newSugars);
+                  food.setSalt(newSalt);
 
-          MyToast
-              .createToast(getContext(), mBinding.foodName.getText().toString() + " updated...");
-        }
-        else {
-          MyToast
-              .createToast(getContext(), "You cannot update the same food!");
-        }
+                  mViewModel.update(food);
+
+                  MyToast
+                      .createToast(getContext(),
+                          mBinding.foodName.getText().toString() + " updated...");
+                } else {
+                  MyToast
+                      .createToast(getContext(), "You cannot update the same food!");
+                }
+              }
+            });
       }
     });
   }

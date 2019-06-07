@@ -11,11 +11,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.room.tables.MeasurementsData;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.Samples;
 
-@Database(entities = {Food.class, Measurement.class, MeasurementsData.class,
+@Database(entities = {Food.class, Measurement.class,
     UserHistory.class}, version = 1, exportSchema = false)
 public abstract class FoodDatabase extends RoomDatabase {
 

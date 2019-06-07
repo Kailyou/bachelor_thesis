@@ -35,4 +35,7 @@ public interface MeasurementDao {
 
   @Query("SELECT * FROM measurement_table ORDER BY id DESC")
   LiveData<List<Measurement>> getAllMeasurements();
+
+  @Query("SELECT COUNT(id) FROM measurement_table WHERE food_id=:foodId")
+  LiveData<Integer> getRowCount(int foodId);
 }

@@ -106,7 +106,6 @@ public class Samples {
     measurement.setGlucose90(measurements[6]);
     measurement.setGlucose105(measurements[7]);
     measurement.setGlucose120(measurements[8]);
-    measurement.setDone(true);
 
     return measurement;
   }

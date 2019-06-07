@@ -92,11 +92,11 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodOverviewModel.setType(food.getFoodType());
     mFoodOverviewModel.setKiloCalories(food.getKiloCalories());
 
-    mFoodOverviewModel.setMeasurementsAmount(food.getAmountMeasurements());
-    mFoodOverviewModel.setMaxGlucose(food.getMaxGlucose());
-    mFoodOverviewModel.setAverageGlucose(food.getAverageGlucose());
-    mFoodOverviewModel.setRating(food.getRating());
-    mFoodOverviewModel.setPersonalIndex(food.getPersonalIndex());
+    // mFoodOverviewModel.setMeasurementsAmount(food.getAmountMeasurements());
+    // mFoodOverviewModel.setMaxGlucose(food.getMaxGlucose());
+    // mFoodOverviewModel.setAverageGlucose(food.getAverageGlucose());
+    // mFoodOverviewModel.setRating(food.getRating());
+    // mFoodOverviewModel.setPersonalIndex(food.getPersonalIndex());
   }
 
   /**
@@ -169,8 +169,6 @@ public class FoodViewModel extends AndroidViewModel {
     mMeasurementModel.setAmount(measurement.getAmount());
     mMeasurementModel.setStressed(measurement.getStress());
     mMeasurementModel.setTired(measurement.getTired());
-    mMeasurementModel.setGlucoseMax(measurement.getGlucoseMax());
-    mMeasurementModel.setGlucoseAverage(measurement.getGlucoseAvg());
     mMeasurementModel.setValue0(measurement.getGlucoseStart());
     mMeasurementModel.setValue15(measurement.getGlucose15());
     mMeasurementModel.setValue30(measurement.getGlucose30());
@@ -269,6 +267,10 @@ public class FoodViewModel extends AndroidViewModel {
 
 
   /* MEASUREMENT */
+
+  public LiveData<Integer> getMeasurementAmountRows(int foodId) {
+    return mRepository.getMeasurementAmountRowsByFoodId(foodId);
+  }
 
   /**
    * Inserts a measurement to the database.

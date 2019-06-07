@@ -53,9 +53,9 @@ public class AdapterMeasurements extends
     String date = String.copyValueOf(ts.toCharArray(), 0, 10);
 
     holder.date.setText(date);
-    holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
-    holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAvg()));
-    holder.rating.setText(String.valueOf(currentMeasurement.getRating()));
+    holder.mp.setText("tmp");
+    holder.avg.setText("tmp");
+    holder.rating.setText("unrated");
 
     // Click event for the card views, which will start a new activity (FoodInfoActivity)
     final Bundle bundle = new Bundle();

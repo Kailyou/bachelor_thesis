@@ -48,23 +48,6 @@ public class Food {
   @ColumnInfo(name = "salt")
   private float salt;
 
-  // Measurement
-  @ColumnInfo(name = "amount_measurements")
-  private int amountMeasurements;
-
-  @ColumnInfo(name = "max_glucose")
-  private int maxGlucose;
-
-  @ColumnInfo(name = "average_glucose")
-  private int averageGlucose;
-
-  // Analyses
-  @ColumnInfo(name = "rating")
-  private String rating;
-
-  @ColumnInfo(name = "personal_index")
-  private int personalIndex;
-
 
   /**
    * Constructor
@@ -94,7 +77,6 @@ public class Food {
     this.salt = salt;
 
     isFavorite = false;
-    rating = "unrated";
   }
 
   public boolean equals(Object o) {
@@ -168,26 +150,6 @@ public class Food {
     return salt;
   }
 
-  public int getAmountMeasurements() {
-    return amountMeasurements;
-  }
-
-  public int getMaxGlucose() {
-    return maxGlucose;
-  }
-
-  public int getAverageGlucose() {
-    return averageGlucose;
-  }
-
-  public String getRating() {
-    return rating;
-  }
-
-  public int getPersonalIndex() {
-    return personalIndex;
-  }
-
   /* SETTER */
 
   public void setFoodName(String foodName) {
@@ -236,25 +198,5 @@ public class Food {
 
   public void setSalt(float salt) {
     this.salt = salt;
-  }
-
-  public void setAmountMeasurements(int amountMeasurements) {
-    this.amountMeasurements = amountMeasurements;
-  }
-
-  public void setMaxGlucose(int maxGlucose) {
-    this.maxGlucose = maxGlucose;
-  }
-
-  public void setAverageGlucose(int averageGlucose) {
-    this.averageGlucose = averageGlucose;
-  }
-
-  public void setRating(String rating) {
-    this.rating = rating;
-  }
-
-  public void setPersonalIndex(int personalIndex) {
-    this.personalIndex = personalIndex;
   }
 }

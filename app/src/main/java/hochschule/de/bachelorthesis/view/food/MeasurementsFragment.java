@@ -128,24 +128,8 @@ public class MeasurementsFragment extends Fragment {
           return;
         }
 
-        // Get food object
-        final LiveData<Food> ldf = mViewModel.getFoodById(foodId);
-        ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
-          @Override
-          public void onChanged(final Food food) {
-            ldf.removeObserver(this);
+        buildsNewMeasurementAndUpdateDatabase();
 
-            // Get all measurements
-            final LiveData<List<Measurement>> ldlm = mViewModel.getAllMeasurementsById(foodId);
-            ldlm.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-              @Override
-              public void onChanged(List<Measurement> measurements) {
-                ldlm.removeObserver(this);
-                buildsNewMeasurementAndUpdateDatabase(userHistory, food, measurements);
-              }
-            });
-          }
-        });
       }
     });
   }
@@ -157,73 +141,32 @@ public class MeasurementsFragment extends Fragment {
       public void onChanged(Food food) {
         ldf.removeObserver(this);
 
-        // Update food object
-        food.setAmountMeasurements(0);
-        food.setMaxGlucose(0);
-        food.setAverageGlucose(0);
-
         // Update database
         mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
         mViewModel.update(food);
       }
     });
-
-
   }
 
-  private void buildsNewMeasurementAndUpdateDatabase(UserHistory userHistory, Food food, List<Measurement> measurements) {
+  private void buildsNewMeasurementAndUpdateDatabase() {
+
     final Measurement newMeasurement = Samples.getRandomMeasurement(
-        Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
+        Objects.requireNonNull(getContext()), mFoodId, mFoodId);
 
     /* Update Measurement */
 
     // Max glucose
-    Integer[] glucoseValuesArray = {
-        newMeasurement.getGlucoseStart(),
-        newMeasurement.getGlucose15(),
-        newMeasurement.getGlucose30(),
-        newMeasurement.getGlucose45(),
-        newMeasurement.getGlucose60(),
-        newMeasurement.getGlucose75(),
-        newMeasurement.getGlucose90(),
-        newMeasurement.getGlucose105(),
-        newMeasurement.getGlucose120()
-    };
+    ArrayList<Integer> glucoseValues = new ArrayList<>();
+    glucoseValues.add(newMeasurement.getGlucoseStart());
+    glucoseValues.add(newMeasurement.getGlucose15());
+    glucoseValues.add(newMeasurement.getGlucose30());
+    glucoseValues.add(newMeasurement.getGlucose45());
+    glucoseValues.add(newMeasurement.getGlucose60());
+    glucoseValues.add(newMeasurement.getGlucose75());
+    glucoseValues.add(newMeasurement.getGlucose90());
+    glucoseValues.add(newMeasurement.getGlucose105());
+    glucoseValues.add(newMeasurement.getGlucose120());
 
-    ArrayList<Integer> glucoseValuesList = new ArrayList<>(Arrays.asList(glucoseValuesArray));
-
-    newMeasurement.setGlucoseMax(MyMath.getMaxFromArrayList(glucoseValuesList));
-    newMeasurement.setGlucoseAvg(MyMath.getAverageFromArrayList(glucoseValuesList));
-
-    // Increment measurement amount
-    food.setAmountMeasurements(food.getAmountMeasurements() + 1);
-
-    int glucoseMax = MyMath.getMaxFromArrayList(glucoseValuesList);
-
-    if (glucoseMax > food.getMaxGlucose()) {
-      Log.d("yolo", "buildsNewMeasurementAndUpdateDatabase: joa");
-      food.setMaxGlucose(glucoseMax);
-    }
-
-    // Add glucose values from current measurement
-    ArrayList<Integer> measurementsAll = new ArrayList<>(glucoseValuesList);
-
-    // Add glucose values from old measurements
-    for (Measurement m : measurements) {
-      measurementsAll.add(m.getGlucoseStart());
-      measurementsAll.add(m.getGlucose15());
-      measurementsAll.add(m.getGlucose30());
-      measurementsAll.add(m.getGlucose45());
-      measurementsAll.add(m.getGlucose60());
-      measurementsAll.add(m.getGlucose75());
-      measurementsAll.add(m.getGlucose90());
-      measurementsAll.add(m.getGlucose105());
-      measurementsAll.add(m.getGlucose120());
-    }
-
-    food.setAverageGlucose(MyMath.getAverageFromArrayList(measurementsAll));
-
-    mViewModel.update(food);
     mViewModel.insertMeasurement(newMeasurement);
   }
 }

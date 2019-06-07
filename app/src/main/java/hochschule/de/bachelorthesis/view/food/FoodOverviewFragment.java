@@ -20,8 +20,10 @@ import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -52,7 +54,7 @@ public class FoodOverviewFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     // Init data binding
-    FragmentFoodOverviewBinding mBinding = DataBindingUtil
+    final FragmentFoodOverviewBinding mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_food_overview, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
@@ -63,8 +65,23 @@ public class FoodOverviewFragment extends Fragment {
 
     mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
-      public void onChanged(Food food) {
-        mViewModel.loadOverviewFragment(food);
+      public void onChanged(final Food food) {
+
+        mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(),
+            new Observer<List<Measurement>>() {
+              @Override
+              public void onChanged(List<Measurement> measurements) {
+
+                mViewModel.getMeasurementAmountRows(food.id).observe(getViewLifecycleOwner(),
+                    new Observer<Integer>() {
+                      @Override
+                      public void onChanged(Integer integer) {
+                        mBinding.amount.setText(String.valueOf(integer));
+                        mViewModel.loadOverviewFragment(food);
+                      }
+                    });
+              }
+            });
       }
     });
 

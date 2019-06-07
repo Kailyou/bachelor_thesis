@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -27,6 +28,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
+import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.ArrayList;
@@ -95,12 +97,33 @@ public class MeasurementFragment extends Fragment {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId()
-        == R.id.delete_measurement) {
+    if (item.getItemId() == R.id.delete_measurement) {
+      deleteMeasurement();
       return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private void deleteMeasurement() {
+    /*
+    final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+      @Override
+      public void onChanged(Food food) {
+        ldf.removeObserver(this);
+
+        // Update food object
+        food.setAmountMeasurements(0);
+        food.setMaxGlucose(0);
+        food.setAverageGlucose(0);
+
+        // Update database
+        mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+        mViewModel.update(food);
+      }
+    });
+    */
   }
 
   /**

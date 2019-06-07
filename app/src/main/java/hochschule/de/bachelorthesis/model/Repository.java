@@ -63,6 +63,10 @@ public class Repository {
     return mMeasurementDao.getMeasurementById(id);
   }
 
+  public LiveData<Integer> getMeasurementAmountRowsByFoodId(int foodId) {
+    return mMeasurementDao.getRowCount(foodId);
+  }
+
   public void deleteAllMeasurementsWithId(int id) {
     new DeleteAllMeasurementsWithIdAsyncTask(mMeasurementDao).execute(id);
   }

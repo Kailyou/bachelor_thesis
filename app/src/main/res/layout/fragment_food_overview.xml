@@ -144,8 +144,8 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:gravity="end"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <!-- android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"-->
       </LinearLayout>
 
       <LinearLayout

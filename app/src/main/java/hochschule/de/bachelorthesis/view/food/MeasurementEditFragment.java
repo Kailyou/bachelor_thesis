@@ -22,7 +22,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementEditBinding;
+import hochschule.de.bachelorthesis.utility.MyMath;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +65,8 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     setHasOptionsMenu(true);
 
     // View model
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
 
     // Get passed food id
     assert getArguments() != null;
@@ -245,46 +249,24 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     String stress = mBinding.stress.getText().toString();
     String tired = mBinding.tired.getText().toString();
 
-    int glucose_0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
-    int glucose_15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
-    int glucose_30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
-    int glucose_45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
-    int glucose_60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
-    int glucose_75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
-    int glucose_90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
-    int glucose_105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
-    int glucose_120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
-
-    final int[] glucoseValues = new int[]{glucose_0, glucose_15, glucose_30, glucose_45,
-        glucose_60, glucose_75, glucose_90, glucose_105, glucose_120};
+    final ArrayList<Integer> glucoseValues = new ArrayList<>();
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString()));
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString()));
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString()));
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString()));
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString()));
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString()));
+    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString()));
+    glucoseValues
+        .add(Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString()));
+    glucoseValues
+        .add(Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString()));
 
     // check if all measurements have been entered
     boolean isDone = checkIsDone(glucoseValues);
 
     if (isDone) {
-      // For the single measurement
-      int glucoseMaxCurrent = calculateGlucoseMax(glucoseValues, food.getMaxGlucose());
-      int glucoseAverageCurrent = CalculateGlucoseAverage(glucoseValues);
-
-      measurement.setGlucoseMax(glucoseMaxCurrent);
-      measurement.setGlucoseAvg(glucoseAverageCurrent);
-
       mViewModel.updateMeasurement(measurement);
-
-      // For all measurements
-      final LiveData<List<Measurement>> am = mViewModel.getAllMeasurementsById(mFoodId);
-      am.observe(this, new Observer<List<Measurement>>() {
-        @Override
-        public void onChanged(List<Measurement> measurements) {
-          am.removeObserver(this);
-          //TODO
-          //updateFood(food, measurement, glucoseValues);
-        }
-      });
-
-      int amountMeasurements = food.getAmountMeasurements() + 1;
-      int glucoseMaxAll = calculateGlucoseMaxAll(food, glucoseValues);
-      //int glucoseAverageAll = CalculateGlucoseAverageAll(allMeasurements, glucoseValues);
     }
   }
 
@@ -295,7 +277,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
    * @param measurements - An array with the current measurement values.
    * @return - Returns true if the measurement has been completed, false otherwise.
    */
-  private boolean checkIsDone(int[] measurements) {
+  private boolean checkIsDone(ArrayList<Integer> measurements) {
     for (int i : measurements) {
       if (i == 0) {
         return false;
@@ -329,19 +311,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     return newGlucoseMax;
   }
 
-  private int calculateGlucoseMaxAll(Food food, final int[] measurements) {
-    return Math.max(food.getMaxGlucose(), calculateGlucoseMax(measurements, 0));
-  }
-
-  private int CalculateGlucoseAverage(int[] measurements) {
-    int sum = 0; //average will have decimal point
-
-    for (int measurement : measurements) {
-      sum += measurement;
-    }
-
-    return (int) Math.round(1.0d * sum / measurements.length);
-  }
 
   /*
   private int CalculateGlucoseAverageAll(int[] measurements) {
