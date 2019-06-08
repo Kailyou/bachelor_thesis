@@ -15,6 +15,10 @@ public class MyMath {
       return 0;
     }
 
+    if(al.size() == 1) {
+      return al.get(0);
+    }
+
     float avg = al.get(0);
 
     for (int i = 1; i < al.size(); i++) {

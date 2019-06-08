@@ -1,10 +1,8 @@
 package hochschule.de.bachelorthesis.view.graphs;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -14,24 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.ChartTouchListener.ChartGesture;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,63 +72,11 @@ public class GraphsFragment extends Fragment {
 
     getGlucoseDataFromAllMeasurementsByFood();
 
-    /*
-    LimitLine upper_limit = new LimitLine(200f, "Danger");
-    upper_limit.setLineWidth(4f);
-    upper_limit.enableDashedLine(10f, 10f, 0f);
-    upper_limit.setLabelPosition(LimitLabelPosition.RIGHT_TOP);
-    upper_limit.setTextSize(15f);
-
-    LimitLine lower_limit = new LimitLine(120f, "Too Low");
-    lower_limit.setLineWidth(4f);
-    lower_limit.enableDashedLine(10f, 10f, 0f);
-    lower_limit.setLabelPosition(LimitLabelPosition.RIGHT_BOTTOM);
-    lower_limit.setTextSize(15f);
-
-
-    YAxis leftAxis = mChart.getAxisLeft();
-    leftAxis.removeAllLimitLines();
-    //leftAxis.addLimitLine(upper_limit);
-    //leftAxis.addLimitLine(lower_limit);
-    //leftAxis.setAxisMinimum(50f);
-    //leftAxis.setAxisMaximum(200f);
-    leftAxis.enableGridDashedLine(10f, 10f, 0);
-    leftAxis.setDrawLimitLinesBehindData(true);
-
-    XAxis xAxis = mChart.getXAxis();
+    // X Axis
+    XAxis xAxis = mBinding.lineChart.getXAxis();
     xAxis.setAxisMinimum(0f);
     xAxis.setAxisMaximum(120f);
     xAxis.setPosition(XAxisPosition.BOTTOM);
-
-
-    //mChart.setDragEnabled(true);
-    //mChart.setScaleEnabled(false);
-
-    ArrayList<Entry> yValues = new ArrayList<>();
-    yValues.add(new Entry(0, 100f));
-    yValues.add(new Entry(15, 110f));
-    yValues.add(new Entry(30, 125f));
-    yValues.add(new Entry(45, 130f));
-    yValues.add(new Entry(60, 150f));
-    yValues.add(new Entry(75, 170f));
-    yValues.add(new Entry(90, 160f));
-    yValues.add(new Entry(105, 135));
-    yValues.add(new Entry(120, 110));
-
-    LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
-    set1.setFillAlpha(110);
-    set1.setColor(Color.BLUE);
-    set1.setLineWidth(3f);  // how fat is the line
-    set1.setValueTextSize(10f);
-    set1.setValueTextColor(Color.BLUE);
-
-    ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-    dataSets.add(set1);
-
-    LineData data = new LineData(dataSets);
-
-    mChart.setData(data);
-    */
 
     return mBinding.getRoot();
   }
@@ -150,33 +90,90 @@ public class GraphsFragment extends Fragment {
           @Override
           public void onChanged(List<Measurement> measurements) {
 
-            Log.d("yolo", "onChanged: ist drin");
+            ArrayList<Integer> allStartValues = new ArrayList<>();
+            ArrayList<Integer> all15Values = new ArrayList<>();
+            ArrayList<Integer> all30Values = new ArrayList<>();
+            ArrayList<Integer> all45Values = new ArrayList<>();
+            ArrayList<Integer> all60Values = new ArrayList<>();
+            ArrayList<Integer> all75Values = new ArrayList<>();
+            ArrayList<Integer> all90Values = new ArrayList<>();
+            ArrayList<Integer> all105Values = new ArrayList<>();
+            ArrayList<Integer> all120Values = new ArrayList<>();
+
+            // save
+            for (Measurement m : measurements) {
+              allStartValues.add(m.getGlucoseStart());
+            }
 
             for (Measurement m : measurements) {
-              ArrayList<Entry> values = new ArrayList<>();
-              values.add(new Entry(0, m.getGlucoseStart()));
-              values.add(new Entry(15, m.getGlucose15()));
-              values.add(new Entry(30, m.getGlucose30()));
-              values.add(new Entry(45, m.getGlucose45()));
-              values.add(new Entry(60, m.getGlucose60()));
-              values.add(new Entry(75, m.getGlucose75()));
-              values.add(new Entry(90, m.getGlucose90()));
-              values.add(new Entry(105, m.getGlucose105()));
-              values.add(new Entry(120, m.getGlucose120()));
-
-              mAllEntries.add(values);
+              allStartValues.add(m.getGlucoseStart());
             }
 
-            for (ArrayList<Entry> entries : mAllEntries) {
-              LineDataSet set = new LineDataSet(entries, "Test");
-              set.setFillAlpha(110);
-              //set.setColor(Color.BLUE);
-              set.setLineWidth(3f);  // how fat is the line
-              set.setValueTextSize(10f);
-              //set.setValueTextColor(Color.BLUE);
-
-              mDataSets.add(set);
+            for (Measurement m : measurements) {
+              all15Values.add(m.getGlucose15());
             }
+
+            for (Measurement m : measurements) {
+              all30Values.add(m.getGlucose30());
+            }
+
+            for (Measurement m : measurements) {
+              all45Values.add(m.getGlucose45());
+            }
+
+            for (Measurement m : measurements) {
+              all60Values.add(m.getGlucose60());
+            }
+
+            for (Measurement m : measurements) {
+              all75Values.add(m.getGlucose75());
+            }
+
+            for (Measurement m : measurements) {
+              all90Values.add(m.getGlucose90());
+            }
+
+            for (Measurement m : measurements) {
+              all105Values.add(m.getGlucose105());
+            }
+
+            for (Measurement m : measurements) {
+              all120Values.add(m.getGlucose120());
+            }
+
+            // Get average values
+            int glucose_avg_start = MyMath.getAverageFromArrayList(allStartValues);
+            int glucose_avg_15 = MyMath.getAverageFromArrayList(all15Values);
+            int glucose_avg_30 = MyMath.getAverageFromArrayList(all30Values);
+            int glucose_avg_45 = MyMath.getAverageFromArrayList(all45Values);
+            int glucose_avg_60 = MyMath.getAverageFromArrayList(all60Values);
+            int glucose_avg_75 = MyMath.getAverageFromArrayList(all75Values);
+            int glucose_avg_90 = MyMath.getAverageFromArrayList(all90Values);
+            int glucose_avg_105 = MyMath.getAverageFromArrayList(all105Values);
+            int glucose_avg_120 = MyMath.getAverageFromArrayList(all120Values);
+
+            // Create Entry ArrayList
+            ArrayList<Entry> avg_values = new ArrayList<>();
+            avg_values.add(new Entry(0, glucose_avg_start));
+            avg_values.add(new Entry(15, glucose_avg_15));
+            avg_values.add(new Entry(30, glucose_avg_30));
+            avg_values.add(new Entry(45, glucose_avg_45));
+            avg_values.add(new Entry(60, glucose_avg_60));
+            avg_values.add(new Entry(75, glucose_avg_75));
+            avg_values.add(new Entry(90, glucose_avg_90));
+            avg_values.add(new Entry(105, glucose_avg_105));
+            avg_values.add(new Entry(120, glucose_avg_120));
+
+            // Create set
+            LineDataSet set = new LineDataSet(avg_values, "Average Glucose");
+            set.setFillAlpha(110);
+            set.setColor(getResources().getColor(R.color.colorPrimary));
+            set.setLineWidth(2f);  // how fat is the line
+            set.setValueTextSize(10f);
+            set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+
+            // Create
+            mDataSets.add(set);
 
             LineData data = new LineData(mDataSets);
             mBinding.lineChart.setData(data);
