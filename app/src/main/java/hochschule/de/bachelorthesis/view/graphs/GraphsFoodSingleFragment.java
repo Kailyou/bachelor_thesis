@@ -2,28 +2,26 @@ package hochschule.de.bachelorthesis.view.graphs;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsSingleFoodBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.FoodAnalyser;
@@ -35,8 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import hochschule.de.bachelorthesis.R;
 
 public class GraphsFoodSingleFragment extends Fragment {
 
@@ -63,32 +59,14 @@ public class GraphsFoodSingleFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
     // Init data binding
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_graphs_single_food, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setViewModel(mViewModel);
 
-    mBinding.lineChart.getAxisLeft().setDrawGridLines(false);
-    mBinding.lineChart.getXAxis().setDrawGridLines(false);
-    mBinding.lineChart.setTouchEnabled(false);
-
-    // X Axis
-    XAxis xAxis = mBinding.lineChart.getXAxis();
-    xAxis.setAxisMinimum(0f);
-    xAxis.setAxisMaximum(120f);
-    xAxis.setPosition(XAxisPosition.BOTTOM);
-
-    mViewModel.getAllMeasurementsById(1)
-        .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-          @Override
-          public void onChanged(List<Measurement> measurements) {
-            createPercentileLine(measurements, 0.75f, Color.BLUE);
-            createPercentileLine(measurements, 0.25f, Color.WHITE);
-            createMedianLine(measurements);
-            //createAverageLine(measurements);
-          }
-        });
+    createLine();
 
     return mBinding.getRoot();
   }
@@ -107,6 +85,39 @@ public class GraphsFoodSingleFragment extends Fragment {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private void createLine() {
+    // Overall settings
+    mBinding.lineChart.setTouchEnabled(false);
+
+    // Left-Axis
+    YAxis leftAxis = mBinding.lineChart.getAxisLeft();
+    leftAxis.setDrawGridLines(false);
+
+    // Right-Axis
+    YAxis rightAxis = mBinding.lineChart.getAxisRight();
+    rightAxis.setDrawLabels(false);
+    rightAxis.setDrawGridLines(false);
+
+    // X Axis
+    XAxis xAxis = mBinding.lineChart.getXAxis();
+    xAxis.setDrawGridLines(false);
+    xAxis.setAxisMinimum(0f);
+    xAxis.setAxisMaximum(120f);
+    xAxis.setPosition(XAxisPosition.BOTTOM);
+
+    mViewModel.getAllMeasurementsById(1)
+        .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+          @Override
+          public void onChanged(List<Measurement> measurements) {
+            createPercentileLine(measurements, 0.75f,
+                getResources().getColor(R.color.colorPrimary));
+            createPercentileLine(measurements, 0.25f, Color.WHITE);
+            createMedianLine(measurements);
+            //createAverageLine(measurements);
+          }
+        });
   }
 
   private void createAverageLine(List<Measurement> measurements) {
@@ -151,7 +162,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     set.setLineWidth(1f);  // how fat is the line
     set.setValueTextSize(10f);
     set.setColor(getResources().getColor(R.color.colorPrimary));
-    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextColor(Color.BLACK);
 
     // Create
     mDataSets.add(set);
@@ -208,25 +219,24 @@ public class GraphsFoodSingleFragment extends Fragment {
     avg_values.add(new Entry(105, median105));
     avg_values.add(new Entry(120, median120));
 
-    // Create set
+    // Set
     LineDataSet set = new LineDataSet(avg_values, "Median");
     set.setFillAlpha(110);
-    set.setLineWidth(1f);  // how fat is the line
-    set.setValueTextSize(10f);
-    set.setColor(Color.GREEN);
-    set.setValueTextColor(Color.GREEN);
-
-    // Create
+    set.setLineWidth(2f);
+    set.setValueTextSize(12f);
+    set.setColor(Color.YELLOW);
+    set.setValueTextColor(Color.BLACK);
     mDataSets.add(set);
 
+    // Add data
     LineData data = new LineData(mDataSets);
     mBinding.lineChart.setData(data);
+
+    // Notify changes
     mBinding.lineChart.notifyDataSetChanged();
     mBinding.lineChart.invalidate();
   }
 
-  //TODO
-  //sort!
   private void createPercentileLine(List<Measurement> measurements, float p, int fillColor) {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
@@ -275,11 +285,12 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     // Create set
     LineDataSet set = new LineDataSet(percentileValues, "Percentile");
+    set.setDrawCircles(false);
     set.setFillAlpha(110);
     set.setLineWidth(1f);
     set.setValueTextSize(10f);
-    set.setColor(Color.BLUE);
-    set.setValueTextColor(Color.BLUE);
+    set.setColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextColor(Color.TRANSPARENT);
     set.setFillColor(fillColor);
     set.setFillAlpha(255);
     set.setDrawFilled(true);
