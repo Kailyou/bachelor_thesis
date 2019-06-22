@@ -28,6 +28,15 @@ public class GraphsViewModel extends AndroidViewModel {
   }
 
   /**
+   * Gets all foods from the database.
+   *
+   * @return - A Live data list with all foods.
+   */
+  public LiveData<List<Food>> getAllFoods() {
+    return mAllFoods;
+  }
+
+  /**
    * Gets all measurements from the food objects from the database.
    *
    * @param foodId - The Id of the food.

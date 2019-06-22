@@ -43,7 +43,8 @@
       app:argType="integer"/>
     <action
       android:id="@+id/action_foodInfoFragment_to_measurementFragment"
-      app:destination="@id/measurementFragment"/>
+      app:destination="@id/measurementFragment"
+      app:popUpToInclusive="false"/>
     <action
       android:id="@+id/action_foodInfoFragment_to_editFoodDataFragment2"
       app:destination="@id/editFoodDataFragment2"/>
@@ -65,11 +66,6 @@
       app:destination="@id/foodInfoFragment"/>
   </fragment>
 
-  <fragment
-    android:id="@+id/graphsFragment"
-    android:name="hochschule.de.bachelorthesis.view.graphs.GraphsFragment"
-    android:label="Graphs"
-    tools:layout="@layout/fragment_graphs"/>
   <fragment
     android:id="@+id/meFragment"
     android:name="hochschule.de.bachelorthesis.view.me.MeFragment"
@@ -115,6 +111,11 @@
       android:name="food_id"
       app:argType="integer"/>
   </fragment>
+  <fragment
+    android:id="@+id/graphsFoodSingleFragment"
+    android:name="hochschule.de.bachelorthesis.view.graphs.GraphsHostFragment"
+    android:label="fragment_graphs_host"
+    tools:layout="@layout/fragment_graphs_host"/>
 
 
 </navigation>

@@ -48,6 +48,10 @@ public class Repository {
     new InsertMeasurementAsyncTask(mMeasurementDao).execute(measurement);
   }
 
+  public void delete(Measurement measurement) {
+    new DeleteMeasurementAsyncTask(mMeasurementDao).execute(measurement);
+  }
+
   // already executed on a background thread because of live data
   public LiveData<List<Measurement>> getAllMeasurements() {
     return mAllMeasurements;
@@ -137,6 +141,21 @@ public class Repository {
     @Override
     protected Void doInBackground(Measurement... measurements) {
       mMeasurementDao.insert(measurements[0]);
+      return null;
+    }
+  }
+
+  private static class DeleteMeasurementAsyncTask extends AsyncTask<Measurement, Void, Void> {
+
+    private MeasurementDao mMeasurementDao;
+
+    private DeleteMeasurementAsyncTask(MeasurementDao measurementDao) {
+      this.mMeasurementDao = measurementDao;
+    }
+
+    @Override
+    protected Void doInBackground(Measurement... measurements) {
+      mMeasurementDao.delete(measurements[0]);
       return null;
     }
   }

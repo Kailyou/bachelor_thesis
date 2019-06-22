@@ -23,10 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.utility.Samples;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,6 +49,10 @@ public class MeasurementsFragment extends Fragment {
         .get(FoodViewModel.class);
 
     setHasOptionsMenu(true);
+
+    // get passed food id
+    assert getArguments() != null;
+    mFoodId = getArguments().getInt("food_id");
   }
 
   @Nullable
@@ -75,10 +77,6 @@ public class MeasurementsFragment extends Fragment {
     final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController,
         mFoodId);
     recyclerView.setAdapter(adapter);
-
-    // get passed food id
-    assert getArguments() != null;
-    mFoodId = getArguments().getInt("food_id");
 
     // loading the measurement entries
     mViewModel.getAllMeasurementsById(mFoodId).observe(this, new Observer<List<Measurement>>() {

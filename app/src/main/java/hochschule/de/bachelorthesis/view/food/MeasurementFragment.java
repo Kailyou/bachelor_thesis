@@ -106,24 +106,16 @@ public class MeasurementFragment extends Fragment {
   }
 
   private void deleteMeasurement() {
-    /*
-    final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
-    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+
+    final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mMeasurementId);
+
+    ldm.observe(getViewLifecycleOwner(), new Observer<Measurement>() {
       @Override
-      public void onChanged(Food food) {
-        ldf.removeObserver(this);
-
-        // Update food object
-        food.setAmountMeasurements(0);
-        food.setMaxGlucose(0);
-        food.setAverageGlucose(0);
-
-        // Update database
-        mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
-        mViewModel.update(food);
+      public void onChanged(Measurement measurement) {
+        ldm.removeObserver(this);
+        mViewModel.deleteMeasurement(measurement);
       }
     });
-    */
   }
 
   /**
@@ -135,6 +127,10 @@ public class MeasurementFragment extends Fragment {
    * zero (wrong input?)
    */
   private void buildGraph(Measurement measurement) {
+    if(measurement == null) {
+      return;
+    }
+
     // test
     ArrayList<Entry> values = new ArrayList<>();
     values.add(new Entry(0, measurement.getGlucoseStart()));

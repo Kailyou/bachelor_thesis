@@ -1,14 +1,14 @@
 package hochschule.de.bachelorthesis.room.tables;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import hochschule.de.bachelorthesis.utility.MyMath;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import hochschule.de.bachelorthesis.room.tables.Food;
 
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
 // then the corresponding records in the child table will automatically be deleted
@@ -156,6 +156,33 @@ public class Measurement {
 
   public boolean isGi() {
     return isGi;
+  }
+
+  // Checks if the measurement is done, as soon as one value is zero, the measurement cannot be finished yet.
+  public boolean isDone() {
+    return glucose15 != 0 && glucose30 != 0 && glucose45 != 0 && glucose60 != 0 && glucose75 != 0
+        && glucose90 != 0 && glucose105 != 0 && glucose120 != 0;
+  }
+
+  /**
+   * @return Returns the max glucose value if the measurement is done. If the measurement is not
+   * done, return an error code -1.
+   */
+  public int getMaxGlucose() {
+    if (isDone()) {
+      return MyMath.getMaxFromArrayList(new ArrayList<Integer>() {{
+        add(glucose15);
+        add(glucose30);
+        add(glucose45);
+        add(glucose60);
+        add(glucose75);
+        add(glucose90);
+        add(glucose105);
+        add(glucose120);
+      }});
+    }
+
+    return -1;
   }
 
 

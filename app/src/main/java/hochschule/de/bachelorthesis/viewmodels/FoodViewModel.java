@@ -80,10 +80,9 @@ public class FoodViewModel extends AndroidViewModel {
 
   /**
    * This method will update the food overview model.
-   *
    */
   private void updateFoodOverviewModel(Food food) {
-    if(food == null) {
+    if (food == null) {
       return;
     }
 
@@ -101,11 +100,11 @@ public class FoodViewModel extends AndroidViewModel {
 
   /**
    * This method will update the food add model.
-   *
    */
   public void updateFoodAddModeL(Food food) {
-    if(food == null)
+    if (food == null) {
       return;
+    }
 
     mFoodAddModel.setFoodName(food.getFoodName());
     mFoodAddModel.setBrandName(food.getBrandName());
@@ -122,11 +121,11 @@ public class FoodViewModel extends AndroidViewModel {
 
   /**
    * This method will update the food data model.
-   *
    */
   private void updateFoodDataModel(Food food) {
-    if(food == null)
+    if (food == null) {
       return;
+    }
 
     mFoodDataModel.setFoodName(food.getFoodName());
     mFoodDataModel.setBrandName(food.getBrandName());
@@ -143,7 +142,6 @@ public class FoodViewModel extends AndroidViewModel {
 
   /**
    * This method will update the food add model.
-   *
    */
   /*
   private void updateFoodEditModeL(Food food) {
@@ -160,10 +158,10 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodEditModel.setSalt(food.getSalt());
   }
   */
-
   private void updateMeasurementModel(Measurement measurement) {
-    if(measurement == null)
+    if (measurement == null) {
       return;
+    }
 
     mMeasurementModel.setTimestamp(measurement.getTimeStamp());
     mMeasurementModel.setAmount(measurement.getAmount());
@@ -181,8 +179,9 @@ public class FoodViewModel extends AndroidViewModel {
   }
 
   private void updateMeasurementAddModel(Measurement measurement) {
-    if(measurement == null)
+    if (measurement == null) {
       return;
+    }
 
     mMeasurementAddModel.setTimestamp(measurement.getTimeStamp());
     mMeasurementAddModel.setAmount(measurement.getAmount());
@@ -208,7 +207,6 @@ public class FoodViewModel extends AndroidViewModel {
     mMeasurementEditModel.setValue120(measurement.getGlucose120());
     */
   }
-
 
 
   /**
@@ -281,6 +279,10 @@ public class FoodViewModel extends AndroidViewModel {
     mRepository.insert(measurement);
   }
 
+  public void deleteMeasurement(Measurement measurement) {
+    mRepository.delete(measurement);
+  }
+
   /**
    * Updates the measurement object in the table.
    *
@@ -321,7 +323,9 @@ public class FoodViewModel extends AndroidViewModel {
 
   /* GETTER */
 
-  public LiveData<Food> getSelectedFood() { return mSelectedFood;}
+  public LiveData<Food> getSelectedFood() {
+    return mSelectedFood;
+  }
 
   public FoodAddModel getFoodAddDataModel() {
     return mFoodAddModel;

@@ -11,7 +11,7 @@
     android:title="@string/title_my_food"/>
 
   <item
-    android:id="@+id/graphsFragment"
+    android:id="@+id/graphsFoodSingleFragment"
     android:icon="@drawable/ic_event_white_24dp"
     android:title="Graphs"/>
 
