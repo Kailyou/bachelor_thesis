@@ -90,12 +90,6 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodOverviewModel.setBrandName(food.getBrandName());
     mFoodOverviewModel.setType(food.getFoodType());
     mFoodOverviewModel.setKiloCalories(food.getKiloCalories());
-
-    // mFoodOverviewModel.setMeasurementsAmount(food.getAmountMeasurements());
-    // mFoodOverviewModel.setMaxGlucose(food.getGlucoseMax());
-    // mFoodOverviewModel.setAverageGlucose(food.getGlucoseAverage());
-    // mFoodOverviewModel.setRating(food.getRating());
-    // mFoodOverviewModel.setPersonalIndex(food.getPersonalIndex());
   }
 
   /**
