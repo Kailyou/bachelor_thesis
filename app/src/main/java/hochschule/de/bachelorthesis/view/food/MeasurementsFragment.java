@@ -74,8 +74,8 @@ public class MeasurementsFragment extends Fragment {
     // Adapter
     NavController navController = Navigation
         .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-    final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController,
-        mFoodId);
+    final AdapterMeasurements adapter = new AdapterMeasurements(navController);
+
     recyclerView.setAdapter(adapter);
 
     // loading the measurement entries

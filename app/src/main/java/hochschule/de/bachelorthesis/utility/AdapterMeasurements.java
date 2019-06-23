@@ -6,32 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
-
+import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
 import java.util.ArrayList;
 import java.util.List;
-
-import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
 
 public class AdapterMeasurements extends
     RecyclerView.Adapter<AdapterMeasurements.MeasurementHolder> {
 
-  private Context mContext;
   private NavController mNavController;
 
-  private List<Measurement> measurements = new ArrayList<>();
+  private List<Measurement> mMeasurements = new ArrayList<>();
 
-  private int mFoodId;
 
-  public AdapterMeasurements(Context context, NavController navController, int foodId) {
-    mContext = context;
+  public AdapterMeasurements(NavController navController) {
     mNavController = navController;
-    mFoodId = foodId;
   }
 
   @NonNull
@@ -45,16 +37,16 @@ public class AdapterMeasurements extends
 
   @Override
   public void onBindViewHolder(@NonNull MeasurementHolder holder, final int position) {
-    final Measurement currentMeasurement = measurements.get(position);
+    final Measurement currentMeasurement = mMeasurements.get(position);
 
-    holder.amount.setText(String.valueOf(currentMeasurement.getAmount()));
-
+    // Build date
     String ts = currentMeasurement.getTimeStamp();
     String date = String.copyValueOf(ts.toCharArray(), 0, 10);
 
+    holder.amount.setText(String.valueOf(currentMeasurement.getAmount()));
     holder.date.setText(date);
-    holder.mp.setText("tmp");
-    holder.avg.setText("tmp");
+    holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
+    holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAverage()));
     holder.rating.setText("unrated");
 
     // Click event for the card views, which will start a new activity (FoodInfoActivity)
@@ -74,11 +66,11 @@ public class AdapterMeasurements extends
    */
   @Override
   public int getItemCount() {
-    return measurements.size();
+    return mMeasurements.size();
   }
 
   public void setMeasurements(List<Measurement> measurements) {
-    this.measurements = measurements;
+    this.mMeasurements = measurements;
     notifyDataSetChanged();
   }
 
