@@ -1,9 +1,12 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
 import android.icu.util.Measure;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,8 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -98,7 +104,21 @@ public class MeasurementFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.delete_measurement) {
-      deleteMeasurement();
+      new AlertDialog.Builder(getContext())
+          .setTitle("Delete Confirmation")
+          .setMessage(
+              "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
+          .setIcon(android.R.drawable.ic_delete)
+          .setPositiveButton(android.R.string.yes, new OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+              if (whichButton == -1) {
+                deleteMeasurement();
+              }
+            }
+          })
+          .setNegativeButton(android.R.string.no, null).show();
+
       return true;
     }
 
@@ -127,7 +147,7 @@ public class MeasurementFragment extends Fragment {
    * zero (wrong input?)
    */
   private void buildGraph(Measurement measurement) {
-    if(measurement == null) {
+    if (measurement == null) {
       return;
     }
 

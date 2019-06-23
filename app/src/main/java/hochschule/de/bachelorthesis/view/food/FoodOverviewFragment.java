@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -119,19 +122,36 @@ public class FoodOverviewFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.delete) {
 
-      final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
-      ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
-        @Override
-        public void onChanged(Food food) {
-          mViewModel.delete(food);
+      new AlertDialog.Builder(getContext())
+          .setTitle("Delete Confirmation")
+          .setMessage(
+              "You are about to delete this food.\n\nIt cannot be restored at a later time!\n\nContinue?")
+          .setIcon(android.R.drawable.ic_delete)
+          .setPositiveButton(android.R.string.yes, new OnClickListener() {
 
-          // Navigate back to food fragment
-          Navigation.findNavController(Objects.requireNonNull(getView()))
-              .navigate(R.id.action_foodInfoFragment_to_foodFragment);
-        }
-      });
+            public void onClick(DialogInterface dialog, int whichButton) {
+              if (whichButton == -1) {
+                delete();
+              }
+            }
+          })
+          .setNegativeButton(android.R.string.no, null).show();
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private void delete() {
+    final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+      @Override
+      public void onChanged(Food food) {
+        mViewModel.delete(food);
+
+        // Navigate back to food fragment
+        Navigation.findNavController(Objects.requireNonNull(getView()))
+            .navigate(R.id.action_foodInfoFragment_to_foodFragment);
+      }
+    });
   }
 }
