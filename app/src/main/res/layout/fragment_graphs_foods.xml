@@ -6,16 +6,28 @@
       type="hochschule.de.bachelorthesis.viewmodels.GraphsViewModel"/>
   </data>
 
-  <RelativeLayout
+  <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.github.mikephil.charting.charts.HorizontalBarChart
-      android:id="@+id/barChart"
+
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="32dp">
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
-    </com.github.mikephil.charting.charts.HorizontalBarChart>
+      <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/barChartGlucoseMax"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="32dp">
+      </com.github.mikephil.charting.charts.HorizontalBarChart>
 
-  </RelativeLayout>
+      <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/barChartGlucoseAverage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="32dp">
+      </com.github.mikephil.charting.charts.HorizontalBarChart>
+    </LinearLayout>
+  </ScrollView>
 </layout>

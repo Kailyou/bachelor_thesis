@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.room.tables;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import hochschule.de.bachelorthesis.utility.MyMath;
@@ -168,21 +169,33 @@ public class Measurement {
    * @return Returns the max glucose value if the measurement is done. If the measurement is not
    * done, return an error code -1.
    */
-  public int getMaxGlucose() {
+  public int getGlucoseMax() {
     if (isDone()) {
-      return MyMath.getMaxFromArrayList(new ArrayList<Integer>() {{
-        add(glucose15);
-        add(glucose30);
-        add(glucose45);
-        add(glucose60);
-        add(glucose75);
-        add(glucose90);
-        add(glucose105);
-        add(glucose120);
-      }});
+      return MyMath.getMaxFromArrayList(getArrayFromAllMeasurements());
     }
 
     return -1;
+  }
+
+  public int getGlucoseAverage() {
+    if (isDone()) {
+      return MyMath.getAverageFromArrayList(getArrayFromAllMeasurements());
+    }
+
+    return -1;
+  }
+
+  private ArrayList<Integer> getArrayFromAllMeasurements() {
+    return new ArrayList<Integer>() {{
+      add(glucose15);
+      add(glucose30);
+      add(glucose45);
+      add(glucose60);
+      add(glucose75);
+      add(glucose90);
+      add(glucose105);
+      add(glucose120);
+    }};
   }
 
 

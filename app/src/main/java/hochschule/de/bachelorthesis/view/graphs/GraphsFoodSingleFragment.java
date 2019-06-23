@@ -107,7 +107,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     xAxis.setAxisMaximum(120f);
     xAxis.setPosition(XAxisPosition.BOTTOM);
 
-    mViewModel.getAllMeasurementsById(1)
+    mViewModel.getAllMeasurementsByFoodId(1)
         .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
           @Override
           public void onChanged(List<Measurement> measurements) {

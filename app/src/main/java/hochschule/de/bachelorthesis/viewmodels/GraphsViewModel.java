@@ -16,6 +16,7 @@ public class GraphsViewModel extends AndroidViewModel {
 
   private Repository mRepository;
   private LiveData<List<Food>> mAllFoods;
+  private LiveData<List<Measurement>> mAllMeasurements;
   private LiveData<UserHistory> mUserHistoryLatest;
 
 
@@ -24,6 +25,7 @@ public class GraphsViewModel extends AndroidViewModel {
 
     mRepository = new Repository(application);
     mAllFoods = mRepository.getAllFoods();
+    mAllMeasurements = mRepository.getAllMeasurements();
     mUserHistoryLatest = mRepository.getUserHistoryLatest();
   }
 
@@ -36,13 +38,17 @@ public class GraphsViewModel extends AndroidViewModel {
     return mAllFoods;
   }
 
+  public LiveData<List<Measurement>> getAllMeasurements() {
+    return mAllMeasurements;
+  }
+
   /**
    * Gets all measurements from the food objects from the database.
    *
    * @param foodId - The Id of the food.
    * @return - A live data list of measurements of the food.
    */
-  public LiveData<List<Measurement>> getAllMeasurementsById(int foodId) {
+  public LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId) {
     return mRepository.getAllMeasurementsByFoodId(foodId);
   }
 }

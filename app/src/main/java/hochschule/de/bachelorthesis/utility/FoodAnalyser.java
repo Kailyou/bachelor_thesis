@@ -36,14 +36,14 @@ public class FoodAnalyser {
     List<Measurement> measurementsFinished = removeNotFinishedMeasurements(measurements);
 
     if (measurementsFinished.size() == 1) {
-      return measurementsFinished.get(0).getMaxGlucose();
+      return measurementsFinished.get(0).getGlucoseMax();
     }
 
-    int maxGlucose = measurementsFinished.get(0).getMaxGlucose();
+    int maxGlucose = measurementsFinished.get(0).getGlucoseMax();
 
     for (int i = 1; i < measurementsFinished.size(); ++i) {
-      if (measurementsFinished.get(i).getMaxGlucose() > maxGlucose) {
-        maxGlucose = measurementsFinished.get(i).getMaxGlucose();
+      if (measurementsFinished.get(i).getGlucoseMax() > maxGlucose) {
+        maxGlucose = measurementsFinished.get(i).getGlucoseMax();
       }
     }
 
