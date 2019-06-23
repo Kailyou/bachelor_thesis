@@ -140,7 +140,7 @@ public class GraphsFoodsFragment extends Fragment {
     String[] labels = new String[mFoodData.size()];
 
     // Diverse settings for the bar chart
-    mBinding.barChartGlucoseMax.getDescription().setText("Max Glucose");
+    mBinding.barChartGlucoseMax.getDescription().setEnabled(false);
     mBinding.barChartGlucoseMax.setTouchEnabled(false);
     mBinding.barChartGlucoseMax.getLegend().setEnabled(false);
     mBinding.barChartGlucoseMax.animateY(2000);
@@ -208,7 +208,7 @@ public class GraphsFoodsFragment extends Fragment {
     String[] labels = new String[mFoodData.size()];
 
     // Diverse settings for the bar chart
-    mBinding.barChartGlucoseAverage.getDescription().setText("Average Glucose");
+    mBinding.barChartGlucoseAverage.getDescription().setEnabled(false);
     mBinding.barChartGlucoseAverage.setTouchEnabled(false);
     mBinding.barChartGlucoseAverage.getLegend().setEnabled(false);
     mBinding.barChartGlucoseAverage.animateY(2000);
