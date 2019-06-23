@@ -63,21 +63,42 @@ public class FoodOverviewFragment extends Fragment {
     assert getArguments() != null;
     int foodId = getArguments().getInt("food_id");
 
+    // Get food from database
     mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(final Food food) {
-
+        // Get all measurements for that food
         mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(),
             new Observer<List<Measurement>>() {
               @Override
-              public void onChanged(List<Measurement> measurements) {
-
+              public void onChanged(final List<Measurement> measurements) {
+                // Get row count to admit how many measurements we have
                 mViewModel.getMeasurementAmountRows(food.id).observe(getViewLifecycleOwner(),
                     new Observer<Integer>() {
                       @Override
                       public void onChanged(Integer integer) {
-                        mBinding.amount.setText(String.valueOf(integer));
+                        // Update model
                         mViewModel.loadOverviewFragment(food);
+
+                        // Update text views
+                        mBinding.amount.setText(String.valueOf(integer));
+
+                        // Max and average glucose
+                        int glucoseMax = 0;
+                        int glucoseAverage = 0;
+
+                        for (Measurement m : measurements) {
+                          if (glucoseMax < m.getGlucoseMax()) {
+                            glucoseMax = m.getGlucoseMax();
+                          }
+
+                          if (glucoseAverage < m.getGlucoseAverage()) {
+                            glucoseAverage = m.getGlucoseAverage();
+                          }
+                        }
+
+                        mBinding.glucoseMax.setText(String.valueOf(glucoseMax));
+                        mBinding.glucoseAverage.setText(String.valueOf(glucoseAverage));
                       }
                     });
               }
