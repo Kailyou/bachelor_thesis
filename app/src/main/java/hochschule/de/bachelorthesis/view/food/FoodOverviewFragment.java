@@ -24,8 +24,10 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.FoodAnalyser;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,23 +85,35 @@ public class FoodOverviewFragment extends Fragment {
                         // Update model
                         mViewModel.loadOverviewFragment(food);
 
-                        // Update text views
-                        mBinding.amount.setText(String.valueOf(integer));
+                        // Remove unfinished measurements
+                        List<Measurement> finishedMeasurements = FoodAnalyser
+                            .removeNotFinishedMeasurements(measurements);
+
+                        if(finishedMeasurements == null) {
+                         return;
+                        }
 
                         // Max and average glucose
+                        // For average, first save ALL measurements into one array
+                        ArrayList<Integer> glucoseAll = new ArrayList<>();
                         int glucoseMax = 0;
                         int glucoseAverage = 0;
 
-                        for (Measurement m : measurements) {
+                        for (Measurement m : finishedMeasurements) {
                           if (glucoseMax < m.getGlucoseMax()) {
                             glucoseMax = m.getGlucoseMax();
-                          }
-
-                          if (glucoseAverage < m.getGlucoseAverage()) {
-                            glucoseAverage = m.getGlucoseAverage();
+                            glucoseAll.addAll(m.getAllMeasurements());
                           }
                         }
 
+                        for (Integer i : glucoseAll) {
+                          if (glucoseAverage < i) {
+                            glucoseAverage = i;
+                          }
+                        }
+
+                        // Update text views
+                        mBinding.amount.setText(String.valueOf(integer));
                         mBinding.glucoseMax.setText(String.valueOf(glucoseMax));
                         mBinding.glucoseAverage.setText(String.valueOf(glucoseAverage));
                       }
