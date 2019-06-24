@@ -110,6 +110,32 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
       }
     });
 
+    // Load
+    mViewModel.getMeasurementById(mMeasurementId).observe(getViewLifecycleOwner(),
+        new Observer<Measurement>() {
+          @Override
+          public void onChanged(Measurement measurement) {
+            mViewModel.loadMeasurementFragment(measurement);
+          }
+        });
+
+    // Update drop downs
+    mViewModel.getMeasurementModel().getStressed().observe(getViewLifecycleOwner(),
+        new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.stress.setText(s, false);
+          }
+        });
+
+    mViewModel.getMeasurementModel().getTired().observe(getViewLifecycleOwner(),
+        new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.tired.setText(s, false);
+          }
+        });
+
     return mBinding.getRoot();
   }
 

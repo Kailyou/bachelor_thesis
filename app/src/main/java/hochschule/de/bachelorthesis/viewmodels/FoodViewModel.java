@@ -34,7 +34,7 @@ public class FoodViewModel extends AndroidViewModel {
   private FoodEditModel mFoodEditModel;
   private FoodOverviewModel mFoodOverviewModel;
   private FoodDataModel mFoodDataModel;
-  private MeasurementModel mMeasurementModel;
+  private MeasurementModel mMeasurementModel; // Also used for measurement edit fragment
   private MeasurementAddModel mMeasurementAddModel;
 
 
@@ -60,16 +60,8 @@ public class FoodViewModel extends AndroidViewModel {
     updateFoodOverviewModel(food);
   }
 
-  public void loadFoodAddFragment(Food food) {
-    updateFoodAddModeL(food);
-  }
-
   public void loadDataFragment(Food food) {
     updateFoodDataModel(food);
-  }
-
-  public void loadFoodEditFragment(Food food) {
-    //updateFoodEditModeL(food);
   }
 
   public void loadMeasurementFragment(Measurement measurement) {
@@ -134,24 +126,6 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodDataModel.setSalt(food.getSalt());
   }
 
-  /**
-   * This method will update the food add model.
-   */
-  /*
-  private void updateFoodEditModeL(Food food) {
-    mFoodEditModel.setFoodName(food.getFoodName());
-    mFoodEditModel.setBrandName(food.getBrandName());
-    mFoodEditModel.setType(food.getFoodType());
-    mFoodEditModel.setKiloCalories(food.getKiloCalories());
-    mFoodEditModel.setKiloJoules(food.getKiloJoules());
-    mFoodEditModel.setFat(food.getFat());
-    mFoodEditModel.setSaturates(food.getSaturates());
-    mFoodEditModel.setProtein(food.getProtein());
-    mFoodEditModel.setCarbohydrates(food.getCarbohydrate());
-    mFoodEditModel.setSugars(food.getSugars());
-    mFoodEditModel.setSalt(food.getSalt());
-  }
-  */
   private void updateMeasurementModel(Measurement measurement) {
     if (measurement == null) {
       return;
@@ -183,25 +157,6 @@ public class FoodViewModel extends AndroidViewModel {
     mMeasurementAddModel.setTired(measurement.getTired());
     mMeasurementAddModel.setValue0(measurement.getGlucoseStart());
   }
-
-  private void updateMeasurementEditModel(Measurement measurement) {
-    /*
-    mMeasurementEditModel.setTimestamp(measurement.getTimeStamp());
-    mMeasurementEditModel.setAmount(measurement.getAmount());
-    mMeasurementEditModel.setStressed(measurement.getStress());
-    mMeasurementEditModel.setTired(measurement.getTired());
-    mMeasurementEditModel.setValue0(measurement.getGlucoseStart());
-    mMeasurementEditModel.setValue15(measurement.getGlucose15());
-    mMeasurementEditModel.setValue30(measurement.getGlucose30());
-    mMeasurementEditModel.setValue45(measurement.getGlucose45());
-    mMeasurementEditModel.setValue60(measurement.getGlucose60());
-    mMeasurementEditModel.setValue75(measurement.getGlucose75());
-    mMeasurementEditModel.setValue90(measurement.getGlucose90());
-    mMeasurementEditModel.setValue105(measurement.getGlucose105());
-    mMeasurementEditModel.setValue120(measurement.getGlucose120());
-    */
-  }
-
 
   /**
    * Inserts a food to the database.
