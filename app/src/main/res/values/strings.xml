@@ -118,6 +118,7 @@
   <string name="glucose_mg_dl">Glucose (mg/dl)</string>
   <string name="glucose_max_peak_mg_dl">Glucose max peak (mg/dl)</string>
   <string name="glucose_average_mg_dl">Glucose average (mg/dl)</string>
+  <string name="amount_measurements">Amount measurements</string>
 
   <string-array name="type">
     <item>Grains</item>
