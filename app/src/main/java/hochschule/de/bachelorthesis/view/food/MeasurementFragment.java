@@ -2,30 +2,22 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Color;
-import android.icu.util.Measure;
 import android.os.Bundle;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.data.Entry;
@@ -34,7 +26,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
-import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.ArrayList;
@@ -190,6 +181,15 @@ public class MeasurementFragment extends Fragment {
       values.add(new Entry(120, measurement.getGlucose120()));
     }
 
+    // Overall settings
+    mBinding.lineChart.setTouchEnabled(false);
+
+    // X-Axis
+    XAxis xAxis = mBinding.lineChart.getXAxis();
+    xAxis.setAxisMinimum(0f);
+    xAxis.setAxisMaximum(120f);
+    xAxis.setPosition(XAxisPosition.BOTTOM);
+
     LineDataSet set = new LineDataSet(values, "Glucose");
     set.setFillAlpha(110);
     set.setColor(getResources().getColor(R.color.colorPrimary));
@@ -197,18 +197,13 @@ public class MeasurementFragment extends Fragment {
     set.setValueTextSize(10f);
     set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
 
-    XAxis xAxis = mBinding.test.getXAxis();
-    xAxis.setAxisMinimum(0f);
-    xAxis.setAxisMaximum(120f);
-    xAxis.setPosition(XAxisPosition.BOTTOM);
-
     ArrayList<ILineDataSet> dataSets = new ArrayList<>();
     dataSets.add(set);
 
     LineData data = new LineData(dataSets);
-    mBinding.test.setData(data);
-    mBinding.test.getDescription().setEnabled(false);
-    mBinding.test.notifyDataSetChanged();
-    mBinding.test.invalidate();
+    mBinding.lineChart.setData(data);
+    mBinding.lineChart.getDescription().setEnabled(false);
+    mBinding.lineChart.notifyDataSetChanged();
+    mBinding.lineChart.invalidate();
   }
 }

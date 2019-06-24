@@ -127,7 +127,6 @@ public class MeasurementsFragment extends Fragment {
         }
 
         buildsNewMeasurementAndUpdateDatabase(userHistory.id);
-
       }
     });
   }

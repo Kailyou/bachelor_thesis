@@ -93,7 +93,6 @@ public class Samples {
         MyMath.getRandomInt(150, 180),
         MyMath.getRandomInt(135, 148),
         MyMath.getRandomInt(100, 110),
-        MyMath.getRandomInt(100, 110),
         100
     };
 
