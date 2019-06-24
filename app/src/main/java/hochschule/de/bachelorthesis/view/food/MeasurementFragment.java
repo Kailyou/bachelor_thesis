@@ -89,6 +89,10 @@ public class MeasurementFragment extends Fragment {
           public void onChanged(Measurement measurement) {
             mViewModel.loadMeasurementFragment(measurement);
             buildGraph(measurement);
+
+            // Update text views
+            mBinding.glucoseMax.setText(String.valueOf(measurement.getGlucoseMax()));
+            mBinding.glucoseAverage.setText(String.valueOf(measurement.getGlucoseAverage()));
           }
         });
 

@@ -19,13 +19,13 @@ public class MyMath {
       return al.get(0);
     }
 
-    float avg = al.get(0);
+    float sum = 0;
 
-    for (int i = 1; i < al.size(); i++) {
-      avg += al.get(i);
+    for (int value : al) {
+      sum += value;
     }
 
-    return (int) avg / al.size();
+    return (int) sum / al.size();
   }
 
   /**

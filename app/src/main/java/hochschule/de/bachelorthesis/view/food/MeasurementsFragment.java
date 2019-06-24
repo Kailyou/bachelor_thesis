@@ -151,8 +151,6 @@ public class MeasurementsFragment extends Fragment {
     final Measurement newMeasurement = Samples.getRandomMeasurement(
         Objects.requireNonNull(getContext()), mFoodId, userHistoryId);
 
-    /* Update Measurement */
-
     // Max glucose
     ArrayList<Integer> glucoseValues = new ArrayList<>();
     glucoseValues.add(newMeasurement.getGlucoseStart());

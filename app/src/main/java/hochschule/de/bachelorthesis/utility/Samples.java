@@ -89,9 +89,9 @@ public class Samples {
         MyMath.getRandomInt(100, 110),
         MyMath.getRandomInt(110, 135),
         MyMath.getRandomInt(135, 150),
-        MyMath.getRandomInt(150, 200),
+        MyMath.getRandomInt(150, 225),
         MyMath.getRandomInt(150, 180),
-        MyMath.getRandomInt(135, 145),
+        MyMath.getRandomInt(135, 148),
         MyMath.getRandomInt(100, 110),
         MyMath.getRandomInt(100, 110),
         100

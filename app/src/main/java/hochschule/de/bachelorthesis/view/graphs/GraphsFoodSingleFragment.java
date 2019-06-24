@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.graphs;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -113,8 +114,8 @@ public class GraphsFoodSingleFragment extends Fragment {
             createPercentileLine(measurements, 0.75f,
                 getResources().getColor(R.color.colorPrimary));
             createPercentileLine(measurements, 0.25f, Color.WHITE);
-            createMedianLine(measurements);
-            //createAverageLine(measurements);
+            //createMedianLine(measurements);
+            createAverageLine(measurements);
           }
         });
   }
@@ -160,7 +161,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     set.setFillAlpha(110);
     set.setLineWidth(1f);  // how fat is the line
     set.setValueTextSize(10f);
-    set.setColor(getResources().getColor(R.color.colorPrimary));
+    set.setColor(Color.YELLOW);
     set.setValueTextColor(Color.BLACK);
 
     // Create
@@ -183,7 +184,6 @@ public class GraphsFoodSingleFragment extends Fragment {
     // Sort the arrays
     for (Map.Entry<String, ArrayList<Integer>> entry : allGlucoseValues.entrySet()) {
       ArrayList<Integer> list = entry.getValue();
-
       Collections.sort(list);
     }
 
@@ -317,6 +317,8 @@ public class GraphsFoodSingleFragment extends Fragment {
     if (measurements == null) {
       return null;
     }
+
+    Log.d("yolo2", ": measurements all" + measurements.size());
 
     // Remove unfinished measurements
     measurements.get(0).removeNotFinishedMeasurements(measurements);

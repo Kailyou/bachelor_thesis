@@ -3,12 +3,10 @@ package hochschule.de.bachelorthesis.room.tables;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import hochschule.de.bachelorthesis.utility.MyMath;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -161,7 +159,7 @@ public class Measurement {
   /**
    * @return All glucose values if the measurement is done. Null else.
    */
-  public ArrayList<Integer> getAllMeasurements() {
+  public ArrayList<Integer> getAllGlucoseValuesAsList() {
     if (isDone()) {
       return new ArrayList<Integer>() {{
         add(glucoseStart);
@@ -195,7 +193,7 @@ public class Measurement {
    */
   public int getGlucoseMax() {
     if (isDone()) {
-      return MyMath.getMaxFromArrayList(getArrayFromAllMeasurements());
+      return MyMath.getMaxFromArrayList(getAllGlucoseValuesAsList());
     }
 
     return -1;
@@ -203,24 +201,12 @@ public class Measurement {
 
   public int getGlucoseAverage() {
     if (isDone()) {
-      return MyMath.getAverageFromArrayList(getArrayFromAllMeasurements());
+      return MyMath.getAverageFromArrayList(getAllGlucoseValuesAsList());
     }
 
     return -1;
   }
 
-  private ArrayList<Integer> getArrayFromAllMeasurements() {
-    return new ArrayList<Integer>() {{
-      add(glucose15);
-      add(glucose30);
-      add(glucose45);
-      add(glucose60);
-      add(glucose75);
-      add(glucose90);
-      add(glucose105);
-      add(glucose120);
-    }};
-  }
 
   /* LISTS */
   public void removeNotFinishedMeasurements(List<Measurement> measurements) {
@@ -238,7 +224,6 @@ public class Measurement {
   }
 
   public int getGlucoseMax(List<Measurement> measurements) {
-
     // Remove unfinished measurements
     removeNotFinishedMeasurements(measurements);
 
@@ -259,6 +244,24 @@ public class Measurement {
     }
 
     return maxGlucose;
+  }
+
+  public int getGlucoseAverageFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    if (measurements.size() == 0) {
+      return -1;
+    }
+
+    // Add all glucose values from all measurements to one list
+    ArrayList<Integer> allGlucoseValues = new ArrayList<>();
+
+    for (Measurement m : measurements) {
+      allGlucoseValues.addAll(m.getAllGlucoseValuesAsList());
+    }
+
+    return MyMath.getAverageFromArrayList(allGlucoseValues);
   }
 
 

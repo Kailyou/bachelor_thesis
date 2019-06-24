@@ -55,7 +55,7 @@ public class FoodOverviewFragment extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+  public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
     // Init data binding
@@ -83,53 +83,50 @@ public class FoodOverviewFragment extends Fragment {
                       @Override
                       public void onChanged(Integer integer) {
 
+                        Log.d("yolo", "how often? = integer: " + integer);
+
                         // Update model
                         mViewModel.loadOverviewFragment(food);
 
+                        // Do a copy of the list to avoid multiple calls because of removing from
+                        // elements
+                        List<Measurement> finishedMeasurements = measurements;
+
                         // Leave if there are no measurements
-                        if (integer == 0) {
+                        if (integer == 0 || finishedMeasurements.size() == 0) {
                           return;
                         }
 
-                        Log.d("yolo", "measurements all: " + measurements.size());
+                        Log.d("yolo", "measurements all: " + finishedMeasurements.size());
 
                         // Remove unfinished measurements
-                        measurements.get(0).removeNotFinishedMeasurements(measurements);
+                        finishedMeasurements.get(0)
+                            .removeNotFinishedMeasurements(finishedMeasurements);
 
                         // Leave if there is no finished measurement
-                        if (measurements.size() == 0) {
+                        if (finishedMeasurements.size() == 0) {
                           return;
                         }
 
-                        // Max and average glucose
-                        // For average, first save ALL measurements into one array
-                        ArrayList<Integer> glucoseAll = new ArrayList<>();
-
-                        for (Measurement m : measurements) {
-                          glucoseAll.addAll(m.getAllMeasurements());
-                        }
-
-                        // Calculate average
-                        int glucoseAverage = 0;
-                        for (Integer i : glucoseAll) {
-                          glucoseAverage += i;
-                        }
-
-                        glucoseAverage /= glucoseAll.size();
-
-                        Log.d("yolo", "food id: " + food.id);
-                        Log.d("yolo", "food name: " + food.getFoodName());
-                        Log.d("yolo", "measurements finished: " + measurements.size());
-                        Log.d("yolo", "row amount: " + integer);
-                        Log.d("yolo", "max: " + measurements.get(0).getGlucoseMax(measurements));
-                        Log.d("yolo", "average: " + glucoseAverage);
-                        Log.d("yolo", "~~~~~~~~~~");
+                        //Log.d("yolo", "food id: " + food.id);
+                        //Log.d("yolo", "food name: " + food.getFoodName());
+                        //Log.d("yolo", "measurements finished: " + finishedMeasurements.size());
+                        //Log.d("yolo", "row amount: " + integer);
+                        //Log.d("yolo", "max: " + finishedMeasurements.get(0)
+                        //    .getGlucoseMax(finishedMeasurements));
+                       // Log.d("yolo", "average: " + finishedMeasurements.get(0)
+                       //     .getGlucoseAverageFromList(finishedMeasurements));
+                        //Log.d("yolo", "~~~~~~~~~~\n");
 
                         // Update text views
                         mBinding.amount.setText(String.valueOf(integer));
                         mBinding.glucoseMax.setText(
-                            String.valueOf(measurements.get(0).getGlucoseMax(measurements)));
-                        mBinding.glucoseAverage.setText(String.valueOf(glucoseAverage));
+                            String.valueOf(
+                                finishedMeasurements.get(0).getGlucoseMax(finishedMeasurements)));
+                        mBinding.glucoseAverage
+                            .setText(String.valueOf(
+                                finishedMeasurements.get(0)
+                                    .getGlucoseAverageFromList(finishedMeasurements)));
                       }
                     });
               }
