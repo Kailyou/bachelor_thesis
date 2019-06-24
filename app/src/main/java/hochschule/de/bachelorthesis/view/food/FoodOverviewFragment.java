@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +25,6 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.utility.FoodAnalyser;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.ArrayList;
@@ -82,39 +82,53 @@ public class FoodOverviewFragment extends Fragment {
                     new Observer<Integer>() {
                       @Override
                       public void onChanged(Integer integer) {
+
                         // Update model
                         mViewModel.loadOverviewFragment(food);
 
-                        // Remove unfinished measurements
-                        List<Measurement> finishedMeasurements = FoodAnalyser
-                            .removeNotFinishedMeasurements(measurements);
+                        // Leave if there are no measurements
+                        if (integer == 0) {
+                          return;
+                        }
 
-                        if(finishedMeasurements == null) {
-                         return;
+                        Log.d("yolo", "measurements all: " + measurements.size());
+
+                        // Remove unfinished measurements
+                        measurements.get(0).removeNotFinishedMeasurements(measurements);
+
+                        // Leave if there is no finished measurement
+                        if (measurements.size() == 0) {
+                          return;
                         }
 
                         // Max and average glucose
                         // For average, first save ALL measurements into one array
                         ArrayList<Integer> glucoseAll = new ArrayList<>();
-                        int glucoseMax = 0;
+
+                        for (Measurement m : measurements) {
+                          glucoseAll.addAll(m.getAllMeasurements());
+                        }
+
+                        // Calculate average
                         int glucoseAverage = 0;
-
-                        for (Measurement m : finishedMeasurements) {
-                          if (glucoseMax < m.getGlucoseMax()) {
-                            glucoseMax = m.getGlucoseMax();
-                            glucoseAll.addAll(m.getAllMeasurements());
-                          }
-                        }
-
                         for (Integer i : glucoseAll) {
-                          if (glucoseAverage < i) {
-                            glucoseAverage = i;
-                          }
+                          glucoseAverage += i;
                         }
+
+                        glucoseAverage /= glucoseAll.size();
+
+                        Log.d("yolo", "food id: " + food.id);
+                        Log.d("yolo", "food name: " + food.getFoodName());
+                        Log.d("yolo", "measurements finished: " + measurements.size());
+                        Log.d("yolo", "row amount: " + integer);
+                        Log.d("yolo", "max: " + measurements.get(0).getGlucoseMax(measurements));
+                        Log.d("yolo", "average: " + glucoseAverage);
+                        Log.d("yolo", "~~~~~~~~~~");
 
                         // Update text views
                         mBinding.amount.setText(String.valueOf(integer));
-                        mBinding.glucoseMax.setText(String.valueOf(glucoseMax));
+                        mBinding.glucoseMax.setText(
+                            String.valueOf(measurements.get(0).getGlucoseMax(measurements)));
                         mBinding.glucoseAverage.setText(String.valueOf(glucoseAverage));
                       }
                     });

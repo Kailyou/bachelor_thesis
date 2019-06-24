@@ -24,7 +24,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsSingleFoodBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.utility.FoodAnalyser;
 import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
 import java.util.ArrayList;
@@ -319,11 +318,14 @@ public class GraphsFoodSingleFragment extends Fragment {
       return null;
     }
 
-    List<Measurement> measurementsFinishedOnes = FoodAnalyser
-        .removeNotFinishedMeasurements(measurements);
+    // Remove unfinished measurements
+    measurements.get(0).removeNotFinishedMeasurements(measurements);
+
+    if (measurements.size() == 0) {
+      return null;
+    }
 
     // Initializes the objects
-    HashMap<String, ArrayList<Integer>> allGlucoseValues = new HashMap<>();
     ArrayList<Integer> allStartValues = new ArrayList<>();
     ArrayList<Integer> all15Values = new ArrayList<>();
     ArrayList<Integer> all30Values = new ArrayList<>();
@@ -335,43 +337,20 @@ public class GraphsFoodSingleFragment extends Fragment {
     ArrayList<Integer> all120Values = new ArrayList<>();
 
     // Save each glucose values by time in arrays
-    for (Measurement m : measurementsFinishedOnes) {
+    for (Measurement m : measurements) {
       allStartValues.add(m.getGlucoseStart());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all15Values.add(m.getGlucose15());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all30Values.add(m.getGlucose30());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all45Values.add(m.getGlucose45());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all60Values.add(m.getGlucose60());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all75Values.add(m.getGlucose75());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all90Values.add(m.getGlucose90());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all105Values.add(m.getGlucose105());
-    }
-
-    for (Measurement m : measurementsFinishedOnes) {
       all120Values.add(m.getGlucose120());
     }
 
     // Fill HashMap with key value pairs
+    HashMap<String, ArrayList<Integer>> allGlucoseValues = new HashMap<>();
     allGlucoseValues.put("glucose_values_start", allStartValues);
     allGlucoseValues.put("glucose_values_15", all15Values);
     allGlucoseValues.put("glucose_values_30", all30Values);

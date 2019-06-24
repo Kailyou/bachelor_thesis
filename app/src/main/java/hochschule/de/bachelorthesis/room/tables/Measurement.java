@@ -9,6 +9,8 @@ import androidx.room.PrimaryKey;
 import hochschule.de.bachelorthesis.utility.MyMath;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
@@ -80,6 +82,7 @@ public class Measurement {
 
   @ColumnInfo(name = "glucose_120")
   private int glucose120;
+
 
   public Measurement(int foodId, int userHistoryId,
       String timeStamp, int amount, String stress, String tired,
@@ -155,6 +158,27 @@ public class Measurement {
     return glucose120;
   }
 
+  /**
+   * @return All glucose values if the measurement is done. Null else.
+   */
+  public ArrayList<Integer> getAllMeasurements() {
+    if (isDone()) {
+      return new ArrayList<Integer>() {{
+        add(glucoseStart);
+        add(glucose15);
+        add(glucose30);
+        add(glucose45);
+        add(glucose60);
+        add(glucose75);
+        add(glucose90);
+        add(glucose105);
+        add(glucose120);
+      }};
+    }
+
+    return null;
+  }
+
   public boolean isGi() {
     return isGi;
   }
@@ -196,6 +220,45 @@ public class Measurement {
       add(glucose105);
       add(glucose120);
     }};
+  }
+
+  /* LISTS */
+  public void removeNotFinishedMeasurements(List<Measurement> measurements) {
+    if (measurements.size() == 0) {
+      return;
+    }
+
+    Iterator<Measurement> iterator = measurements.iterator();
+
+    while (iterator.hasNext()) {
+      if (!iterator.next().isDone()) {
+        iterator.remove();
+      }
+    }
+  }
+
+  public int getGlucoseMax(List<Measurement> measurements) {
+
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    if (measurements.size() == 0) {
+      return -1;
+    }
+
+    if (measurements.size() == 1) {
+      return measurements.get(0).getGlucoseMax();
+    }
+
+    int maxGlucose = measurements.get(0).getGlucoseMax();
+
+    for (int i = 1; i < measurements.size(); ++i) {
+      if (measurements.get(i).getGlucoseMax() > maxGlucose) {
+        maxGlucose = measurements.get(i).getGlucoseMax();
+      }
+    }
+
+    return maxGlucose;
   }
 
 
