@@ -9,6 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -24,6 +27,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsSingleFoodBinding;
+import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
@@ -33,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class GraphsFoodSingleFragment extends Fragment {
 
@@ -41,6 +46,8 @@ public class GraphsFoodSingleFragment extends Fragment {
   private FragmentGraphsSingleFoodBinding mBinding;
 
   private GraphsViewModel mViewModel;
+
+  private Food mChoosenFood;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +73,58 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setViewModel(mViewModel);
 
-    createLine();
+    // Dropdown
+    final ArrayList<String> labels = new ArrayList<>();
+
+    mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
+      @Override
+      public void onChanged(List<Food> foods) {
+        for (Food f : foods) {
+          // Build string in this form: Food name, brand name
+          String s = f.getFoodName() + " (" + f.getBrandName() + ")";
+          labels.add(s);
+        }
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+            Objects.requireNonNull(getContext()),
+            android.R.layout.simple_spinner_item, labels);
+
+        dataAdapter
+            .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        mBinding.dropdownFood.setAdapter(dataAdapter);
+
+        mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mViewModel.getGraphModel().setSelectedFood(mBinding.dropdownFood.getText().toString());
+          }
+        });
+      }
+    });
+
+    // gets the current value and updates the view
+    mViewModel.getGraphModel().getSelectedFood().observe(this, new Observer<String>() {
+      @Override
+      public void onChanged(String s) {
+        mBinding.dropdownFood.setText(s, false);
+
+        // Build foodName and brandName String, String s should be: foodname (brandname)
+        String[] parts = s.split(" [(]");
+
+        mViewModel
+            .getFoodByFoodNameAndBrandName(parts[0], parts[1].substring(0, parts[1].length() - 1))
+            .observe(
+                getViewLifecycleOwner(), new Observer<Food>() {
+                  @Override
+                  public void onChanged(Food food) {
+                    createLine(food.id);
+                  }
+                });
+      }
+    });
 
     return mBinding.getRoot();
   }
@@ -75,7 +133,6 @@ public class GraphsFoodSingleFragment extends Fragment {
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.graphs_single_menu, menu);
-
   }
 
   @Override
@@ -87,7 +144,9 @@ public class GraphsFoodSingleFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
-  private void createLine() {
+  private void createLine(int foodId) {
+    resetChart();
+
     // Overall settings
     mBinding.lineChart.setTouchEnabled(false);
 
@@ -107,7 +166,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     xAxis.setAxisMaximum(120f);
     xAxis.setPosition(XAxisPosition.BOTTOM);
 
-    mViewModel.getAllMeasurementsByFoodId(1)
+    mViewModel.getAllMeasurementsByFoodId(foodId)
         .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
           @Override
           public void onChanged(List<Measurement> measurements) {
@@ -406,6 +465,13 @@ public class GraphsFoodSingleFragment extends Fragment {
     } else {
       return values.get(((int) Math.ceil(k)) - 1);
     }
+  }
+
+  private void resetChart() {
+    mDataSets.clear();
+    mBinding.lineChart.notifyDataSetChanged();
+    mBinding.lineChart.clear();
+    mBinding.lineChart.invalidate();
   }
 }
 

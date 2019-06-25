@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import hochschule.de.bachelorthesis.model.GraphModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -14,10 +15,13 @@ import java.util.List;
 
 public class GraphsViewModel extends AndroidViewModel {
 
+  // Database
   private Repository mRepository;
   private LiveData<List<Food>> mAllFoods;
   private LiveData<List<Measurement>> mAllMeasurements;
-  private LiveData<UserHistory> mUserHistoryLatest;
+
+  // Model
+  private GraphModel mGraphModel;
 
 
   public GraphsViewModel(@NonNull Application application) {
@@ -26,8 +30,12 @@ public class GraphsViewModel extends AndroidViewModel {
     mRepository = new Repository(application);
     mAllFoods = mRepository.getAllFoods();
     mAllMeasurements = mRepository.getAllMeasurements();
-    mUserHistoryLatest = mRepository.getUserHistoryLatest();
+
+    mGraphModel = new GraphModel();
   }
+
+
+  /* FOOD */
 
   /**
    * Gets all foods from the database.
@@ -38,9 +46,17 @@ public class GraphsViewModel extends AndroidViewModel {
     return mAllFoods;
   }
 
-  public LiveData<List<Measurement>> getAllMeasurements() {
-    return mAllMeasurements;
+  /**
+   * @param foodName Name of the food
+   * @param brandName Brand name of the food
+   * @return A live data object with the food
+   */
+  public LiveData<Food> getFoodByFoodNameAndBrandName(String foodName, String brandName) {
+    return mRepository.getFoodByFoodNameAndBrandName(foodName, brandName);
   }
+
+
+  /* MEASUREMENT */
 
   /**
    * Gets all measurements from the food objects from the database.
@@ -51,4 +67,11 @@ public class GraphsViewModel extends AndroidViewModel {
   public LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId) {
     return mRepository.getAllMeasurementsByFoodId(foodId);
   }
+
+
+  /* GETTER */
+  public GraphModel getGraphModel() {
+    return mGraphModel;
+  }
+
 }

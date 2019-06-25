@@ -1,25 +1,21 @@
 package hochschule.de.bachelorthesis.viewmodels;
 
 import android.app.Application;
-
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import androidx.lifecycle.MutableLiveData;
 import hochschule.de.bachelorthesis.model.FoodAddModel;
+import hochschule.de.bachelorthesis.model.FoodDataModel;
 import hochschule.de.bachelorthesis.model.FoodEditModel;
 import hochschule.de.bachelorthesis.model.FoodOverviewModel;
-import hochschule.de.bachelorthesis.model.MeasurementModel;
-import java.util.List;
-
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
-import hochschule.de.bachelorthesis.model.FoodDataModel;
+import hochschule.de.bachelorthesis.model.MeasurementModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import java.util.List;
 
 public class FoodViewModel extends AndroidViewModel {
 
@@ -207,11 +203,9 @@ public class FoodViewModel extends AndroidViewModel {
    * @param id - The food's id.
    * @return - A live data object with the food.
    */
-  @MainThread
   public LiveData<Food> getFoodById(int id) {
     return mRepository.getFoodById(id);
   }
-
 
   /* MEASUREMENT */
 
@@ -272,16 +266,8 @@ public class FoodViewModel extends AndroidViewModel {
 
   /* GETTER */
 
-  public LiveData<Food> getSelectedFood() {
-    return mSelectedFood;
-  }
-
   public FoodAddModel getFoodAddDataModel() {
     return mFoodAddModel;
-  }
-
-  public FoodEditModel getFoodEditDataModel() {
-    return mFoodEditModel;
   }
 
   public FoodOverviewModel getFoodInfoOverviewModel() {
@@ -290,10 +276,6 @@ public class FoodViewModel extends AndroidViewModel {
 
   public FoodDataModel getFoodInfoDataModel() {
     return mFoodDataModel;
-  }
-
-  public MeasurementAddModel getMeasurementAddModel() {
-    return mMeasurementAddModel;
   }
 
   public MeasurementModel getMeasurementModel() {

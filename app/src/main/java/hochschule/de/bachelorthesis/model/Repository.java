@@ -101,9 +101,12 @@ public class Repository {
     return mAllFood;
   }
 
-  @MainThread
   public LiveData<Food> getFoodById(int id) {
     return mFoodDao.getFoodById(id);
+  }
+
+  public LiveData<Food> getFoodByFoodNameAndBrandName(String foodName, String brandName) {
+    return mFoodDao.getFoodByNameAndBrandName(foodName, brandName);
   }
 
   /**
@@ -117,10 +120,6 @@ public class Repository {
   // Already background
   public LiveData<UserHistory> getUserHistoryLatest() {
     return mUserHistoryDao.getLatest();
-  }
-
-  public void deleteAllUserHistories() {
-    new DelteAllUserHistoriesAsyncTask(mUserHistoryDao).execute();
   }
 
 
@@ -194,20 +193,6 @@ public class Repository {
     }
   }
 
-  private static class InsertUserHistoryAsyncTask extends AsyncTask<UserHistory, Void, Void> {
-
-    private UserHistoryDao mUserHistoryDao;
-
-    private InsertUserHistoryAsyncTask(UserHistoryDao userHistoryDao) {
-      this.mUserHistoryDao = userHistoryDao;
-    }
-
-    @Override
-    protected Void doInBackground(UserHistory... userHistories) {
-      mUserHistoryDao.insert(userHistories[0]);
-      return null;
-    }
-  }
 
   private static class UpdateFoodAsyncTask extends AsyncTask<Food, Void, Void> {
 
@@ -256,18 +241,17 @@ public class Repository {
 
   /* User History */
 
-  // debug only
-  private static class DelteAllUserHistoriesAsyncTask extends AsyncTask<Void, Void, Void> {
+  private static class InsertUserHistoryAsyncTask extends AsyncTask<UserHistory, Void, Void> {
 
     private UserHistoryDao mUserHistoryDao;
 
-    private DelteAllUserHistoriesAsyncTask(UserHistoryDao userHistoryDao) {
+    private InsertUserHistoryAsyncTask(UserHistoryDao userHistoryDao) {
       this.mUserHistoryDao = userHistoryDao;
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
-      mUserHistoryDao.deleteAllUserHistories();
+    protected Void doInBackground(UserHistory... userHistories) {
+      mUserHistoryDao.insert(userHistories[0]);
       return null;
     }
   }

@@ -113,8 +113,8 @@
   </fragment>
   <fragment
     android:id="@+id/graphsFoodSingleFragment"
+    android:label="Graphs"
     android:name="hochschule.de.bachelorthesis.view.graphs.GraphsHostFragment"
-    android:label="fragment_graphs_host"
     tools:layout="@layout/fragment_graphs_host"/>
 
 

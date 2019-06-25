@@ -29,6 +29,9 @@ public interface FoodDao {
   @Query("SELECT * FROM food_table WHERE id=:id")
   LiveData<Food> getFoodById(int id);
 
+  @Query("SELECT * FROM food_table WHERE food_name=:foodName AND brand_name=:brandName")
+  LiveData<Food> getFoodByNameAndBrandName(String foodName, String brandName);
+
   @Query("SELECT * FROM food_table ORDER BY id DESC")
   LiveData<List<Food>> getAllFoods();
 }

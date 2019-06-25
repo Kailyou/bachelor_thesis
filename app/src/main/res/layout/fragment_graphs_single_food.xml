@@ -6,14 +6,37 @@
       type="hochschule.de.bachelorthesis.viewmodels.GraphsViewModel"/>
   </data>
 
-  <RelativeLayout
+  <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.github.mikephil.charting.charts.LineChart
-      android:id="@+id/lineChart"
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="32dp">
-    </com.github.mikephil.charting.charts.LineChart>
-  </RelativeLayout>
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <AutoCompleteTextView
+          android:id="@+id/dropdown_food"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:cursorVisible="false"
+          android:focusable="false"
+          android:hint="@string/choose_food"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="32dp">
+      </com.github.mikephil.charting.charts.LineChart>
+    </LinearLayout>
+  </ScrollView>
 </layout>
