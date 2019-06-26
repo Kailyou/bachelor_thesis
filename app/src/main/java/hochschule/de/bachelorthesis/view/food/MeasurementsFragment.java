@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.GridLayout;
+import android.widget.GridLayout.LayoutParams;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -19,6 +22,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
@@ -82,6 +86,8 @@ public class MeasurementsFragment extends Fragment {
     mViewModel.getAllMeasurementsById(mFoodId).observe(this, new Observer<List<Measurement>>() {
       @Override
       public void onChanged(List<Measurement> measurements) {
+        Measurement header = new Measurement(0, 0, "", 0, "", "", 0);
+        measurements.add(0, header);
         adapter.setMeasurements(measurements);
       }
     });

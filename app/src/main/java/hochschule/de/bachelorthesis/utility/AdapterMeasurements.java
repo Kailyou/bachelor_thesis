@@ -1,6 +1,5 @@
 package hochschule.de.bachelorthesis.utility;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +38,26 @@ public class AdapterMeasurements extends
   public void onBindViewHolder(@NonNull MeasurementHolder holder, final int position) {
     final Measurement currentMeasurement = mMeasurements.get(position);
 
+    // Position 0 as header
+    if (position == 0) {
+      holder.amount.setText("Amount");
+      holder.amount.setTextSize(10);
+      // holder.amount.setGravity(Gravity.CENTER_VERTICAL);
+      holder.date.setText("Date");
+      holder.date.setTextSize(10);
+      //holder.date.setGravity(Gravity.CENTER_VERTICAL);
+      holder.mp.setText("Glucose max");
+      holder.mp.setTextSize(10);
+      //holder.mp.setGravity(Gravity.CENTER_VERTICAL);
+      holder.avg.setText("Glucose avg.");
+      holder.avg.setTextSize(10);
+      // holder.avg.setGravity(Gravity.CENTER_VERTICAL);
+      holder.rating.setText("Rating");
+      holder.rating.setTextSize(10);
+      // holder.rating.setGravity(Gravity.CENTER_VERTICAL);
+      return;
+    }
+
     // Build date
     String ts = currentMeasurement.getTimeStamp();
     String date = String.copyValueOf(ts.toCharArray(), 0, 10);
@@ -48,6 +67,10 @@ public class AdapterMeasurements extends
     holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
     holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAverage()));
     holder.rating.setText("unrated");
+
+    if(position == 3) {
+      holder.rating.setText("5");
+    }
 
     // Click event for the card views, which will start a new activity (FoodInfoActivity)
     final Bundle bundle = new Bundle();
