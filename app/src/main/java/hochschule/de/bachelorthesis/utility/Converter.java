@@ -1,6 +1,5 @@
 package hochschule.de.bachelorthesis.utility;
 
-import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,6 +9,11 @@ import java.util.Locale;
 public class Converter {
 
   public static String convertBoolean(Boolean b) {
+
+    if (b == null) {
+      return "null";
+    }
+
     if (b) {
       return "Yes";
     } else {

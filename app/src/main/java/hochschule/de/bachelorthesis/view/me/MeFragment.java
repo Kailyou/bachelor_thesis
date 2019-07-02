@@ -85,10 +85,11 @@ public class MeFragment extends Fragment {
   }
 
   /**
-   * Adding a temp userHistory object to the database.
+   * Adding a temp userHistory object to the database. TODO is getUserHistoryLatest correct?!
    */
   private void addTemplateUser() {
-    final UserHistory newUh = new UserHistory(29, 173, 88, "male", "low", false, false, false);
+    final UserHistory newUh = new UserHistory(29, 173, 87, "male", "low", false, false, false,
+        false);
 
     final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
     ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
@@ -97,9 +98,10 @@ public class MeFragment extends Fragment {
         ldu.removeObserver(this);
 
         //Insert
-        if(!newUh.equals(userHistory))
+        if (!newUh.equals(userHistory)) {
           mViewModel.insertUserHistory(newUh);
         }
+      }
     });
   }
 }

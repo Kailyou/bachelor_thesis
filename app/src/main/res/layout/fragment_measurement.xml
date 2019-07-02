@@ -28,7 +28,6 @@
 
         <!-- Time information -->
         <TextView
-          android:id="@+id/time"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="16dp"
@@ -82,8 +81,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
           android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -103,7 +102,6 @@
 
         <!-- Advance information -->
         <TextView
-          android:id="@+id/textView"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="16dp"
@@ -114,6 +112,28 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="GI measurement"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/gi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertBoolean(vm.measurementModel.gi)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp">
 
@@ -135,8 +155,8 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
           android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp">
 
           <TextView
@@ -175,6 +195,123 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/physically_active2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/physicallyActive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertBoolean(vm.measurementModel.physicallyActivity)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/alcohol_consumed"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/alcoholConsumed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertBoolean(vm.measurementModel.alcoholConsumed)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <!-- Events -->
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:text="@string/events"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/ill_while_measuring"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/ill"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertBoolean(vm.measurementModel.ill)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/taking_medication"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/medication"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertBoolean(vm.measurementModel.medication)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/period"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/period"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="@{Converter.convertBoolean(vm.measurementModel.period)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
 
         <!-- Measurement -->
         <TextView
@@ -196,18 +333,18 @@
 
         <com.github.mikephil.charting.charts.LineChart
           android:id="@+id/lineChart"
-          android:layout_marginStart="16dp"
-          android:layout_marginEnd="16dp"
           android:layout_width="match_parent"
-          android:layout_height="200dp">
+          android:layout_height="200dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
         </com.github.mikephil.charting.charts.LineChart>
 
         <TextView
           android:id="@+id/x_axis"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
           android:layout_marginBottom="32dp"
+          android:layout_marginEnd="16dp"
           android:gravity="end"
           android:text="@string/time_min"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
@@ -466,8 +603,8 @@
       android:id="@+id/fab"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom|end"
       android:layout_margin="@dimen/fab_margin"
+      android:layout_gravity="bottom|end"
       app:srcCompat="@drawable/ic_edit_white"/>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>

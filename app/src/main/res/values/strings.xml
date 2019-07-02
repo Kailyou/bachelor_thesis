@@ -120,6 +120,14 @@
   <string name="glucose_average_mg_dl">Glucose average (mg/dl)</string>
   <string name="amount_measurements">Amount measurements</string>
   <string name="choose_food">Choose Food</string>
+  <string name="diabetes">Diabetes</string>
+  <string name="physically_active_more_than_usual">Physically Active (More than usual)</string>
+  <string name="alcohol_consumed">Alcohol consumed</string>
+  <string name="ill_while_measuring">Ill (While measuring)</string>
+  <string name="period">Period</string>
+  <string name="physically_active2">Physically Active</string>
+  <string name="events">Events</string>
+  <string name="gi_measurement">Gi Measurement</string>
 
   <string-array name="type">
     <item>Grains</item>

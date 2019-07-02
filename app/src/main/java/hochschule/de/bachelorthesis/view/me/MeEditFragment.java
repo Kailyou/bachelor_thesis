@@ -123,9 +123,10 @@ public class MeEditFragment extends Fragment {
       boolean medication = mBinding.medication.isChecked();
       boolean allergies = mBinding.allergies.isChecked();
       boolean smoking = mBinding.smoking.isChecked();
+      boolean diabetes = mBinding.diabetes.isChecked();
 
       final UserHistory uh = new UserHistory(age, height, weight, sex, fitnessLevel, medication,
-          allergies, smoking);
+          allergies, smoking, diabetes);
 
       final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
       ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {

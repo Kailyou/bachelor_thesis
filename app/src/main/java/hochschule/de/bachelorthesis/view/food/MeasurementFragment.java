@@ -78,6 +78,10 @@ public class MeasurementFragment extends Fragment {
         new Observer<Measurement>() {
           @Override
           public void onChanged(Measurement measurement) {
+            if (measurement == null) {
+              return;
+            }
+
             mViewModel.loadMeasurementFragment(measurement);
             buildGraph(measurement);
 

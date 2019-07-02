@@ -181,6 +181,10 @@ public class GraphsFoodSingleFragment extends Fragment {
 
   private void createAverageLine(List<Measurement> measurements) {
 
+    if (measurements.size() <= 1) {
+      return;
+    }
+
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // Get average values
@@ -299,7 +303,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // check the amount of values
-    if (measurements.size() == 1) {
+    if (measurements.size() <= 1) {
       return;
     }
 
@@ -373,7 +377,7 @@ public class GraphsFoodSingleFragment extends Fragment {
    */
   private HashMap<String, ArrayList<Integer>> getAllGlucoseByTime(List<Measurement> measurements) {
 
-    if (measurements == null) {
+    if (measurements == null || measurements.size() == 0) {
       return null;
     }
 

@@ -6,7 +6,7 @@
   <data>
 
     <variable
-      name="viewModel"
+      name="vm"
       type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
   </data>
 
@@ -31,9 +31,9 @@
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
+        android:orientation="horizontal"
         android:weightSum="2">
 
         <Button
@@ -49,17 +49,17 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"
-          android:gravity="center"
           android:paddingStart="32dp"
-          android:paddingEnd="32dp"/>
+          android:paddingEnd="32dp"
+          android:gravity="center"/>
       </LinearLayout>
 
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
+        android:orientation="horizontal"
         android:weightSum="2">
 
         <Button
@@ -75,11 +75,10 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"
-          android:gravity="center"
           android:paddingStart="32dp"
-          android:paddingEnd="32dp"/>
+          android:paddingEnd="32dp"
+          android:gravity="center"/>
       </LinearLayout>
-
 
       <!-- Advance information-->
       <TextView
@@ -90,14 +89,23 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/colorPrimary"/>
 
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/gi"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.gi)}"
+        android:text="@string/gi_measurement"/>
+
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/amount_consumed"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/amount_consumed">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/amount"
@@ -110,9 +118,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:paddingEnd="32dp">
 
         <AutoCompleteTextView
           android:id="@+id/stress"
@@ -139,6 +147,63 @@
           android:hint="@string/tired_level"/>
       </com.google.android.material.textfield.TextInputLayout>
 
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/physicallyActive"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.physicallyActivity)}"
+        android:text="@string/physically_active_more_than_usual"/>
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/alcoholConsumed"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.alcoholConsumed)}"
+        android:text="@string/alcohol_consumed"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Events"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/ill"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:layout_marginStart="32dp"
+          android:checked="@{safeUnbox(vm.measurementAddModelModel.ill)}"
+          android:text="@string/ill_while_measuring"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/medication"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="32dp"
+          android:checked="@{safeUnbox(vm.measurementAddModelModel.medication)}"
+          android:text="@string/taking_medication"/>
+      </LinearLayout>
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/period"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.period)}"
+        android:text="@string/period"/>
+
       <!-- Measurement values-->
       <TextView
         android:layout_width="wrap_content"
@@ -152,10 +217,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/glucose_at_begin"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/glucose_at_begin">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv0"

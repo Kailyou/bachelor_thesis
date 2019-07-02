@@ -9,6 +9,7 @@ import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 
 public class MeViewModel extends AndroidViewModel {
+
   private Repository mRepository;
   private LiveData<UserHistory> mUserHistoryLatest;
 
@@ -23,6 +24,7 @@ public class MeViewModel extends AndroidViewModel {
   private MutableLiveData<Boolean> mAllergies;
   private MutableLiveData<Boolean> mSmoking;
   private MutableLiveData<Boolean> mMedication;
+  private MutableLiveData<Boolean> mDiabetes;
 
 
   public MeViewModel(@NonNull Application application) {
@@ -44,6 +46,7 @@ public class MeViewModel extends AndroidViewModel {
     mAllergies = new MutableLiveData<>();
     mSmoking = new MutableLiveData<>();
     mMedication = new MutableLiveData<>();
+    mDiabetes = new MutableLiveData<>();
   }
 
   /**
@@ -53,10 +56,9 @@ public class MeViewModel extends AndroidViewModel {
    * viewModel will be updated with those data.
    *
    * This will affect the me view to update itself.
-   *
    */
   public synchronized void load(UserHistory uh) {
-        updateViewModel(uh);
+    updateViewModel(uh);
   }
 
   /**
@@ -71,6 +73,7 @@ public class MeViewModel extends AndroidViewModel {
 
   /**
    * Returns the latest user history from database.
+   *
    * @return A live data object with the latest UserHistory object
    */
   public LiveData<UserHistory> getUserHistoryLatest() {
@@ -78,8 +81,9 @@ public class MeViewModel extends AndroidViewModel {
   }
 
   private void updateViewModel(UserHistory userHistory) {
-    if(userHistory == null)
+    if (userHistory == null) {
       return;
+    }
 
     mAge.setValue(userHistory.getAge());
     mHeight.setValue(userHistory.getHeight());
@@ -89,6 +93,7 @@ public class MeViewModel extends AndroidViewModel {
     mMedication.setValue(userHistory.getMedication());
     mAllergies.setValue(userHistory.getAllergies());
     mSmoking.setValue(userHistory.getSmoking());
+    mDiabetes.setValue(userHistory.getDiabetes());
   }
 
   /*
@@ -125,5 +130,9 @@ public class MeViewModel extends AndroidViewModel {
 
   public MutableLiveData<Boolean> getMedication() {
     return mMedication;
+  }
+
+  public MutableLiveData<Boolean> getDiabetes() {
+    return mDiabetes;
   }
 }

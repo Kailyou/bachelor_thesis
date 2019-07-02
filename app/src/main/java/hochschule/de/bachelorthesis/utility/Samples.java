@@ -79,20 +79,34 @@ public class Samples {
     String randomTired = context.getResources().getStringArray(R.array.tired)[MyMath
         .getRandomInt(0, 2)];
 
-    Measurement measurement = new Measurement(foodId, userHistoryId, timeStamp, randomAmount,
-        randomStress, randomTired,
+    boolean randomGi = (MyMath.getRandomInt(0, 1) != 0);
+    boolean randomPhysicallyActive = (MyMath.getRandomInt(0, 1) != 0);
+    boolean randomAlcoholConsumed = (MyMath.getRandomInt(0, 1) != 0);
+    boolean randomIll = (MyMath.getRandomInt(0, 1) != 0);
+    boolean randomMedication;
+    if (randomIll) {
+      randomMedication = (MyMath.getRandomInt(0, 1) != 0);
+    } else {
+      randomMedication = false;
+    }
+    boolean randomPeriod = (MyMath.getRandomInt(0, 1) != 0);
+
+    Measurement measurement = new Measurement(foodId, userHistoryId, randomGi, timeStamp,
+        randomAmount,
+        randomStress, randomTired, randomPhysicallyActive, randomAlcoholConsumed, randomIll,
+        randomMedication, randomPeriod,
         100);
 
     // Random measurement, starting with 100 and ending with 100
     int[] measurements = new int[]{
         100,
-        MyMath.getRandomInt(100, 110),
-        MyMath.getRandomInt(110, 135),
-        MyMath.getRandomInt(135, 150),
-        MyMath.getRandomInt(150, 225),
-        MyMath.getRandomInt(150, 180),
-        MyMath.getRandomInt(135, 148),
-        MyMath.getRandomInt(100, 110),
+        MyMath.getRandomInt(100, 125),
+        MyMath.getRandomInt(125, 150),
+        MyMath.getRandomInt(150, 175),
+        MyMath.getRandomInt(175, 225),
+        MyMath.getRandomInt(195, 225),
+        MyMath.getRandomInt(145, 195),
+        MyMath.getRandomInt(120, 145),
         100
     };
 

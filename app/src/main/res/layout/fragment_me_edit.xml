@@ -31,11 +31,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:hint="@string/age"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:focusableInTouchMode="true"
+        android:hint="@string/age">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/age"
@@ -49,10 +49,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/height"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/height">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/height"
@@ -66,10 +66,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/weight"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:hint="@string/weight">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/weight"
@@ -107,9 +107,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:paddingStart="32dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="16dp">
+        android:paddingEnd="32dp">
 
         <AutoCompleteTextView
           android:id="@+id/dropdown_fitness_level"
@@ -120,29 +120,52 @@
           android:hint="@string/fitness_level"/>
       </com.google.android.material.textfield.TextInputLayout>
 
-      <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/medication"
+      <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.medication)}"
-        android:text="@string/taking_medication"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-      <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/allergies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.allergies)}"
-        android:text="@string/allergies_available"/>
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/medication"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginStart="32dp"
+          android:layout_weight="1"
+          android:checked="@{safeUnbox(vm.medication)}"
+          android:text="@string/taking_medication"/>
 
-      <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/smoking"
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/allergies"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="32dp"
+          android:checked="@{safeUnbox(vm.allergies)}"
+          android:text="@string/allergies_available"/>
+      </LinearLayout>
+
+      <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.smoking)}"
-        android:text="@string/smoking"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/smoking"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginStart="32dp"
+          android:layout_weight="1"
+          android:checked="@{safeUnbox(vm.smoking)}"
+          android:text="@string/smoking"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/diabetes"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="32dp"
+          android:checked="@{safeUnbox(vm.diabetes)}"
+          android:text="@string/diabetes"/>
+      </LinearLayout>
+
     </LinearLayout>
   </ScrollView>
 </layout>

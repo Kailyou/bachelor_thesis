@@ -86,7 +86,9 @@ public class MeasurementsFragment extends Fragment {
     mViewModel.getAllMeasurementsById(mFoodId).observe(this, new Observer<List<Measurement>>() {
       @Override
       public void onChanged(List<Measurement> measurements) {
-        Measurement header = new Measurement(0, 0, "", 0, "", "", 0);
+        Measurement header = new Measurement(0, 0, false, "", 0, "", "", false, false, false, false,
+            false,
+            0);
         measurements.add(0, header);
         adapter.setMeasurements(measurements);
       }

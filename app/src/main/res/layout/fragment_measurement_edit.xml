@@ -93,6 +93,15 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/colorPrimary"/>
 
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/gi"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementModel.gi)}"
+        android:text="@string/gi_measurement"/>
+
       <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -142,6 +151,63 @@
           android:focusable="false"
           android:hint="@string/tired_level"/>
       </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/physicallyActive"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.physicallyActivity)}"
+        android:text="@string/physically_active_more_than_usual"/>
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/smoking"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.alcoholConsumed)}"
+        android:text="@string/alcohol_consumed"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Events"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/ill"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:layout_marginStart="32dp"
+          android:checked="@{safeUnbox(vm.measurementAddModelModel.ill)}"
+          android:text="@string/ill_while_measuring"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/medication"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="32dp"
+          android:checked="@{safeUnbox(vm.measurementAddModelModel.medication)}"
+          android:text="@string/taking_medication"/>
+      </LinearLayout>
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/period"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+        android:checked="@{safeUnbox(vm.measurementAddModelModel.period)}"
+        android:text="@string/period"/>
 
       <!-- Measurement values-->
       <TextView

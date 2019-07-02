@@ -4,10 +4,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import hochschule.de.bachelorthesis.model.FoodAddModel;
 import hochschule.de.bachelorthesis.model.FoodDataModel;
-import hochschule.de.bachelorthesis.model.FoodEditModel;
 import hochschule.de.bachelorthesis.model.FoodOverviewModel;
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
 import hochschule.de.bachelorthesis.model.MeasurementModel;
@@ -23,11 +21,9 @@ public class FoodViewModel extends AndroidViewModel {
   private Repository mRepository;
   private LiveData<List<Food>> mAllFoods;
   private LiveData<UserHistory> mUserHistoryLatest;
-  private LiveData<Food> mSelectedFood;
 
   // Models
   private FoodAddModel mFoodAddModel;
-  private FoodEditModel mFoodEditModel;
   private FoodOverviewModel mFoodOverviewModel;
   private FoodDataModel mFoodDataModel;
   private MeasurementModel mMeasurementModel; // Also used for measurement edit fragment
@@ -40,11 +36,9 @@ public class FoodViewModel extends AndroidViewModel {
     mRepository = new Repository(application);
     mAllFoods = mRepository.getAllFoods();
     mUserHistoryLatest = mRepository.getUserHistoryLatest();
-    mSelectedFood = new MutableLiveData<>();
 
     mFoodDataModel = new FoodDataModel();
     mFoodAddModel = new FoodAddModel();
-    mFoodEditModel = new FoodEditModel();
     mFoodOverviewModel = new FoodOverviewModel();
 
     mMeasurementModel = new MeasurementModel();
@@ -127,10 +121,16 @@ public class FoodViewModel extends AndroidViewModel {
       return;
     }
 
+    mMeasurementModel.setGi(measurement.isGi());
     mMeasurementModel.setTimestamp(measurement.getTimeStamp());
     mMeasurementModel.setAmount(measurement.getAmount());
     mMeasurementModel.setStressed(measurement.getStress());
     mMeasurementModel.setTired(measurement.getTired());
+    mMeasurementModel.setPhysicallyActivity(measurement.isPhysicallyActivity());
+    mMeasurementModel.setAlcoholConsumed(measurement.isAlcoholConsumed());
+    mMeasurementModel.setIll(measurement.isIll());
+    mMeasurementModel.setMedication(measurement.isMedication());
+    mMeasurementModel.setPeriod(measurement.isPeriod());
     mMeasurementModel.setValue0(measurement.getGlucoseStart());
     mMeasurementModel.setValue15(measurement.getGlucose15());
     mMeasurementModel.setValue30(measurement.getGlucose30());
@@ -147,10 +147,16 @@ public class FoodViewModel extends AndroidViewModel {
       return;
     }
 
+    mMeasurementAddModel.setGi(measurement.isGi());
     mMeasurementAddModel.setTimestamp(measurement.getTimeStamp());
     mMeasurementAddModel.setAmount(measurement.getAmount());
     mMeasurementAddModel.setStressed(measurement.getStress());
     mMeasurementAddModel.setTired(measurement.getTired());
+    mMeasurementAddModel.setPhysicallyActivity(measurement.isPhysicallyActivity());
+    mMeasurementAddModel.setAlcoholConsumed(measurement.isAlcoholConsumed());
+    mMeasurementAddModel.setIll(measurement.isIll());
+    mMeasurementAddModel.setMedication(measurement.isMedication());
+    mMeasurementAddModel.setPeriod(measurement.isPeriod());
     mMeasurementAddModel.setValue0(measurement.getGlucoseStart());
   }
 
@@ -281,4 +287,9 @@ public class FoodViewModel extends AndroidViewModel {
   public MeasurementModel getMeasurementModel() {
     return mMeasurementModel;
   }
+
+  public MeasurementAddModel getMeasurementAddModelModel() {
+    return mMeasurementAddModel;
+  }
+
 }

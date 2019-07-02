@@ -31,19 +31,21 @@ public class Measurement {
   @PrimaryKey(autoGenerate = true)
   public int id;
 
-  // general
+  // foreign keys
   @ColumnInfo(name = "food_id")
   private int foodId;
 
   @ColumnInfo(name = "user_history_id")
   private int userHistoryId;
 
-  @ColumnInfo(name = "is_gi")
-  private boolean isGi;
+  @ColumnInfo(name = "gi")
+  private boolean gi;
 
+  // Time
   @ColumnInfo(name = "time_stamp")
   private String timeStamp;
 
+  // Advance information
   @ColumnInfo(name = "amount")
   private int amount;
 
@@ -52,6 +54,22 @@ public class Measurement {
 
   @ColumnInfo(name = "tired")
   private String tired;
+
+  // Other events
+  @ColumnInfo(name = "physically_activity") // last 48 hours?
+  private boolean physicallyActivity;
+
+  @ColumnInfo(name = "alcohol_consumed")
+  private boolean alcoholConsumed;
+
+  @ColumnInfo(name = "ill")
+  private boolean ill;
+
+  @ColumnInfo(name = "medication")
+  private boolean medication;
+
+  @ColumnInfo(name = "period")
+  private boolean period;
 
   // glucose values
   @ColumnInfo(name = "glucose_start")
@@ -83,14 +101,27 @@ public class Measurement {
 
 
   public Measurement(int foodId, int userHistoryId,
-      String timeStamp, int amount, String stress, String tired,
+      boolean gi,
+      String timeStamp,
+      int amount, String stress, String tired,
+      boolean physicallyActivity,
+      boolean alcoholConsumed,
+      boolean ill,
+      boolean medication,
+      boolean period,
       int glucoseStart) {
+    this.gi = gi;
     this.foodId = foodId;
     this.userHistoryId = userHistoryId;
     this.timeStamp = timeStamp;
     this.amount = amount;
     this.stress = stress;
     this.tired = tired;
+    this.physicallyActivity = physicallyActivity;
+    this.alcoholConsumed = alcoholConsumed;
+    this.ill = ill;
+    this.medication = medication;
+    this.period = period;
     this.glucoseStart = glucoseStart;
   }
 
@@ -102,6 +133,10 @@ public class Measurement {
 
   public int getUserHistoryId() {
     return userHistoryId;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public String getTimeStamp() {
@@ -118,6 +153,26 @@ public class Measurement {
 
   public String getTired() {
     return tired;
+  }
+
+  public boolean isPhysicallyActivity() {
+    return physicallyActivity;
+  }
+
+  public boolean isAlcoholConsumed() {
+    return alcoholConsumed;
+  }
+
+  public boolean isIll() {
+    return ill;
+  }
+
+  public boolean isMedication() {
+    return medication;
+  }
+
+  public boolean isPeriod() {
+    return period;
   }
 
   public int getGlucoseStart() {
@@ -178,7 +233,7 @@ public class Measurement {
   }
 
   public boolean isGi() {
-    return isGi;
+    return gi;
   }
 
   // Checks if the measurement is done, as soon as one value is zero, the measurement cannot be finished yet.
@@ -271,8 +326,8 @@ public class Measurement {
     this.foodId = foodId;
   }
 
-  public void setUserHistoryId(int userHistoryId) {
-    this.userHistoryId = userHistoryId;
+  public void setId(int id) {
+    this.id = id;
   }
 
   public void setTimeStamp(String timeStamp) {
@@ -289,6 +344,26 @@ public class Measurement {
 
   public void setTired(String tired) {
     this.tired = tired;
+  }
+
+  public void setPhysicallyActivity(boolean physicallyActivity) {
+    this.physicallyActivity = physicallyActivity;
+  }
+
+  public void setAlcoholConsumed(boolean alcoholConsumed) {
+    this.alcoholConsumed = alcoholConsumed;
+  }
+
+  public void setIll(boolean ill) {
+    this.ill = ill;
+  }
+
+  public void setMedication(boolean medication) {
+    this.medication = medication;
+  }
+
+  public void setPeriod(boolean period) {
+    this.period = period;
   }
 
   public void setGlucoseStart(int glucoseStart) {
@@ -328,6 +403,6 @@ public class Measurement {
   }
 
   public void setGi(boolean gi) {
-    isGi = gi;
+    this.gi = gi;
   }
 }

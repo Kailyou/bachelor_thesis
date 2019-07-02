@@ -35,9 +35,12 @@ public class UserHistory {
   @ColumnInfo(name = "smoking")
   private Boolean smoking;
 
+  @ColumnInfo(name = "diabetes")
+  private Boolean diabetes;
+
   public UserHistory(int age, int height, int weight,
       String sex, String fitness_level,
-      Boolean medication, Boolean allergies, Boolean smoking) {
+      Boolean medication, Boolean allergies, Boolean smoking, Boolean diabetes) {
     this.age = age;
     this.height = height;
     this.weight = weight;
@@ -46,6 +49,7 @@ public class UserHistory {
     this.medication = medication;
     this.allergies = allergies;
     this.smoking = smoking;
+    this.diabetes = diabetes;
   }
 
   public boolean equals(Object o) {
@@ -63,71 +67,43 @@ public class UserHistory {
         fitness_level.equals(userHistory.getFitness_level()) &&
         medication == userHistory.getMedication() &&
         allergies == userHistory.getAllergies() &&
-        allergies == userHistory.getAllergies() &&
-        smoking == userHistory.getSmoking();
+        smoking == userHistory.getSmoking() &&
+        diabetes == userHistory.getDiabetes();
   }
 
   public int getAge() {
     return age;
   }
 
-  public void setAge(int age) {
-    this.age = age;
-  }
-
   public int getHeight() {
     return height;
-  }
-
-  public void setHeight(int height) {
-    this.height = height;
   }
 
   public int getWeight() {
     return weight;
   }
 
-  public void setWeight(int weight) {
-    this.weight = weight;
-  }
-
   public String getSex() {
     return sex;
-  }
-
-  public void setSex(String sex) {
-    this.sex = sex;
   }
 
   public String getFitness_level() {
     return fitness_level;
   }
 
-  public void setFitness_level(String fitness_level) {
-    this.fitness_level = fitness_level;
-  }
-
   public Boolean getMedication() {
     return medication;
-  }
-
-  public void setMedication(Boolean medication) {
-    this.medication = medication;
   }
 
   public Boolean getAllergies() {
     return allergies;
   }
 
-  public void setAllergies(Boolean allergies) {
-    this.allergies = allergies;
-  }
-
   public Boolean getSmoking() {
     return smoking;
   }
 
-  public void setSmoking(Boolean smoking) {
-    this.smoking = smoking;
+  public Boolean getDiabetes() {
+    return diabetes;
   }
 }

@@ -78,7 +78,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_measurement_add, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setViewModel(mViewModel);
+    mBinding.setVm(mViewModel);
 
     // Spinner
     ArrayAdapter<CharSequence> adapter = ArrayAdapter
@@ -324,15 +324,25 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
                 .parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
             String stress = mBinding.stress.getText().toString();
             String tired = mBinding.tired.getText().toString();
+            boolean gi = mBinding.gi.isChecked();
+            boolean physicallyActive = mBinding.physicallyActive.isChecked();
+            boolean alcoholConsumed = mBinding.alcoholConsumed.isChecked();
+            boolean ill = mBinding.ill.isChecked();
+            boolean medication = mBinding.medication.isChecked();
+            boolean period = mBinding.period.isChecked();
+
             int glucose_0 = Integer
                 .parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
 
             Measurement newMeasurement = new Measurement(
                 mFoodId,
                 Objects.requireNonNull(uh.getValue()).id,
+                gi,
                 timeStamp,
                 amount,
                 stress, tired,
+                physicallyActive, alcoholConsumed,
+                ill, medication, period,
                 glucose_0
             );
 

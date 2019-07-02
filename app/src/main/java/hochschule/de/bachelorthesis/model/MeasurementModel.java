@@ -6,13 +6,20 @@ public class MeasurementModel {
 
   // General
   private boolean mIsDone;
-  private MutableLiveData<Boolean> mIsGi;
+  private MutableLiveData<Boolean> mGi;
 
   // Time & Advance information
   private MutableLiveData<String> mTimestamp;
   private MutableLiveData<Integer> mAmount;
   private MutableLiveData<String> mStressed;
   private MutableLiveData<String> mTired;
+  private MutableLiveData<Boolean> mPhysicallyActivity;
+  private MutableLiveData<Boolean> mAlcoholConsumed;
+
+  // Events
+  private MutableLiveData<Boolean> mIll;
+  private MutableLiveData<Boolean> mMedication;
+  private MutableLiveData<Boolean> mPeriod;
 
   // Measurement values
   private MutableLiveData<Integer> mValue0;
@@ -27,11 +34,17 @@ public class MeasurementModel {
 
 
   public MeasurementModel() {
-    mIsGi = new MutableLiveData<>();
+    mGi = new MutableLiveData<>();
     mTimestamp = new MutableLiveData<>();
     mAmount = new MutableLiveData<>();
     mStressed = new MutableLiveData<>();
     mTired = new MutableLiveData<>();
+    mPhysicallyActivity = new MutableLiveData<>();
+    mAlcoholConsumed = new MutableLiveData<>();
+    mIll = new MutableLiveData<>();
+    mMedication = new MutableLiveData<>();
+    mPeriod = new MutableLiveData<>();
+    mValue0 = new MutableLiveData<>();
     mValue0 = new MutableLiveData<>();
     mValue15 = new MutableLiveData<>();
     mValue30 = new MutableLiveData<>();
@@ -49,8 +62,8 @@ public class MeasurementModel {
     return mIsDone;
   }
 
-  public MutableLiveData<Boolean> isGi() {
-    return mIsGi;
+  public MutableLiveData<Boolean> getGi() {
+    return mGi;
   }
 
   public MutableLiveData<String> getTimestamp() {
@@ -67,6 +80,26 @@ public class MeasurementModel {
 
   public MutableLiveData<String> getTired() {
     return mTired;
+  }
+
+  public MutableLiveData<Boolean> getPhysicallyActivity() {
+    return mPhysicallyActivity;
+  }
+
+  public MutableLiveData<Boolean> getAlcoholConsumed() {
+    return mAlcoholConsumed;
+  }
+
+  public MutableLiveData<Boolean> getIll() {
+    return mIll;
+  }
+
+  public MutableLiveData<Boolean> getMedication() {
+    return mMedication;
+  }
+
+  public MutableLiveData<Boolean> getPeriod() {
+    return mPeriod;
   }
 
   public MutableLiveData<Integer> getValue0() {
@@ -112,8 +145,8 @@ public class MeasurementModel {
     mIsDone = isDone;
   }
 
-  public void setGi(boolean isGi) {
-    mIsGi.setValue(isGi);
+  public void setGi(boolean gi) {
+    mGi.setValue(gi);
   }
 
   public void setTimestamp(String timestamp) {
@@ -130,6 +163,27 @@ public class MeasurementModel {
 
   public void setTired(String tired) {
     mTired.setValue(tired);
+  }
+
+  public void setPhysicallyActivity(
+      boolean physicallyActivity) {
+    mPhysicallyActivity.setValue(physicallyActivity);
+  }
+
+  public void setAlcoholConsumed(boolean alcoholConsumed) {
+    mAlcoholConsumed.setValue(alcoholConsumed);
+  }
+
+  public void setIll(boolean ill) {
+    mIll.setValue(ill);
+  }
+
+  public void setMedication(boolean medication) {
+    mMedication.setValue(medication);
+  }
+
+  public void setPeriod(boolean period) {
+    mPeriod.setValue(period);
   }
 
   public void setValue0(Integer value0) {
