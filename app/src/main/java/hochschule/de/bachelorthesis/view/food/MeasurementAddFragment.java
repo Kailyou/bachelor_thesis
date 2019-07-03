@@ -25,6 +25,7 @@ import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.utility.Parser;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,7 +81,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 
-    // Spinner
+    // Drop downs
     ArrayAdapter<CharSequence> adapter = ArrayAdapter
         .createFromResource(Objects.requireNonNull(getContext()),
             R.array.stress, android.R.layout.simple_spinner_item);
@@ -91,6 +92,24 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     adapter = ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
         R.array.tired, android.R.layout.simple_spinner_item);
     mBinding.tired.setAdapter(adapter);
+
+    // load the last user input by observing the view model object
+    // filter has to be false otherwise auto complete will destroy the dropdown element.
+    mViewModel.getMeasurementAddModel().getStressed().observe(getViewLifecycleOwner(),
+        new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.stress.setText(s, false);
+          }
+        });
+
+    mViewModel.getMeasurementAddModel().getTired().observe(getViewLifecycleOwner(),
+        new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.tired.setText(s, false);
+          }
+        });
 
     // Date and time picker buttons
     mBinding.dateButton.setOnClickListener(new View.OnClickListener() {
@@ -106,56 +125,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     });
 
     return mBinding.getRoot();
-  }
-
-  /**
-   * Saving the current state to the viewModel.
-   *
-   * Uses a function to parse a Float value.
-   *
-   * If the float value is empty, the result will be a -1.
-   *
-   * The view will convert that -1 to an empty String.
-   */
-  @Override
-  public void onStop() {
-    super.onStop();
-
-    /*
-    // The float values have to be parsed first
-    mViewModel.getmMeasurementAddModel().getAmount().setValue(
-        Parser.parseFloat(Objects.requireNonNull(mBinding.amount.getText().toString())));
-
-    // The exposed drop down
-    // get the needed string out of the string array resource and update the vm.
-    mViewModel.getFoodAddDataModel().getType().setValue(mBinding.type.getText().toString());
-
-
-
-    mViewModel.getFoodAddDataModel().getKiloJoules().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloJoules.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getFat().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.fat.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getSaturates().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.saturates.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getProtein().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.protein.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getCarbohydrates().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.carbohydrate.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getKiloCalories().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.kiloCalories.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getSugars().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString()));
-
-    mViewModel.getFoodAddDataModel().getSalt().setValue(
-        Converter.parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString()));
-        */
   }
 
   @Override
@@ -175,6 +144,48 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * Saving the current state to the viewModel.
+   *
+   * Uses a function to parse a Float value.
+   *
+   * If the Integer value is empty, the result will be a -1.
+   *
+   * The view will convert that -1 to an empty String.
+   */
+  @Override
+  public void onStop() {
+    super.onStop();
+
+    // Set timestamp for date and time
+    mViewModel.getMeasurementAddModel().getTimestamp().setValue(buildTimestamp());
+
+    // The Integer value have to be parsed first
+
+    // If amount is 0, there has been no user input because the amount cannot be zero.
+    // In this case set it to -1, so the parser will use an empty string
+
+    mViewModel.getMeasurementAddModel().getAmount().setValue(
+        Parser.parseInteger(Objects.requireNonNull(mBinding.amount.getText()).toString()));
+    mViewModel.getMeasurementAddModel().getValue0().setValue(
+        Parser.parseInteger(Objects.requireNonNull(mBinding.mv0.getText()).toString()));
+
+    // Checkboxes
+    mViewModel.getMeasurementAddModel().getGi().setValue(mBinding.gi.isChecked());
+    mViewModel.getMeasurementAddModel().getPhysicallyActivity()
+        .setValue(mBinding.physicallyActive.isChecked());
+    mViewModel.getMeasurementAddModel().getAlcoholConsumed()
+        .setValue(mBinding.alcoholConsumed.isChecked());
+    mViewModel.getMeasurementAddModel().getIll().setValue(mBinding.ill.isChecked());
+    mViewModel.getMeasurementAddModel().getMedication().setValue(mBinding.medication.isChecked());
+    mViewModel.getMeasurementAddModel().getPeriod().setValue(mBinding.period.isChecked());
+
+    // Drop downs
+    mViewModel.getMeasurementAddModel().getStressed()
+        .setValue(mBinding.stress.getText().toString());
+    mViewModel.getMeasurementAddModel().getTired().setValue(mBinding.tired.getText().toString());
   }
 
   private void chooseDateDialog() {
@@ -295,6 +306,8 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
    * Save the food to the database.
    */
   private void save() {
+    //TODO check if no other measurement is unfinished
+
     final LiveData<UserHistory> uh = mViewModel.getUserHistoryLatest();
     uh.observe(this, new Observer<UserHistory>() {
       @Override
@@ -312,13 +325,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
           public void onChanged(Food food) {
             ldf.removeObserver(this);
 
-            // Build timestamp
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-            Date date = calendar.getTime();
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-            String timeStamp = sdf.format(date);
+            String timeStamp = buildTimestamp();
 
             int amount = Integer
                 .parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
@@ -346,8 +353,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
                 glucose_0
             );
 
-            Log.d("yolo", "onChanged: food id = " + mFoodId);
-
             mViewModel.insertMeasurement(newMeasurement);
 
             // Navigate back to me fragment
@@ -360,6 +365,20 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         });
       }
     });
+  }
+
+  /**
+   * @return Returns a time stepm with the pattern "dd.MM.yyyy_HH:mm"
+   */
+  private String buildTimestamp() {
+    //TODO - Check if input is okay
+    // Build timestamp
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+    Date date = calendar.getTime();
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+    return sdf.format(date);
   }
 
   private void toast(String msg) {

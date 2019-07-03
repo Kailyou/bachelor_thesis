@@ -288,7 +288,7 @@ public class FoodViewModel extends AndroidViewModel {
     return mMeasurementModel;
   }
 
-  public MeasurementAddModel getMeasurementAddModelModel() {
+  public MeasurementAddModel getMeasurementAddModel() {
     return mMeasurementAddModel;
   }
 

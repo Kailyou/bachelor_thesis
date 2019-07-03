@@ -35,6 +35,20 @@ public class Converter {
     return String.valueOf(i);
   }
 
+  /**
+   * Converts a given float to a String.
+   *
+   * @param f - The given float.
+   * @return - returns empty string if the float is null or -1 (error code), else return a String
+   * created out of the float value.
+   */
+  public static String convertFloat(Float f) {
+    if (f == null || f == -1) {
+      return "";
+    }
+    return String.valueOf(f);
+  }
+
   public static String convertTimeStampToDate(String timeStamp) {
     if (timeStamp == null) {
       return "";
@@ -89,20 +103,6 @@ public class Converter {
     return "";
   }
 
-
-  /**
-   * Converts a given float to a String.
-   *
-   * @param f - The given float.
-   * @return - returns empty string if the float is null or -1 (error code), else return a String
-   * created out of the float value.
-   */
-  public static String convertFloat(Float f) {
-    if (f == null || f == -1) {
-      return "";
-    }
-    return String.valueOf(f);
-  }
 
   public static String convertString(String s) {
     if (s == null) {
