@@ -6,9 +6,13 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import hochschule.de.bachelorthesis.utility.MyMath;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 
 // A foreign key with cascade delete means that if a record in the parent table is deleted,

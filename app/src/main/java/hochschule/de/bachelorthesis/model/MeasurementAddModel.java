@@ -39,7 +39,7 @@ public class MeasurementAddModel {
 
   /* GETTER */
 
-  public MutableLiveData<Boolean> getGi() {
+  public MutableLiveData<Boolean> isGi() {
     return mGi;
   }
 
@@ -85,8 +85,8 @@ public class MeasurementAddModel {
 
   /* SETTER */
 
-  public void setGi(boolean gi) {
-    mGi.setValue(gi);
+  public void setGi(boolean isGi) {
+    mGi.setValue(isGi);
   }
 
   public void setTimestamp(String timestamp) {

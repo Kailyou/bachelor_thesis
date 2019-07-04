@@ -142,13 +142,13 @@ public class FoodViewModel extends AndroidViewModel {
     mMeasurementModel.setValue120(measurement.getGlucose120());
   }
 
-  private void updateMeasurementAddModel(Measurement measurement) {
+  public void updateMeasurementAddModel(Measurement measurement) {
     if (measurement == null) {
       return;
     }
 
-    mMeasurementAddModel.setGi(measurement.isGi());
     mMeasurementAddModel.setTimestamp(measurement.getTimeStamp());
+    mMeasurementAddModel.setGi(measurement.isGi());
     mMeasurementAddModel.setAmount(measurement.getAmount());
     mMeasurementAddModel.setStressed(measurement.getStress());
     mMeasurementAddModel.setTired(measurement.getTired());

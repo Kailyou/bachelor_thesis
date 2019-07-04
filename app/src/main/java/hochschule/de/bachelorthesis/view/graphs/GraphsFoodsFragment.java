@@ -84,8 +84,6 @@ public class GraphsFoodsFragment extends Fragment {
 
         for (final Food food : foods) {
 
-          Log.d("yolo", "onChanged: foodid1 = " + food.id);
-
           mViewModel.getAllMeasurementsByFoodId(food.id).observe(getViewLifecycleOwner(),
               new Observer<List<Measurement>>() {
                 @Override

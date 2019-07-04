@@ -135,12 +135,28 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.save) {
-      if (inPutOkay()) {
-        save();
-      }
+    switch (item.getItemId()) {
+      case R.id.save:
+        if (inPutOkay()) {
+          save();
+        }
+        return true;
 
-      return true;
+      case R.id.clear:
+        mViewModel.updateMeasurementAddModel(new Measurement(
+            -1, -1,
+            false,
+            "",
+            -1,
+            "",
+            "",
+            false,
+            false,
+            false,
+            false,
+            false,
+            -1));
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
@@ -173,7 +189,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         Parser.parseInteger(Objects.requireNonNull(mBinding.mv0.getText()).toString()));
 
     // Checkboxes
-    mViewModel.getMeasurementAddModel().getGi().setValue(mBinding.gi.isChecked());
+    mViewModel.getMeasurementAddModel().isGi().setValue(mBinding.gi.isChecked());
     mViewModel.getMeasurementAddModel().getPhysicallyActivity()
         .setValue(mBinding.physicallyActive.isChecked());
     mViewModel.getMeasurementAddModel().getAlcoholConsumed()

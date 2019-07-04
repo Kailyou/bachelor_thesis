@@ -381,8 +381,6 @@ public class GraphsFoodSingleFragment extends Fragment {
       return null;
     }
 
-    Log.d("yolo2", ": measurements all" + measurements.size());
-
     // Remove unfinished measurements
     measurements.get(0).removeNotFinishedMeasurements(measurements);
 

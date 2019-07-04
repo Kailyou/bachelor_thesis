@@ -1,5 +1,6 @@
 package hochschule.de.bachelorthesis.utility;
 
+import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,7 +10,6 @@ import java.util.Locale;
 public class Converter {
 
   public static String convertBoolean(Boolean b) {
-
     if (b == null) {
       return "null";
     }
@@ -49,17 +49,45 @@ public class Converter {
     return String.valueOf(f);
   }
 
+  /**
+   * @param year - Year
+   * @param month - Month
+   * @param dayOfMonth - The day of the month
+   * @param hourOfDay - Hour
+   * @param minute - Minute
+   * @return Returns a timestamp with the pattern "dd.MM.yyyy_HH:mm" of the given values.
+   */
+  public static String buildTimestamp(int year, int month, int dayOfMonth, int hourOfDay,
+      int minute) {
+    // If date or time has not been set yet, just return an empty string
+    if (year == -1 || month == -1 || dayOfMonth == -1 || hourOfDay == -1 || minute == -1) {
+      return "";
+    }
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(year, month, dayOfMonth, hourOfDay, minute, 0);
+    Date date = calendar.getTime();
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+    return sdf.format(date);
+  }
+
   public static String convertTimeStampToDate(String timeStamp) {
-    if (timeStamp == null) {
+    if (timeStamp == null || timeStamp.length() == 0) {
       return "";
     }
     return String.copyValueOf(timeStamp.toCharArray(), 0, 10);
   }
 
   public static String convertTimeStampToTimeStart(String timeStamp) {
-    if (timeStamp == null) {
+    if (timeStamp == null || timeStamp.length() == 0) {
       return "";
     }
+
+    String time = String.copyValueOf(timeStamp.toCharArray(), 11, 5);
+
+    Log.d("yolo", "convertTimeStampToTimeStart: timestamp = " + time);
+
     return String.copyValueOf(timeStamp.toCharArray(), 11, 5);
   }
 

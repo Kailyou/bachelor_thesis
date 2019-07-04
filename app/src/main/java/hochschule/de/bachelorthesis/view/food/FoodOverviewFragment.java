@@ -83,8 +83,6 @@ public class FoodOverviewFragment extends Fragment {
                       @Override
                       public void onChanged(Integer integer) {
 
-                        Log.d("yolo", "how often? = integer: " + integer);
-
                         // Update model
                         mViewModel.loadOverviewFragment(food);
 
@@ -96,8 +94,6 @@ public class FoodOverviewFragment extends Fragment {
                         if (integer == 0 || finishedMeasurements.size() == 0) {
                           return;
                         }
-
-                        Log.d("yolo", "measurements all: " + finishedMeasurements.size());
 
                         // Remove unfinished measurements
                         finishedMeasurements.get(0)
