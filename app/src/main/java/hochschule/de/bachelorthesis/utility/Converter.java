@@ -49,29 +49,6 @@ public class Converter {
     return String.valueOf(f);
   }
 
-  /**
-   * @param year - Year
-   * @param month - Month
-   * @param dayOfMonth - The day of the month
-   * @param hourOfDay - Hour
-   * @param minute - Minute
-   * @return Returns a timestamp with the pattern "dd.MM.yyyy_HH:mm" of the given values.
-   */
-  public static String buildTimestamp(int year, int month, int dayOfMonth, int hourOfDay,
-      int minute) {
-    // If date or time has not been set yet, just return an empty string
-    if (year == -1 || month == -1 || dayOfMonth == -1 || hourOfDay == -1 || minute == -1) {
-      return "";
-    }
-
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(year, month, dayOfMonth, hourOfDay, minute, 0);
-    Date date = calendar.getTime();
-
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-    return sdf.format(date);
-  }
-
   public static String convertTimeStampToDate(String timeStamp) {
     if (timeStamp == null || timeStamp.length() == 0) {
       return "";
@@ -83,6 +60,8 @@ public class Converter {
     if (timeStamp == null || timeStamp.length() == 0) {
       return "";
     }
+
+    // TODO get am/pm here, maybe add AM/PM at the end of the timestamp!
 
     String time = String.copyValueOf(timeStamp.toCharArray(), 11, 5);
 
@@ -131,6 +110,58 @@ public class Converter {
     return "";
   }
 
+  // dd.mm.yyyy am or dd.mm.yyyy pm
+  public static int convertDateToYear(String s) {
+    if (s.length() == 0) {
+      return -1;
+    }
+
+    return Integer.parseInt(s.substring(6, 10));
+  }
+
+  public static int convertDateToMonth(String s) {
+    if (s.length() == 0) {
+      return -1;
+    }
+
+    if (s.substring(3, 4).equals(String.valueOf(0))) {
+      return Integer.parseInt(s.substring(4, 5));
+    }
+    return Integer.parseInt(s.substring(3, 5));
+  }
+
+  public static int convertDateToDay(String s) {
+    if (s.length() == 0) {
+      return -1;
+    }
+
+    if (s.substring(0, 1).equals(String.valueOf(0))) {
+      return Integer.parseInt(s.substring(1, 2));
+    }
+    return Integer.parseInt(s.substring(0, 2));
+  }
+
+  public static int convertTimeToHours(String s) {
+    if (s.length() == 0) {
+      return -1;
+    }
+
+    if (s.substring(0, 1).equals(String.valueOf(0))) {
+      return Integer.parseInt(s.substring(1, 2));
+    }
+    return Integer.parseInt(s.substring(0, 2));
+  }
+
+  public static int convertTimeToMinutes(String s) {
+    if (s.length() == 0) {
+      return -1;
+    }
+
+    if (s.substring(3, 4).equals(String.valueOf(0))) {
+      return Integer.parseInt(s.substring(4, 5));
+    }
+    return Integer.parseInt(s.substring(3, 5));
+  }
 
   public static String convertString(String s) {
     if (s == null) {

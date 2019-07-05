@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import static hochschule.de.bachelorthesis.utility.Converter.convertDateToYear;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -22,21 +23,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-
+import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.Converter;
+import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.utility.Parser;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-
-import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementAddFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
@@ -48,12 +48,13 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   private int mFoodId;
 
   // Time
+  /*
   private int mYear;
   private int mMonth;
   private int mDayOfMonth;
   private int mHourOfDay;
   private int mMinute;
-
+  */
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -92,6 +93,17 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     adapter = ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
         R.array.tired, android.R.layout.simple_spinner_item);
     mBinding.tired.setAdapter(adapter);
+
+    // Build from string
+    mViewModel.getMeasurementAddModel().getTimestamp().observe(getViewLifecycleOwner(),
+        new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            String date = Converter.convertTimeStampToDate(s);
+            String time = Converter.convertTimeStampToTimeStart(s);
+            Log.d("yolo", "onChanged: year = " + convertDateToYear(date));
+          }
+        });
 
     // load the last user input by observing the view model object
     // filter has to be false otherwise auto complete will destroy the dropdown element.
@@ -176,6 +188,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     super.onStop();
 
     // Set timestamp for date and time
+
     mViewModel.getMeasurementAddModel().getTimestamp().setValue(buildTimestamp());
 
     // The Integer value have to be parsed first
@@ -238,14 +251,27 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
 
     final String date = "" + dayFormatted + "." + monthFormatted + "." + year;
     mBinding.date.setText(date);
-
-    mYear = year;
-    mMonth = month;
-    mDayOfMonth = dayOfMonth;
   }
 
   @Override
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    // Adds either am or pm at the end of the result string
+    String am_pm;
+
+    // Need to fix the am/pm thing, even tho the user just can select am/pm
+    // the result would be like 22:00pm rather than 10:00pm
+    if (hourOfDay == 0) {
+      hourOfDay += 12;
+      am_pm = " AM";
+    } else if (hourOfDay == 12) {
+      am_pm = " PM";
+    } else if (hourOfDay > 12) {
+      hourOfDay -= 12;
+      am_pm = " PM";
+    } else {
+      am_pm = " AM";
+    }
+
     // Takes the existing time values and add leading zeros to strings smaller than 10.
     // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
     String hoursFormatted = String.valueOf(hourOfDay);
@@ -259,20 +285,8 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
       minutesFormatted = "0" + minute;
     }
 
-    // Adds either am or pm at the end of the result string
-    String am_pm;
-
-    if (hourOfDay < 12) {
-      am_pm = "am";
-    } else {
-      am_pm = "pm";
-    }
-
     final String time = "" + hoursFormatted + ":" + minutesFormatted + am_pm;
     mBinding.time.setText(time);
-
-    mHourOfDay = hourOfDay;
-    mMinute = minute;
   }
 
   /**
@@ -384,13 +398,26 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   }
 
   /**
-   * @return Returns a time stepm with the pattern "dd.MM.yyyy_HH:mm"
+   * @return Returns a timestamp with the pattern "dd.MM.yyyy_HH:mm"
    */
   private String buildTimestamp() {
-    //TODO - Check if input is okay
-    // Build timestamp
+    // Get time data
+    int year = Converter.convertDateToYear(mBinding.date.getText().toString());
+    int month = Converter.convertDateToMonth(mBinding.date.getText().toString());
+    int day = Converter.convertDateToDay(mBinding.date.getText().toString());
+    int hours = Converter.convertTimeToHours(mBinding.time.getText().toString());
+    int minutes = Converter.convertTimeToMinutes(mBinding.time.getText().toString());
+
+    Log.d("yolo", "buildTimestamp:"
+        + " \nyear = " + year
+        + "\nmonth = " + month
+        + "\n day = " + day
+        + "\n hours = " + hours
+        + "\n minutes  " + minutes
+    );
+
     Calendar calendar = Calendar.getInstance();
-    calendar.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
+    calendar.set(year, month, day, hours, minutes, 0);
     Date date = calendar.getTime();
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
