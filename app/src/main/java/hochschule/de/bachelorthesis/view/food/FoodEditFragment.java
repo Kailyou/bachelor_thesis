@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodEditBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
@@ -245,12 +245,12 @@ public class FoodEditFragment extends Fragment {
 
                   mViewModel.update(food);
 
-                  MyToast
-                      .createToast(getContext(),
+                  MySnackBar
+                      .createSnackBar(getContext(),
                           mBinding.foodName.getText().toString() + " updated...");
                 } else {
-                  MyToast
-                      .createToast(getContext(), "You cannot update the same food!");
+                  MySnackBar
+                      .createSnackBar(getContext(), "You cannot update the same food!");
                 }
               }
             });
@@ -259,6 +259,6 @@ public class FoodEditFragment extends Fragment {
   }
 
   private void toast(String msg) {
-    MyToast.createToast(getContext(), msg);
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 }

@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.me;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +23,7 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeEditBinding;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
 
 /**
@@ -191,7 +190,7 @@ public class MeEditFragment extends Fragment {
    * @param msg - Message to deliver!
    */
   private void toast(String msg) {
-    MyToast.createToast(getContext(), msg);
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 
   /**

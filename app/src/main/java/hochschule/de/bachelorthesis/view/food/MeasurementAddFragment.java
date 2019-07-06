@@ -3,7 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +25,7 @@ import hochschule.de.bachelorthesis.databinding.FragmentMeasurementAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Parser;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.text.SimpleDateFormat;
@@ -139,6 +138,8 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         }
         return true;
 
+      // While clearing update the view model. Counts will be set to -1, so they
+      // can be parsed to an empty String.
       case R.id.clear:
         mViewModel.updateMeasurementAddModel(new Measurement(
             -1, -1,
@@ -159,34 +160,25 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     return super.onOptionsItemSelected(item);
   }
 
-  /**
-   * Saving the current state to the viewModel.
-   *
-   * Uses a function to parse a Float value.
-   *
-   * If the Integer value is empty, the result will be a -1.
-   *
-   * The view will convert that -1 to an empty String.
-   */
+
   @Override
   public void onStop() {
     super.onStop();
 
-    // Set timestamp for date and time
-
-    mViewModel.getMeasurementAddModel().getTimestamp().setValue(buildTimestamp());
-
+    // Saving the current state to the viewModel.
     // The Integer value have to be parsed first
-
     // If amount is 0, there has been no user input because the amount cannot be zero.
     // In this case set it to -1, so the parser will use an empty string
 
+    mViewModel.getMeasurementAddModel().getTimestamp().setValue(buildTimestamp());
+
+    /* Integers */
     mViewModel.getMeasurementAddModel().getAmount().setValue(
         Parser.parseInteger(Objects.requireNonNull(mBinding.amount.getText()).toString()));
     mViewModel.getMeasurementAddModel().getValue0().setValue(
         Parser.parseInteger(Objects.requireNonNull(mBinding.mv0.getText()).toString()));
 
-    // Checkboxes
+    /* Checkboxes */
     mViewModel.getMeasurementAddModel().isGi().setValue(mBinding.gi.isChecked());
     mViewModel.getMeasurementAddModel().getPhysicallyActivity()
         .setValue(mBinding.physicallyActive.isChecked());
@@ -196,7 +188,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     mViewModel.getMeasurementAddModel().getMedication().setValue(mBinding.medication.isChecked());
     mViewModel.getMeasurementAddModel().getPeriod().setValue(mBinding.period.isChecked());
 
-    // Drop downs
+    /* Drop downs */
     mViewModel.getMeasurementAddModel().getStressed()
         .setValue(mBinding.stress.getText().toString());
     mViewModel.getMeasurementAddModel().getTired().setValue(mBinding.tired.getText().toString());
@@ -223,8 +215,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     // Build a string of a date by using the calender class
     // with the pattern dd.mm.yyyy
-    // Example:
-    // 11.10.2019
+    // Example: 11.10.2019
     Calendar calendar = Calendar.getInstance();
     calendar.set(year, month, dayOfMonth, 0, 0, 0);
     Date date = calendar.getTime();
@@ -238,7 +229,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     String am_pm;
 
     // Get the format AM or PM by checking if the hourOfDay value.
-    // If it is
+    // If the hour of day amount is greater than 12, then it is PM.
     if (hourOfDay == 0) {
       hourOfDay += 12;
       am_pm = " AM";
@@ -251,6 +242,10 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
       am_pm = " AM";
     }
 
+    // Create a calender instance to create a date object with the pattern
+    // hh:mm to get a String like that of the given hours and minute.
+    // Finally add the formatting at the end and update the view
+    // Example: 06:25 AM
     Calendar calendar = Calendar.getInstance();
     calendar.set(0, 0, 0, hourOfDay, minute, 0);
     Date date = calendar.getTime();
@@ -315,7 +310,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         uh.removeObserver(this);
 
         if (userHistory == null) {
-          MyToast.createToast(getContext(), "Please enter user data first!");
+          MySnackBar.createSnackBar(getContext(), "Please enter user data first!");
           return;
         }
 
@@ -368,11 +363,9 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   }
 
   /**
-   *
-   * EXAMPLE: 05.07.2019_06:03 AM
-   *
    * @return Returns a timestamp with the pattern "dd.mm.yyyy_hh:mm FORMAT"
    *
+   * EXAMPLE: 05.07.2019_06:03 AM
    */
   private String buildTimestamp() {
     if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")
@@ -383,7 +376,12 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     return mBinding.date.getText().toString() + ":" + mBinding.time.getText().toString();
   }
 
+  /**
+   * Creates a snack bar faster.
+   *
+   * @param msg - Message to display in the snack bar.
+   */
   private void toast(String msg) {
-    MyToast.createToast(getContext(), msg);
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 }

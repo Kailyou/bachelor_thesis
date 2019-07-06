@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +22,7 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.utility.MyToast;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
@@ -275,11 +274,11 @@ public class FoodAddFragment extends Fragment {
 
     mViewModel.insertFood(newFood);
 
-    MyToast
-        .createToast(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
+    MySnackBar
+        .createSnackBar(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
   }
 
   private void toast(String msg) {
-    MyToast.createToast(getContext(), msg);
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 }

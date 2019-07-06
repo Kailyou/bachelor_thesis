@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -20,23 +19,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
+import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementEditBinding;
-import hochschule.de.bachelorthesis.utility.MyMath;
-import java.lang.reflect.Array;
+import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
+import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
-import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.utility.MyToast;
-import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementEditFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
@@ -49,13 +43,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
   private int mFoodId;
   private int mMeasurementId;
-
-  // Time
-  private int mYear;
-  private int mMonth;
-  private int mDayOfMonth;
-  private int mHourOfDay;
-  private int mMinute;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,7 +136,9 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.save) {
-      save();
+      if (isPutOkay()) {
+        save();
+      }
       return true;
     }
 
@@ -170,9 +159,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     datePickerDialog.show();
   }
 
-  /**
-   * Opens a dialog to choose the time.
-   */
   private void chooseTimeDialog() {
     TimePickerDialog timePickerDialog =
         new TimePickerDialog(getContext(), this, 0, 0, false);
@@ -181,63 +167,101 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
   @Override
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-    // Takes the existing time values and add leading zeros to strings smaller than 10.
-    // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
-    String monthFormatted = String.valueOf(month);
-    String dayFormatted = String.valueOf(dayOfMonth);
-
-    if (month < 10) {
-      monthFormatted = "0" + month;
-    }
-
-    if (dayOfMonth < 10) {
-      dayFormatted = "0" + dayOfMonth;
-    }
-
-    final String date = "" + dayFormatted + "." + monthFormatted + "." + year;
-    mBinding.date.setText(date);
-
-    mYear = year;
-    mMonth = month;
-    mDayOfMonth = dayOfMonth;
+    // Build a string of a date by using the calender class
+    // with the pattern dd.mm.yyyy
+    // Example: 11.10.2019
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(year, month, dayOfMonth, 0, 0, 0);
+    Date date = calendar.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    mBinding.date.setText(sdf.format(date));
   }
 
   @Override
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-    // Takes the existing time values and add leading zeros to strings smaller than 10.
-    // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
-    String hoursFormatted = String.valueOf(hourOfDay);
-    String minutesFormatted = String.valueOf(minute);
-
-    if (hourOfDay < 10) {
-      hoursFormatted = "0" + hourOfDay;
-    }
-
-    if (minute < 10) {
-      minutesFormatted = "0" + minute;
-    }
-
     // Adds either am or pm at the end of the result string
     String am_pm;
 
-    if (hourOfDay < 12) {
-      am_pm = "am";
+    // Get the format AM or PM by checking if the hourOfDay value.
+    // If it is
+    if (hourOfDay == 0) {
+      hourOfDay += 12;
+      am_pm = " AM";
+    } else if (hourOfDay == 12) {
+      am_pm = " PM";
+    } else if (hourOfDay > 12) {
+      hourOfDay -= 12;
+      am_pm = " PM";
     } else {
-      am_pm = "pm";
+      am_pm = " AM";
     }
 
-    final String time = "" + hoursFormatted + ":" + minutesFormatted + am_pm;
-    mBinding.time.setText(time);
+    // Create a calender instance to create a date object with the pattern
+    // hh:mm to get a String like that of the given hours and minute.
+    // Finally add the formatting at the end and update the view
+    // Example: 06:25 AM
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(0, 0, 0, hourOfDay, minute, 0);
+    Date date = calendar.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm", Locale.getDefault());
+    String finalText = sdf.format(date) + " " + am_pm;
+    mBinding.time.setText(finalText);
+  }
 
-    mHourOfDay = hourOfDay;
-    mMinute = minute;
+  /**
+   * Checks if the user input has been valid.
+   *
+   * The input is okay if at least the minimum data has been entered
+   *
+   * Required data for valid input: date, time, amount, stress, tired and glucose begin
+   *
+   * Checkboxes are not required because they are default set to false.
+   *
+   * @return returns true if the input was okay. returns false otherwise.
+   */
+  private boolean isPutOkay() {
+    // checks the text fields
+    if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
+      toast("Please select the date.");
+      return false;
+    }
+
+    if (mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
+      toast("Please select the time.");
+      return false;
+    }
+
+    // If it is a GI measurement, the amount field is not important because it will be disabled
+    // and the amount to consume will be calculated instead of.
+    if (!mBinding.gi.isChecked()) {
+      if (mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
+        toast("Please enter the amount consumed.");
+        return false;
+      }
+    }
+
+    if (mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
+      toast("Please select the stress level.");
+      return false;
+    }
+
+    if (mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
+      toast("Please select the tiredness level.");
+      return false;
+    }
+
+    if (mBinding.mv0.getText() == null || mBinding.mv0.getText().toString().equals("")) {
+      toast("Please select at least the start glucose value.");
+      return false;
+    }
+
+    return true;
   }
 
   /**
    * Updates the current measurement database entry.
-   * <p>
-   * If the measurement is done get the viewModel updated - The amount of measurements - The max
-   * glucose value - The average glucose value - The rating - The personal index
+   *
+   * If the measurement is done get the viewModel updated
    */
   private void save() {
     // Get the current measurement
@@ -262,125 +286,58 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
 
   private void updateMeasurement(Food food, final Measurement measurement) {
-    // Build timestamp
-    Calendar calender = Calendar.getInstance();
-    calender.set(mYear, mMonth, mDayOfMonth, mHourOfDay, mMinute, 0);
-    Date date = calender.getTime();
+    measurement.setTimeStamp(buildTimestamp());
+    measurement.setGi(mBinding.gi.isChecked());
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-
-    // New values
-    String timeStamp = sdf.format(date);
-    int amount = Integer.parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
-    String stress = mBinding.stress.getText().toString();
-    String tired = mBinding.tired.getText().toString();
-
-    final ArrayList<Integer> glucoseValues = new ArrayList<>();
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString()));
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString()));
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString()));
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString()));
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString()));
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString()));
-    glucoseValues.add(Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString()));
-    glucoseValues
-        .add(Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString()));
-    glucoseValues
-        .add(Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString()));
-
-    // check if all measurements have been entered
-    boolean isDone = checkIsDone(glucoseValues);
-
-    if (isDone) {
-      mViewModel.updateMeasurement(measurement);
+    // if GI calculation, amount field will be deactivated and the amount will be calculated
+    if (measurement.isGi()) {
+      //TODO
+      // for teast reasons set to 1000
+      measurement.setAmount(1000);
+    } else {
+      measurement.setAmount(Integer
+          .parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString()));
     }
+
+    measurement.setStress(mBinding.stress.getText().toString());
+    measurement.setTired(mBinding.tired.getText().toString());
+    measurement.setPhysicallyActivity(mBinding.physicallyActive.isChecked());
+    measurement.setAlcoholConsumed(mBinding.alcoholConsumed.isChecked());
+    measurement.setIll(mBinding.ill.isChecked());
+
+    // if not ill, medication checkbox will be deactivated and set to false
+    if (!measurement.isIll()) {
+      measurement.setMedication(mBinding.medication.isChecked());
+    } else {
+      mBinding.medication.setChecked(false);
+      mBinding.medication.setEnabled(false);
+      measurement.setMedication(false);
+    }
+
+    // TODO check if user is male or female, if female, disable
+    measurement.setPeriod(mBinding.period.isChecked());
+
+    // TODO  glucose values
+
+    mViewModel.updateMeasurement(measurement);
   }
+
 
   /**
-   * Checks if the measurement is done, by checking the elements in the measurement array. If only
-   * one value is zero, the measurement cannot be completed yet.
+   * @return Returns a timestamp with the pattern "dd.mm.yyyy_hh:mm FORMAT"
    *
-   * @param measurements - An array with the current measurement values.
-   * @return - Returns true if the measurement has been completed, false otherwise.
+   * EXAMPLE: 05.07.2019_06:03 AM
    */
-  private boolean checkIsDone(ArrayList<Integer> measurements) {
-    for (int i : measurements) {
-      if (i == 0) {
-        return false;
-      }
+  private String buildTimestamp() {
+    if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")
+        || mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
+      return "";
     }
 
-    return true;
-  }
-
-  /**
-   * Calculates the new glucose max value, which is the current max peak of all measurements for
-   * that food.
-   * <p>
-   * A given array with the current measurement values will be compared with the current max value.
-   * <p>
-   * The biggest will be returned.
-   *
-   * @param measurements - Array with current measurement values.
-   * @param currentMaxPeak - The current glucose max value.
-   * @return - The new glucose max value.
-   */
-  private int calculateGlucoseMax(int[] measurements, int currentMaxPeak) {
-    int newGlucoseMax = currentMaxPeak;
-
-    for (int i = 1; i < measurements.length; i++) {
-      if (measurements[i] > newGlucoseMax) {
-        newGlucoseMax = measurements[i];
-      }
-    }
-
-    return newGlucoseMax;
-  }
-
-
-  /*
-  private int CalculateGlucoseAverageAll(int[] measurements) {
-
-  }
-  */
-
-  /**
-   * Checks if the user input has been valid.
-   *
-   * @return returns true if the input was okay. returns false otherwise.
-   */
-  private boolean inPutOkay() {
-    // checks the text fields
-    if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
-      toast("Please enter the food's name.");
-      return false;
-    }
-
-    if (mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
-      toast("Please enter the food's brand name.");
-      return false;
-    }
-
-    if (mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
-      toast("Please enter the food's type.");
-      return false;
-    }
-
-    // checks the drop down menus
-    if (mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
-      toast("Please enter the kilo calories.");
-      return false;
-    }
-
-    if (mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
-      toast("Please enter the kilo joules.");
-      return false;
-    }
-
-    return true;
+    return mBinding.date.getText().toString() + ":" + mBinding.time.getText().toString();
   }
 
   private void toast(String msg) {
-    MyToast.createToast(getContext(), msg);
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 }
