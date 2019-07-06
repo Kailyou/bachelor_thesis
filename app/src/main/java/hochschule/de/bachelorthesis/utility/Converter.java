@@ -1,6 +1,5 @@
 package hochschule.de.bachelorthesis.utility;
 
-import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,13 +60,7 @@ public class Converter {
       return "";
     }
 
-    // TODO get am/pm here, maybe add AM/PM at the end of the timestamp!
-
-    String time = String.copyValueOf(timeStamp.toCharArray(), 11, 5);
-
-    Log.d("yolo", "convertTimeStampToTimeStart: timestamp = " + time);
-
-    return String.copyValueOf(timeStamp.toCharArray(), 11, 5);
+    return timeStamp.substring(11);
   }
 
   /**
@@ -82,7 +75,7 @@ public class Converter {
    * @return - Returns either "" or the correct time as a String
    */
   public static String convertTimeStampToTimeEnd(String timeStamp) {
-    if (timeStamp == null) {
+    if (timeStamp == null || timeStamp.length() == 0) {
       return "";
     }
 
@@ -100,7 +93,7 @@ public class Converter {
       Date newDate = calendar.getTime();
 
       // Convert to string again and return
-      SimpleDateFormat sdfNew = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+      SimpleDateFormat sdfNew = new SimpleDateFormat("dd.MM. :mm", Locale.getDefault());
       return convertTimeStampToTimeStart(sdfNew.format(newDate));
 
     } catch (ParseException e) {
@@ -108,59 +101,6 @@ public class Converter {
     }
 
     return "";
-  }
-
-  // dd.mm.yyyy am or dd.mm.yyyy pm
-  public static int convertDateToYear(String s) {
-    if (s.length() == 0) {
-      return -1;
-    }
-
-    return Integer.parseInt(s.substring(6, 10));
-  }
-
-  public static int convertDateToMonth(String s) {
-    if (s.length() == 0) {
-      return -1;
-    }
-
-    if (s.substring(3, 4).equals(String.valueOf(0))) {
-      return Integer.parseInt(s.substring(4, 5));
-    }
-    return Integer.parseInt(s.substring(3, 5));
-  }
-
-  public static int convertDateToDay(String s) {
-    if (s.length() == 0) {
-      return -1;
-    }
-
-    if (s.substring(0, 1).equals(String.valueOf(0))) {
-      return Integer.parseInt(s.substring(1, 2));
-    }
-    return Integer.parseInt(s.substring(0, 2));
-  }
-
-  public static int convertTimeToHours(String s) {
-    if (s.length() == 0) {
-      return -1;
-    }
-
-    if (s.substring(0, 1).equals(String.valueOf(0))) {
-      return Integer.parseInt(s.substring(1, 2));
-    }
-    return Integer.parseInt(s.substring(0, 2));
-  }
-
-  public static int convertTimeToMinutes(String s) {
-    if (s.length() == 0) {
-      return -1;
-    }
-
-    if (s.substring(3, 4).equals(String.valueOf(0))) {
-      return Integer.parseInt(s.substring(4, 5));
-    }
-    return Integer.parseInt(s.substring(3, 5));
   }
 
   public static String convertString(String s) {

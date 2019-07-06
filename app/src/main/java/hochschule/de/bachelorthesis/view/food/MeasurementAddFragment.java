@@ -1,7 +1,5 @@
 package hochschule.de.bachelorthesis.view.food;
 
-import static hochschule.de.bachelorthesis.utility.Converter.convertDateToYear;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -28,7 +26,6 @@ import hochschule.de.bachelorthesis.databinding.FragmentMeasurementAddBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.MyToast;
 import hochschule.de.bachelorthesis.utility.Parser;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
@@ -99,9 +96,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         new Observer<String>() {
           @Override
           public void onChanged(String s) {
-            String date = Converter.convertTimeStampToDate(s);
-            String time = Converter.convertTimeStampToTimeStart(s);
-            Log.d("yolo", "onChanged: year = " + convertDateToYear(date));
           }
         });
 
@@ -236,21 +230,15 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
 
   @Override
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-    // Takes the existing time values and add leading zeros to strings smaller than 10.
-    // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
-    String monthFormatted = String.valueOf(month);
-    String dayFormatted = String.valueOf(dayOfMonth);
-
-    if (month < 10) {
-      monthFormatted = "0" + month;
-    }
-
-    if (dayOfMonth < 10) {
-      dayFormatted = "0" + dayOfMonth;
-    }
-
-    final String date = "" + dayFormatted + "." + monthFormatted + "." + year;
-    mBinding.date.setText(date);
+    // Build a string of a date by using the calender class
+    // with the pattern dd.mm.yyyy
+    // Example:
+    // 11.10.2019
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(year, month, dayOfMonth, 0, 0, 0);
+    Date date = calendar.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    mBinding.date.setText(sdf.format(date));
   }
 
   @Override
@@ -258,8 +246,8 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     // Adds either am or pm at the end of the result string
     String am_pm;
 
-    // Need to fix the am/pm thing, even tho the user just can select am/pm
-    // the result would be like 22:00pm rather than 10:00pm
+    // Get the format AM or PM by checking if the hourOfDay value.
+    // If it is
     if (hourOfDay == 0) {
       hourOfDay += 12;
       am_pm = " AM";
@@ -272,21 +260,12 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
       am_pm = " AM";
     }
 
-    // Takes the existing time values and add leading zeros to strings smaller than 10.
-    // So the result view will look e.g. 06.04.2019 rather than 6.4.2019
-    String hoursFormatted = String.valueOf(hourOfDay);
-    String minutesFormatted = String.valueOf(minute);
-
-    if (hourOfDay < 10) {
-      hoursFormatted = "0" + hourOfDay;
-    }
-
-    if (minute < 10) {
-      minutesFormatted = "0" + minute;
-    }
-
-    final String time = "" + hoursFormatted + ":" + minutesFormatted + am_pm;
-    mBinding.time.setText(time);
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(0, 0, 0, hourOfDay, minute, 0);
+    Date date = calendar.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm", Locale.getDefault());
+    String finalText = sdf.format(date) + " " + am_pm;
+    mBinding.time.setText(finalText);
   }
 
   /**
@@ -398,30 +377,69 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   }
 
   /**
-   * @return Returns a timestamp with the pattern "dd.MM.yyyy_HH:mm"
+   * FORMAT is either AM or PM.
+   *
+   * EXAMPLE: 05.07.2019_06:03 AM
+   *
+   * @return Returns a timestamp with the pattern "dd.mm.yyyy_hh:mm FORMAT"
    */
   private String buildTimestamp() {
+    if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")
+        || mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
+      return "";
+    }
+
+    Log.d("yolo",
+        "buildTimestamp: timestamp = " + mBinding.date.getText().toString() + ":" + mBinding.time
+            .getText().toString());
+
+    return mBinding.date.getText().toString() + ":" + mBinding.time.getText().toString();
+
+
+    /*
+
+    String yearString = Converter.convertDateToYear(mBinding.date.getText().toString());
+    String monthString = Converter.convertDateToMonth(mBinding.date.getText().toString());
+    String dayString = Converter.convertDateToDay(mBinding.date.getText().toString());
+    String hoursString = Converter.convertTimeToHours(mBinding.time.getText().toString());
+    String minutesString = Converter.convertTimeToMinutes(mBinding.time.getText().toString());
+    String format = Converter.convertTimeToFormat(mBinding.time.getText().toString());
+
+    // Test for input and give only an empty String if one value which is needed
+    // to build the timestamp is empty
+    if (yearString.equals("")
+        || monthString.equals("")
+        || dayString.equals("")
+        || hoursString.equals("")
+        || minutesString.equals("")
+        || format.equals("")) {
+      return "";
+    }
+
     // Get time data
-    int year = Converter.convertDateToYear(mBinding.date.getText().toString());
-    int month = Converter.convertDateToMonth(mBinding.date.getText().toString());
-    int day = Converter.convertDateToDay(mBinding.date.getText().toString());
-    int hours = Converter.convertTimeToHours(mBinding.time.getText().toString());
-    int minutes = Converter.convertTimeToMinutes(mBinding.time.getText().toString());
+    int year = Integer.parseInt(yearString);
+    int month = Integer.parseInt(monthString);
+    int day = Integer.parseInt(dayString);
+    int hours = Integer.parseInt(hoursString);
+    int minutes = Integer.parseInt(minutesString);
 
-    Log.d("yolo", "buildTimestamp:"
-        + " \nyear = " + year
-        + "\nmonth = " + month
-        + "\n day = " + day
-        + "\n hours = " + hours
-        + "\n minutes  " + minutes
-    );
-
+    // Build a string of a date by using the calender class
     Calendar calendar = Calendar.getInstance();
     calendar.set(year, month, day, hours, minutes, 0);
     Date date = calendar.getTime();
-
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-    return sdf.format(date);
+    String dateString = sdf.format(date);
+
+    // Finally add the format to complete the timestamp
+    String timeStamp = dateString + " " + format;
+
+    Log.d("yolo", "buildTimestamp:"
+        + " \nDate = " + dayString + "." + monthString + "." + yearString
+        + " \nTime = " + hoursString + ":" + minutesString + " " + format
+        + " \nTimestamp = " + timeStamp
+    );
+
+*/
   }
 
   private void toast(String msg) {
