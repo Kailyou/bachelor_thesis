@@ -44,15 +44,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
 
   private int mFoodId;
 
-  // Time
-  /*
-  private int mYear;
-  private int mMonth;
-  private int mDayOfMonth;
-  private int mHourOfDay;
-  private int mMinute;
-  */
-
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -389,57 +380,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
       return "";
     }
 
-    Log.d("yolo",
-        "buildTimestamp: timestamp = " + mBinding.date.getText().toString() + ":" + mBinding.time
-            .getText().toString());
-
     return mBinding.date.getText().toString() + ":" + mBinding.time.getText().toString();
-
-
-    /*
-
-    String yearString = Converter.convertDateToYear(mBinding.date.getText().toString());
-    String monthString = Converter.convertDateToMonth(mBinding.date.getText().toString());
-    String dayString = Converter.convertDateToDay(mBinding.date.getText().toString());
-    String hoursString = Converter.convertTimeToHours(mBinding.time.getText().toString());
-    String minutesString = Converter.convertTimeToMinutes(mBinding.time.getText().toString());
-    String format = Converter.convertTimeToFormat(mBinding.time.getText().toString());
-
-    // Test for input and give only an empty String if one value which is needed
-    // to build the timestamp is empty
-    if (yearString.equals("")
-        || monthString.equals("")
-        || dayString.equals("")
-        || hoursString.equals("")
-        || minutesString.equals("")
-        || format.equals("")) {
-      return "";
-    }
-
-    // Get time data
-    int year = Integer.parseInt(yearString);
-    int month = Integer.parseInt(monthString);
-    int day = Integer.parseInt(dayString);
-    int hours = Integer.parseInt(hoursString);
-    int minutes = Integer.parseInt(minutesString);
-
-    // Build a string of a date by using the calender class
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(year, month, day, hours, minutes, 0);
-    Date date = calendar.getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-    String dateString = sdf.format(date);
-
-    // Finally add the format to complete the timestamp
-    String timeStamp = dateString + " " + format;
-
-    Log.d("yolo", "buildTimestamp:"
-        + " \nDate = " + dayString + "." + monthString + "." + yearString
-        + " \nTime = " + hoursString + ":" + minutesString + " " + format
-        + " \nTimestamp = " + timeStamp
-    );
-
-*/
   }
 
   private void toast(String msg) {
