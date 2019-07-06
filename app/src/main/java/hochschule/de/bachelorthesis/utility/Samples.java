@@ -67,11 +67,19 @@ public class Samples {
         8f);
   }
 
-  public static Measurement getRandomMeasurement(Context context, int foodId, int userHistoryId) {
+  public static Measurement getRandomMeasurementUnfinished(Context context, int foodId,
+      int userHistoryId) {
+
+    String formatting = " AM";
+    int randomFormatting = MyMath.getRandomInt(0, 1);
+    if (randomFormatting == 1) {
+      formatting = " PM";
+    }
+
     // Get current time
     Date currentTime = Calendar.getInstance().getTime();
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-    String timeStamp = sdf.format(currentTime);
+    String timeStamp = sdf.format(currentTime + formatting);
 
     int randomAmount = MyMath.getRandomInt(50, 1000);
     String randomStress = context.getResources().getStringArray(R.array.stress)[MyMath
@@ -79,7 +87,7 @@ public class Samples {
     String randomTired = context.getResources().getStringArray(R.array.tired)[MyMath
         .getRandomInt(0, 2)];
 
-    boolean randomGi = (MyMath.getRandomInt(0, 1) != 0);
+    // boolean randomGi = (MyMath.getRandomInt(0, 1) != 0);
     boolean randomPhysicallyActive = (MyMath.getRandomInt(0, 1) != 0);
     boolean randomAlcoholConsumed = (MyMath.getRandomInt(0, 1) != 0);
     boolean randomIll = (MyMath.getRandomInt(0, 1) != 0);
@@ -91,14 +99,18 @@ public class Samples {
     }
     boolean randomPeriod = (MyMath.getRandomInt(0, 1) != 0);
 
-    Measurement measurement = new Measurement(foodId, userHistoryId, randomGi, timeStamp,
+    return new Measurement(foodId, userHistoryId, false, timeStamp,
         randomAmount,
         randomStress, randomTired, randomPhysicallyActive, randomAlcoholConsumed, randomIll,
         randomMedication, randomPeriod,
         100);
+  }
+
+  public static Measurement getRandomMeasurement(Context context, int foodId, int userHistoryId) {
+    Measurement randomMeasurement = getRandomMeasurementUnfinished(context, foodId, userHistoryId);
 
     // Random measurement, starting with 100 and ending with 100
-    int[] measurements = new int[]{
+    int[] glucoseValuesRandom = new int[]{
         100,
         MyMath.getRandomInt(100, 125),
         MyMath.getRandomInt(125, 150),
@@ -110,16 +122,16 @@ public class Samples {
         100
     };
 
-    measurement.setGlucoseStart(measurements[0]);
-    measurement.setGlucose15(measurements[1]);
-    measurement.setGlucose30(measurements[2]);
-    measurement.setGlucose45(measurements[3]);
-    measurement.setGlucose60(measurements[4]);
-    measurement.setGlucose75(measurements[5]);
-    measurement.setGlucose90(measurements[6]);
-    measurement.setGlucose105(measurements[7]);
-    measurement.setGlucose120(measurements[8]);
+    randomMeasurement.setGlucoseStart(glucoseValuesRandom[0]);
+    randomMeasurement.setGlucose15(glucoseValuesRandom[1]);
+    randomMeasurement.setGlucose30(glucoseValuesRandom[2]);
+    randomMeasurement.setGlucose45(glucoseValuesRandom[3]);
+    randomMeasurement.setGlucose60(glucoseValuesRandom[4]);
+    randomMeasurement.setGlucose75(glucoseValuesRandom[5]);
+    randomMeasurement.setGlucose90(glucoseValuesRandom[6]);
+    randomMeasurement.setGlucose105(glucoseValuesRandom[7]);
+    randomMeasurement.setGlucose120(glucoseValuesRandom[8]);
 
-    return measurement;
+    return randomMeasurement;
   }
 }
