@@ -368,11 +368,11 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   }
 
   /**
-   * FORMAT is either AM or PM.
    *
    * EXAMPLE: 05.07.2019_06:03 AM
    *
    * @return Returns a timestamp with the pattern "dd.mm.yyyy_hh:mm FORMAT"
+   *
    */
   private String buildTimestamp() {
     if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")
