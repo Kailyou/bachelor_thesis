@@ -2,16 +2,8 @@ package hochschule.de.bachelorthesis.utility;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.view.Gravity;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
-
 import com.google.android.material.snackbar.Snackbar;
-
-import hochschule.de.bachelorthesis.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MySnackBar {
   public static void createSnackBar(Context context, String text) {
