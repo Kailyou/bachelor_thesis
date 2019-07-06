@@ -13,9 +13,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import hochschule.de.bachelorthesis.R;
 
-public class MyToast {
-
-  public static void createToast(Context context, String text) {
+public class MySnackBar {
+  public static void createSnackBar(Context context, String text) {
     Snackbar.make(((Activity) context).getWindow().getDecorView().getRootView(), text,
         Snackbar.LENGTH_LONG)
         .show();
