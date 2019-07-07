@@ -48,6 +48,10 @@ public class Repository {
     new InsertMeasurementAsyncTask(mMeasurementDao).execute(measurement);
   }
 
+  public void update(Measurement measurement) {
+    new UpdateMeasurementAsyncTask(mMeasurementDao).execute(measurement);
+  }
+
   public void delete(Measurement measurement) {
     new DeleteMeasurementAsyncTask(mMeasurementDao).execute(measurement);
   }
@@ -133,8 +137,8 @@ public class Repository {
 
     private MeasurementDao mMeasurementDao;
 
-    private InsertMeasurementAsyncTask(MeasurementDao mFoodDao) {
-      this.mMeasurementDao = mFoodDao;
+    private InsertMeasurementAsyncTask(MeasurementDao foodDao) {
+      mMeasurementDao = foodDao;
     }
 
     @Override
@@ -144,12 +148,27 @@ public class Repository {
     }
   }
 
+  private static class UpdateMeasurementAsyncTask extends AsyncTask<Measurement, Void, Void> {
+
+    private MeasurementDao mMeasurementDao;
+
+    private UpdateMeasurementAsyncTask(MeasurementDao measurementDao) {
+      mMeasurementDao = measurementDao;
+    }
+
+    @Override
+    protected Void doInBackground(Measurement... measurements) {
+      mMeasurementDao.update(measurements[0]);
+      return null;
+    }
+  }
+
   private static class DeleteMeasurementAsyncTask extends AsyncTask<Measurement, Void, Void> {
 
     private MeasurementDao mMeasurementDao;
 
     private DeleteMeasurementAsyncTask(MeasurementDao measurementDao) {
-      this.mMeasurementDao = measurementDao;
+      mMeasurementDao = measurementDao;
     }
 
     @Override
@@ -164,7 +183,7 @@ public class Repository {
     private MeasurementDao mMeasurementDao;
 
     private DeleteAllMeasurementsWithIdAsyncTask(MeasurementDao measurementDao) {
-      this.mMeasurementDao = measurementDao;
+      mMeasurementDao = measurementDao;
     }
 
     @Override
@@ -182,8 +201,8 @@ public class Repository {
 
     private FoodDao mFoodDao;
 
-    private InsertFoodAsyncTask(FoodDao mFoodDao) {
-      this.mFoodDao = mFoodDao;
+    private InsertFoodAsyncTask(FoodDao foodDao) {
+      mFoodDao = foodDao;
     }
 
     @Override
@@ -198,8 +217,8 @@ public class Repository {
 
     private FoodDao mFoodDao;
 
-    private UpdateFoodAsyncTask(FoodDao mFoodDao) {
-      this.mFoodDao = mFoodDao;
+    private UpdateFoodAsyncTask(FoodDao foodDao) {
+      mFoodDao = foodDao;
     }
 
     @Override
@@ -213,8 +232,8 @@ public class Repository {
 
     private FoodDao mFoodDao;
 
-    private DeleteFoodAsyncTask(FoodDao mFoodDao) {
-      this.mFoodDao = mFoodDao;
+    private DeleteFoodAsyncTask(FoodDao foodDao) {
+      mFoodDao = foodDao;
     }
 
     @Override
@@ -228,8 +247,8 @@ public class Repository {
 
     private FoodDao mFoodDao;
 
-    private DeleteAllFoodAsyncTask(FoodDao mFoodDao) {
-      this.mFoodDao = mFoodDao;
+    private DeleteAllFoodAsyncTask(FoodDao foodDao) {
+      mFoodDao = foodDao;
     }
 
     @Override
@@ -246,7 +265,7 @@ public class Repository {
     private UserHistoryDao mUserHistoryDao;
 
     private InsertUserHistoryAsyncTask(UserHistoryDao userHistoryDao) {
-      this.mUserHistoryDao = userHistoryDao;
+      mUserHistoryDao = userHistoryDao;
     }
 
     @Override

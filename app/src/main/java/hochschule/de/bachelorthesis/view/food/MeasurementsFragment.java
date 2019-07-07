@@ -1,8 +1,6 @@
 package hochschule.de.bachelorthesis.view.food;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.GridLayout;
-import android.widget.GridLayout.LayoutParams;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -22,14 +18,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -163,7 +157,7 @@ public class MeasurementsFragment extends Fragment {
 
         // Update database
         mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
-        mViewModel.update(food);
+        mViewModel.updateFood(food);
       }
     });
   }

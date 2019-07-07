@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +40,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
   private FoodViewModel mViewModel;
 
-  private int mFoodId;
+  //private int mFoodId;
   private int mMeasurementId;
 
 
@@ -55,7 +56,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
     // Get passed food id
     assert getArguments() != null;
-    mFoodId = getArguments().getInt("food_id");
+    //mFoodId = getArguments().getInt("food_id");
     mMeasurementId = getArguments().getInt("measurement_id");
   }
 
@@ -160,7 +161,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
     // Create a calender instance to create a date object with the pattern
     // hh:mm to get a String like that of the given hours and minute.
-    // Finally add the formatting at the end and update the view
+    // Finally add the formatting at the end and updateFood the view
     // Example: 06:25 AM
     Calendar calendar = Calendar.getInstance();
     calendar.set(0, 0, 0, hourOfDay, minute, 0);
@@ -247,27 +248,33 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
    */
   private void save() {
     // Get the current measurement
-    final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mFoodId);
+    final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mMeasurementId);
     ldm.observe(getViewLifecycleOwner(), new Observer<Measurement>() {
       @Override
       public void onChanged(final Measurement measurement) {
         ldm.removeObserver(this);
+        updateMeasurement(measurement);
 
         // Get the food object
+        /*
         final LiveData<Food> f = mViewModel.getFoodById(mFoodId);
         f.observe(getViewLifecycleOwner(), new Observer<Food>() {
           @Override
           public void onChanged(Food food) {
             f.removeObserver(this);
-            updateMeasurement(food, measurement);
+            updateMeasurement(measurement);
           }
-        });
+        });*/
       }
     });
   }
 
 
-  private void updateMeasurement(Food food, final Measurement measurement) {
+  private void updateMeasurement(final Measurement measurement) {
+    if (measurement == null) {
+      return;
+    }
+
     measurement.setTimeStamp(buildTimestamp());
     measurement.setGi(mBinding.gi.isChecked());
 

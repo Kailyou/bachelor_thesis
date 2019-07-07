@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.utility;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class AdapterMeasurements extends
     holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAverage()));
     holder.rating.setText("unrated");
 
-    if(position == 3) {
+    if (position == 3) {
       holder.rating.setText("5");
     }
 

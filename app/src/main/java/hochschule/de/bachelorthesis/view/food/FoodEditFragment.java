@@ -189,7 +189,7 @@ public class FoodEditFragment extends Fragment {
       public void onChanged(final Food food) {
         ldf.removeObserver(this);
 
-        // If measurements have been done, user cannot update the food object
+        // If measurements have been done, user cannot updateFood the food object
 
         mViewModel.getMeasurementAmountRows(mFoodId).observe(getViewLifecycleOwner(),
             new Observer<Integer>() {
@@ -243,14 +243,14 @@ public class FoodEditFragment extends Fragment {
                   food.setSugars(newSugars);
                   food.setSalt(newSalt);
 
-                  mViewModel.update(food);
+                  mViewModel.updateFood(food);
 
                   MySnackBar
                       .createSnackBar(getContext(),
                           mBinding.foodName.getText().toString() + " updated...");
                 } else {
                   MySnackBar
-                      .createSnackBar(getContext(), "You cannot update the same food!");
+                      .createSnackBar(getContext(), "You cannot updateFood the same food!");
                 }
               }
             });

@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,7 +73,8 @@ public class MeasurementFragment extends Fragment {
     bundle.putInt("measurement_id", mMeasurementId);
 
     mBinding.fab.setOnClickListener(Navigation
-        .createNavigateOnClickListener(R.id.action_measurementFragment_to_editMeasurementFragment));
+        .createNavigateOnClickListener(R.id.action_measurementFragment_to_editMeasurementFragment,
+            bundle));
 
     mViewModel.getMeasurementById(mMeasurementId).observe(getViewLifecycleOwner(),
         new Observer<Measurement>() {

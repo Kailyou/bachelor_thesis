@@ -111,7 +111,7 @@ public class FoodAddFragment extends Fragment {
     mViewModel.getFoodAddDataModel().getType().setValue(mBinding.type.getText().toString());
 
     // The exposed drop down
-    // get the needed string out of the string array resource and update the vm.
+    // get the needed string out of the string array resource and updateFood the vm.
     mViewModel.getFoodAddDataModel().getType().setValue(mBinding.type.getText().toString());
 
     // The float values have to be parsed first

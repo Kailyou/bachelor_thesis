@@ -138,7 +138,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         }
         return true;
 
-      // While clearing update the view model. Counts will be set to -1, so they
+      // While clearing updateFood the view model. Counts will be set to -1, so they
       // can be parsed to an empty String.
       case R.id.clear:
         mViewModel.updateMeasurementAddModel(new Measurement(
@@ -227,7 +227,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
     // Create a calender instance to create a date object with the pattern
     // hh:mm to get a String like that of the given hours and minute.
-    // Finally add the formatting at the end and update the view
+    // Finally add the formatting at the end and updateFood the view
     // Example: 06:25 AM
     Calendar calendar = Calendar.getInstance();
     calendar.set(0, 0, 0, hourOfDay, minute, 0);

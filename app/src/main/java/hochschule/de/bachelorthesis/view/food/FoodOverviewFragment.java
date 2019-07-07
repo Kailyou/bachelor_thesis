@@ -3,7 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,6 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -167,7 +165,7 @@ public class FoodOverviewFragment extends Fragment {
     ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
-        mViewModel.delete(food);
+        mViewModel.deleteFood(food);
 
         // Navigate back to food fragment
         Navigation.findNavController(Objects.requireNonNull(getView()))
