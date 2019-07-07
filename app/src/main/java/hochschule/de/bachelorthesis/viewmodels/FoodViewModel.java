@@ -174,7 +174,7 @@ public class FoodViewModel extends AndroidViewModel {
    *
    * @param food - The food to update.
    */
-  public void update(Food food) {
+  public void updateFood(Food food) {
     mRepository.update(food);
   }
 
@@ -183,7 +183,7 @@ public class FoodViewModel extends AndroidViewModel {
    *
    * @param food - The food to delete.
    */
-  public void delete(Food food) {
+  public void deleteFood(Food food) {
     mRepository.delete(food);
   }
 
@@ -238,7 +238,7 @@ public class FoodViewModel extends AndroidViewModel {
    * @param measurement - Measurement object to update
    */
   public void updateMeasurement(Measurement measurement) {
-    mRepository.insert(measurement);
+    mRepository.update(measurement);
   }
 
   /**
