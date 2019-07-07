@@ -35,8 +35,6 @@ import java.util.Objects;
 public class MeasurementEditFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
-  private static final String TAG = "FoodAddFragment";
-
   private FragmentMeasurementEditBinding mBinding;
 
   private FoodViewModel mViewModel;
@@ -145,26 +143,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     return super.onOptionsItemSelected(item);
   }
 
-  /**
-   * Opens a dialog to chose the date.
-   */
-  private void chooseDateDialog() {
-    Calendar c = Calendar.getInstance();
-    int year = c.get(Calendar.YEAR);
-    int month = c.get(Calendar.MONTH);
-    int day = c.get(Calendar.DATE);
-
-    DatePickerDialog datePickerDialog =
-        new DatePickerDialog(Objects.requireNonNull(getContext()), this, year, month, day);
-    datePickerDialog.show();
-  }
-
-  private void chooseTimeDialog() {
-    TimePickerDialog timePickerDialog =
-        new TimePickerDialog(getContext(), this, 0, 0, false);
-    timePickerDialog.show();
-  }
-
   @Override
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     // Build a string of a date by using the calender class
@@ -190,6 +168,26 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa", Locale.getDefault());
 
     mBinding.time.setText(sdf.format(date));
+  }
+
+  /**
+   * Opens a dialog to chose the date.
+   */
+  private void chooseDateDialog() {
+    Calendar c = Calendar.getInstance();
+    int year = c.get(Calendar.YEAR);
+    int month = c.get(Calendar.MONTH);
+    int day = c.get(Calendar.DATE);
+
+    DatePickerDialog datePickerDialog =
+        new DatePickerDialog(Objects.requireNonNull(getContext()), this, year, month, day);
+    datePickerDialog.show();
+  }
+
+  private void chooseTimeDialog() {
+    TimePickerDialog timePickerDialog =
+        new TimePickerDialog(getContext(), this, 0, 0, false);
+    timePickerDialog.show();
   }
 
   /**

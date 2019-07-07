@@ -214,12 +214,12 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   @Override
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     // Build a string of a date by using the calender class
-    // with the pattern dd.mm.yyyy
+    // with the pattern dd/mm/yyyy
     // Example: 11.10.2019
     Calendar calendar = Calendar.getInstance();
     calendar.set(year, month, dayOfMonth, 0, 0, 0);
     Date date = calendar.getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     mBinding.date.setText(sdf.format(date));
   }
 
