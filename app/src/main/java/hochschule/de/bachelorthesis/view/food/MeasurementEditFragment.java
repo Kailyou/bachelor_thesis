@@ -20,12 +20,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import com.google.android.material.textfield.TextInputEditText;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementEditBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -254,17 +256,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
       public void onChanged(final Measurement measurement) {
         ldm.removeObserver(this);
         updateMeasurement(measurement);
-
-        // Get the food object
-        /*
-        final LiveData<Food> f = mViewModel.getFoodById(mFoodId);
-        f.observe(getViewLifecycleOwner(), new Observer<Food>() {
-          @Override
-          public void onChanged(Food food) {
-            f.removeObserver(this);
-            updateMeasurement(measurement);
-          }
-        });*/
       }
     });
   }
@@ -305,7 +296,51 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     // TODO check if user is male or female, if female, disable
     measurement.setPeriod(mBinding.period.isChecked());
 
-    // TODO  glucose values
+    int mv0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
+    int mv15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
+    int mv30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
+    int mv45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
+    int mv60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
+    int mv75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
+    int mv90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
+    int mv105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
+    int mv120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
+
+    if (mv0 != 0) {
+      measurement.setGlucoseStart(mv0);
+    }
+
+    if (mv15 != 0) {
+      measurement.setGlucose15(mv15);
+    }
+
+    if (mv30 != 0) {
+      measurement.setGlucose30(mv30);
+    }
+
+    if (mv45 != 0) {
+      measurement.setGlucose45(mv45);
+    }
+
+    if (mv60 != 0) {
+      measurement.setGlucose60(mv60);
+    }
+
+    if (mv75 != 0) {
+      measurement.setGlucose75(mv75);
+    }
+
+    if (mv90 != 0) {
+      measurement.setGlucose90(mv90);
+    }
+
+    if (mv105 != 0) {
+      measurement.setGlucose105(mv105);
+    }
+
+    if (mv120 != 0) {
+      measurement.setGlucose120(mv120);
+    }
 
     mViewModel.updateMeasurement(measurement);
   }

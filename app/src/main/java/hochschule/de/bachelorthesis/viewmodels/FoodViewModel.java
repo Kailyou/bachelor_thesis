@@ -116,7 +116,7 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodDataModel.setSalt(food.getSalt());
   }
 
-  private void updateMeasurementModel(Measurement measurement) {
+  public void updateMeasurementModel(Measurement measurement) {
     if (measurement == null) {
       return;
     }
