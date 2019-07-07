@@ -309,7 +309,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
   /**
    * @return Returns a timestamp with the pattern "dd/MM/yyyy_KK:mm aa"
    *
-   * EXAMPLE: 05.07.2019_06:03 AM
+   * EXAMPLE: 05/07/2019_06:03 AM
    */
   private String buildTimestamp() {
     if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")
