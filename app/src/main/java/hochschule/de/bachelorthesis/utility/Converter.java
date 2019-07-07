@@ -1,5 +1,6 @@
 package hochschule.de.bachelorthesis.utility;
 
+import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,6 +56,10 @@ public class Converter {
     return String.copyValueOf(timeStamp.toCharArray(), 0, 10);
   }
 
+  /**
+   * Of a given timeStamp pattern (dd.MM.yyyy_HH:mm FORMAT) there will be taken the HH.mm FORMAT
+   * part to get the time.
+   */
   public static String convertTimeStampToTimeStart(String timeStamp) {
     if (timeStamp == null || timeStamp.length() == 0) {
       return "";
@@ -79,9 +84,10 @@ public class Converter {
       return "";
     }
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy_hh:mm aa", Locale.getDefault());
     try {
       // Get Date from the time stamp
+      // Remove the last 3 characters from timeStamp, which is the formatting AM/PM
       Date date = sdf.parse(timeStamp);
 
       // Add two hours
@@ -90,12 +96,11 @@ public class Converter {
       calendar.add(Calendar.HOUR, 2);
 
       // Get new date object
-      Date newDate = calendar.getTime();
+      date = calendar.getTime();
 
       // Convert to string again and return
-      SimpleDateFormat sdfNew = new SimpleDateFormat("dd.MM. :mm", Locale.getDefault());
-      return convertTimeStampToTimeStart(sdfNew.format(newDate));
-
+      sdf = new SimpleDateFormat("KK:mm aa", Locale.getDefault());
+      return sdf.format(date);
     } catch (ParseException e) {
       e.printStackTrace();
     }

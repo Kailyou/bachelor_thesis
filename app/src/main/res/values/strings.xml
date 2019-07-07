@@ -108,7 +108,8 @@
   <string name="_90_minutes">… 90 minutes</string>
   <string name="_105_minutes">… 105 minutes</string>
   <string name="_120_minutes">… 120 minutes</string>
-  <string name="add_random_measurement">Add random measurement</string>
+  <string name="add_random_measurement_unfinished">Add random measurement (unfinished)</string>
+  <string name="add_random_measurement_finished">Add random measurement (finished)</string>
   <string name="add_coke_debug">Add Coke (Debug)</string>
   <string name="add_pizza_debug">Add Pizza (Debug)</string>
   <string name="add_apple_debug">Add Apple (Debug)</string>

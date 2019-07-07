@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,8 +113,11 @@ public class MeasurementsFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.add_tmp_measurement:
-        createTemplateMeasurement();
+      case R.id.add_tmp_measurement_unfinished:
+        createTemplateMeasurement(false);
+        return true;
+      case R.id.add_tmp_measurement_finished:
+        createTemplateMeasurement(true);
         return true;
       case R.id.delete_measurements:
         deleteMeasurements();
@@ -123,7 +127,7 @@ public class MeasurementsFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
-  private void createTemplateMeasurement() {
+  private void createTemplateMeasurement(final boolean finished) {
     final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
     ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
       @Override
@@ -131,10 +135,21 @@ public class MeasurementsFragment extends Fragment {
         ldu.removeObserver(this);
 
         if (userHistory == null) {
-          return;
+          MySnackBar.createSnackBar(getContext(), "Enter user data first!");
         }
 
-        buildsNewMeasurementAndUpdateDatabase(userHistory.id);
+        Measurement templateMeasurement;
+
+        // Create either an unfinished or a finished measurement
+        if (finished) {
+          templateMeasurement = Samples.getRandomMeasurement(
+              Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
+        } else {
+          templateMeasurement = Samples
+              .getRandomMeasurementUnfinished(getContext(), mFoodId, userHistory.id);
+        }
+
+        mViewModel.insertMeasurement(templateMeasurement);
       }
     });
   }
@@ -151,26 +166,6 @@ public class MeasurementsFragment extends Fragment {
         mViewModel.update(food);
       }
     });
-  }
-
-  private void buildsNewMeasurementAndUpdateDatabase(int userHistoryId) {
-
-    final Measurement newMeasurement = Samples.getRandomMeasurement(
-        Objects.requireNonNull(getContext()), mFoodId, userHistoryId);
-
-    // Max glucose
-    ArrayList<Integer> glucoseValues = new ArrayList<>();
-    glucoseValues.add(newMeasurement.getGlucoseStart());
-    glucoseValues.add(newMeasurement.getGlucose15());
-    glucoseValues.add(newMeasurement.getGlucose30());
-    glucoseValues.add(newMeasurement.getGlucose45());
-    glucoseValues.add(newMeasurement.getGlucose60());
-    glucoseValues.add(newMeasurement.getGlucose75());
-    glucoseValues.add(newMeasurement.getGlucose90());
-    glucoseValues.add(newMeasurement.getGlucose105());
-    glucoseValues.add(newMeasurement.getGlucose120());
-
-    mViewModel.insertMeasurement(newMeasurement);
   }
 }
 

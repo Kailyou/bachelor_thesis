@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.utility;
 
 import android.content.Context;
+import android.util.Log;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -69,17 +70,10 @@ public class Samples {
 
   public static Measurement getRandomMeasurementUnfinished(Context context, int foodId,
       int userHistoryId) {
-
-    String formatting = " AM";
-    int randomFormatting = MyMath.getRandomInt(0, 1);
-    if (randomFormatting == 1) {
-      formatting = " PM";
-    }
-
     // Get current time
     Date currentTime = Calendar.getInstance().getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm", Locale.getDefault());
-    String timeStamp = sdf.format(currentTime + formatting);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy_KK:mm aa", Locale.getDefault());
+    String timeStamp = sdf.format(currentTime);
 
     int randomAmount = MyMath.getRandomInt(50, 1000);
     String randomStress = context.getResources().getStringArray(R.array.stress)[MyMath
@@ -99,7 +93,9 @@ public class Samples {
     }
     boolean randomPeriod = (MyMath.getRandomInt(0, 1) != 0);
 
-    return new Measurement(foodId, userHistoryId, false, timeStamp,
+    return new Measurement(foodId, userHistoryId,
+        false,
+        timeStamp,
         randomAmount,
         randomStress, randomTired, randomPhysicallyActive, randomAlcoholConsumed, randomIll,
         randomMedication, randomPeriod,

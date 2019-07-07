@@ -9,9 +9,15 @@
     app:showAsAction="ifRoom"/>
 
   <item
-    android:id="@+id/add_tmp_measurement"
+    android:id="@+id/add_tmp_measurement_unfinished"
     android:icon="@drawable/ic_sort_white_24dp"
-    android:title="@string/add_random_measurement"
+    android:title="@string/add_random_measurement_unfinished"
+    app:showAsAction="never"/>
+
+  <item
+    android:id="@+id/add_tmp_measurement_finished"
+    android:icon="@drawable/ic_sort_white_24dp"
+    android:title="@string/add_random_measurement_finished"
     app:showAsAction="never"/>
 
   <item

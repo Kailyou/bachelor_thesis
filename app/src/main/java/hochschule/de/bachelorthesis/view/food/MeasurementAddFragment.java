@@ -225,23 +225,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
 
   @Override
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-    // Adds either am or pm at the end of the result string
-    String am_pm;
-
-    // Get the format AM or PM by checking if the hourOfDay value.
-    // If the hour of day amount is greater than 12, then it is PM.
-    if (hourOfDay == 0) {
-      hourOfDay += 12;
-      am_pm = " AM";
-    } else if (hourOfDay == 12) {
-      am_pm = " PM";
-    } else if (hourOfDay > 12) {
-      hourOfDay -= 12;
-      am_pm = " PM";
-    } else {
-      am_pm = " AM";
-    }
-
     // Create a calender instance to create a date object with the pattern
     // hh:mm to get a String like that of the given hours and minute.
     // Finally add the formatting at the end and update the view
@@ -249,9 +232,8 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     Calendar calendar = Calendar.getInstance();
     calendar.set(0, 0, 0, hourOfDay, minute, 0);
     Date date = calendar.getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm", Locale.getDefault());
-    String finalText = sdf.format(date) + " " + am_pm;
-    mBinding.time.setText(finalText);
+    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa", Locale.getDefault());
+    mBinding.time.setText(sdf.format(date));
   }
 
   /**
@@ -363,9 +345,9 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   }
 
   /**
-   * @return Returns a timestamp with the pattern "dd.mm.yyyy_hh:mm FORMAT"
+   * @return Returns a timestamp with the pattern "dd/MM/yyyy_hh:mm aa"
    *
-   * EXAMPLE: 05.07.2019_06:03 AM
+   * EXAMPLE: 05/07/2019_06:03 AM
    */
   private String buildTimestamp() {
     if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")

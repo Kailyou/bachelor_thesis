@@ -179,22 +179,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
   @Override
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-    // Adds either am or pm at the end of the result string
-    String am_pm;
-
-    // Get the format AM or PM by checking if the hourOfDay value.
-    // If it is
-    if (hourOfDay == 0) {
-      hourOfDay += 12;
-      am_pm = " AM";
-    } else if (hourOfDay == 12) {
-      am_pm = " PM";
-    } else if (hourOfDay > 12) {
-      hourOfDay -= 12;
-      am_pm = " PM";
-    } else {
-      am_pm = " AM";
-    }
 
     // Create a calender instance to create a date object with the pattern
     // hh:mm to get a String like that of the given hours and minute.
@@ -203,9 +187,9 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     Calendar calendar = Calendar.getInstance();
     calendar.set(0, 0, 0, hourOfDay, minute, 0);
     Date date = calendar.getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm", Locale.getDefault());
-    String finalText = sdf.format(date) + " " + am_pm;
-    mBinding.time.setText(finalText);
+    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa", Locale.getDefault());
+
+    mBinding.time.setText(sdf.format(date));
   }
 
   /**
@@ -291,8 +275,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
     // if GI calculation, amount field will be deactivated and the amount will be calculated
     if (measurement.isGi()) {
-      //TODO
-      // for teast reasons set to 1000
+      //TODO calculate the amount, for test reasons set to 1000
       measurement.setAmount(1000);
     } else {
       measurement.setAmount(Integer
@@ -324,7 +307,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
 
   /**
-   * @return Returns a timestamp with the pattern "dd.mm.yyyy_hh:mm FORMAT"
+   * @return Returns a timestamp with the pattern "dd/MM/yyyy_KK:mm aa"
    *
    * EXAMPLE: 05.07.2019_06:03 AM
    */
