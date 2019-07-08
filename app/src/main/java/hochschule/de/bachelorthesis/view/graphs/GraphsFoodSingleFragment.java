@@ -54,7 +54,6 @@ public class GraphsFoodSingleFragment extends Fragment {
     mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
         .get(GraphsViewModel.class);
 
-    // Enable menu
     setHasOptionsMenu(true);
   }
 
@@ -69,9 +68,10 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setViewModel(mViewModel);
 
-    // Dropdown
+    // Dropdown, the list of the foods. User can select the food to show graphs with
     final ArrayList<String> labels = new ArrayList<>();
 
+    // Update the food list if a new food has been added
     mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
@@ -83,7 +83,10 @@ public class GraphsFoodSingleFragment extends Fragment {
           labels.add(s);
         }
 
-        // Creating adapter for spinner
+        // Sort the list alphabetical
+        Collections.sort(labels);
+
+        // Creating adapter for dropdown list (spinner)
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
             Objects.requireNonNull(getContext()),
             android.R.layout.simple_spinner_item, labels);
@@ -94,6 +97,7 @@ public class GraphsFoodSingleFragment extends Fragment {
         // attaching data adapter to spinner
         mBinding.dropdownFood.setAdapter(dataAdapter);
 
+        // Update selected food
         mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -103,13 +107,13 @@ public class GraphsFoodSingleFragment extends Fragment {
       }
     });
 
-    // gets the current value and updates the view
+    // gets the current value and updates the view after loading this view
     mViewModel.getGraphModel().getSelectedFood().observe(this, new Observer<String>() {
       @Override
       public void onChanged(String s) {
         mBinding.dropdownFood.setText(s, false);
 
-        // Build foodName and brandName String, String s should be: foodname (brandname)
+        // Build foodName and brandName String, String s should be: food name (brand name)
         String[] parts = s.split(" [(]");
 
         mViewModel
@@ -118,7 +122,7 @@ public class GraphsFoodSingleFragment extends Fragment {
                 getViewLifecycleOwner(), new Observer<Food>() {
                   @Override
                   public void onChanged(Food food) {
-                    createLine(food.id);
+                    buildGraphForFoodId(food.id);
                   }
                 });
       }
@@ -142,7 +146,10 @@ public class GraphsFoodSingleFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
-  private void createLine(int foodId) {
+  /**
+   *
+   */
+  private void buildGraphForFoodId(int foodId) {
     resetChart();
 
     // Overall settings
