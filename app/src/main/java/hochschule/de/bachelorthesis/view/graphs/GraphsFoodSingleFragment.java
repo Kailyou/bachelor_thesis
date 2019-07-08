@@ -2,7 +2,6 @@ package hochschule.de.bachelorthesis.view.graphs;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class GraphsFoodSingleFragment extends Fragment {
 
@@ -46,8 +44,6 @@ public class GraphsFoodSingleFragment extends Fragment {
   private FragmentGraphsSingleFoodBinding mBinding;
 
   private GraphsViewModel mViewModel;
-
-  private Food mChoosenFood;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +75,8 @@ public class GraphsFoodSingleFragment extends Fragment {
     mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
+        labels.clear();
+
         for (Food f : foods) {
           // Build string in this form: Food name, brand name
           String s = f.getFoodName() + " (" + f.getBrandName() + ")";
