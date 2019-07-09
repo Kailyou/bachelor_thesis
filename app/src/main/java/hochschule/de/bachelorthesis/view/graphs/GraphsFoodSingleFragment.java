@@ -66,49 +66,12 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_graphs_single_food, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setViewModel(mViewModel);
+    mBinding.setVm(mViewModel);
 
-    // Dropdown, the list of the foods. User can select the food to show graphs with
-    final ArrayList<String> labels = new ArrayList<>();
-
-    // Update the food list if a new food has been added
-    mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
-      @Override
-      public void onChanged(List<Food> foods) {
-        labels.clear();
-
-        for (Food f : foods) {
-          // Build string in this form: Food name, brand name
-          String s = f.getFoodName() + " (" + f.getBrandName() + ")";
-          labels.add(s);
-        }
-
-        // Sort the list alphabetical
-        Collections.sort(labels);
-
-        // Creating adapter for dropdown list (spinner)
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-            Objects.requireNonNull(getContext()),
-            android.R.layout.simple_spinner_item, labels);
-
-        dataAdapter
-            .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        mBinding.dropdownFood.setAdapter(dataAdapter);
-
-        // Update selected food
-        mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
-          @Override
-          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            mViewModel.getGraphModel().setSelectedFood(mBinding.dropdownFood.getText().toString());
-          }
-        });
-      }
-    });
+    handleSelectFoodDropdown();
 
     // gets the current value and updates the view after loading this view
-    mViewModel.getGraphModel().getSelectedFood().observe(this, new Observer<String>() {
+    mViewModel.getGraphSingleModel().getSelectedFood().observe(this, new Observer<String>() {
       @Override
       public void onChanged(String s) {
         mBinding.dropdownFood.setText(s, false);
@@ -146,6 +109,48 @@ public class GraphsFoodSingleFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
+  private void handleSelectFoodDropdown() {
+    // Dropdown, the list of the foods. User can select the food to show graphs with
+    final ArrayList<String> labels = new ArrayList<>();
+
+    // Update the food list if a new food has been added
+    mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
+      @Override
+      public void onChanged(List<Food> foods) {
+        labels.clear();
+
+        for (Food f : foods) {
+          // Build string in this form: Food name, brand name
+          String s = f.getFoodName() + " (" + f.getBrandName() + ")";
+          labels.add(s);
+        }
+
+        // Sort the list alphabetical
+        Collections.sort(labels);
+
+        // Creating adapter for dropdown list (spinner)
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+            Objects.requireNonNull(getContext()),
+            android.R.layout.simple_spinner_item, labels);
+
+        dataAdapter
+            .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        mBinding.dropdownFood.setAdapter(dataAdapter);
+
+        // Update selected food
+        mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mViewModel.getGraphSingleModel()
+                .setSelectedFood(mBinding.dropdownFood.getText().toString());
+          }
+        });
+      }
+    });
+  }
+
   /**
    *
    */
@@ -178,14 +183,16 @@ public class GraphsFoodSingleFragment extends Fragment {
             createPercentileLine(measurements, 0.75f,
                 getResources().getColor(R.color.colorPrimary));
             createPercentileLine(measurements, 0.25f, Color.WHITE);
-            //createMedianLine(measurements);
-            createAverageLine(measurements);
+            if (mBinding.average.isChecked()) {
+              createAverageLine(measurements);
+            } else if (mBinding.median.isChecked()) {
+              createMedianLine(measurements);
+            }
           }
         });
   }
 
   private void createAverageLine(List<Measurement> measurements) {
-
     if (measurements.size() <= 1) {
       return;
     }

@@ -165,7 +165,6 @@
           android:checked="@{safeUnbox(vm.diabetes)}"
           android:text="@string/diabetes"/>
       </LinearLayout>
-
     </LinearLayout>
   </ScrollView>
 </layout>

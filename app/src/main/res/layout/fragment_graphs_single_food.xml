@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
   <data>
     <variable
-      name="viewModel"
+      name="vm"
       type="hochschule.de.bachelorthesis.viewmodels.GraphsViewModel"/>
   </data>
 
@@ -30,6 +30,26 @@
           android:focusable="false"
           android:hint="@string/choose_food"/>
       </com.google.android.material.textfield.TextInputLayout>
+
+      <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:orientation="horizontal">
+        <RadioButton
+          android:id="@+id/average"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Show average"/>
+        <RadioButton
+          android:id="@+id/median"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Show Median"/>
+      </RadioGroup>
 
       <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
