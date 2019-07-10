@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -70,26 +72,16 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     handleSelectFoodDropdown();
 
-    // gets the current value and updates the view after loading this view
-    mViewModel.getGraphSingleModel().getSelectedFood().observe(this, new Observer<String>() {
+    // Draw new graph if one radio button has been selected
+    mBinding.radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
       @Override
-      public void onChanged(String s) {
-        mBinding.dropdownFood.setText(s, false);
-
-        // Build foodName and brandName String, String s should be: food name (brand name)
-        String[] parts = s.split(" [(]");
-
-        mViewModel
-            .getFoodByFoodNameAndBrandName(parts[0], parts[1].substring(0, parts[1].length() - 1))
-            .observe(
-                getViewLifecycleOwner(), new Observer<Food>() {
-                  @Override
-                  public void onChanged(Food food) {
-                    buildGraphForFoodId(food.id);
-                  }
-                });
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        //buildGraph();
       }
     });
+
+    // Default show the line graph
+    buildGraph("LineGraph");
 
     return mBinding.getRoot();
   }
@@ -102,13 +94,30 @@ public class GraphsFoodSingleFragment extends Fragment {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.graphs_single_settings) {
-      return true;
+
+    switch (item.getItemId()) {
+      case R.id.graphs_single_line_graph:
+        buildGraph("LineGraph");
+        return true;
+
+      case R.id.graphs_single_bar_graph:
+        buildGraph("BarGraph");
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Builds the strings for the food list dropdown view.
+   *
+   * First loads all foods and builds a string in form of food name (brand name) and add its to a
+   * list of labels.
+   *
+   * Then use this labels for the dropdown list and use a listener to react to click events.
+   *
+   * On click
+   */
   private void handleSelectFoodDropdown() {
     // Dropdown, the list of the foods. User can select the food to show graphs with
     final ArrayList<String> labels = new ArrayList<>();
@@ -139,7 +148,8 @@ public class GraphsFoodSingleFragment extends Fragment {
         // attaching data adapter to spinner
         mBinding.dropdownFood.setAdapter(dataAdapter);
 
-        // Update selected food
+        // If a new food has been selected,
+        // draw the graph
         mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -151,12 +161,54 @@ public class GraphsFoodSingleFragment extends Fragment {
     });
   }
 
-  /**
-   *
-   */
-  private void buildGraphForFoodId(int foodId) {
-    resetChart();
 
+  /**
+   * Types = "lineGraph", "barGraph"
+   */
+  private void buildGraph(final String type) {
+    // Set the needed view elements to visible
+    mBinding.dropdownFoodLayout.setVisibility(View.VISIBLE);
+    mBinding.radioGroup.setVisibility(View.VISIBLE);
+    mBinding.lineChart.setVisibility(View.VISIBLE);
+
+    // gets the current value and updates the view after loading this view
+    mViewModel.getGraphSingleModel().getSelectedFood().observe(this, new Observer<String>() {
+      @Override
+      public void onChanged(String s) {
+        mBinding.dropdownFood.setText(s, false);
+
+        // Build foodName and brandName String, String s should be: food name (brand name)
+        String[] parts = s.split(" [(]");
+
+        // Get the food object by the selected food by searching for food name and branding name
+        mViewModel
+            .getFoodByFoodNameAndBrandName(parts[0], parts[1].substring(0, parts[1].length() - 1))
+            .observe(
+                getViewLifecycleOwner(), new Observer<Food>() {
+                  @Override
+                  public void onChanged(Food food) {
+                    // Get all measurements for the selected food
+                    mViewModel.getAllMeasurementsByFoodId(food.id)
+                        .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                          @Override
+                          public void onChanged(List<Measurement> measurements) {
+
+                            resetChart();
+
+                            if (type.equals("lineGraph")) {
+                              buildLineGraph(measurements);
+                            } else if (type.equals("barGraph")) {
+                              buildBarGraph(measurements);
+                            }
+                          }
+                        });
+                  }
+                });
+      }
+    });
+  }
+
+  private void buildLineGraph(List<Measurement> measurements) {
     // Overall settings
     mBinding.lineChart.setTouchEnabled(false);
 
@@ -176,20 +228,18 @@ public class GraphsFoodSingleFragment extends Fragment {
     xAxis.setAxisMaximum(120f);
     xAxis.setPosition(XAxisPosition.BOTTOM);
 
-    mViewModel.getAllMeasurementsByFoodId(foodId)
-        .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-          @Override
-          public void onChanged(List<Measurement> measurements) {
-            createPercentileLine(measurements, 0.75f,
-                getResources().getColor(R.color.colorPrimary));
-            createPercentileLine(measurements, 0.25f, Color.WHITE);
-            if (mBinding.average.isChecked()) {
-              createAverageLine(measurements);
-            } else if (mBinding.median.isChecked()) {
-              createMedianLine(measurements);
-            }
-          }
-        });
+    createPercentileLine(measurements, 0.75f,
+        getResources().getColor(R.color.colorPrimary));
+    createPercentileLine(measurements, 0.25f, Color.WHITE);
+    if (mBinding.average.isChecked()) {
+      createAverageLine(measurements);
+    } else if (mBinding.median.isChecked()) {
+      createMedianLine(measurements);
+    }
+  }
+
+  private void buildBarGraph(List<Measurement> measurements) {
+
   }
 
   private void createAverageLine(List<Measurement> measurements) {

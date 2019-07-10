@@ -3,9 +3,15 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
-    android:id="@+id/graphs_single_settings"
-    android:orderInCategory="100"
+    android:id="@+id/graphs_single_line_graph"
     android:icon="@drawable/ic_settings_white_24dp"
-    android:title="Settings"
-    app:showAsAction="ifRoom"/>
+    android:orderInCategory="100"
+    android:title="Draw Line Graph"
+    app:showAsAction="never"/>
+  <item
+    android:id="@+id/graphs_single_bar_graph"
+    android:icon="@drawable/ic_settings_white_24dp"
+    android:orderInCategory="100"
+    android:title="Draw Bar Graph"
+    app:showAsAction="never"/>
 </menu>

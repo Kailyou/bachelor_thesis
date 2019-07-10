@@ -129,6 +129,8 @@
   <string name="physically_active2">Physically Active</string>
   <string name="events">Events</string>
   <string name="gi_measurement">Gi Measurement</string>
+  <string name="show_average">Show average</string>
+  <string name="show_median">Show Median</string>
 
   <string-array name="type">
     <item>Grains</item>

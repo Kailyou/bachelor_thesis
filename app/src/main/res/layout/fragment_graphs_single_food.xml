@@ -15,6 +15,7 @@
       android:orientation="vertical">
 
       <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dropdown_food_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,13 +43,14 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="Show average"/>
+          android:checked="true"
+          android:text="@string/show_average"/>
         <RadioButton
           android:id="@+id/median"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="Show Median"/>
+          android:text="@string/show_median"/>
       </RadioGroup>
 
       <com.github.mikephil.charting.charts.LineChart
