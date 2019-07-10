@@ -131,6 +131,12 @@
   <string name="gi_measurement">Gi Measurement</string>
   <string name="show_average">Show average</string>
   <string name="show_median">Show Median</string>
+  <string name="graph_type">Graph Type</string>
+  <string name="line_chart">Line Chart</string>
+  <string name="bar_chart">Bar Chart</string>
+  <string name="line_style">Line Style</string>
+  <string name="average">Average</string>
+  <string name="median">Median</string>
 
   <string-array name="type">
     <item>Grains</item>

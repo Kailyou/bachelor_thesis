@@ -32,26 +32,70 @@
           android:hint="@string/choose_food"/>
       </com.google.android.material.textfield.TextInputLayout>
 
-      <RadioGroup
-        android:id="@+id/radioGroup"
+      <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:columnCount="2"
         android:orientation="horizontal">
-        <RadioButton
-          android:id="@+id/average"
-          android:layout_width="wrap_content"
+
+        <TextView
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:checked="true"
-          android:text="@string/show_average"/>
-        <RadioButton
-          android:id="@+id/median"
-          android:layout_width="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_gravity="center"
+          android:text="@string/graph_type"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+        <RadioGroup
+          android:id="@+id/radio_group_graph_type"
+          android:layout_columnWeight="1"
+          android:layout_gravity="fill"
+          android:orientation="horizontal">
+          <RadioButton
+            android:id="@+id/graph_type_line_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/line_chart"/>
+          <RadioButton
+            android:id="@+id/graph_type_bar_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bar_chart"/>
+        </RadioGroup>
+
+        <TextView
+          android:id="@+id/text_view_line_style"
+          android:layout_width="60dp"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:text="@string/show_median"/>
-      </RadioGroup>
+          android:layout_columnWeight="1"
+          android:layout_gravity="center"
+          android:text="@string/line_style"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+        <RadioGroup
+          android:id="@+id/radio_group_line_style"
+          android:layout_columnWeight="1"
+          android:layout_gravity="fill"
+          android:orientation="horizontal">
+          <RadioButton
+            android:id="@+id/line_style_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/average"/>
+          <RadioButton
+            android:id="@+id/line_style_median"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/median"/>
+        </RadioGroup>
+      </GridLayout>
 
       <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
@@ -59,6 +103,15 @@
         android:layout_height="500dp"
         android:layout_margin="32dp">
       </com.github.mikephil.charting.charts.LineChart>
+
+      <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="32dp"
+        android:visibility="gone">
+      </com.github.mikephil.charting.charts.BarChart>
+
     </LinearLayout>
   </ScrollView>
 </layout>
