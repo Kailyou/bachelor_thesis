@@ -43,6 +43,8 @@ public class GraphsFoodSingleFragment extends Fragment {
 
   private ArrayList<ILineDataSet> mDataSets = new ArrayList<>();
 
+  private final ArrayList<String> mLabels = new ArrayList<>();
+
   private FragmentGraphsSingleFoodBinding mBinding;
 
   private GraphsViewModel mViewModel;
@@ -70,18 +72,12 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setVm(mViewModel);
 
-    handleSelectFoodDropdown();
+    buildDropdown();
 
-    // Draw new graph if one radio button has been selected
-    mBinding.radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(RadioGroup group, int checkedId) {
-        //buildGraph();
-      }
-    });
+    handleListeners();
 
     // Default show the line graph
-    buildGraph("LineGraph");
+    loadMeasurementsAndBuildGraph();
 
     return mBinding.getRoot();
   }
@@ -92,123 +88,157 @@ public class GraphsFoodSingleFragment extends Fragment {
     inflater.inflate(R.menu.graphs_single_menu, menu);
   }
 
+  // TODO, remove those ids and get new one for animating graph maybe.
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
     switch (item.getItemId()) {
       case R.id.graphs_single_line_graph:
-        buildGraph("LineGraph");
+        //loadMeasurementsAndBuildGraph(0);
         return true;
 
       case R.id.graphs_single_bar_graph:
-        buildGraph("BarGraph");
+        //loadMeasurementsAndBuildGraph(1);
         return true;
     }
 
     return super.onOptionsItemSelected(item);
   }
 
-  /**
-   * Builds the strings for the food list dropdown view.
-   *
-   * First loads all foods and builds a string in form of food name (brand name) and add its to a
-   * list of labels.
-   *
-   * Then use this labels for the dropdown list and use a listener to react to click events.
-   *
-   * On click
-   */
-  private void handleSelectFoodDropdown() {
-    // Dropdown, the list of the foods. User can select the food to show graphs with
-    final ArrayList<String> labels = new ArrayList<>();
+  @Override
+  public void onStop() {
+    super.onStop();
 
+    // Save the selected food
+    mViewModel.getGraphSingleModel()
+        .setSelectedFood(mBinding.dropdownFood.getText().toString());
+  }
+
+  /**
+   * Builds a dropdown food list, where the user can select with which food he wants to visualize
+   * the data with.
+   *
+   * Loads all existing foods and builds a string with the pattern "food name (brand name)"
+   *
+   * Save the selected food to the view model, so it can be restored by entering the view again.
+   */
+  private void buildDropdown() {
     // Update the food list if a new food has been added
     mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
-        labels.clear();
+        mLabels.clear();
 
         for (Food f : foods) {
           // Build string in this form: Food name, brand name
           String s = f.getFoodName() + " (" + f.getBrandName() + ")";
-          labels.add(s);
+          mLabels.add(s);
         }
 
         // Sort the list alphabetical
-        Collections.sort(labels);
+        Collections.sort(mLabels);
 
         // Creating adapter for dropdown list (spinner)
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(
             Objects.requireNonNull(getContext()),
-            android.R.layout.simple_spinner_item, labels);
+            android.R.layout.simple_spinner_item, mLabels);
 
         dataAdapter
             .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
         mBinding.dropdownFood.setAdapter(dataAdapter);
-
-        // If a new food has been selected,
-        // draw the graph
-        mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
-          @Override
-          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            mViewModel.getGraphSingleModel()
-                .setSelectedFood(mBinding.dropdownFood.getText().toString());
-          }
-        });
       }
     });
   }
 
+  /**
+   * Helper function for all the listeners
+   */
+  private void handleListeners() {
+    // Reacting to a new food selection. This will triggered after the user left this view
+    // and when onStop is called.
+    mViewModel.getGraphSingleModel().getSelectedFood().observe(getViewLifecycleOwner(),
+        new Observer<String>() {
+          @Override
+          public void onChanged(String s) {
+            mBinding.dropdownFood.setText(s, false);
+            loadMeasurementsAndBuildGraph();
+          }
+        });
+
+    mBinding.dropdownFood.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        loadMeasurementsAndBuildGraph();
+      }
+    });
+
+    mBinding.radioGroupGraphType.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        loadMeasurementsAndBuildGraph();
+      }
+    });
+
+    // Draw new graph if one radio button has been selected
+    mBinding.radioGroupLineStyle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        loadMeasurementsAndBuildGraph();
+      }
+    });
+  }
+
+  private void loadMeasurementsAndBuildGraph() {
+    String selectedFood = mBinding.dropdownFood.getText().toString();
+
+    // Leave if no food has been selected yet
+    if (selectedFood.equals("")) {
+      return;
+    }
+
+    // Build foodName and brandName String, String s should be: food name (brand name)
+    String[] parts = selectedFood.split(" [(]");
+
+    // Get the food object by the selected food by searching for food name and branding name
+    mViewModel
+        .getFoodByFoodNameAndBrandName(parts[0], parts[1].substring(0, parts[1].length() - 1))
+        .observe(
+            getViewLifecycleOwner(), new Observer<Food>() {
+              @Override
+              public void onChanged(Food food) {
+                // Get all measurements for the selected food
+                mViewModel.getAllMeasurementsByFoodId(food.id)
+                    .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                      @Override
+                      public void onChanged(List<Measurement> measurements) {
+                        if (measurements == null) {
+                          return;
+                        }
+                        if (mBinding.graphTypeLineChart.isChecked()) {
+                          buildLineChart(measurements);
+                        } else if (mBinding.graphTypeBarChart.isChecked()) {
+                          buildBarGraph(measurements);
+                        }
+                      }
+                    });
+              }
+            });
+  }
 
   /**
    * Types = "lineGraph", "barGraph"
    */
-  private void buildGraph(final String type) {
-    // Set the needed view elements to visible
-    mBinding.dropdownFoodLayout.setVisibility(View.VISIBLE);
-    mBinding.radioGroup.setVisibility(View.VISIBLE);
+  private void buildLineChart(List<Measurement> measurements) {
+    resetChart();
+
+    // Hide bar chart view elements
+    mBinding.barChart.setVisibility(View.GONE);
+
+    // display bar chart view elements
+    mBinding.radioGroupLineStyle.setVisibility(View.VISIBLE);
     mBinding.lineChart.setVisibility(View.VISIBLE);
 
-    // gets the current value and updates the view after loading this view
-    mViewModel.getGraphSingleModel().getSelectedFood().observe(this, new Observer<String>() {
-      @Override
-      public void onChanged(String s) {
-        mBinding.dropdownFood.setText(s, false);
-
-        // Build foodName and brandName String, String s should be: food name (brand name)
-        String[] parts = s.split(" [(]");
-
-        // Get the food object by the selected food by searching for food name and branding name
-        mViewModel
-            .getFoodByFoodNameAndBrandName(parts[0], parts[1].substring(0, parts[1].length() - 1))
-            .observe(
-                getViewLifecycleOwner(), new Observer<Food>() {
-                  @Override
-                  public void onChanged(Food food) {
-                    // Get all measurements for the selected food
-                    mViewModel.getAllMeasurementsByFoodId(food.id)
-                        .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-                          @Override
-                          public void onChanged(List<Measurement> measurements) {
-
-                            resetChart();
-
-                            if (type.equals("lineGraph")) {
-                              buildLineGraph(measurements);
-                            } else if (type.equals("barGraph")) {
-                              buildBarGraph(measurements);
-                            }
-                          }
-                        });
-                  }
-                });
-      }
-    });
-  }
-
-  private void buildLineGraph(List<Measurement> measurements) {
     // Overall settings
     mBinding.lineChart.setTouchEnabled(false);
 
@@ -231,15 +261,23 @@ public class GraphsFoodSingleFragment extends Fragment {
     createPercentileLine(measurements, 0.75f,
         getResources().getColor(R.color.colorPrimary));
     createPercentileLine(measurements, 0.25f, Color.WHITE);
-    if (mBinding.average.isChecked()) {
+    if (mBinding.lineStyleAverage.isChecked()) {
       createAverageLine(measurements);
-    } else if (mBinding.median.isChecked()) {
+    } else if (mBinding.lineStyleMedian.isChecked()) {
       createMedianLine(measurements);
     }
+
   }
 
   private void buildBarGraph(List<Measurement> measurements) {
+    // hide line chart view elements
+    mBinding.radioGroupLineStyle.setVisibility(View.GONE);
+    mBinding.lineChart.setVisibility(View.GONE);
 
+    // display bar chart view elements
+    mBinding.barChart.setVisibility(View.VISIBLE);
+
+    resetChart();
   }
 
   private void createAverageLine(List<Measurement> measurements) {
@@ -302,7 +340,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // check the amount of values
-    if (measurements.size() == 1) {
+    if (measurements == null || measurements.size() == 0 || measurements.size() == 1) {
       return;
     }
 

@@ -81,14 +81,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
         R.array.tired, android.R.layout.simple_spinner_item);
     mBinding.tired.setAdapter(adapter);
 
-    // Build from string
-    mViewModel.getMeasurementAddModel().getTimestamp().observe(getViewLifecycleOwner(),
-        new Observer<String>() {
-          @Override
-          public void onChanged(String s) {
-          }
-        });
-
     // load the last user input by observing the view model object
     // filter has to be false otherwise auto complete will destroy the dropdown element.
     mViewModel.getMeasurementAddModel().getStressed().observe(getViewLifecycleOwner(),
