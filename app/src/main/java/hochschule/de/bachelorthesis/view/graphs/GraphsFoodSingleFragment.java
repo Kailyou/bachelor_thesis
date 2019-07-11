@@ -41,13 +41,15 @@ import java.util.Objects;
 
 public class GraphsFoodSingleFragment extends Fragment {
 
-  private ArrayList<ILineDataSet> mDataSets = new ArrayList<>();
-
-  private final ArrayList<String> mLabels = new ArrayList<>();
-
   private FragmentGraphsSingleFoodBinding mBinding;
 
   private GraphsViewModel mViewModel;
+
+  private final ArrayList<String> mLabelsFoodListDropDown = new ArrayList<>();
+
+  private ArrayList<ILineDataSet> mDataSets = new ArrayList<>();
+
+
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,21 +128,21 @@ public class GraphsFoodSingleFragment extends Fragment {
     mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
       @Override
       public void onChanged(List<Food> foods) {
-        mLabels.clear();
+        mLabelsFoodListDropDown.clear();
 
         for (Food f : foods) {
           // Build string in this form: Food name, brand name
           String s = f.getFoodName() + " (" + f.getBrandName() + ")";
-          mLabels.add(s);
+          mLabelsFoodListDropDown.add(s);
         }
 
         // Sort the list alphabetical
-        Collections.sort(mLabels);
+        Collections.sort(mLabelsFoodListDropDown);
 
         // Creating adapter for dropdown list (spinner)
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(
             Objects.requireNonNull(getContext()),
-            android.R.layout.simple_spinner_item, mLabels);
+            android.R.layout.simple_spinner_item, mLabelsFoodListDropDown);
 
         dataAdapter
             .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
