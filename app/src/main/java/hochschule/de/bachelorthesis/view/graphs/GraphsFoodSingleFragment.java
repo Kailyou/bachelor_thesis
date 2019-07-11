@@ -25,6 +25,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsSingleFoodBinding;
@@ -232,7 +233,7 @@ public class GraphsFoodSingleFragment extends Fragment {
    * Types = "lineGraph", "barGraph"
    */
   private void buildLineChart(List<Measurement> measurements) {
-    resetChart();
+    resetLineChart();
 
     // Hide bar chart view elements
     mBinding.barChart.setVisibility(View.GONE);
@@ -332,7 +333,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     // Create
     mDataSets.add(set);
 
-    LineData data = new LineData(mDataSets);
+    LineData data = new LineData(mDataSetsLineChart);
     mBinding.lineChart.setData(data);
     mBinding.lineChart.notifyDataSetChanged();
     mBinding.lineChart.invalidate();
@@ -552,6 +553,25 @@ public class GraphsFoodSingleFragment extends Fragment {
     }
   }
 
+  /**
+   * Returns the percentile value of a given list of values and the percentage given.
+   *
+   * n = amount of values p = percentile per cent
+   *
+   * First calculate k with k = (n * p)
+   *
+   * Check if the result k is even or odd.
+   *
+   * If it is odd use this formula: xp = x(k)
+   *
+   * If it is even use this formula: 0.5 (x(k) + x(k+1)
+   *
+   * The -1 is due the fact that arrays start at index 0 and not at 1.
+   *
+   * @param values - ArrayList with values inside.
+   * @param p - The percent for the percentile
+   * @return Returns the percentile.
+   */
   private float getPercentile(ArrayList<Integer> values, float p) {
     if (values.size() == 0 || values.size() == 1) {
       return 0;
@@ -571,8 +591,11 @@ public class GraphsFoodSingleFragment extends Fragment {
     }
   }
 
-  private void resetChart() {
-    mDataSets.clear();
+  /**
+   * Resets the data for the line chart
+   */
+  private void resetLineChart() {
+    mDataSetsLineChart.clear();
     mBinding.lineChart.notifyDataSetChanged();
     mBinding.lineChart.clear();
     mBinding.lineChart.invalidate();
