@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.graphs;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsFoodsBinding;
@@ -258,7 +256,7 @@ public class GraphsFoodsFragment extends Fragment {
     private Integer mGlucoseMax;
     private Integer mGlucoseAverage;
 
-    public BarCharSaveObject(String foodName, int maxGlucose, int averageGlucose) {
+    private BarCharSaveObject(String foodName, int maxGlucose, int averageGlucose) {
       mFoodName = foodName;
       mGlucoseMax = maxGlucose;
       mGlucoseAverage = averageGlucose;
@@ -268,11 +266,11 @@ public class GraphsFoodsFragment extends Fragment {
       return mFoodName;
     }
 
-    public Integer getGlucoseMax() {
+    private Integer getGlucoseMax() {
       return mGlucoseMax;
     }
 
-    public Integer getGlucoseAverage() {
+    private Integer getGlucoseAverage() {
       return mGlucoseAverage;
     }
   }
