@@ -9,6 +9,7 @@ import hochschule.de.bachelorthesis.utility.MyMath;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
@@ -214,7 +215,7 @@ public class Measurement {
   /**
    * @return All glucose values if the measurement is done. Null else.
    */
-  public ArrayList<Integer> getAllGlucoseValuesAsList() {
+  private ArrayList<Integer> getAllGlucoseValuesAsList() {
     if (isDone()) {
       return new ArrayList<Integer>() {{
         add(glucoseStart);
@@ -237,7 +238,7 @@ public class Measurement {
   }
 
   // Checks if the measurement is done, as soon as one value is zero, the measurement cannot be finished yet.
-  public boolean isDone() {
+  private boolean isDone() {
     return glucose15 != 0 && glucose30 != 0 && glucose45 != 0 && glucose60 != 0 && glucose75 != 0
         && glucose90 != 0 && glucose105 != 0 && glucose120 != 0;
   }
@@ -248,15 +249,18 @@ public class Measurement {
    */
   public int getGlucoseMax() {
     if (isDone()) {
-      return MyMath.getMaxFromArrayList(getAllGlucoseValuesAsList());
+      return MyMath.getMaxFromArrayList(Objects.requireNonNull(getAllGlucoseValuesAsList()));
     }
 
     return -1;
   }
 
+  /**
+   * @return Returns the average of this measurement. If measurement is not finished, return -1.
+   */
   public int getGlucoseAverage() {
     if (isDone()) {
-      return MyMath.getAverageFromArrayList(getAllGlucoseValuesAsList());
+      return MyMath.getAverageFromArrayList(Objects.requireNonNull(getAllGlucoseValuesAsList()));
     }
 
     return -1;
@@ -264,6 +268,12 @@ public class Measurement {
 
 
   /* LISTS */
+
+  /**
+   * Removes unfinished measurements of a list.
+   *
+   * @param measurements The list to check for empty measurements.
+   */
   public void removeNotFinishedMeasurements(List<Measurement> measurements) {
     if (measurements.size() == 0) {
       return;
@@ -278,7 +288,15 @@ public class Measurement {
     }
   }
 
-  public int getGlucoseMax(List<Measurement> measurements) {
+  /**
+   * This functions returns the max glucose from a list of measurements.
+   *
+   * First removes unfinished measurements and then checks the remaining for the max glucose.
+   *
+   * @param measurements The list to check.
+   * @return Returns max glucose or -1 if the list is empty.
+   */
+  public int getGlucoseMaxFromList(List<Measurement> measurements) {
     // Remove unfinished measurements
     removeNotFinishedMeasurements(measurements);
 
@@ -301,6 +319,14 @@ public class Measurement {
     return maxGlucose;
   }
 
+  /**
+   * This functions returns the average glucose from a list of measurements.
+   *
+   * First removes unfinished measurements and then checks the remaining for the average glucose.
+   *
+   * @param measurements The list to check.
+   * @return Returns average glucose or -1 if the list is empty.
+   */
   public int getGlucoseAverageFromList(List<Measurement> measurements) {
     // Remove unfinished measurements
     removeNotFinishedMeasurements(measurements);
@@ -313,7 +339,7 @@ public class Measurement {
     ArrayList<Integer> allGlucoseValues = new ArrayList<>();
 
     for (Measurement m : measurements) {
-      allGlucoseValues.addAll(m.getAllGlucoseValuesAsList());
+      allGlucoseValues.addAll(Objects.requireNonNull(m.getAllGlucoseValuesAsList()));
     }
 
     return MyMath.getAverageFromArrayList(allGlucoseValues);
