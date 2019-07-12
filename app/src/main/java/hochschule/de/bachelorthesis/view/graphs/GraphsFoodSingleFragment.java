@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class GraphsFoodSingleFragment extends Fragment {
@@ -344,23 +343,6 @@ public class GraphsFoodSingleFragment extends Fragment {
     // Notify changes
     mBinding.barChart.notifyDataSetChanged();
     mBinding.barChart.invalidate();
-  }
-
-  /**
-   * Building the bar chart
-   *
-   * @param measurements List of measurement values
-   */
-  private void buildBarGraph(List<Measurement> measurements) {
-    // hide line chart view elements
-    mBinding.textViewLineStyle.setVisibility(View.GONE);
-    mBinding.radioGroupLineStyle.setVisibility(View.GONE);
-    mBinding.lineChart.setVisibility(View.GONE);
-
-    // display bar chart view elements
-    mBinding.barChart.setVisibility(View.VISIBLE);
-
-    resetBarChart();
   }
 
   /**
