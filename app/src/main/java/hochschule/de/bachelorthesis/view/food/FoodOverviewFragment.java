@@ -102,21 +102,11 @@ public class FoodOverviewFragment extends Fragment {
                           return;
                         }
 
-                        //Log.d("yolo", "food id: " + food.id);
-                        //Log.d("yolo", "food name: " + food.getFoodName());
-                        //Log.d("yolo", "measurements finished: " + finishedMeasurements.size());
-                        //Log.d("yolo", "row amount: " + integer);
-                        //Log.d("yolo", "max: " + finishedMeasurements.get(0)
-                        //    .getGlucoseMax(finishedMeasurements));
-                       // Log.d("yolo", "average: " + finishedMeasurements.get(0)
-                       //     .getGlucoseAverageFromList(finishedMeasurements));
-                        //Log.d("yolo", "~~~~~~~~~~\n");
-
                         // Update text views
                         mBinding.amount.setText(String.valueOf(integer));
                         mBinding.glucoseMax.setText(
                             String.valueOf(
-                                finishedMeasurements.get(0).getGlucoseMax(finishedMeasurements)));
+                                finishedMeasurements.get(0).getGlucoseMaxFromList(finishedMeasurements)));
                         mBinding.glucoseAverage
                             .setText(String.valueOf(
                                 finishedMeasurements.get(0)
