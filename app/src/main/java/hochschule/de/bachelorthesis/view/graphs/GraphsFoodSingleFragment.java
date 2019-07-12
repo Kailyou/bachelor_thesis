@@ -483,6 +483,11 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     resetBarChart();
 
+    // Leave function if there is no measurement
+    if (measurements == null || measurements.size() == 0) {
+      return;
+    }
+
     // Diverse settings for the bar chart
     mBinding.barChart.getDescription().setText("Test");
     mBinding.barChart.setTouchEnabled(false);
