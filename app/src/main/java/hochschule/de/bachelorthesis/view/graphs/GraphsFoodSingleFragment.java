@@ -22,6 +22,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -31,6 +34,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsSingleFoodBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.BarChartValueFormatter;
 import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
 import java.util.ArrayList;
@@ -48,9 +52,11 @@ public class GraphsFoodSingleFragment extends Fragment {
 
   private final ArrayList<String> mLabelsFoodListDropDown = new ArrayList<>();
 
-  private ArrayList<ILineDataSet> mDataSets = new ArrayList<>();
+  // Line Chart
+  private ArrayList<ILineDataSet> mDataSetsLineChart = new ArrayList<>();
 
-
+  // Bar Chart
+  private ArrayList<IBarDataSet> mDataSetsBarChart = new ArrayList<>();
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -192,6 +198,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     });
   }
 
+
   private void loadMeasurementsAndBuildGraph() {
     String selectedFood = mBinding.dropdownFood.getText().toString();
 
@@ -221,7 +228,7 @@ public class GraphsFoodSingleFragment extends Fragment {
                         if (mBinding.graphTypeLineChart.isChecked()) {
                           buildLineChart(measurements);
                         } else if (mBinding.graphTypeBarChart.isChecked()) {
-                          buildBarGraph(measurements);
+                          createTestBarChart(measurements);
                         }
                       }
                     });
@@ -230,17 +237,19 @@ public class GraphsFoodSingleFragment extends Fragment {
   }
 
   /**
-   * Types = "lineGraph", "barGraph"
+   * Building the line chart
+   *
+   * @param measurements List of measurement values
    */
   private void buildLineChart(List<Measurement> measurements) {
-    resetLineChart();
-
     // Hide bar chart view elements
     mBinding.barChart.setVisibility(View.GONE);
 
     // display bar chart view elements
     mBinding.radioGroupLineStyle.setVisibility(View.VISIBLE);
     mBinding.lineChart.setVisibility(View.VISIBLE);
+
+    resetLineChart();
 
     // Overall settings
     mBinding.lineChart.setTouchEnabled(false);
@@ -269,20 +278,98 @@ public class GraphsFoodSingleFragment extends Fragment {
     } else if (mBinding.lineStyleMedian.isChecked()) {
       createMedianLine(measurements);
     }
-
   }
 
-  private void buildBarGraph(List<Measurement> measurements) {
+  private void createTestBarChart(List<Measurement> measurements) {
     // hide line chart view elements
+    mBinding.textViewLineStyle.setVisibility(View.GONE);
     mBinding.radioGroupLineStyle.setVisibility(View.GONE);
     mBinding.lineChart.setVisibility(View.GONE);
 
     // display bar chart view elements
     mBinding.barChart.setVisibility(View.VISIBLE);
 
-    resetChart();
+    resetBarChart();
+
+    // Diverse settings for the bar chart
+    mBinding.barChart.getDescription().setText("Test");
+    mBinding.barChart.setTouchEnabled(false);
+    mBinding.barChart.getLegend().setEnabled(false);
+    //mBinding.barChart.animateY(2000);
+
+    // X Axis (left)
+    XAxis xAxis = mBinding.barChart.getXAxis();
+    xAxis.setDrawGridLines(false);
+    xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
+    xAxis.setLabelCount(4);
+    String[] values = {"Max Glucose", "Avg. Glucose", "Integral", "STDEV"};
+    xAxis.setValueFormatter(new BarChartValueFormatter(values));
+
+    // Y Axis left (top)
+    YAxis topAxis = mBinding.barChart.getAxisLeft();
+    topAxis.setAxisMinimum(0);
+    topAxis.setAxisMaximum(250f);
+
+    // Y Axis right (bottom)
+    YAxis bottomAxis = mBinding.barChart.getAxisRight();
+    bottomAxis.setDrawGridLines(false);
+    bottomAxis.setDrawLabels(false);
+
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+
+    if (measurements.size() == 0) {
+      dataValues.add(new BarEntry(0, 0));
+      dataValues.add(new BarEntry(1, 0));
+      dataValues.add(new BarEntry(2, 0));
+      dataValues.add(new BarEntry(3, 0));
+    } else {
+      // Entries
+      dataValues.add(new BarEntry(0, measurements.get(0).getGlucoseMaxFromList(measurements)));
+      dataValues.add(new BarEntry(1, measurements.get(0).getGlucoseAverageFromList(measurements)));
+      dataValues.add(new BarEntry(2, 0));
+      dataValues.add(new BarEntry(3, 0));
+    }
+
+    // Set
+    BarDataSet set = new BarDataSet(dataValues, "Test");
+    set.setColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextSize(10f);
+    mDataSetsBarChart.add(set);
+
+    // Add data
+    BarData data = new BarData(mDataSetsBarChart);
+    mBinding.barChart.setData(data);
+
+    // Notify changes
+    mBinding.barChart.notifyDataSetChanged();
+    mBinding.barChart.invalidate();
   }
 
+  /**
+   * Building the bar chart
+   *
+   * @param measurements List of measurement values
+   */
+  private void buildBarGraph(List<Measurement> measurements) {
+    // hide line chart view elements
+    mBinding.textViewLineStyle.setVisibility(View.GONE);
+    mBinding.radioGroupLineStyle.setVisibility(View.GONE);
+    mBinding.lineChart.setVisibility(View.GONE);
+
+    // display bar chart view elements
+    mBinding.barChart.setVisibility(View.VISIBLE);
+
+    resetBarChart();
+  }
+
+  /**
+   * This function creates the average line.
+   *
+   * Takes all measurements and calculates the average for each measurement point.
+   *
+   * @param measurements All measurement values
+   */
   private void createAverageLine(List<Measurement> measurements) {
     if (measurements.size() <= 1) {
       return;
@@ -331,7 +418,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     set.setValueTextColor(Color.BLACK);
 
     // Create
-    mDataSets.add(set);
+    mDataSetsLineChart.add(set);
 
     LineData data = new LineData(mDataSetsLineChart);
     mBinding.lineChart.setData(data);
@@ -391,10 +478,10 @@ public class GraphsFoodSingleFragment extends Fragment {
     set.setValueTextSize(12f);
     set.setColor(Color.YELLOW);
     set.setValueTextColor(Color.BLACK);
-    mDataSets.add(set);
+    mDataSetsLineChart.add(set);
 
     // Add data
-    LineData data = new LineData(mDataSets);
+    LineData data = new LineData(mDataSetsLineChart);
     mBinding.lineChart.setData(data);
 
     // Notify changes
@@ -461,9 +548,9 @@ public class GraphsFoodSingleFragment extends Fragment {
     set.setDrawFilled(true);
 
     // Create
-    mDataSets.add(set);
+    mDataSetsLineChart.add(set);
 
-    LineData data = new LineData(mDataSets);
+    LineData data = new LineData(mDataSetsLineChart);
     mBinding.lineChart.setData(data);
     mBinding.lineChart.notifyDataSetChanged();
     mBinding.lineChart.invalidate();
@@ -599,6 +686,16 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.lineChart.notifyDataSetChanged();
     mBinding.lineChart.clear();
     mBinding.lineChart.invalidate();
+  }
+
+  /**
+   * Resets the data for the bar chart
+   */
+  private void resetBarChart() {
+    mDataSetsBarChart.clear();
+    mBinding.barChart.notifyDataSetChanged();
+    mBinding.barChart.clear();
+    mBinding.barChart.invalidate();
   }
 }
 
