@@ -104,13 +104,13 @@
         android:layout_margin="32dp">
       </com.github.mikephil.charting.charts.LineChart>
 
-      <com.github.mikephil.charting.charts.HorizontalBarChart
+      <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_margin="32dp"
         android:visibility="gone">
-      </com.github.mikephil.charting.charts.HorizontalBarChart>
+      </com.github.mikephil.charting.charts.BarChart>
 
     </LinearLayout>
   </ScrollView>
