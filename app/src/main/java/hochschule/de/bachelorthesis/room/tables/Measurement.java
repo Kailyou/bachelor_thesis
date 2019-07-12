@@ -322,7 +322,7 @@ public class Measurement {
    *
    * @param measurements The list to check for empty measurements.
    */
-  public void removeNotFinishedMeasurements(List<Measurement> measurements) {
+  public static void removeNotFinishedMeasurements(List<Measurement> measurements) {
     if (measurements.size() == 0) {
       return;
     }
@@ -341,7 +341,7 @@ public class Measurement {
    *
    * @return Returns max glucose or 0 if the list is empty.
    */
-  public int getGlucoseMaxFromList(List<Measurement> measurements) {
+  public static int getGlucoseMaxFromList(List<Measurement> measurements) {
     // Remove unfinished measurements
     removeNotFinishedMeasurements(measurements);
 
@@ -372,7 +372,7 @@ public class Measurement {
    *
    * @return Returns average glucose or 0 if the list is empty.
    */
-  public int getGlucoseAverageFromList(List<Measurement> measurements) {
+  public static int getGlucoseAverageFromList(List<Measurement> measurements) {
     // Remove unfinished measurements
     removeNotFinishedMeasurements(measurements);
 

@@ -270,7 +270,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     xAxis.setPosition(XAxisPosition.BOTTOM);
 
     createPercentileLine(measurements, 0.75f,
-        getResources().getColor(R.color.colorPrimary));
+        Color.YELLOW);
     createPercentileLine(measurements, 0.25f, Color.WHITE);
     if (mBinding.lineStyleAverage.isChecked()) {
       createAverageLine(measurements);
@@ -279,81 +279,80 @@ public class GraphsFoodSingleFragment extends Fragment {
     }
   }
 
-  private void createTestBarChart(List<Measurement> measurements) {
-    // hide line chart view elements
-    mBinding.textViewLineStyle.setVisibility(View.GONE);
-    mBinding.radioGroupLineStyle.setVisibility(View.GONE);
-    mBinding.lineChart.setVisibility(View.GONE);
+  /**
+   * Creates data for the percentile line
+   *
+   * @param measurements List of measurements.
+   * @param p percentage for the percentile
+   * @param fillColor Fill color
+   */
+  private void createPercentileLine(List<Measurement> measurements, float p, int fillColor) {
+    HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
-    // display bar chart view elements
-    mBinding.barChart.setVisibility(View.VISIBLE);
-
-    resetBarChart();
-
-    // Diverse settings for the bar chart
-    mBinding.barChart.getDescription().setText("Test");
-    mBinding.barChart.setTouchEnabled(false);
-    mBinding.barChart.getLegend().setEnabled(false);
-    //mBinding.barChart.animateY(2000);
-
-    // X Axis (left)
-    XAxis xAxis = mBinding.barChart.getXAxis();
-    xAxis.setDrawGridLines(false);
-    xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
-    xAxis.setLabelCount(4);
-    String[] values = {"Max Glucose", "Avg. Glucose", "Integral", "STDEV"};
-    xAxis.setValueFormatter(new BarChartValueFormatter(values));
-
-    // Y Axis left (top)
-    YAxis topAxis = mBinding.barChart.getAxisLeft();
-    topAxis.setAxisMinimum(0);
-    topAxis.setAxisMaximum(250f);
-
-    // Y Axis right (bottom)
-    YAxis bottomAxis = mBinding.barChart.getAxisRight();
-    bottomAxis.setDrawGridLines(false);
-    bottomAxis.setDrawLabels(false);
-
-    ArrayList<BarEntry> dataValues = new ArrayList<>();
-
-    if (measurements.size() == 0) {
-      dataValues.add(new BarEntry(0, 0));
-      dataValues.add(new BarEntry(1, 0));
-      dataValues.add(new BarEntry(2, 0));
-      dataValues.add(new BarEntry(3, 0));
-    } else {
-      // Entries
-      dataValues.add(new BarEntry(0, measurements.get(0).getGlucoseMaxFromList(measurements)));
-      dataValues.add(new BarEntry(1, measurements.get(0).getGlucoseAverageFromList(measurements)));
-      dataValues.add(new BarEntry(2, 0));
-      dataValues.add(new BarEntry(3, 0));
+    // check the amount of values
+    if (measurements.size() <= 1) {
+      return;
     }
 
-    // Set
-    BarDataSet set = new BarDataSet(dataValues, "Test");
-    set.setColor(getResources().getColor(R.color.colorPrimary));
-    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+    float percentileTileStart = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")), p);
+    float percentile15 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")), p);
+    float percentile30 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")), p);
+    float percentile45 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")), p);
+    float percentile60 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")), p);
+    float percentile75 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")), p);
+    float percentile90 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")), p);
+    float percentile105 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")), p);
+    float percentile120 = MyMath.getPercentile(
+        Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")), p);
+
+    // Create Entry ArrayList
+    ArrayList<Entry> percentileValues = new ArrayList<>();
+    percentileValues.add(new Entry(0, percentileTileStart));
+    percentileValues.add(new Entry(15, percentile15));
+    percentileValues.add(new Entry(30, percentile30));
+    percentileValues.add(new Entry(45, percentile45));
+    percentileValues.add(new Entry(60, percentile60));
+    percentileValues.add(new Entry(75, percentile75));
+    percentileValues.add(new Entry(90, percentile90));
+    percentileValues.add(new Entry(105, percentile105));
+    percentileValues.add(new Entry(120, percentile120));
+
+    // Create set
+    LineDataSet set = new LineDataSet(percentileValues, "Percentile");
+    set.setDrawCircles(false);
+    set.setFillAlpha(110);
+    set.setLineWidth(1f);
     set.setValueTextSize(10f);
-    mDataSetsBarChart.add(set);
+    set.setColor(fillColor);
+    set.setValueTextColor(Color.TRANSPARENT);
+    set.setFillColor(fillColor);
+    set.setFillAlpha(255);
+    set.setDrawFilled(true);
 
-    // Add data
-    BarData data = new BarData(mDataSetsBarChart);
-    mBinding.barChart.setData(data);
+    // Create
+    mDataSetsLineChart.add(set);
 
-    // Notify changes
-    mBinding.barChart.notifyDataSetChanged();
-    mBinding.barChart.invalidate();
+    LineData data = new LineData(mDataSetsLineChart);
+    mBinding.lineChart.setData(data);
+    mBinding.lineChart.notifyDataSetChanged();
+    mBinding.lineChart.invalidate();
   }
 
   /**
-   * This function creates the average line.
+   * Creates data for the average line
    *
-   * Takes all measurements and calculates the average for each measurement point.
-   *
-   * @param measurements All measurement values
+   * @param measurements List of measurements.
    */
   private void createAverageLine(List<Measurement> measurements) {
-    if (measurements.size() <= 1) {
+    if (measurements.size() == 0) {
       return;
     }
 
@@ -395,9 +394,9 @@ public class GraphsFoodSingleFragment extends Fragment {
     LineDataSet set = new LineDataSet(avg_values, "Average Glucose");
     set.setFillAlpha(110);
     set.setLineWidth(1f);  // how fat is the line
-    set.setValueTextSize(10f);
-    set.setColor(Color.YELLOW);
-    set.setValueTextColor(Color.BLACK);
+    set.setValueTextSize(12f);
+    set.setColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextColor(getResources().getColor(R.color.colorSecondary));
 
     // Create
     mDataSetsLineChart.add(set);
@@ -408,11 +407,16 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.lineChart.invalidate();
   }
 
+  /**
+   * Creates data for the median line
+   *
+   * @param measurements List of measurements.
+   */
   private void createMedianLine(List<Measurement> measurements) {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // check the amount of values
-    if (measurements == null || measurements.size() == 0 || measurements.size() == 1) {
+    if (measurements == null || measurements.size() == 0) {
       return;
     }
 
@@ -465,66 +469,67 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.lineChart.invalidate();
   }
 
-  private void createPercentileLine(List<Measurement> measurements, float p, int fillColor) {
-    HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
+  /**
+   *
+   */
+  private void createTestBarChart(List<Measurement> measurements) {
+    // hide line chart view elements
+    mBinding.textViewLineStyle.setVisibility(View.GONE);
+    mBinding.radioGroupLineStyle.setVisibility(View.GONE);
+    mBinding.lineChart.setVisibility(View.GONE);
 
-    // check the amount of values
-    if (measurements.size() <= 1) {
-      return;
-    }
+    // display bar chart view elements
+    mBinding.barChart.setVisibility(View.VISIBLE);
 
-    float percentileTileStart = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")), p);
-    float percentile15 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")), p);
-    float percentile30 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")), p);
-    float percentile45 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")), p);
-    float percentile60 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")), p);
-    float percentile75 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")), p);
-    float percentile90 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")), p);
-    float percentile105 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")), p);
-    float percentile120 = MyMath.getPercentile(
-        Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")), p);
+    resetBarChart();
 
-    // Create Entry ArrayList
-    ArrayList<Entry> percentileValues = new ArrayList<>();
-    percentileValues.add(new Entry(0, percentileTileStart));
-    percentileValues.add(new Entry(15, percentile15));
-    percentileValues.add(new Entry(30, percentile30));
-    percentileValues.add(new Entry(45, percentile45));
-    percentileValues.add(new Entry(60, percentile60));
-    percentileValues.add(new Entry(75, percentile75));
-    percentileValues.add(new Entry(90, percentile90));
-    percentileValues.add(new Entry(105, percentile105));
-    percentileValues.add(new Entry(120, percentile120));
+    // Diverse settings for the bar chart
+    mBinding.barChart.getDescription().setText("Test");
+    mBinding.barChart.setTouchEnabled(false);
+    mBinding.barChart.getLegend().setEnabled(false);
+    //mBinding.barChart.animateY(2000);
 
-    // Create set
-    LineDataSet set = new LineDataSet(percentileValues, "Percentile");
-    set.setDrawCircles(false);
-    set.setFillAlpha(110);
-    set.setLineWidth(1f);
-    set.setValueTextSize(10f);
+    // X Axis (left)
+    XAxis xAxis = mBinding.barChart.getXAxis();
+    xAxis.setDrawGridLines(false);
+    xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
+    xAxis.setLabelCount(4);
+    String[] values = {"Max Glucose", "Avg. Glucose", "Integral", "STDEV"};
+    xAxis.setValueFormatter(new BarChartValueFormatter(values));
+
+    // Y Axis left (top)
+    YAxis topAxis = mBinding.barChart.getAxisLeft();
+    topAxis.setAxisMinimum(0);
+    topAxis.setAxisMaximum(250f);
+
+    // Y Axis right (bottom)
+    YAxis bottomAxis = mBinding.barChart.getAxisRight();
+    bottomAxis.setDrawGridLines(false);
+    bottomAxis.setDrawLabels(false);
+
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+
+    // Entries
+    dataValues.add(new BarEntry(0, Measurement.getGlucoseMaxFromList(measurements)));
+    dataValues.add(new BarEntry(1, Measurement.getGlucoseAverageFromList(measurements)));
+    dataValues.add(new BarEntry(2, 0));
+    dataValues.add(new BarEntry(3, 0));
+
+    // Set
+    BarDataSet set = new BarDataSet(dataValues, "Test");
     set.setColor(getResources().getColor(R.color.colorPrimary));
-    set.setValueTextColor(Color.TRANSPARENT);
-    set.setFillColor(fillColor);
-    set.setFillAlpha(255);
-    set.setDrawFilled(true);
+    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextSize(10f);
+    mDataSetsBarChart.add(set);
 
-    // Create
-    mDataSetsLineChart.add(set);
+    // Add data
+    BarData data = new BarData(mDataSetsBarChart);
+    mBinding.barChart.setData(data);
 
-    LineData data = new LineData(mDataSetsLineChart);
-    mBinding.lineChart.setData(data);
-    mBinding.lineChart.notifyDataSetChanged();
-    mBinding.lineChart.invalidate();
+    // Notify changes
+    mBinding.barChart.notifyDataSetChanged();
+    mBinding.barChart.invalidate();
   }
-
 
   /**
    * This function will take all measurements and first remove all unfinished ones. Then there will
@@ -541,7 +546,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     }
 
     // Remove unfinished measurements
-    measurements.get(0).removeNotFinishedMeasurements(measurements);
+    Measurement.removeNotFinishedMeasurements(measurements);
 
     if (measurements.size() == 0) {
       return null;
