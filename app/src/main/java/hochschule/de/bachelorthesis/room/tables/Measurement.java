@@ -128,6 +128,10 @@ public class Measurement {
 
   /* GETTER */
 
+  public int getId() {
+    return id;
+  }
+
   public int getFoodId() {
     return foodId;
   }
@@ -136,8 +140,8 @@ public class Measurement {
     return userHistoryId;
   }
 
-  public int getId() {
-    return id;
+  public boolean isGi() {
+    return gi;
   }
 
   public String getTimeStamp() {
@@ -213,9 +217,51 @@ public class Measurement {
   }
 
   /**
-   * @return All glucose values if the measurement is done. Null else.
+   * @return All glucose values as an array list.
    */
   private ArrayList<Integer> getAllGlucoseValuesAsList() {
+    ArrayList<Integer> res = new ArrayList<>();
+    res.add(glucoseStart);
+
+    if (glucose15 != 0) {
+      res.add(glucose15);
+    }
+
+    if (glucose30 != 0) {
+      res.add(glucose30);
+    }
+
+    if (glucose45 != 0) {
+      res.add(glucose45);
+    }
+
+    if (glucose60 != 0) {
+      res.add(glucose60);
+    }
+
+    if (glucose75 != 0) {
+      res.add(glucose75);
+    }
+
+    if (glucose90 != 0) {
+      res.add(glucose90);
+    }
+
+    if (glucose105 != 0) {
+      res.add(glucose105);
+    }
+
+    if (glucose120 != 0) {
+      res.add(glucose120);
+    }
+
+    return res;
+  }
+
+  /**
+   * @return All glucose values if the measurement is done. Null else.
+   */
+  private ArrayList<Integer> getAllGlucoseValuesAsListIfMeasurementDone() {
     if (isDone()) {
       return new ArrayList<Integer>() {{
         add(glucoseStart);
@@ -233,9 +279,6 @@ public class Measurement {
     return null;
   }
 
-  public boolean isGi() {
-    return gi;
-  }
 
   // Checks if the measurement is done, as soon as one value is zero, the measurement cannot be finished yet.
   private boolean isDone() {
@@ -245,25 +288,30 @@ public class Measurement {
 
   /**
    * @return Returns the max glucose value if the measurement is done. If the measurement is not
-   * done, return an error code -1.
+   * done, return 0.
    */
   public int getGlucoseMax() {
-    if (isDone()) {
-      return MyMath.getMaxFromArrayList(Objects.requireNonNull(getAllGlucoseValuesAsList()));
-    }
+    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList();
 
-    return -1;
+    if (glucoseValues == null) {
+      return 0;
+    } else {
+      return MyMath.getMaxFromArrayList(glucoseValues);
+    }
   }
 
   /**
-   * @return Returns the average of this measurement. If measurement is not finished, return -1.
+   * @return Returns the average glucose value if the measurement is done. If the measurement is not
+   * done, return 0.
    */
   public int getGlucoseAverage() {
-    if (isDone()) {
-      return MyMath.getAverageFromArrayList(Objects.requireNonNull(getAllGlucoseValuesAsList()));
-    }
+    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList();
 
-    return -1;
+    if (glucoseValues == null) {
+      return 0;
+    } else {
+      return MyMath.getAverageFromArrayList(glucoseValues);
+    }
   }
 
 
@@ -291,58 +339,19 @@ public class Measurement {
   /**
    * This functions returns the max glucose from a list of measurements.
    *
-   * First removes unfinished measurements and then checks the remaining for the max glucose.
-   *
-   * @param measurements The list to check.
-   * @return Returns max glucose or -1 if the list is empty.
+   * @return Returns max glucose or 0 if the list is empty.
    */
-  public int getGlucoseMaxFromList(List<Measurement> measurements) {
-    // Remove unfinished measurements
-    removeNotFinishedMeasurements(measurements);
-
-    if (measurements.size() == 0) {
-      return -1;
-    }
-
-    if (measurements.size() == 1) {
-      return measurements.get(0).getGlucoseMax();
-    }
-
-    int maxGlucose = measurements.get(0).getGlucoseMax();
-
-    for (int i = 1; i < measurements.size(); ++i) {
-      if (measurements.get(i).getGlucoseMax() > maxGlucose) {
-        maxGlucose = measurements.get(i).getGlucoseMax();
-      }
-    }
-
-    return maxGlucose;
+  public int getGlucoseMaxFromList() {
+    return MyMath.getMaxFromArrayList(getAllGlucoseValuesAsList());
   }
 
   /**
    * This functions returns the average glucose from a list of measurements.
    *
-   * First removes unfinished measurements and then checks the remaining for the average glucose.
-   *
-   * @param measurements The list to check.
-   * @return Returns average glucose or -1 if the list is empty.
+   * @return Returns average glucose or 0 if the list is empty.
    */
-  public int getGlucoseAverageFromList(List<Measurement> measurements) {
-    // Remove unfinished measurements
-    removeNotFinishedMeasurements(measurements);
-
-    if (measurements.size() == 0) {
-      return -1;
-    }
-
-    // Add all glucose values from all measurements to one list
-    ArrayList<Integer> allGlucoseValues = new ArrayList<>();
-
-    for (Measurement m : measurements) {
-      allGlucoseValues.addAll(Objects.requireNonNull(m.getAllGlucoseValuesAsList()));
-    }
-
-    return MyMath.getAverageFromArrayList(allGlucoseValues);
+  public int getGlucoseAverageFromList() {
+    return MyMath.getAverageFromArrayList(getAllGlucoseValuesAsList());
   }
 
 
