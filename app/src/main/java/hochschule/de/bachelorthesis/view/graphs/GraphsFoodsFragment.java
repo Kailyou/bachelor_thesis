@@ -23,6 +23,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsFoodsBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.BarChartValueFormatter;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -148,7 +149,7 @@ public class GraphsFoodsFragment extends Fragment {
     xAxis.setDrawGridLines(false);
     xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
     xAxis.setLabelCount(mFoodData.size());
-    xAxis.setValueFormatter(new MyValueFormatter(labels));
+    xAxis.setValueFormatter(new BarChartValueFormatter(labels));
 
     // Y Axis left (top)
     YAxis topAxis = mBinding.barChartGlucoseMax.getAxisLeft();
@@ -216,7 +217,7 @@ public class GraphsFoodsFragment extends Fragment {
     xAxis.setDrawGridLines(false);
     xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
     xAxis.setLabelCount(mFoodData.size());
-    xAxis.setValueFormatter(new MyValueFormatter(labels));
+    xAxis.setValueFormatter(new BarChartValueFormatter(labels));
 
     // Y Axis left (top)
     YAxis topAxis = mBinding.barChartGlucoseAverage.getAxisLeft();
@@ -249,70 +250,6 @@ public class GraphsFoodsFragment extends Fragment {
     // Notify changes
     mBinding.barChartGlucoseAverage.notifyDataSetChanged();
     mBinding.barChartGlucoseAverage.invalidate();
-  }
-
-  private void createTestBarChart() {
-
-    // Diverse settings for the bar chart
-    mBinding.barChartGlucoseMax.getDescription().setText("Max Glucose");
-    mBinding.barChartGlucoseMax.setTouchEnabled(false);
-    mBinding.barChartGlucoseMax.getLegend().setEnabled(false);
-    //mBinding.barChart.animateY(2000);
-
-    // X Axis (left)
-    XAxis xAxis = mBinding.barChartGlucoseMax.getXAxis();
-    xAxis.setDrawGridLines(false);
-    xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
-    xAxis.setLabelCount(5);
-    String[] values = {"Food 1", "Food 2", "Food 3", "Food 4", "Food 5"};
-    xAxis.setValueFormatter(new MyValueFormatter(values));
-
-    // Y Axis left (top)
-    YAxis topAxis = mBinding.barChartGlucoseMax.getAxisLeft();
-    topAxis.setAxisMinimum(0);
-    topAxis.setAxisMaximum(250f);
-
-    // Y Axis right (bottom)
-    YAxis bottomAxis = mBinding.barChartGlucoseMax.getAxisRight();
-    bottomAxis.setDrawGridLines(false);
-    bottomAxis.setDrawLabels(false);
-
-    // Entries
-    ArrayList<BarEntry> dataValues = new ArrayList<>();
-    dataValues.add(new BarEntry(0, 170));
-    dataValues.add(new BarEntry(1, 200));
-    dataValues.add(new BarEntry(2, 170));
-    dataValues.add(new BarEntry(3, 150));
-    dataValues.add(new BarEntry(4, 126));
-
-    // Set
-    BarDataSet set = new BarDataSet(dataValues, "Test");
-    set.setColor(getResources().getColor(R.color.colorPrimary));
-    set.setValueTextSize(10f);
-    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
-    mDataSets.add(set);
-
-    // Add data
-    BarData data = new BarData(mDataSets);
-    mBinding.barChartGlucoseMax.setData(data);
-
-    // Notify changes
-    mBinding.barChartGlucoseMax.notifyDataSetChanged();
-    mBinding.barChartGlucoseMax.invalidate();
-  }
-
-  private class MyValueFormatter extends ValueFormatter {
-
-    private String[] mLabels;
-
-    private MyValueFormatter(String[] labels) {
-      mLabels = labels;
-    }
-
-    @Override
-    public String getFormattedValue(float value) {
-      return mLabels[(int) value];
-    }
   }
 
   private class BarCharSaveObject {
