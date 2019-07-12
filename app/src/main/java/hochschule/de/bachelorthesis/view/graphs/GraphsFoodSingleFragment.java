@@ -434,29 +434,23 @@ public class GraphsFoodSingleFragment extends Fragment {
       return;
     }
 
-    // Sort the arrays
-    for (Map.Entry<String, ArrayList<Integer>> entry : allGlucoseValues.entrySet()) {
-      ArrayList<Integer> list = entry.getValue();
-      Collections.sort(list);
-    }
-
-    float medianStart = getMedianValue(
+    float medianStart = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")));
-    float median15 = getMedianValue(
+    float median15 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")));
-    float median30 = getMedianValue(
+    float median30 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")));
-    float median45 = getMedianValue(
+    float median45 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")));
-    float median60 = getMedianValue(
+    float median60 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")));
-    float median75 = getMedianValue(
+    float median75 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")));
-    float median90 = getMedianValue(
+    float median90 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")));
-    float median105 = getMedianValue(
+    float median105 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")));
-    float median120 = getMedianValue(
+    float median120 = MyMath.getMedianValue(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")));
 
     // Create Entry ArrayList
@@ -497,30 +491,23 @@ public class GraphsFoodSingleFragment extends Fragment {
       return;
     }
 
-    // Sort the arrays
-    for (Map.Entry<String, ArrayList<Integer>> entry : allGlucoseValues.entrySet()) {
-      ArrayList<Integer> list = entry.getValue();
-
-      Collections.sort(list);
-    }
-
-    float percentileTileStart = getPercentile(
+    float percentileTileStart = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")), p);
-    float percentile15 = getPercentile(
+    float percentile15 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")), p);
-    float percentile30 = getPercentile(
+    float percentile30 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")), p);
-    float percentile45 = getPercentile(
+    float percentile45 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")), p);
-    float percentile60 = getPercentile(
+    float percentile60 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")), p);
-    float percentile75 = getPercentile(
+    float percentile75 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")), p);
-    float percentile90 = getPercentile(
+    float percentile90 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")), p);
-    float percentile105 = getPercentile(
+    float percentile105 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")), p);
-    float percentile120 = getPercentile(
+    float percentile120 = MyMath.getPercentile(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")), p);
 
     // Create Entry ArrayList
@@ -615,67 +602,6 @@ public class GraphsFoodSingleFragment extends Fragment {
     allGlucoseValues.put("glucose_values_120", all120Values);
 
     return allGlucoseValues;
-  }
-
-  /**
-   * This function will return the median of a list of values.
-   *
-   * @param values - ArrayList with values inside.
-   * @return Returns the median.
-   */
-  private float getMedianValue(ArrayList<Integer> values) {
-    if (values.size() == 0 || values.size() == 1) {
-      return 0;
-    }
-
-    int amount = values.size();
-
-    // Last bit = 0 even, else odd.
-    if ((amount & 1) == 0) {
-      // -1 because arrays start at 1
-      return (float) 0.5 * (values.get((amount / 2) - 1) + values.get((amount / 2)));
-    } else {
-      // +1 is missing here because of the -1 because of array index
-      return values.get((amount) / 2);
-    }
-  }
-
-  /**
-   * Returns the percentile value of a given list of values and the percentage given.
-   *
-   * n = amount of values p = percentile per cent
-   *
-   * First calculate k with k = (n * p)
-   *
-   * Check if the result k is even or odd.
-   *
-   * If it is odd use this formula: xp = x(k)
-   *
-   * If it is even use this formula: 0.5 (x(k) + x(k+1)
-   *
-   * The -1 is due the fact that arrays start at index 0 and not at 1.
-   *
-   * @param values - ArrayList with values inside.
-   * @param p - The percent for the percentile
-   * @return Returns the percentile.
-   */
-  private float getPercentile(ArrayList<Integer> values, float p) {
-    if (values.size() == 0 || values.size() == 1) {
-      return 0;
-    }
-
-    double k = values.size() * p;
-
-    // Even or odd
-    if (k == (int) k) {
-      // -1 because arrays start at 1
-      float v1 = values.get((int) k - 1);
-      float v2 = values.get((int) k);
-
-      return (float) 0.5 * (v1 + v2);
-    } else {
-      return values.get(((int) Math.ceil(k)) - 1);
-    }
   }
 
   /**
