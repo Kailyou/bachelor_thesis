@@ -341,8 +341,30 @@ public class Measurement {
    *
    * @return Returns max glucose or 0 if the list is empty.
    */
-  public int getGlucoseMaxFromList() {
-    return MyMath.getMaxFromArrayList(getAllGlucoseValuesAsList());
+  public int getGlucoseMaxFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    // Return 0 is list is empty
+    if (measurements.size() == 0) {
+      return 0;
+    }
+
+    // Return the max of the first measurement, if there is only one measurement
+    if (measurements.size() == 1) {
+      return measurements.get(0).getGlucoseMax();
+    }
+
+    // Calculate the max glucose of all measurements and return
+    int maxGlucose = measurements.get(0).getGlucoseMax();
+
+    for (int i = 1; i < measurements.size(); ++i) {
+      if (measurements.get(i).getGlucoseMax() > maxGlucose) {
+        maxGlucose = measurements.get(i).getGlucoseMax();
+      }
+    }
+
+    return maxGlucose;
   }
 
   /**
@@ -350,8 +372,23 @@ public class Measurement {
    *
    * @return Returns average glucose or 0 if the list is empty.
    */
-  public int getGlucoseAverageFromList() {
-    return MyMath.getAverageFromArrayList(getAllGlucoseValuesAsList());
+  public int getGlucoseAverageFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    // Return 0 is list is empty
+    if (measurements.size() == 0) {
+      return 0;
+    }
+
+    // Add all glucose values from all measurements to one list
+    ArrayList<Integer> allGlucoseValues = new ArrayList<>();
+
+    for (Measurement m : measurements) {
+      allGlucoseValues.addAll(m.getAllGlucoseValuesAsList());
+    }
+
+    return MyMath.getAverageFromArrayList(allGlucoseValues);
   }
 
 
