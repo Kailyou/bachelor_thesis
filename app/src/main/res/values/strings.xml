@@ -140,7 +140,6 @@
   <string name="compare_glucose_max">Compare Glucose Max</string>
   <string name="compare_glucose_average">Compare Glucose Average</string>
   <string name="compare_integral">Compare Integral</string>
-  <string name="compare_integral">Compare Integral</string>
 
   <string-array name="type">
     <item>Grains</item>

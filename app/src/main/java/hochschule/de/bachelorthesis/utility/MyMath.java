@@ -27,12 +27,28 @@ public class MyMath {
    * @param arr - The array.
    * @return - Returns 0 if the array is empty, else the highest value inside.
    */
-  public static int getMaxFromArrayList(ArrayList<Integer> arr) {
+  public static int getMaxFromIntegerArrayList(ArrayList<Integer> arr) {
     if (arr.size() <= 0) {
       return 0;
     }
 
     int res = arr.get(0);
+
+    for (int i = 1; i < arr.size(); ++i) {
+      if (arr.get(i) > res) {
+        res = arr.get(i);
+      }
+    }
+
+    return res;
+  }
+
+  public static float getMaxFromFloatArrayList(ArrayList<Float> arr) {
+    if (arr.size() <= 0) {
+      return 0;
+    }
+
+    float res = arr.get(0);
 
     for (int i = 1; i < arr.size(); ++i) {
       if (arr.get(i) > res) {

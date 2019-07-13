@@ -9,7 +9,6 @@ import hochschule.de.bachelorthesis.utility.MyMath;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
@@ -296,7 +295,7 @@ public class Measurement {
     if (glucoseValues == null) {
       return 0;
     } else {
-      return MyMath.getMaxFromArrayList(glucoseValues);
+      return MyMath.getMaxFromIntegerArrayList(glucoseValues);
     }
   }
 
