@@ -304,14 +304,9 @@ public class Measurement {
    * @return Returns the average glucose value if the measurement is done. If the measurement is not
    * done, return 0.
    */
-  public int getGlucoseAverage() {
+  public float getGlucoseAverage() {
     ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList();
-
-    if (glucoseValues == null) {
-      return 0;
-    } else {
       return MyMath.getAverageFromArrayList(glucoseValues);
-    }
   }
 
 
@@ -372,7 +367,7 @@ public class Measurement {
    *
    * @return Returns average glucose or 0 if the list is empty.
    */
-  public static int getGlucoseAverageFromList(List<Measurement> measurements) {
+  public static float getGlucoseAverageFromList(List<Measurement> measurements) {
     // Remove unfinished measurements
     removeNotFinishedMeasurements(measurements);
 

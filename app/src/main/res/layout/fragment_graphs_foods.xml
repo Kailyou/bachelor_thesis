@@ -26,26 +26,11 @@
       <com.github.mikephil.charting.charts.HorizontalBarChart
         android:id="@+id/barChartGlucoseMax"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp">
+        android:layout_height="350dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
       </com.github.mikephil.charting.charts.HorizontalBarChart>
 
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/glucose_average_mg_dl"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textColor="@color/colorPrimary"/>
-
-      <com.github.mikephil.charting.charts.HorizontalBarChart
-        android:id="@+id/barChartGlucoseAverage"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp">
-      </com.github.mikephil.charting.charts.HorizontalBarChart>
     </LinearLayout>
   </ScrollView>
 </layout>

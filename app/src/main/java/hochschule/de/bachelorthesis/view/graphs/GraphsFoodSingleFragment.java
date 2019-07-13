@@ -359,23 +359,23 @@ public class GraphsFoodSingleFragment extends Fragment {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // Get average values
-    int glucose_avg_start = MyMath.getAverageFromArrayList(
+    float glucose_avg_start = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")));
-    int glucose_avg_15 = MyMath.getAverageFromArrayList(
+    float glucose_avg_15 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")));
-    int glucose_avg_30 = MyMath.getAverageFromArrayList(
+    float glucose_avg_30 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")));
-    int glucose_avg_45 = MyMath.getAverageFromArrayList(
+    float glucose_avg_45 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")));
-    int glucose_avg_60 = MyMath.getAverageFromArrayList(
+    float glucose_avg_60 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")));
-    int glucose_avg_75 = MyMath.getAverageFromArrayList(
+    float glucose_avg_75 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")));
-    int glucose_avg_90 = MyMath.getAverageFromArrayList(
+    float glucose_avg_90 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")));
-    int glucose_avg_105 = MyMath.getAverageFromArrayList(
+    float glucose_avg_105 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")));
-    int glucose_avg_120 = MyMath.getAverageFromArrayList(
+    float glucose_avg_120 = MyMath.getAverageFromArrayList(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")));
 
     // Create Entry ArrayList

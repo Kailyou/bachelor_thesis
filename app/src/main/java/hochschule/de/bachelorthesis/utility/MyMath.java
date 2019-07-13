@@ -10,25 +10,15 @@ public class MyMath {
 
 
   /**
-   * @param al Array list with counts
+   * @param values Array list with counts
    * @return The average from the given list.
    */
-  public static int getAverageFromArrayList(ArrayList<Integer> al) {
-    if (al.size() == 0) {
-      return 0;
+  public static float getAverageFromArrayList(ArrayList<Integer> values) {
+    float average = 0.0f;
+    for (int i = 0; i < values.size(); i++) {
+      average += values.get(i);
     }
-
-    if (al.size() == 1) {
-      return al.get(0);
-    }
-
-    float sum = 0;
-
-    for (int value : al) {
-      sum += value;
-    }
-
-    return (int) sum / al.size();
+    return average /= values.size();
   }
 
   /**
@@ -120,6 +110,25 @@ public class MyMath {
     } else {
       return values.get(((int) Math.ceil(k)) - 1);
     }
+  }
+
+  public static void getVariance() {
+
+  }
+
+  public static float getStandardDeviation(ArrayList<Integer> values) {
+    if (values.size() == 0 || values.size() == 1) {
+      return 0;
+    }
+
+    // Step 1: Calculate average
+    double average = getAverageFromArrayList(values);
+
+    // Step 2: Calculate variance
+
+    // Step 3: Calculate standard deviation
+
+    return 0;
   }
 
 

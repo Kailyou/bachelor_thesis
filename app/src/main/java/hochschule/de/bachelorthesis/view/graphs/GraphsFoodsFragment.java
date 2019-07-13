@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.graphs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,10 @@ import hochschule.de.bachelorthesis.databinding.FragmentGraphsFoodsBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.BarChartValueFormatter;
+import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -34,13 +37,11 @@ public class GraphsFoodsFragment extends Fragment {
 
   private FragmentGraphsFoodsBinding mBinding;
 
+  private ArrayList<FoodData> mFoodData = new ArrayList<>();
+
   private ArrayList<IBarDataSet> mDataSets = new ArrayList<>();
-  private ArrayList<IBarDataSet> mDataSets2 = new ArrayList<>();
 
   private GraphsViewModel mViewModel;
-
-  private ArrayList<BarCharSaveObject> mFoodData = new ArrayList<>();
-
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     Objects.requireNonNull(getActivity()).setTitle("Plan");
@@ -64,7 +65,6 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setViewModel(mViewModel);
 
-    //createTestBarChart();
     loadDataFromFoods();
 
     return mBinding.getRoot();
@@ -76,6 +76,8 @@ public class GraphsFoodsFragment extends Fragment {
    * graphs will be called after all data has been collected.
    */
   private void loadDataFromFoods() {
+    clearData();
+
     // First load all food objects
     mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
       @Override
@@ -85,27 +87,20 @@ public class GraphsFoodsFragment extends Fragment {
 
           mViewModel.getAllMeasurementsByFoodId(food.id).observe(getViewLifecycleOwner(),
               new Observer<List<Measurement>>() {
+
                 @Override
                 public void onChanged(List<Measurement> measurements) {
-                  int glucoseMax = 0;
-                  int glucoseAverage = 0;
+                  // Create food data object and save it to the list
+                  FoodData foodData = new FoodData(
+                      food.getFoodName(),
+                      Measurement.getGlucoseMaxFromList(measurements),
+                      Measurement.getGlucoseAverageFromList(measurements));
 
-                  for (Measurement m : measurements) {
-                    if (glucoseMax < m.getGlucoseMax()) {
-                      glucoseMax = m.getGlucoseMax();
-                    }
+                  mFoodData.add(foodData);
 
-                    if (glucoseAverage < m.getGlucoseAverage()) {
-                      glucoseAverage = m.getGlucoseAverage();
-                    }
-                  }
-
-                  mFoodData
-                      .add(new BarCharSaveObject(food.getFoodName(), glucoseMax, glucoseAverage));
-
+                  // If all values has been collected, build the graph
                   if (mFoodData.size() == foods.size()) {
-                    createGlucoseMaxChartFromAllFoods();
-                    createGlucoseAverageChartFromAllFoods();
+                    buildBarChart();
                   }
                 }
               });
@@ -114,27 +109,21 @@ public class GraphsFoodsFragment extends Fragment {
     });
   }
 
-  private void createGlucoseMaxChartFromAllFoods() {
-    // First sort the list
-    Comparator<BarCharSaveObject> compareByGlucoseMax = new Comparator<BarCharSaveObject>() {
-      @Override
-      public int compare(BarCharSaveObject o1, BarCharSaveObject o2) {
-        return o1.getGlucoseMax().compareTo(o2.getGlucoseMax());
-      }
-    };
+  private void buildBarChart() {
+    if (mFoodData.size() == 0) {
+      return;
+    }
 
-    // Remove all empty
-    Iterator<BarCharSaveObject> iterator = mFoodData.iterator();
+    // Remove all unfinished measurements
+    Iterator<FoodData> iterator = mFoodData.iterator();
+
     while (iterator.hasNext()) {
-      BarCharSaveObject barCharSaveObject = iterator.next();
-      if (barCharSaveObject.getGlucoseMax() == 0) {
+      FoodData current = iterator.next();
+      if(current.getGlucoseMax() == 0
+      || current.getGlucoseAverage() < 0.1f) {
         iterator.remove();
       }
     }
-
-    Collections.sort(mFoodData, compareByGlucoseMax);
-
-    String[] labels = new String[mFoodData.size()];
 
     // Diverse settings for the bar chart
     mBinding.barChartGlucoseMax.getDescription().setEnabled(false);
@@ -146,28 +135,57 @@ public class GraphsFoodsFragment extends Fragment {
     XAxis xAxis = mBinding.barChartGlucoseMax.getXAxis();
     xAxis.setDrawGridLines(false);
     xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
-    xAxis.setLabelCount(mFoodData.size());
-    xAxis.setValueFormatter(new BarChartValueFormatter(labels));
 
     // Y Axis left (top)
     YAxis topAxis = mBinding.barChartGlucoseMax.getAxisLeft();
     topAxis.setAxisMinimum(0);
-    topAxis.setAxisMaximum(250f);
 
     // Y Axis right (bottom)
     YAxis bottomAxis = mBinding.barChartGlucoseMax.getAxisRight();
     bottomAxis.setDrawGridLines(false);
     bottomAxis.setDrawLabels(false);
 
-    // Labels and Entries
-    ArrayList<BarEntry> dataValues = new ArrayList<>();
-    for (int i = 0; i < mFoodData.size(); ++i) {
+    // TODO, check which bar graph should be build
+    createBarChartGlucoseMax();
+  }
+
+  private void createBarChartGlucoseMax() {
+    // Sort
+    Collections.sort(mFoodData, new Comparator<FoodData>() {
+      @Override
+      public int compare(FoodData o1, FoodData o2) {
+        return o1.getGlucoseMax().compareTo(o2.getGlucoseMax());
+      }
+    });
+
+    // Labels
+    String[] labels = new String[mFoodData.size()];
+    ArrayList<Integer> glucoseMaxValues = new ArrayList<>();
+    ArrayList<Float> glucoseAverageValues = new ArrayList<>();
+
+    for (int i = 0; i < mFoodData.size(); i++) {
       labels[i] = mFoodData.get(i).getFoodName();
-      dataValues.add(new BarEntry(i, mFoodData.get(i).mGlucoseMax));
+      glucoseMaxValues.add(mFoodData.get(i).getGlucoseMax());
+      glucoseAverageValues.add(mFoodData.get(i).getGlucoseAverage());
+    }
+
+    // X Axis (left)
+    XAxis xAxis = mBinding.barChartGlucoseMax.getXAxis();
+    xAxis.setLabelCount(labels.length);
+    xAxis.setValueFormatter(new BarChartValueFormatter(labels));
+
+    // Y Axis left (top)
+    mBinding.barChartGlucoseMax.getAxisLeft()
+        .setAxisMaximum(MyMath.getMaxFromArrayList(glucoseMaxValues) + 20);
+
+    // Entries
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+    for (int i = 0; i < glucoseMaxValues.size(); ++i) {
+      dataValues.add(new BarEntry(i, glucoseMaxValues.get(i)));
     }
 
     // Set
-    BarDataSet set = new BarDataSet(dataValues, "Test");
+    BarDataSet set = new BarDataSet(dataValues, "Glucose Max");
     set.setColor(getResources().getColor(R.color.colorPrimary));
     set.setValueTextSize(10f);
     set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
@@ -182,81 +200,21 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.barChartGlucoseMax.invalidate();
   }
 
-  private void createGlucoseAverageChartFromAllFoods() {
-    // First sort the list
-    Comparator<BarCharSaveObject> compareByGlucoseAverage = new Comparator<BarCharSaveObject>() {
-      @Override
-      public int compare(BarCharSaveObject o1, BarCharSaveObject o2) {
-        return o1.getGlucoseMax().compareTo(o2.getGlucoseAverage());
-      }
-    };
-
-    // Remove all empty
-    Iterator<BarCharSaveObject> iterator = mFoodData.iterator();
-    while (iterator.hasNext()) {
-      BarCharSaveObject barCharSaveObject = iterator.next();
-      if (barCharSaveObject.getGlucoseMax() == 0) {
-        iterator.remove();
-      }
-    }
-
-    Collections.sort(mFoodData, compareByGlucoseAverage);
-
-    String[] labels = new String[mFoodData.size()];
-
-    // Diverse settings for the bar chart
-    mBinding.barChartGlucoseAverage.getDescription().setEnabled(false);
-    mBinding.barChartGlucoseAverage.setTouchEnabled(false);
-    mBinding.barChartGlucoseAverage.getLegend().setEnabled(false);
-    mBinding.barChartGlucoseAverage.animateY(2000);
-
-    // X Axis (left)
-    XAxis xAxis = mBinding.barChartGlucoseAverage.getXAxis();
-    xAxis.setDrawGridLines(false);
-    xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
-    xAxis.setLabelCount(mFoodData.size());
-    xAxis.setValueFormatter(new BarChartValueFormatter(labels));
-
-    // Y Axis left (top)
-    YAxis topAxis = mBinding.barChartGlucoseAverage.getAxisLeft();
-    topAxis.setAxisMinimum(0);
-    topAxis.setAxisMaximum(250f);
-
-    // Y Axis right (bottom)
-    YAxis bottomAxis = mBinding.barChartGlucoseAverage.getAxisRight();
-    bottomAxis.setDrawGridLines(false);
-    bottomAxis.setDrawLabels(false);
-
-    // Labels and Entries
-    ArrayList<BarEntry> dataValues = new ArrayList<>();
-    for (int i = 0; i < mFoodData.size(); ++i) {
-      labels[i] = mFoodData.get(i).getFoodName();
-      dataValues.add(new BarEntry(i, mFoodData.get(i).mGlucoseAverage));
-    }
-
-    // Set
-    BarDataSet set = new BarDataSet(dataValues, "Test");
-    set.setColor(getResources().getColor(R.color.colorPrimary));
-    set.setValueTextSize(10f);
-    set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
-    mDataSets2.add(set);
-
-    // Add data
-    BarData data = new BarData(mDataSets2);
-    mBinding.barChartGlucoseAverage.setData(data);
-
-    // Notify changes
-    mBinding.barChartGlucoseAverage.notifyDataSetChanged();
-    mBinding.barChartGlucoseAverage.invalidate();
+  private void clearData() {
+    mFoodData.clear();
+    mDataSets.clear();
+    mBinding.barChartGlucoseMax.notifyDataSetChanged();
+    mBinding.barChartGlucoseMax.clear();
+    mBinding.barChartGlucoseMax.invalidate();
   }
 
-  private class BarCharSaveObject {
+  private class FoodData {
 
     private String mFoodName;
     private Integer mGlucoseMax;
-    private Integer mGlucoseAverage;
+    private Float mGlucoseAverage;
 
-    private BarCharSaveObject(String foodName, int maxGlucose, int averageGlucose) {
+    private FoodData(String foodName, int maxGlucose, float averageGlucose) {
       mFoodName = foodName;
       mGlucoseMax = maxGlucose;
       mGlucoseAverage = averageGlucose;
@@ -266,13 +224,15 @@ public class GraphsFoodsFragment extends Fragment {
       return mFoodName;
     }
 
-    private Integer getGlucoseMax() {
+    public Integer getGlucoseMax() {
       return mGlucoseMax;
     }
 
-    private Integer getGlucoseAverage() {
+    public Float getGlucoseAverage() {
       return mGlucoseAverage;
     }
   }
 }
+
+
 
