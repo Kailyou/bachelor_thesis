@@ -2,11 +2,11 @@ package hochschule.de.bachelorthesis.model;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class GraphModelSingle {
+public class GraphAllModel {
 
   private MutableLiveData<String> mSelectedFood;
 
-  public GraphModelSingle() {
+  public GraphAllModel() {
     mSelectedFood = new MutableLiveData<>();
   }
 

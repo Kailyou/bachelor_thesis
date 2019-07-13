@@ -137,6 +137,10 @@
   <string name="line_style">Line Style</string>
   <string name="average">Average</string>
   <string name="median">Median</string>
+  <string name="compare_glucose_max">Compare Glucose Max</string>
+  <string name="compare_glucose_average">Compare Glucose Average</string>
+  <string name="compare_integral">Compare Integral</string>
+  <string name="compare_integral">Compare Integral</string>
 
   <string-array name="type">
     <item>Grains</item>

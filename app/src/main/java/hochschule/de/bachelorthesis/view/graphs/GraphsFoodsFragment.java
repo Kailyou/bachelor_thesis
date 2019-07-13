@@ -3,6 +3,9 @@ package hochschule.de.bachelorthesis.view.graphs;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -37,6 +40,8 @@ public class GraphsFoodsFragment extends Fragment {
 
   private FragmentGraphsFoodsBinding mBinding;
 
+  private int mType;
+
   private ArrayList<FoodData> mFoodData = new ArrayList<>();
 
   private ArrayList<IBarDataSet> mDataSets = new ArrayList<>();
@@ -68,6 +73,37 @@ public class GraphsFoodsFragment extends Fragment {
     loadDataFromFoods();
 
     return mBinding.getRoot();
+  }
+
+  @Override
+  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.graphs_single_menu, menu);
+  }
+
+  // TODO, remove those ids and get new one for animating graph maybe.
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.graphs_all_glucose_max:
+        mType = 0;
+        return true;
+
+      case R.id.graphs_all_glucose_avg:
+        mType = 1;
+        return true;
+
+      case R.id.graphs_all_integral:
+        mType = 2;
+        return true;
+
+      case R.id.graphs_all_stdev:
+        mType = 3;
+        return true;
+
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 
   /**

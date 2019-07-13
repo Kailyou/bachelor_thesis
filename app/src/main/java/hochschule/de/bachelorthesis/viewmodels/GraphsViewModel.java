@@ -4,7 +4,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import hochschule.de.bachelorthesis.model.GraphModelSingle;
+import hochschule.de.bachelorthesis.model.GraphSingleModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -17,7 +17,7 @@ public class GraphsViewModel extends AndroidViewModel {
   private LiveData<List<Food>> mAllFoods;
 
   // Model
-  private GraphModelSingle mGraphModelSingle;
+  private GraphSingleModel mGraphSingleModel;
   private GraphModelAll mGraphModelAll;
 
 
@@ -27,7 +27,7 @@ public class GraphsViewModel extends AndroidViewModel {
     mRepository = new Repository(application);
     mAllFoods = mRepository.getAllFoods();
 
-    mGraphModelSingle = new GraphModelSingle();
+    mGraphSingleModel = new GraphSingleModel();
   }
 
 
@@ -66,8 +66,8 @@ public class GraphsViewModel extends AndroidViewModel {
 
 
   /* GETTER */
-  public GraphModelSingle getGraphSingleModel() {
-    return mGraphModelSingle;
+  public GraphSingleModel getGraphSingleModel() {
+    return mGraphSingleModel;
   }
 
 }
