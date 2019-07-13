@@ -183,7 +183,7 @@ public class GraphsFoodsFragment extends Fragment {
     bottomAxis.setDrawGridLines(false);
     bottomAxis.setDrawLabels(false);
 
-    // TODO, check which bar graph should be build
+    // Check which graph to build
     switch (mViewModel.getGraphAllModel().getChartType()) {
       case 0:
         createBarChartGlucoseMax();
