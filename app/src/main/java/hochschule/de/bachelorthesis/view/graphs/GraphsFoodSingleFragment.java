@@ -96,7 +96,6 @@ public class GraphsFoodSingleFragment extends Fragment {
     inflater.inflate(R.menu.graphs_single_menu, menu);
   }
 
-  // TODO, remove those ids and get new one for animating graph maybe.
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
@@ -108,6 +107,10 @@ public class GraphsFoodSingleFragment extends Fragment {
       case R.id.graphs_single_bar_graph:
         mViewModel.getGraphAllModel().setChartType(1);
         loadMeasurementsAndBuildGraph();
+        return true;
+
+      case R.id.graphs_single_animate:
+        animateGraph();
         return true;
     }
 
@@ -252,8 +255,9 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     resetLineChart();
 
-    // Overall settings
+    // Diverse Settings
     mBinding.lineChart.setTouchEnabled(false);
+    animateGraph();
 
     // Left-Axis
     YAxis leftAxis = mBinding.lineChart.getAxisLeft();
@@ -494,7 +498,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.barChart.getDescription().setText("Test");
     mBinding.barChart.setTouchEnabled(false);
     mBinding.barChart.getLegend().setEnabled(false);
-    //mBinding.barChart.animateY(2000);
+    animateGraph();
 
     // X Axis (left)
     XAxis xAxis = mBinding.barChart.getXAxis();
@@ -596,6 +600,20 @@ public class GraphsFoodSingleFragment extends Fragment {
     allGlucoseValues.put("glucose_values_120", all120Values);
 
     return allGlucoseValues;
+  }
+
+  /**
+   * Animates either the line chart in x direction or the
+   * bar chart in y direction, depending of which chart
+   * is currently visible to the user.
+   */
+  private void animateGraph() {
+    if (mBinding.lineChart.getVisibility() == View.VISIBLE) {
+      mBinding.lineChart.animateX(2000);
+    }
+    else if(mBinding.barChart.getVisibility() == View.VISIBLE) {
+      mBinding.barChart.animateY(2000);
+    }
   }
 
   /**

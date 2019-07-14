@@ -4,14 +4,17 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
     android:id="@+id/graphs_single_line_graph"
-    android:icon="@drawable/ic_settings_white_24dp"
     android:orderInCategory="100"
-    android:title="Draw Line Graph"
+    android:title="@string/draw_line_graph"
     app:showAsAction="never"/>
   <item
     android:id="@+id/graphs_single_bar_graph"
-    android:icon="@drawable/ic_settings_white_24dp"
     android:orderInCategory="100"
-    android:title="Draw Bar Graph"
+    android:title="@string/draw_bar_graph"
+    app:showAsAction="never"/>
+  <item
+    android:id="@+id/graphs_single_animate"
+    android:orderInCategory="100"
+    android:title="@string/animate_graph"
     app:showAsAction="never"/>
 </menu>
