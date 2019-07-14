@@ -612,9 +612,9 @@ public class GraphsFoodSingleFragment extends Fragment {
    */
   private void animateGraph() {
     if (mBinding.lineChart.getVisibility() == View.VISIBLE) {
-      mBinding.lineChart.animateX(2000);
+      mBinding.lineChart.animateX(1000);
     } else if (mBinding.barChart.getVisibility() == View.VISIBLE) {
-      mBinding.barChart.animateY(2000);
+      mBinding.barChart.animateY(1000);
     }
   }
 

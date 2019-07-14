@@ -78,7 +78,6 @@ public class GraphsFoodsFragment extends Fragment {
     inflater.inflate(R.menu.graphs_all_menu, menu);
   }
 
-  // TODO, remove those ids and get new one for animating graph maybe.
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
@@ -103,7 +102,7 @@ public class GraphsFoodsFragment extends Fragment {
         return true;
 
       case R.id.graphs_all_animate:
-        mBinding.chart.animateY(2000);
+        mBinding.chart.animateY(1000);
         return true;
     }
 
@@ -169,7 +168,7 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.chart.getDescription().setEnabled(false);
     mBinding.chart.setTouchEnabled(false);
     mBinding.chart.getLegend().setEnabled(false);
-    mBinding.chart.animateY(2000);
+    mBinding.chart.animateY(1000);
 
     // X Axis (left)
     XAxis xAxis = mBinding.chart.getXAxis();
