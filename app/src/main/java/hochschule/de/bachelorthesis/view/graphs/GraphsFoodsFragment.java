@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.graphs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -162,22 +163,22 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     // Diverse settings for the bar chart
-    mBinding.barChartGlucoseMax.getDescription().setEnabled(false);
-    mBinding.barChartGlucoseMax.setTouchEnabled(false);
-    mBinding.barChartGlucoseMax.getLegend().setEnabled(false);
-    mBinding.barChartGlucoseMax.animateY(2000);
+    mBinding.chart.getDescription().setEnabled(false);
+    mBinding.chart.setTouchEnabled(false);
+    mBinding.chart.getLegend().setEnabled(false);
+    mBinding.chart.animateY(2000);
 
     // X Axis (left)
-    XAxis xAxis = mBinding.barChartGlucoseMax.getXAxis();
+    XAxis xAxis = mBinding.chart.getXAxis();
     xAxis.setDrawGridLines(false);
     xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
 
     // Y Axis left (top)
-    YAxis topAxis = mBinding.barChartGlucoseMax.getAxisLeft();
+    YAxis topAxis = mBinding.chart.getAxisLeft();
     topAxis.setAxisMinimum(0);
 
     // Y Axis right (bottom)
-    YAxis bottomAxis = mBinding.barChartGlucoseMax.getAxisRight();
+    YAxis bottomAxis = mBinding.chart.getAxisRight();
     bottomAxis.setDrawGridLines(false);
     bottomAxis.setDrawLabels(false);
 
@@ -214,7 +215,7 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     // Set max
-    mBinding.barChartGlucoseMax.getAxisLeft()
+    mBinding.chart.getAxisLeft()
         .setAxisMaximum(MyMath.getMaxFromIntegerArrayList(glucoseMaxValues) + 20);
 
     // Entries
@@ -243,7 +244,7 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     // Set max
-    mBinding.barChartGlucoseMax.getAxisLeft()
+    mBinding.chart.getAxisLeft()
         .setAxisMaximum(MyMath.getMaxFromFloatArrayList(glucoseAverageValues) + 20);
 
     // Entries
@@ -259,7 +260,7 @@ public class GraphsFoodsFragment extends Fragment {
   private void finishGraph(BarDataSet set) {
     // Set label
     String[] labels = new String[mFoodData.size()];
-    XAxis xAxis = mBinding.barChartGlucoseMax.getXAxis();
+    XAxis xAxis = mBinding.chart.getXAxis();
     xAxis.setLabelCount(labels.length);
     xAxis.setValueFormatter(new BarChartValueFormatter(labels));
 
@@ -275,19 +276,19 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Add data
     BarData data = new BarData(mDataSets);
-    mBinding.barChartGlucoseMax.setData(data);
+    mBinding.chart.setData(data);
 
     // Notify changes
-    mBinding.barChartGlucoseMax.notifyDataSetChanged();
-    mBinding.barChartGlucoseMax.invalidate();
+    mBinding.chart.notifyDataSetChanged();
+    mBinding.chart.invalidate();
   }
 
   private void clearData() {
     mFoodData.clear();
     mDataSets.clear();
-    mBinding.barChartGlucoseMax.notifyDataSetChanged();
-    mBinding.barChartGlucoseMax.clear();
-    mBinding.barChartGlucoseMax.invalidate();
+    mBinding.chart.notifyDataSetChanged();
+    mBinding.chart.clear();
+    mBinding.chart.invalidate();
   }
 
   private class FoodData {

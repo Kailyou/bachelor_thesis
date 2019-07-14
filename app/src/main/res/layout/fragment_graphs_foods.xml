@@ -24,7 +24,7 @@
         android:textColor="@color/colorPrimary"/>
 
       <com.github.mikephil.charting.charts.HorizontalBarChart
-        android:id="@+id/barChartGlucoseMax"
+        android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginStart="16dp"
