@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.graphs;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,7 +66,7 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setViewModel(mViewModel);
 
-    loadFoodDataAndBuildGraph();
+    loadFoodDataAndBuildChart();
 
     return mBinding.getRoot();
   }
@@ -83,22 +82,22 @@ public class GraphsFoodsFragment extends Fragment {
     switch (item.getItemId()) {
       case R.id.graphs_all_glucose_max:
         mViewModel.getGraphAllModel().setChartType(0);
-        loadFoodDataAndBuildGraph();
+        loadFoodDataAndBuildChart();
         return true;
 
       case R.id.graphs_all_glucose_avg:
         mViewModel.getGraphAllModel().setChartType(1);
-        loadFoodDataAndBuildGraph();
+        loadFoodDataAndBuildChart();
         return true;
 
       case R.id.graphs_all_integral:
         mViewModel.getGraphAllModel().setChartType(2);
-        loadFoodDataAndBuildGraph();
+        loadFoodDataAndBuildChart();
         return true;
 
       case R.id.graphs_all_stdev:
         mViewModel.getGraphAllModel().setChartType(3);
-        loadFoodDataAndBuildGraph();
+        loadFoodDataAndBuildChart();
         return true;
 
       case R.id.graphs_all_animate:
@@ -114,7 +113,7 @@ public class GraphsFoodsFragment extends Fragment {
    * and average glucose and saves all into one wrapper object. Finally the function to draw the
    * graphs will be called after all data has been collected.
    */
-  private void loadFoodDataAndBuildGraph() {
+  private void loadFoodDataAndBuildChart() {
     clearData();
 
     // First load all food objects
@@ -139,7 +138,7 @@ public class GraphsFoodsFragment extends Fragment {
 
                   // If all values has been collected, build the graph
                   if (mFoodData.size() == foods.size()) {
-                    buildBarChart();
+                    buildChart();
                   }
                 }
               });
@@ -148,7 +147,16 @@ public class GraphsFoodsFragment extends Fragment {
     });
   }
 
-  private void buildBarChart() {
+  /**
+   * Takes the wrapper object and removes all objects where one value is zero, which removes all
+   * food objects with not at least one finished measurement inside. This needs to be done here
+   * because if I do it in the load function, my finish condition is not working anymore.
+   * (mFoodData.length == foods.size).
+   *
+   * Depending on the selected chart type to display, call the correct function and build the
+   * chart.
+   */
+  private void buildChart() {
     if (mFoodData.size() == 0) {
       return;
     }
@@ -187,10 +195,10 @@ public class GraphsFoodsFragment extends Fragment {
     // Check which graph to build
     switch (mViewModel.getGraphAllModel().getChartType()) {
       case 0:
-        createBarChartGlucoseMax();
+        createChartGlucoseMax();
         break;
       case 1:
-        createBarChartGlucoseAverage();
+        createChartGlucoseAverage();
         break;
       case 2:
         break;
@@ -201,7 +209,14 @@ public class GraphsFoodsFragment extends Fragment {
     }
   }
 
-  private void createBarChartGlucoseMax() {
+  /**
+   * First sort the data in glucose max order. (From low to max)
+   *
+   * then get the data for the chart and call the function, which will
+   *
+   * set up the data and show the graph.
+   */
+  private void createChartGlucoseMax() {
     // Sort
     Collections.sort(mFoodData, new Comparator<FoodData>() {
       @Override
@@ -209,6 +224,8 @@ public class GraphsFoodsFragment extends Fragment {
         return o1.getGlucoseMax().compareTo(o2.getGlucoseMax());
       }
     });
+
+    Collections.reverse(mFoodData);
 
     ArrayList<Integer> glucoseMaxValues = new ArrayList<>();
 
@@ -230,7 +247,14 @@ public class GraphsFoodsFragment extends Fragment {
     finishGraph(new BarDataSet(dataValues, "Glucose Max"));
   }
 
-  private void createBarChartGlucoseAverage() {
+  /**
+   * First sort the data in glucose average order. (From low to max)
+   *
+   * then get the data for the chart and call the function, which will
+   *
+   * set up the data and show the graph.
+   */
+  private void createChartGlucoseAverage() {
     // Sort
     Collections.sort(mFoodData, new Comparator<FoodData>() {
       @Override
@@ -259,6 +283,10 @@ public class GraphsFoodsFragment extends Fragment {
     finishGraph(new BarDataSet(dataValues, "Glucose Average"));
   }
 
+  /**
+   * Finish the graph by setting the label, the data, doing some final formatting and notify the
+   * changes to the chart itself to display them.
+   */
   private void finishGraph(BarDataSet set) {
     // Set label
     String[] labels = new String[mFoodData.size()];
@@ -285,6 +313,9 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.chart.invalidate();
   }
 
+  /**
+   * Clear all data used for building the chart.
+   */
   private void clearData() {
     mFoodData.clear();
     mDataSets.clear();
@@ -293,6 +324,15 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.chart.invalidate();
   }
 
+  /**
+   * Wrapper object for the food data.
+   *
+   * This is mainly needed because in the function where the data are loaded, to save the data in
+   * and have a possibility for a condition.
+   *
+   * If the length of the list of objects with this wrapper object is equal to the amount of food
+   * objects, all data have been saved.
+   */
   private class FoodData {
 
     private String mFoodName;
