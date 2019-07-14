@@ -102,6 +102,9 @@ public class GraphsFoodsFragment extends Fragment {
         loadFoodDataAndBuildGraph();
         return true;
 
+      case R.id.graphs_all_animate:
+        mBinding.chart.animateY(2000);
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
