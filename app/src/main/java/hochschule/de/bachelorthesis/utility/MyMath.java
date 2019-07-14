@@ -18,7 +18,7 @@ public class MyMath {
     for (int i = 0; i < values.size(); i++) {
       average += values.get(i);
     }
-    return average /= values.size();
+    return average / values.size();
   }
 
   /**
@@ -68,7 +68,7 @@ public class MyMath {
    * @return Returns the median.
    */
   public static float getMedianValue(ArrayList<Integer> values) {
-    if (values.size() == 0 || values.size() == 1) {
+    if (values.size() == 0) {
       return 0;
     }
 

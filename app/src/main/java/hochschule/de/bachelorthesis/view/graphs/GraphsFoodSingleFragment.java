@@ -101,11 +101,13 @@ public class GraphsFoodSingleFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.graphs_single_line_graph:
-        //loadMeasurementsAndBuildGraph(0);
+        mViewModel.getGraphAllModel().setChartType(0);
+        loadMeasurementsAndBuildGraph();
         return true;
 
       case R.id.graphs_single_bar_graph:
-        //loadMeasurementsAndBuildGraph(1);
+        mViewModel.getGraphAllModel().setChartType(1);
+        loadMeasurementsAndBuildGraph();
         return true;
     }
 
@@ -181,13 +183,6 @@ public class GraphsFoodSingleFragment extends Fragment {
       }
     });
 
-    mBinding.radioGroupGraphType.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(RadioGroup group, int checkedId) {
-        loadMeasurementsAndBuildGraph();
-      }
-    });
-
     // Draw new graph if one radio button has been selected
     mBinding.radioGroupLineStyle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
       @Override
@@ -224,10 +219,17 @@ public class GraphsFoodSingleFragment extends Fragment {
                         if (measurements == null) {
                           return;
                         }
-                        if (mBinding.graphTypeLineChart.isChecked()) {
-                          buildLineChart(measurements);
-                        } else if (mBinding.graphTypeBarChart.isChecked()) {
-                          createTestBarChart(measurements);
+
+                        // Check which graph to build
+                        switch (mViewModel.getGraphAllModel().getChartType()) {
+                          case 0:
+                            buildLineChart(measurements);
+                            break;
+                          case 1:
+                            createTestBarChart(measurements);
+                            break;
+                          default:
+                            throw new IllegalStateException("Unexpected switch case!");
                         }
                       }
                     });
@@ -352,7 +354,7 @@ public class GraphsFoodSingleFragment extends Fragment {
    * @param measurements List of measurements.
    */
   private void createAverageLine(List<Measurement> measurements) {
-    if (measurements.size() == 0) {
+    if (measurements == null || measurements.size() == 0) {
       return;
     }
 
@@ -393,7 +395,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     // Create set
     LineDataSet set = new LineDataSet(avg_values, "Average Glucose");
     set.setFillAlpha(110);
-    set.setLineWidth(1f);  // how fat is the line
+    set.setLineWidth(2f);  // how fat is the line
     set.setValueTextSize(12f);
     set.setColor(getResources().getColor(R.color.colorPrimary));
     set.setValueTextColor(getResources().getColor(R.color.colorSecondary));
@@ -456,8 +458,8 @@ public class GraphsFoodSingleFragment extends Fragment {
     set.setFillAlpha(110);
     set.setLineWidth(2f);
     set.setValueTextSize(12f);
-    set.setColor(Color.YELLOW);
-    set.setValueTextColor(Color.BLACK);
+    set.setColor(getResources().getColor(R.color.colorPrimary));
+    set.setValueTextColor(getResources().getColor(R.color.colorSecondary));
     mDataSetsLineChart.add(set);
 
     // Add data
