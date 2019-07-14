@@ -38,8 +38,6 @@ public class GraphsFoodsFragment extends Fragment {
 
   private FragmentGraphsFoodsBinding mBinding;
 
-  private int mType;
-
   private ArrayList<FoodData> mFoodData = new ArrayList<>();
 
   private ArrayList<IBarDataSet> mDataSets = new ArrayList<>();
@@ -68,7 +66,7 @@ public class GraphsFoodsFragment extends Fragment {
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
     mBinding.setViewModel(mViewModel);
 
-    loadDataFromFoods();
+    loadFoodDataAndBuildGraph();
 
     return mBinding.getRoot();
   }
@@ -85,22 +83,22 @@ public class GraphsFoodsFragment extends Fragment {
     switch (item.getItemId()) {
       case R.id.graphs_all_glucose_max:
         mViewModel.getGraphAllModel().setChartType(0);
-        loadDataFromFoods();
+        loadFoodDataAndBuildGraph();
         return true;
 
       case R.id.graphs_all_glucose_avg:
         mViewModel.getGraphAllModel().setChartType(1);
-        loadDataFromFoods();
+        loadFoodDataAndBuildGraph();
         return true;
 
       case R.id.graphs_all_integral:
         mViewModel.getGraphAllModel().setChartType(2);
-        loadDataFromFoods();
+        loadFoodDataAndBuildGraph();
         return true;
 
       case R.id.graphs_all_stdev:
         mViewModel.getGraphAllModel().setChartType(3);
-        loadDataFromFoods();
+        loadFoodDataAndBuildGraph();
         return true;
 
     }
@@ -113,7 +111,7 @@ public class GraphsFoodsFragment extends Fragment {
    * and average glucose and saves all into one wrapper object. Finally the function to draw the
    * graphs will be called after all data has been collected.
    */
-  private void loadDataFromFoods() {
+  private void loadFoodDataAndBuildGraph() {
     clearData();
 
     // First load all food objects
