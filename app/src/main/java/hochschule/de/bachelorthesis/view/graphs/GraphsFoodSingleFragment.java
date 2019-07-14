@@ -19,6 +19,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
@@ -275,9 +276,9 @@ public class GraphsFoodSingleFragment extends Fragment {
     xAxis.setAxisMaximum(120f);
     xAxis.setPosition(XAxisPosition.BOTTOM);
 
-    createPercentileLine(measurements, 0.75f,
-        Color.YELLOW);
+    createPercentileLine(measurements, 0.75f, Color.YELLOW);
     createPercentileLine(measurements, 0.25f, Color.WHITE);
+
     if (mBinding.lineStyleAverage.isChecked()) {
       createAverageLine(measurements);
     } else if (mBinding.lineStyleMedian.isChecked()) {
@@ -332,7 +333,8 @@ public class GraphsFoodSingleFragment extends Fragment {
     percentileValues.add(new Entry(120, percentile120));
 
     // Create set
-    LineDataSet set = new LineDataSet(percentileValues, "Percentile");
+    LineDataSet set = new LineDataSet(percentileValues, "");
+    set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setDrawCircles(false);
     set.setFillAlpha(110);
     set.setLineWidth(1f);
@@ -398,6 +400,7 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     // Create set
     LineDataSet set = new LineDataSet(avg_values, "Average Glucose");
+    set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setFillAlpha(110);
     set.setLineWidth(2f);  // how fat is the line
     set.setValueTextSize(12f);
@@ -458,7 +461,8 @@ public class GraphsFoodSingleFragment extends Fragment {
     avg_values.add(new Entry(120, median120));
 
     // Set
-    LineDataSet set = new LineDataSet(avg_values, "Median");
+    LineDataSet set = new LineDataSet(avg_values, "");
+    set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setFillAlpha(110);
     set.setLineWidth(2f);
     set.setValueTextSize(12f);
@@ -603,15 +607,13 @@ public class GraphsFoodSingleFragment extends Fragment {
   }
 
   /**
-   * Animates either the line chart in x direction or the
-   * bar chart in y direction, depending of which chart
-   * is currently visible to the user.
+   * Animates either the line chart in x direction or the bar chart in y direction, depending of
+   * which chart is currently visible to the user.
    */
   private void animateGraph() {
     if (mBinding.lineChart.getVisibility() == View.VISIBLE) {
       mBinding.lineChart.animateX(2000);
-    }
-    else if(mBinding.barChart.getVisibility() == View.VISIBLE) {
+    } else if (mBinding.barChart.getVisibility() == View.VISIBLE) {
       mBinding.barChart.animateY(2000);
     }
   }
