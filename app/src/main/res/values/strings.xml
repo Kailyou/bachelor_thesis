@@ -143,6 +143,7 @@
   <string name="animate_graph">Animate Graph</string>
   <string name="draw_bar_graph">Draw Bar Graph</string>
   <string name="draw_line_graph">Draw Line Graph</string>
+  <string name="compare_stdev">Compare STDEV</string>
 
   <string-array name="type">
     <item>Grains</item>

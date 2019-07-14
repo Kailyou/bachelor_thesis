@@ -20,7 +20,7 @@
   <item
     android:id="@+id/graphs_all_stdev"
     android:orderInCategory="100"
-    android:title="@string/compare_integral"
+    android:title="@string/compare_stdev"
     app:showAsAction="never"/>
   <item
     android:id="@+id/graphs_all_animate"
