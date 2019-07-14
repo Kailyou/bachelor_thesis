@@ -302,15 +302,15 @@ public class GraphsFoodsFragment extends Fragment {
       mGlucoseAverage = averageGlucose;
     }
 
-    public String getFoodName() {
+    private String getFoodName() {
       return mFoodName;
     }
 
-    public Integer getGlucoseMax() {
+    private Integer getGlucoseMax() {
       return mGlucoseMax;
     }
 
-    public Float getGlucoseAverage() {
+    private Float getGlucoseAverage() {
       return mGlucoseAverage;
     }
   }
