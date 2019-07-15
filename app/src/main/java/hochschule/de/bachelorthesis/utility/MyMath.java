@@ -53,30 +53,6 @@ public class MyMath {
   }
 
   /**
-   * @param values Array list with counts
-   * @return The average from the given list.
-   */
-  public static float calculateAverageFromIntegers(ArrayList<Integer> values) {
-    float average = 0.0f;
-    for (int i = 0; i < values.size(); i++) {
-      average += values.get(i);
-    }
-    return average / values.size();
-  }
-
-  /**
-   * @param values Array list with counts
-   * @return The average from the given list.
-   */
-  public static float calculateAverageFromFloats(ArrayList<Float> values) {
-    float average = 0.0f;
-    for (int i = 0; i < values.size(); i++) {
-      average += values.get(i);
-    }
-    return average / values.size();
-  }
-
-  /**
    * Calculates the integral using the numeric integration: Trapezoidal Rule
    *
    * @param values - values to integrate
@@ -87,7 +63,7 @@ public class MyMath {
     // b = upper limit
     // a = lower limit
     // n = amount measurements
-    float deltaX = (120f-0f)/8f;
+    float deltaX = (120f - 0f) / 8f;
 
     // Add every value besides the first and the last
     int sum = 0;
@@ -101,6 +77,30 @@ public class MyMath {
 
 
   /* STATISTICS */
+
+  /**
+   * @param values Array list with counts
+   * @return The average from the given list.
+   */
+  public static float calculateMeanFromIntegers(ArrayList<Integer> values) {
+    float average = 0.0f;
+    for (int i = 0; i < values.size(); i++) {
+      average += values.get(i);
+    }
+    return average / values.size();
+  }
+
+  /**
+   * @param values Array list with counts
+   * @return The average from the given list.
+   */
+  public static float calculateMeanFromFloats(ArrayList<Float> values) {
+    float average = 0.0f;
+    for (int i = 0; i < values.size(); i++) {
+      average += values.get(i);
+    }
+    return average / values.size();
+  }
 
   /**
    * This function will return the median of a list of values.
@@ -169,23 +169,29 @@ public class MyMath {
     }
   }
 
-  public static void getVariance() {
+  /**
+   * Calculates the variance of a list of data.
+   *
+   * Needed to calculate the standard deviation
+   * @param values ArrayList with values inside.
+   * @return  The variance.
+   */
+  private static float calculateVariance(ArrayList<Integer> values) {
+    float average = calculateMeanFromIntegers(values);
+    float temp = 0f;
+    for (Integer i : values) {
+      temp += (i - average) * (i - average);
+    }
 
+    return temp / values.size() - 1;
   }
 
-  public static float getStandardDeviation(ArrayList<Integer> values) {
+  public static float calculateStandardDeviation(ArrayList<Integer> values) {
     if (values.size() == 0 || values.size() == 1) {
       return 0;
     }
 
-    // Step 1: Calculate average
-    double average = MyMath.calculateAverageFromIntegers(values);
-
-    // Step 2: Calculate variance
-
-    // Step 3: Calculate standard deviation
-
-    return 0;
+    return (float) Math.sqrt(calculateVariance(values));
   }
 
 
