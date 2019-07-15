@@ -289,7 +289,7 @@ public class Measurement {
    * @return Returns the integral of the measurement. If the measurement is not done, return 0.
    */
   public float getIntegral() {
-    return MyMath.calculateMeanFromIntegers(getAllGlucoseValuesAsList());
+    return MyMath.calculateIntegral(getAllGlucoseValuesAsList());
   }
 
   public float getStandardDeviation() {
