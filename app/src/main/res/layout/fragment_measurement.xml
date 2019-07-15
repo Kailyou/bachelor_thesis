@@ -4,14 +4,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <data>
-    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
-
-    <variable
-      name="vm"
-      type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
-  </data>
-
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -52,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertTimeStampToDate(vm.measurementModel.timestamp)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -74,7 +65,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertTimeStampToTimeStart(vm.measurementModel.timestamp)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -96,7 +86,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{Converter.convertTimeStampToTimeEnd(vm.measurementModel.timestamp)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -122,11 +111,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
-            android:id="@+id/gi"
+            android:id="@+id/isGi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean(vm.measurementModel.gi)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -148,7 +136,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.amount))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -166,10 +153,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/stress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.measurementModel.stressed}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -191,7 +178,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.measurementModel.tired}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -213,7 +199,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean(vm.measurementModel.physicallyActivity)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -235,7 +220,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean(vm.measurementModel.alcoholConsumed)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -265,7 +249,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean(vm.measurementModel.ill)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -287,7 +270,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean(vm.measurementModel.medication)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -309,45 +291,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean(vm.measurementModel.period)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
-        <!-- Measurement -->
+        <!-- Analyses -->
         <TextView
-          android:id="@+id/glucose_values"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="16dp"
-          android:text="@string/glucose_values"
+          android:text="@string/analyses"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
           android:textColor="@color/colorPrimary"/>
-
-        <TextView
-          android:id="@+id/y_axis"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:text="@string/glucose_mg_dl"
-          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
-
-        <com.github.mikephil.charting.charts.LineChart
-          android:id="@+id/lineChart"
-          android:layout_width="match_parent"
-          android:layout_height="200dp"
-          android:layout_marginStart="16dp"
-          android:layout_marginEnd="16dp">
-        </com.github.mikephil.charting.charts.LineChart>
-
-        <TextView
-          android:id="@+id/x_axis"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="32dp"
-          android:layout_marginEnd="16dp"
-          android:gravity="end"
-          android:text="@string/time_min"
-          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -393,6 +347,84 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/integral"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/integral"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/standard_deviation"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/standardDeviation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <!-- Measurement -->
+        <TextView
+          android:id="@+id/glucose_values"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:text="@string/glucose_values"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+          android:textColor="@color/colorPrimary"/>
+
+        <TextView
+          android:id="@+id/y_axis"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:text="@string/glucose_mg_dl"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+          android:id="@+id/lineChart"
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+        </com.github.mikephil.charting.charts.LineChart>
+
+        <TextView
+          android:id="@+id/x_axis"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="32dp"
+          android:layout_marginEnd="16dp"
+          android:gravity="end"
+          android:text="@string/time_min"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp">
@@ -408,7 +440,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value0))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -438,7 +469,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value15))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -460,7 +490,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value30))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -482,7 +511,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value45))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -504,7 +532,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value60))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -526,7 +553,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value75))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -549,7 +575,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value90))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -571,7 +596,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value105))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -593,7 +617,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value120))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
       </LinearLayout>

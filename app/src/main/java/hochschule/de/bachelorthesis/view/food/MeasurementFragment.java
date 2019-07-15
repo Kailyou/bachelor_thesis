@@ -3,7 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,13 +27,12 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MeasurementFragment extends Fragment {
-
-  private static final String TAG = MeasurementFragment.class.getName();
 
   private FoodViewModel mViewModel;
 
@@ -62,7 +60,6 @@ public class MeasurementFragment extends Fragment {
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_measurement, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setVm(mViewModel);
 
     // get passed measurement id
     assert getArguments() != null;
@@ -84,12 +81,52 @@ public class MeasurementFragment extends Fragment {
               return;
             }
 
-            mViewModel.loadMeasurementFragment(measurement);
-            buildGraph(measurement);
+            /* Update text views */
 
-            // Update text views
+            // Time information
+            mBinding.date.setText(
+                Converter.convertTimeStampToDate(measurement.getTimeStamp()));
+
+            mBinding.timeStarted
+                .setText(Converter.convertTimeStampToTimeStart(measurement.getTimeStamp()));
+
+            mBinding.timeEnded
+                .setText(Converter.convertTimeStampToTimeEnd(measurement.getTimeStamp()));
+
+            // Advance information
+            mBinding.isGi.setText(Converter.convertBoolean(measurement.isGi()));
+            mBinding.amount.setText(String.valueOf(measurement.getAmount()));
+            mBinding.stress.setText(measurement.getStress());
+            mBinding.tired.setText(measurement.getTired());
+            mBinding.physicallyActive
+                .setText(Converter.convertBoolean(measurement.isPhysicallyActivity()));
+            mBinding.alcoholConsumed
+                .setText(Converter.convertBoolean(measurement.isAlcoholConsumed()));
+
+            // Events
+            mBinding.ill.setText(Converter.convertBoolean(measurement.isIll()));
+            mBinding.medication.setText(Converter.convertBoolean(measurement.isMedication()));
+            mBinding.period.setText(Converter.convertBoolean(measurement.isPeriod()));
+
+            // Analyses
             mBinding.glucoseMax.setText(String.valueOf(measurement.getGlucoseMax()));
-            mBinding.glucoseAverage.setText(String.valueOf(measurement.getGlucoseAverage()));
+            mBinding.glucoseAverage.setText(String.valueOf((int) measurement.getGlucoseAverage()));
+            mBinding.integral.setText(String.valueOf((int) measurement.getIntegral()));
+            mBinding.standardDeviation
+                .setText(String.valueOf((int) measurement.getStandardDeviation()));
+
+            // Glucose Values
+            mBinding.glucoseStart.setText(String.valueOf(measurement.getGlucoseStart()));
+            mBinding.glucose15.setText(String.valueOf(measurement.getGlucose15()));
+            mBinding.glucose30.setText(String.valueOf(measurement.getGlucose30()));
+            mBinding.glucose45.setText(String.valueOf(measurement.getGlucose45()));
+            mBinding.glucose60.setText(String.valueOf(measurement.getGlucose60()));
+            mBinding.glucose75.setText(String.valueOf(measurement.getGlucose75()));
+            mBinding.glucose90.setText(String.valueOf(measurement.getGlucose90()));
+            mBinding.glucose105.setText(String.valueOf(measurement.getGlucose105()));
+            mBinding.glucose120.setText(String.valueOf(measurement.getGlucose120()));
+
+            buildGraph(measurement);
           }
         });
 
@@ -105,7 +142,7 @@ public class MeasurementFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.delete_measurement) {
-      new AlertDialog.Builder(getContext())
+      new AlertDialog.Builder(Objects.requireNonNull(getContext()))
           .setTitle("Delete Confirmation")
           .setMessage(
               "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
@@ -143,9 +180,6 @@ public class MeasurementFragment extends Fragment {
    * Builds a line graph of the given measurement values
    *
    * @param measurement - The selected measurement
-   *
-   * TODO - maybe add something like the following point's won't be drawn if the previous one was
-   * zero (wrong input?)
    */
   private void buildGraph(Measurement measurement) {
     if (measurement == null) {

@@ -25,6 +25,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementEditBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.lang.reflect.Array;
@@ -70,7 +71,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_measurement_edit, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setVm(mViewModel);
 
     // Spinner
     ArrayAdapter<CharSequence> adapter = ArrayAdapter
@@ -103,24 +103,38 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
         new Observer<Measurement>() {
           @Override
           public void onChanged(Measurement measurement) {
-            mViewModel.loadMeasurementFragment(measurement);
-          }
-        });
+            /* Update text views */
 
-    // Update drop downs
-    mViewModel.getMeasurementModel().getStressed().observe(getViewLifecycleOwner(),
-        new Observer<String>() {
-          @Override
-          public void onChanged(String s) {
-            mBinding.stress.setText(s, false);
-          }
-        });
+            // Time information
+            mBinding.date.setText(
+                Converter.convertTimeStampToDate(measurement.getTimeStamp()));
 
-    mViewModel.getMeasurementModel().getTired().observe(getViewLifecycleOwner(),
-        new Observer<String>() {
-          @Override
-          public void onChanged(String s) {
-            mBinding.tired.setText(s, false);
+            mBinding.time
+                .setText(Converter.convertTimeStampToTimeStart(measurement.getTimeStamp()));
+
+            // Advance information
+            mBinding.gi.setChecked(measurement.isGi());
+            mBinding.amount.setText(String.valueOf(measurement.getAmount()));
+            mBinding.stress.setText(measurement.getStress());
+            mBinding.tired.setText(measurement.getTired());
+            mBinding.physicallyActive.setChecked(measurement.isPhysicallyActivity());
+            mBinding.alcoholConsumed.setChecked(measurement.isAlcoholConsumed());
+
+            // Events
+            mBinding.ill.setChecked(measurement.isIll());
+            mBinding.medication.setChecked(measurement.isMedication());
+            mBinding.period.setChecked(measurement.isPeriod());
+
+            // Glucose Values
+            mBinding.mv0.setText(String.valueOf(measurement.getGlucoseStart()));
+            mBinding.mv15.setText(String.valueOf(measurement.getGlucose15()));
+            mBinding.mv30.setText(String.valueOf(measurement.getGlucose30()));
+            mBinding.mv45.setText(String.valueOf(measurement.getGlucose45()));
+            mBinding.mv60.setText(String.valueOf(measurement.getGlucose60()));
+            mBinding.mv75.setText(String.valueOf(measurement.getGlucose75()));
+            mBinding.mv90.setText(String.valueOf(measurement.getGlucose90()));
+            mBinding.mv105.setText(String.valueOf(measurement.getGlucose105()));
+            mBinding.mv120.setText(String.valueOf(measurement.getGlucose120()));
           }
         });
 
@@ -133,7 +147,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     inflater.inflate(R.menu.add_measurement_menu, menu);
   }
 
-  //TODO add delete function
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.save) {

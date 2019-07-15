@@ -8,7 +8,6 @@ import hochschule.de.bachelorthesis.model.FoodAddModel;
 import hochschule.de.bachelorthesis.model.FoodDataModel;
 import hochschule.de.bachelorthesis.model.FoodOverviewModel;
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
-import hochschule.de.bachelorthesis.model.MeasurementModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -26,9 +25,7 @@ public class FoodViewModel extends AndroidViewModel {
   private FoodAddModel mFoodAddModel;
   private FoodOverviewModel mFoodOverviewModel;
   private FoodDataModel mFoodDataModel;
-  private MeasurementModel mMeasurementModel; // Also used for measurement edit fragment
   private MeasurementAddModel mMeasurementAddModel;
-
 
   public FoodViewModel(@NonNull Application application) {
     super(application);
@@ -41,7 +38,6 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodAddModel = new FoodAddModel();
     mFoodOverviewModel = new FoodOverviewModel();
 
-    mMeasurementModel = new MeasurementModel();
     mMeasurementAddModel = new MeasurementAddModel();
   }
 
@@ -52,10 +48,6 @@ public class FoodViewModel extends AndroidViewModel {
 
   public void loadDataFragment(Food food) {
     updateFoodDataModel(food);
-  }
-
-  public void loadMeasurementFragment(Measurement measurement) {
-    updateMeasurementModel(measurement);
   }
 
   /* UPDATE MODELS */
@@ -114,32 +106,6 @@ public class FoodViewModel extends AndroidViewModel {
     mFoodDataModel.setCarbohydrates(food.getCarbohydrate());
     mFoodDataModel.setSugar(food.getSugars());
     mFoodDataModel.setSalt(food.getSalt());
-  }
-
-  public void updateMeasurementModel(Measurement measurement) {
-    if (measurement == null) {
-      return;
-    }
-
-    mMeasurementModel.setGi(measurement.isGi());
-    mMeasurementModel.setTimestamp(measurement.getTimeStamp());
-    mMeasurementModel.setAmount(measurement.getAmount());
-    mMeasurementModel.setStressed(measurement.getStress());
-    mMeasurementModel.setTired(measurement.getTired());
-    mMeasurementModel.setPhysicallyActivity(measurement.isPhysicallyActivity());
-    mMeasurementModel.setAlcoholConsumed(measurement.isAlcoholConsumed());
-    mMeasurementModel.setIll(measurement.isIll());
-    mMeasurementModel.setMedication(measurement.isMedication());
-    mMeasurementModel.setPeriod(measurement.isPeriod());
-    mMeasurementModel.setValue0(measurement.getGlucoseStart());
-    mMeasurementModel.setValue15(measurement.getGlucose15());
-    mMeasurementModel.setValue30(measurement.getGlucose30());
-    mMeasurementModel.setValue45(measurement.getGlucose45());
-    mMeasurementModel.setValue60(measurement.getGlucose60());
-    mMeasurementModel.setValue75(measurement.getGlucose75());
-    mMeasurementModel.setValue90(measurement.getGlucose90());
-    mMeasurementModel.setValue105(measurement.getGlucose105());
-    mMeasurementModel.setValue120(measurement.getGlucose120());
   }
 
   public void updateMeasurementAddModel(Measurement measurement) {
@@ -284,12 +250,7 @@ public class FoodViewModel extends AndroidViewModel {
     return mFoodDataModel;
   }
 
-  public MeasurementModel getMeasurementModel() {
-    return mMeasurementModel;
-  }
-
   public MeasurementAddModel getMeasurementAddModel() {
     return mMeasurementAddModel;
   }
-
 }

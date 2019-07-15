@@ -3,15 +3,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <data>
-
-    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
-
-    <variable
-      name="vm"
-      type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
-  </data>
-
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -53,8 +44,7 @@
           android:layout_weight="1"
           android:paddingStart="32dp"
           android:paddingEnd="32dp"
-          android:gravity="center"
-          android:text="@{Converter.convertTimeStampToDate(vm.measurementModel.timestamp)}"/>
+          android:gravity="center"/>
       </LinearLayout>
 
       <LinearLayout
@@ -80,8 +70,7 @@
           android:layout_weight="1"
           android:paddingStart="32dp"
           android:paddingEnd="32dp"
-          android:gravity="center"
-          android:text="@{Converter.convertTimeStampToTimeStart(vm.measurementModel.timestamp)}"/>
+          android:gravity="center"/>
       </LinearLayout>
 
       <!-- Advance information-->
@@ -99,7 +88,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.measurementModel.gi)}"
         android:text="@string/gi_measurement"/>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -115,8 +103,7 @@
           android:id="@+id/amount"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.amount))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -158,7 +145,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.measurementModel.physicallyActivity)}"
         android:text="@string/physically_active_more_than_usual"/>
 
       <com.google.android.material.checkbox.MaterialCheckBox
@@ -167,7 +153,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.measurementModel.alcoholConsumed)}"
         android:text="@string/alcohol_consumed"/>
 
       <TextView
@@ -189,7 +174,6 @@
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:layout_marginStart="32dp"
-          android:checked="@{safeUnbox(vm.measurementModel.ill)}"
           android:text="@string/ill_while_measuring"/>
 
         <com.google.android.material.checkbox.MaterialCheckBox
@@ -197,7 +181,6 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:layout_marginEnd="32dp"
-          android:checked="@{safeUnbox(vm.measurementModel.medication)}"
           android:text="@string/taking_medication"/>
       </LinearLayout>
 
@@ -206,7 +189,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
-        android:checked="@{safeUnbox(vm.measurementModel.period)}"
         android:text="@string/period"/>
 
       <!-- Measurement values-->
@@ -231,8 +213,7 @@
           android:id="@+id/mv0"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value0))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -248,8 +229,7 @@
           android:id="@+id/mv15"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value15))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -265,8 +245,7 @@
           android:id="@+id/mv30"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value30))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -282,8 +261,7 @@
           android:id="@+id/mv45"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value45))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -299,8 +277,7 @@
           android:id="@+id/mv60"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value60))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -316,8 +293,7 @@
           android:id="@+id/mv75"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value75))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -333,8 +309,7 @@
           android:id="@+id/mv90"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value90))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -350,8 +325,7 @@
           android:id="@+id/mv105"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value105))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -367,8 +341,7 @@
           android:id="@+id/mv120"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.measurementModel.value120))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
   </ScrollView>
