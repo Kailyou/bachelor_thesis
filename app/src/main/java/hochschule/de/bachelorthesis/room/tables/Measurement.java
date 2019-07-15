@@ -282,8 +282,11 @@ public class Measurement {
    * done, return 0.
    */
   public float getGlucoseAverage() {
-    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList();
-    return MyMath.calculateAverageFromIntegers(glucoseValues);
+    return MyMath.calculateMeanFromIntegers(getAllGlucoseValuesAsList());
+  }
+
+  public float getStandardDeviation() {
+    return MyMath.calculateStandardDeviation(getAllGlucoseValuesAsList());
   }
 
 
@@ -366,12 +369,12 @@ public class Measurement {
       allGlucoseValues.addAll(m.getAllGlucoseValuesAsList());
     }
 
-    return MyMath.calculateAverageFromIntegers(allGlucoseValues);
+    return MyMath.calculateMeanFromIntegers(allGlucoseValues);
   }
 
   /**
-   * Since there cannot be an integral calculated with more than one measurement, this function will
-   * return the average of each integral.
+   * Since there cannot be a integral calculated with more than one measurement, this function will
+   * calculate the integral for each measurement and return the average.
    *
    * @param measurements List of measurements.
    * @return The average integral
@@ -390,11 +393,37 @@ public class Measurement {
     // Calculate the integral for each measurement
     for (Measurement m : measurements) {
       // Add all glucose values from all measurements to one list
-      ArrayList<Integer> allGlucoseValues = new ArrayList<>(m.getAllGlucoseValuesAsList());
-      allIntegrals.add(MyMath.calculateIntegral(allGlucoseValues));
+      allIntegrals.add(MyMath.calculateIntegral(m.getAllGlucoseValuesAsList()));
     }
 
-    return MyMath.calculateAverageFromFloats(allIntegrals);
+    return MyMath.calculateMeanFromFloats(allIntegrals);
+  }
+
+  /**
+   * Since there cannot be a deviation calculated with more than one measurement, this function will
+   * calculate the deviation for each measurement and return the average.
+   *
+   * @param measurements List of measurements.
+   * @return The average deviation
+   */
+  public static float getStandardDeviationFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    // Return 0 is list is empty
+    if (measurements.size() == 0) {
+      return 0;
+    }
+
+    ArrayList<Float> allStandardDeviations = new ArrayList<>();
+
+    // Calculate the standard deviation for each measurement
+    for (Measurement m : measurements) {
+      // Add all glucose values from all measurements to one list
+      allStandardDeviations.add(MyMath.calculateStandardDeviation(m.getAllGlucoseValuesAsList()));
+    }
+
+    return MyMath.calculateMeanFromFloats(allStandardDeviations);
   }
 
 
