@@ -132,7 +132,9 @@ public class GraphsFoodsFragment extends Fragment {
                   FoodData foodData = new FoodData(
                       food.getFoodName(),
                       Measurement.getGlucoseMaxFromList(measurements),
-                      Measurement.getGlucoseAverageFromList(measurements));
+                      Measurement.getGlucoseAverageFromList(measurements),
+                      Measurement.getAverageIntegralFromList(measurements),
+                      0f);
 
                   mFoodData.add(foodData);
 
@@ -201,6 +203,7 @@ public class GraphsFoodsFragment extends Fragment {
         createChartGlucoseAverage();
         break;
       case 2:
+        createChartGlucoseIntegral();
         break;
       case 3:
         break;
@@ -235,7 +238,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Set max
     mBinding.chart.getAxisLeft()
-        .setAxisMaximum(MyMath.getMaxFromIntegerArrayList(glucoseMaxValues) + 20);
+        .setAxisMaximum(MyMath.calculateMaxFromIntList(glucoseMaxValues) + 20);
 
     // Entries
     ArrayList<BarEntry> dataValues = new ArrayList<>();
@@ -244,7 +247,7 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     // Set
-    finishGraph(new BarDataSet(dataValues, "Glucose Max"));
+    finishGraph(new BarDataSet(dataValues, "Glucose Max."));
   }
 
   /**
@@ -271,7 +274,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Set max
     mBinding.chart.getAxisLeft()
-        .setAxisMaximum(MyMath.getMaxFromFloatArrayList(glucoseAverageValues) + 20);
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseAverageValues) + 20);
 
     // Entries
     ArrayList<BarEntry> dataValues = new ArrayList<>();
@@ -280,7 +283,43 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     // Set
-    finishGraph(new BarDataSet(dataValues, "Glucose Average"));
+    finishGraph(new BarDataSet(dataValues, "Average"));
+  }
+
+  /**
+   * First sort the data in glucose integral order. (From low to max)
+   *
+   * then get the data for the chart and call the function, which will
+   *
+   * set up the data and show the graph.
+   */
+  private void createChartGlucoseIntegral() {
+    // Sort
+    Collections.sort(mFoodData, new Comparator<FoodData>() {
+      @Override
+      public int compare(FoodData o1, FoodData o2) {
+        return o1.getIntegral().compareTo(o2.getIntegral());
+      }
+    });
+
+    ArrayList<Float> glucoseIntegralValues = new ArrayList<>();
+
+    for (int i = 0; i < mFoodData.size(); i++) {
+      glucoseIntegralValues.add(mFoodData.get(i).getIntegral());
+    }
+
+    // Set max
+    mBinding.chart.getAxisLeft()
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIntegralValues) + 20);
+
+    // Entries
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+    for (int i = 0; i < glucoseIntegralValues.size(); ++i) {
+      dataValues.add(new BarEntry(i, glucoseIntegralValues.get(i)));
+    }
+
+    // Set
+    finishGraph(new BarDataSet(dataValues, "Integral"));
   }
 
   /**
@@ -336,13 +375,17 @@ public class GraphsFoodsFragment extends Fragment {
   private class FoodData {
 
     private String mFoodName;
-    private Integer mGlucoseMax;
-    private Float mGlucoseAverage;
+    private Integer mMax;
+    private Float mAverage;
+    private Float mIntegral;
+    private Float mStdev;
 
-    private FoodData(String foodName, int maxGlucose, float averageGlucose) {
+    private FoodData(String foodName, int max, float average, float integral, float stdev) {
       mFoodName = foodName;
-      mGlucoseMax = maxGlucose;
-      mGlucoseAverage = averageGlucose;
+      mMax = max;
+      mAverage = average;
+      mIntegral = integral;
+      mStdev = stdev;
     }
 
     private String getFoodName() {
@@ -350,11 +393,19 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     private Integer getGlucoseMax() {
-      return mGlucoseMax;
+      return mMax;
     }
 
     private Float getGlucoseAverage() {
-      return mGlucoseAverage;
+      return mAverage;
+    }
+
+    public Float getIntegral() {
+      return mIntegral;
+    }
+
+    public Float getStdev() {
+      return mStdev;
     }
   }
 }

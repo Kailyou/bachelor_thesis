@@ -8,26 +8,13 @@ public class MyMath {
 
   /* ANALYSE MEASUREMENTS */
 
-
-  /**
-   * @param values Array list with counts
-   * @return The average from the given list.
-   */
-  public static float getAverageFromArrayList(ArrayList<Integer> values) {
-    float average = 0.0f;
-    for (int i = 0; i < values.size(); i++) {
-      average += values.get(i);
-    }
-    return average / values.size();
-  }
-
   /**
    * Gets the max value of an array.
    *
    * @param arr - The array.
    * @return - Returns 0 if the array is empty, else the highest value inside.
    */
-  public static int getMaxFromIntegerArrayList(ArrayList<Integer> arr) {
+  public static int calculateMaxFromIntList(ArrayList<Integer> arr) {
     if (arr.size() <= 0) {
       return 0;
     }
@@ -43,7 +30,13 @@ public class MyMath {
     return res;
   }
 
-  public static float getMaxFromFloatArrayList(ArrayList<Float> arr) {
+  /**
+   * Gets the max value of an array.
+   *
+   * @param arr - The array.
+   * @return - Returns 0 if the array is empty, else the highest value inside.
+   */
+  public static float calculateMaxFromFloatList(ArrayList<Float> arr) {
     if (arr.size() <= 0) {
       return 0;
     }
@@ -58,6 +51,54 @@ public class MyMath {
 
     return res;
   }
+
+  /**
+   * @param values Array list with counts
+   * @return The average from the given list.
+   */
+  public static float calculateAverageFromIntegers(ArrayList<Integer> values) {
+    float average = 0.0f;
+    for (int i = 0; i < values.size(); i++) {
+      average += values.get(i);
+    }
+    return average / values.size();
+  }
+
+  /**
+   * @param values Array list with counts
+   * @return The average from the given list.
+   */
+  public static float calculateAverageFromFloats(ArrayList<Float> values) {
+    float average = 0.0f;
+    for (int i = 0; i < values.size(); i++) {
+      average += values.get(i);
+    }
+    return average / values.size();
+  }
+
+  /**
+   * Calculates the integral using the numeric integration: Trapezoidal Rule
+   *
+   * @param values - values to integrate
+   * @return The integral
+   */
+  public static float calculateIntegral(ArrayList<Integer> values) {
+    // (b-a)/n
+    // b = upper limit
+    // a = lower limit
+    // n = amount measurements
+    float deltaX = (120f-0f)/8f;
+
+    // Add every value besides the first and the last
+    int sum = 0;
+
+    for (int i = 1; i < values.size() - 1; ++i) {
+      sum += values.get(i);
+    }
+
+    return (deltaX / 2) * (values.get(0) + 2 * (sum) + values.get(values.size() - 1));
+  }
+
 
   /* STATISTICS */
 
@@ -138,7 +179,7 @@ public class MyMath {
     }
 
     // Step 1: Calculate average
-    double average = getAverageFromArrayList(values);
+    double average = MyMath.calculateAverageFromIntegers(values);
 
     // Step 2: Calculate variance
 

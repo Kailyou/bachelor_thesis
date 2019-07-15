@@ -257,28 +257,6 @@ public class Measurement {
     return res;
   }
 
-  /**
-   * @return All glucose values if the measurement is done. Null else.
-   */
-  private ArrayList<Integer> getAllGlucoseValuesAsListIfMeasurementDone() {
-    if (isDone()) {
-      return new ArrayList<Integer>() {{
-        add(glucoseStart);
-        add(glucose15);
-        add(glucose30);
-        add(glucose45);
-        add(glucose60);
-        add(glucose75);
-        add(glucose90);
-        add(glucose105);
-        add(glucose120);
-      }};
-    }
-
-    return null;
-  }
-
-
   // Checks if the measurement is done, as soon as one value is zero, the measurement cannot be finished yet.
   private boolean isDone() {
     return glucose15 != 0 && glucose30 != 0 && glucose45 != 0 && glucose60 != 0 && glucose75 != 0
@@ -295,7 +273,7 @@ public class Measurement {
     if (glucoseValues == null) {
       return 0;
     } else {
-      return MyMath.getMaxFromIntegerArrayList(glucoseValues);
+      return MyMath.calculateMaxFromIntList(glucoseValues);
     }
   }
 
@@ -305,7 +283,7 @@ public class Measurement {
    */
   public float getGlucoseAverage() {
     ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList();
-      return MyMath.getAverageFromArrayList(glucoseValues);
+    return MyMath.calculateAverageFromIntegers(glucoseValues);
   }
 
 
@@ -382,7 +360,35 @@ public class Measurement {
       allGlucoseValues.addAll(m.getAllGlucoseValuesAsList());
     }
 
-    return MyMath.getAverageFromArrayList(allGlucoseValues);
+    return MyMath.calculateAverageFromIntegers(allGlucoseValues);
+  }
+
+  /**
+   * Since there cannot be an integral calculated with more than one measurement, this function will
+   * return the average of each integral.
+   *
+   * @param measurements List of measurements.
+   * @return The average integral
+   */
+  public static float getAverageIntegralFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    // Return 0 is list is empty
+    if (measurements.size() == 0) {
+      return 0;
+    }
+
+    ArrayList<Float> allIntegrals = new ArrayList<>();
+
+    // Calculate the integral for each measurement
+    for (Measurement m : measurements) {
+      // Add all glucose values from all measurements to one list
+      ArrayList<Integer> allGlucoseValues = new ArrayList<>(m.getAllGlucoseValuesAsList());
+      allIntegrals.add(MyMath.calculateIntegral(allGlucoseValues));
+    }
+
+    return MyMath.calculateAverageFromFloats(allIntegrals);
   }
 
 

@@ -19,7 +19,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
@@ -367,23 +366,23 @@ public class GraphsFoodSingleFragment extends Fragment {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // Get average values
-    float glucose_avg_start = MyMath.getAverageFromArrayList(
+    float glucose_avg_start = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")));
-    float glucose_avg_15 = MyMath.getAverageFromArrayList(
+    float glucose_avg_15 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")));
-    float glucose_avg_30 = MyMath.getAverageFromArrayList(
+    float glucose_avg_30 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")));
-    float glucose_avg_45 = MyMath.getAverageFromArrayList(
+    float glucose_avg_45 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")));
-    float glucose_avg_60 = MyMath.getAverageFromArrayList(
+    float glucose_avg_60 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")));
-    float glucose_avg_75 = MyMath.getAverageFromArrayList(
+    float glucose_avg_75 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")));
-    float glucose_avg_90 = MyMath.getAverageFromArrayList(
+    float glucose_avg_90 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")));
-    float glucose_avg_105 = MyMath.getAverageFromArrayList(
+    float glucose_avg_105 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")));
-    float glucose_avg_120 = MyMath.getAverageFromArrayList(
+    float glucose_avg_120 = MyMath.calculateAverageFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")));
 
     // Create Entry ArrayList
