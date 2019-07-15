@@ -75,44 +75,27 @@ public class FoodOverviewFragment extends Fragment {
             new Observer<List<Measurement>>() {
               @Override
               public void onChanged(final List<Measurement> measurements) {
-                // Get row count to admit how many measurements we have
-                mViewModel.getMeasurementAmountRows(food.id).observe(getViewLifecycleOwner(),
-                    new Observer<Integer>() {
-                      @Override
-                      public void onChanged(Integer integer) {
+                // Update model
+                mViewModel.loadOverviewFragment(food);
 
-                        // Update model
-                        mViewModel.loadOverviewFragment(food);
+                // Remove unfinished measurements
+                Measurement.removeNotFinishedMeasurements(measurements);
 
-                        // Do a copy of the list to avoid multiple calls because of removing from
-                        // elements
-                        List<Measurement> finishedMeasurements = measurements;
+                // Leave if there are no measurements
+                if (measurements.size() == 0) {
+                  return;
+                }
 
-                        // Leave if there are no measurements
-                        if (integer == 0 || finishedMeasurements.size() == 0) {
-                          return;
-                        }
+                // Update text views
+                mBinding.amount.setText(String.valueOf(measurements.size()));
+                mBinding.glucoseMax.setText(
+                    String
+                        .valueOf(Measurement.getGlucoseMaxFromList(measurements)));
+                mBinding.glucoseAverage
+                    .setText(String.valueOf((int)
+                        Measurement
+                            .getGlucoseAverageFromList(measurements)));
 
-                        // Remove unfinished measurements
-                        finishedMeasurements.get(0)
-                            .removeNotFinishedMeasurements(finishedMeasurements);
-
-                        // Leave if there is no finished measurement
-                        if (finishedMeasurements.size() == 0) {
-                          return;
-                        }
-
-                        // Update text views
-                        mBinding.amount.setText(String.valueOf(integer));
-                        mBinding.glucoseMax.setText(
-                            String.valueOf(
-                                finishedMeasurements.get(0).getGlucoseMaxFromList(finishedMeasurements)));
-                        mBinding.glucoseAverage
-                            .setText(String.valueOf(
-                                finishedMeasurements.get(0)
-                                    .getGlucoseAverageFromList(finishedMeasurements)));
-                      }
-                    });
               }
             });
       }
@@ -131,7 +114,7 @@ public class FoodOverviewFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.delete) {
 
-      new AlertDialog.Builder(getContext())
+      new AlertDialog.Builder(Objects.requireNonNull(getContext()))
           .setTitle("Delete Confirmation")
           .setMessage(
               "You are about to delete this food.\n\nIt cannot be restored at a later time!\n\nContinue?")
