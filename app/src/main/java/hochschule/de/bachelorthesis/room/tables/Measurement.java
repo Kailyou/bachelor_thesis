@@ -311,6 +311,9 @@ public class Measurement {
   /**
    * This functions returns the max glucose from a list of measurements.
    *
+   * Calculates the max glucose values for all measurements and compares then. Finally, returns the
+   * greatest of them.
+   *
    * @return Returns max glucose or 0 if the list is empty.
    */
   public static int getGlucoseMaxFromList(List<Measurement> measurements) {
