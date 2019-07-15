@@ -95,7 +95,11 @@ public class FoodOverviewFragment extends Fragment {
                     .setText(String.valueOf((int)
                         Measurement
                             .getGlucoseAverageFromList(measurements)));
+                mBinding.integral.setText(
+                    String.valueOf((int) Measurement.getAverageIntegralFromList(measurements)));
 
+                mBinding.stdev.setText(
+                    String.valueOf((int) Measurement.getStandardDeviationFromList(measurements)));
               }
             });
       }

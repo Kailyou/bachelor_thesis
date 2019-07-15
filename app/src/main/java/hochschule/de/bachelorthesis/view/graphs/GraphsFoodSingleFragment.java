@@ -366,23 +366,23 @@ public class GraphsFoodSingleFragment extends Fragment {
     HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // Get average values
-    float glucose_avg_start = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_start = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")));
-    float glucose_avg_15 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_15 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")));
-    float glucose_avg_30 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_30 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")));
-    float glucose_avg_45 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_45 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")));
-    float glucose_avg_60 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_60 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")));
-    float glucose_avg_75 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_75 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")));
-    float glucose_avg_90 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_90 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")));
-    float glucose_avg_105 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_105 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")));
-    float glucose_avg_120 = MyMath.calculateAverageFromIntegers(
+    float glucose_avg_120 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")));
 
     // Create Entry ArrayList
