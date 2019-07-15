@@ -17,6 +17,8 @@ public class FoodOverviewModel {
   private MutableLiveData<Integer> mMeasurementsAmount;
   private MutableLiveData<Integer> mMaxGlucose;
   private MutableLiveData<Integer> mAverageGlucose;
+  private MutableLiveData<Integer> mIntegral;
+  private MutableLiveData<Integer> mStdev;
 
   // Analyses
   private MutableLiveData<String> mRating;
@@ -31,6 +33,8 @@ public class FoodOverviewModel {
     mMeasurementsAmount = new MutableLiveData<>();
     mMaxGlucose = new MutableLiveData<>();
     mAverageGlucose = new MutableLiveData<>();
+    mIntegral = new MutableLiveData<>();
+    mStdev = new MutableLiveData<>();
     mRating = new MutableLiveData<>();
     mPersonalIndex = new MutableLiveData<>();
   }
@@ -69,6 +73,14 @@ public class FoodOverviewModel {
     return mAverageGlucose;
   }
 
+  public MutableLiveData<Integer> getIntegral() {
+    return mIntegral;
+  }
+
+  public MutableLiveData<Integer> getStdev() {
+    return mStdev;
+  }
+
   public MutableLiveData<String> getRating() {
     return mRating;
   }
@@ -97,25 +109,5 @@ public class FoodOverviewModel {
 
   public void setKiloCalories(Float kiloCalories) {
     mKiloCalories.setValue(kiloCalories);
-  }
-
-  public void setMeasurementsAmount(Integer measurementsAmount) {
-    mMeasurementsAmount.setValue(measurementsAmount);
-  }
-
-  public void setMaxGlucose(Integer maxGlucose) {
-    mMaxGlucose.setValue(maxGlucose);
-  }
-
-  public void setAverageGlucose(Integer averageGlucose) {
-    mAverageGlucose.setValue(averageGlucose);
-  }
-
-  public void setRating(String rating) {
-    mRating.setValue(rating);
-  }
-
-  public void setPersonalIndex(Integer personalIndex) {
-    mPersonalIndex.setValue(personalIndex);
   }
 }
