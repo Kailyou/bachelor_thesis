@@ -144,6 +144,8 @@
   <string name="draw_bar_graph">Draw Bar Graph</string>
   <string name="draw_line_graph">Draw Line Graph</string>
   <string name="compare_stdev">Compare STDEV</string>
+  <string name="integral">Integral</string>
+  <string name="standard_deviation">Standard deviation</string>
 
   <string-array name="type">
     <item>Grains</item>

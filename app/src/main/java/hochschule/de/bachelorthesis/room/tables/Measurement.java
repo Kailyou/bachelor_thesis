@@ -345,7 +345,10 @@ public class Measurement {
   /**
    * This functions returns the average glucose from a list of measurements.
    *
-   * @return Returns average glucose or 0 if the list is empty.
+   * First taking all glucose values from all measurements into one list and then calculating the
+   * average of those.
+   *
+   * @return Returns max glucose or 0 if the list is empty.
    */
   public static float getGlucoseAverageFromList(List<Measurement> measurements) {
     // Remove unfinished measurements
