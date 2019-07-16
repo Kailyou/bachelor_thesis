@@ -1,7 +1,7 @@
 package hochschule.de.bachelorthesis.utility;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +35,7 @@ public class AdapterMeasurements extends
     return new MeasurementHolder(itemView);
   }
 
+  @SuppressLint("SetTextI18n")
   @Override
   public void onBindViewHolder(@NonNull MeasurementHolder holder, final int position) {
     final Measurement currentMeasurement = mMeasurements.get(position);
@@ -63,10 +64,10 @@ public class AdapterMeasurements extends
     String ts = currentMeasurement.getTimeStamp();
     String date = String.copyValueOf(ts.toCharArray(), 0, 10);
 
-    holder.amount.setText(String.valueOf(currentMeasurement.getAmount()));
     holder.date.setText(date);
+    holder.amount.setText(String.valueOf(currentMeasurement.getAmount()));
     holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
-    holder.avg.setText(String.valueOf(currentMeasurement.getGlucoseAverage()));
+    holder.avg.setText(String.valueOf((int) currentMeasurement.getGlucoseAverage()));
     holder.rating.setText("unrated");
 
     if (position == 3) {

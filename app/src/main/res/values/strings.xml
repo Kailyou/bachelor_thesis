@@ -97,7 +97,6 @@
   <string name="time_ended">Time ended</string>
   <string name="delete_measurement">Delete Measurement</string>
   <string name="clear">Clear</string>
-  <string name="amount">Amount</string>
   <string name="glucose_values">Glucose Values</string>
   <string name="glucose_after">Glucose after…</string>
   <string name="_15_minutes">… 15 minutes</string>
@@ -146,6 +145,11 @@
   <string name="compare_stdev">Compare STDEV</string>
   <string name="integral">Integral</string>
   <string name="standard_deviation">Standard deviation</string>
+  <string name="_24_06_2019">24.06.2019</string>
+  <string name="_1235_ml">1235 ml</string>
+  <string name="_200">200</string>
+  <string name="_120">120</string>
+  <string name="unrated">unrated</string>
 
   <string-array name="type">
     <item>Grains</item>
