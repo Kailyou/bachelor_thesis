@@ -4,14 +4,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <data>
-    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
-
-    <variable
-      name="vm"
-      type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
-  </data>
-
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -49,10 +41,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/foodName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.foodInfoDataModel.foodName}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -70,10 +62,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/brandName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.foodInfoDataModel.brandName}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -91,10 +83,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{vm.foodInfoDataModel.type}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -121,10 +113,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/kiloCalories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.kiloCalories))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -142,10 +134,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/kiloJoules"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.kiloJoules))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -163,10 +155,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/fat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.fat))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -184,10 +176,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/saturates"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.saturates))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -205,10 +197,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/protein"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.protein))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -226,10 +218,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/carbohydrates"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.carbohydrate))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -247,10 +239,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/sugar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.sugars))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -268,10 +260,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/salt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{String.valueOf(safeUnbox(vm.foodInfoDataModel.salt))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
       </LinearLayout>

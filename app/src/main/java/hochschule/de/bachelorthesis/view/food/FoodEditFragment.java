@@ -18,10 +18,24 @@ import androidx.lifecycle.ViewModelProviders;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodEditBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
+/**
+ * @author thielenm
+ *
+ * This class contains the logic for editing a food.
+ *
+ * Once the class is created, there will be the before by the user chosen food object loaded and
+ * with that food object, the texts of the textViews will be set.
+ *
+ * The user can edit the input and press the save button to eventually save the new food object to
+ * the database.
+ *
+ * The new food object won't be saved, if nothing changed compared to the existing data.
+ */
 public class FoodEditFragment extends Fragment {
 
   private FoodViewModel mViewModel;
@@ -29,8 +43,6 @@ public class FoodEditFragment extends Fragment {
   private int mFoodId;
 
   private FragmentFoodEditBinding mBinding;
-
-  private boolean hasChanged;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,23 +77,28 @@ public class FoodEditFragment extends Fragment {
 
     mBinding.type.setAdapter(adapter);
 
+    // Load food object from database
     mViewModel.getFoodById(mFoodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
-        mViewModel.loadDataFragment(food);
+        /* Update text views */
+
+        // General
+        mBinding.foodName.setText(food.getFoodName());
+        mBinding.brandName.setText(food.getBrandName());
+        mBinding.type.setText(food.getFoodType(), false);
+
+        // Nutritional information
+        mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
+        mBinding.kiloJoules.setText(Converter.convertFloat(food.getKiloJoules()));
+        mBinding.fat.setText(Converter.convertFloat(food.getFat()));
+        mBinding.saturates.setText(Converter.convertFloat(food.getSaturates()));
+        mBinding.protein.setText(Converter.convertFloat(food.getProtein()));
+        mBinding.carbohydrates.setText(Converter.convertFloat(food.getCarbohydrate()));
+        mBinding.sugar.setText(Converter.convertFloat(food.getSugars()));
+        mBinding.salt.setText(Converter.convertFloat(food.getSalt()));
       }
     });
-
-    // load the last user input by observing the view model object
-    // filter has to be false otherwise auto complete will destroy the dropdown element.
-    mViewModel.getFoodInfoDataModel().getType()
-        .observe(getViewLifecycleOwner(), new Observer<String>() {
-          @Override
-          public void onChanged(String s) {
-            mBinding.type
-                .setText(s, false);
-          }
-        });
 
     return mBinding.getRoot();
   }
@@ -157,13 +174,13 @@ public class FoodEditFragment extends Fragment {
       return false;
     }
 
-    if (mBinding.carbohydrate.getText() == null || mBinding.carbohydrate.getText().toString()
+    if (mBinding.carbohydrates.getText() == null || mBinding.carbohydrates.getText().toString()
         .equals("")) {
       toast("Please enter the carbohydrate.");
       return false;
     }
 
-    if (mBinding.sugars.getText() == null || mBinding.sugars.getText().toString().equals("")) {
+    if (mBinding.sugar.getText() == null || mBinding.sugar.getText().toString().equals("")) {
       toast("Please enter the sugars.");
       return false;
     }
@@ -220,9 +237,9 @@ public class FoodEditFragment extends Fragment {
                         Objects.requireNonNull(mBinding.protein.getText()).toString());
                 float newCarbohydrates = Float
                     .parseFloat(
-                        Objects.requireNonNull(mBinding.carbohydrate.getText()).toString());
+                        Objects.requireNonNull(mBinding.carbohydrates.getText()).toString());
                 float newSugars = Float
-                    .parseFloat(Objects.requireNonNull(mBinding.sugars.getText()).toString());
+                    .parseFloat(Objects.requireNonNull(mBinding.sugar.getText()).toString());
                 float newSalt = Float
                     .parseFloat(Objects.requireNonNull(mBinding.salt.getText()).toString());
 
@@ -231,6 +248,8 @@ public class FoodEditFragment extends Fragment {
                     newCarbohydrates,
                     newSugars, newSalt);
 
+                // Only update food, if something changed, so check if the new values are equal
+                // with the old ones
                 if (!newFood.equals(food)) {
                   food.setFoodName(newFoodName);
                   food.setBrandName(newBrandName);

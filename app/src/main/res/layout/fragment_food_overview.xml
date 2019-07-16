@@ -2,14 +2,6 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <data>
-    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
-
-    <variable
-      name="vm"
-      type="hochschule.de.bachelorthesis.viewmodels.FoodViewModel"/>
-  </data>
-
   <ScrollView
     android:id="@+id/scroll"
     android:layout_width="match_parent"
@@ -47,7 +39,6 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:gravity="end"
-          android:text="@{vm.foodInfoOverviewModel.foodName}"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
       </LinearLayout>
 
@@ -69,7 +60,6 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:gravity="end"
-          android:text="@{vm.foodInfoOverviewModel.brandName}"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
       </LinearLayout>
 
@@ -91,7 +81,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="end"
-          android:text="@{vm.foodInfoOverviewModel.type}"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
       </LinearLayout>
 
@@ -113,7 +102,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="end"
-          android:text="@{Converter.convertFloat((safeUnbox(vm.foodInfoOverviewModel.kiloCalories)))}"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
       </LinearLayout>
 
@@ -145,7 +133,6 @@
           android:layout_height="match_parent"
           android:gravity="end"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-        <!-- android:text="@{Converter.convertInteger(safeUnbox(vm.foodInfoOverviewModel.measurementsAmount))}"-->
       </LinearLayout>
 
       <LinearLayout

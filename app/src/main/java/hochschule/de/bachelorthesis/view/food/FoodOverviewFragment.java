@@ -24,6 +24,7 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.List;
@@ -45,7 +46,6 @@ public class FoodOverviewFragment extends Fragment {
     // view model
     mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
         .get(FoodViewModel.class);
-    mViewModel.loadOverviewFragment(Samples.getEmptyFood());
 
     assert getArguments() != null;
     mFoodId = getArguments().getInt("food_id");
@@ -60,7 +60,6 @@ public class FoodOverviewFragment extends Fragment {
     final FragmentFoodOverviewBinding mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_food_overview, container, false);
     mBinding.setLifecycleOwner(getViewLifecycleOwner());
-    mBinding.setVm(mViewModel);
 
     // get passed food id
     assert getArguments() != null;
@@ -75,9 +74,6 @@ public class FoodOverviewFragment extends Fragment {
             new Observer<List<Measurement>>() {
               @Override
               public void onChanged(final List<Measurement> measurements) {
-                // Update model
-                mViewModel.loadOverviewFragment(food);
-
                 // Remove unfinished measurements
                 Measurement.removeNotFinishedMeasurements(measurements);
 
@@ -86,15 +82,23 @@ public class FoodOverviewFragment extends Fragment {
                   return;
                 }
 
-                // Update text views
+                /* Update text views */
+
+                // General
+                mBinding.foodName.setText(food.getFoodName());
+                mBinding.brandName.setText(food.getBrandName());
+                mBinding.type.setText(food.getFoodType());
+                mBinding.type.setText(Converter.convertFloat(food.getKiloCalories()));
+
+                // Measurements
                 mBinding.amount.setText(String.valueOf(measurements.size()));
-                mBinding.glucoseMax.setText(
-                    String
-                        .valueOf(Measurement.getGlucoseMaxFromList(measurements)));
-                mBinding.glucoseAverage
-                    .setText(String.valueOf((int)
-                        Measurement
-                            .getGlucoseAverageFromList(measurements)));
+
+                mBinding.glucoseMax
+                    .setText(String.valueOf(Measurement.getGlucoseMaxFromList(measurements)));
+
+                mBinding.glucoseAverage.setText(
+                    String.valueOf((int) Measurement.getGlucoseAverageFromList(measurements)));
+
                 mBinding.integral.setText(
                     String.valueOf((int) Measurement.getAverageIntegralFromList(measurements)));
 

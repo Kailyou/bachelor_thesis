@@ -23,8 +23,6 @@ public class FoodViewModel extends AndroidViewModel {
 
   // Models
   private FoodAddModel mFoodAddModel;
-  private FoodOverviewModel mFoodOverviewModel;
-  private FoodDataModel mFoodDataModel;
   private MeasurementAddModel mMeasurementAddModel;
 
   public FoodViewModel(@NonNull Application application) {
@@ -34,37 +32,11 @@ public class FoodViewModel extends AndroidViewModel {
     mAllFoods = mRepository.getAllFoods();
     mUserHistoryLatest = mRepository.getUserHistoryLatest();
 
-    mFoodDataModel = new FoodDataModel();
     mFoodAddModel = new FoodAddModel();
-    mFoodOverviewModel = new FoodOverviewModel();
-
     mMeasurementAddModel = new MeasurementAddModel();
   }
 
-  /* LOAD FUNCTIONS */
-  public void loadOverviewFragment(Food food) {
-    updateFoodOverviewModel(food);
-  }
-
-  public void loadDataFragment(Food food) {
-    updateFoodDataModel(food);
-  }
-
   /* UPDATE MODELS */
-
-  /**
-   * This method will update the food overview model.
-   */
-  private void updateFoodOverviewModel(Food food) {
-    if (food == null) {
-      return;
-    }
-
-    mFoodOverviewModel.setFoodName(food.getFoodName());
-    mFoodOverviewModel.setBrandName(food.getBrandName());
-    mFoodOverviewModel.setType(food.getFoodType());
-    mFoodOverviewModel.setKiloCalories(food.getKiloCalories());
-  }
 
   /**
    * This method will update the food add model.
@@ -88,26 +60,8 @@ public class FoodViewModel extends AndroidViewModel {
   }
 
   /**
-   * This method will update the food data model.
+   * This method will update the measurement add model.
    */
-  private void updateFoodDataModel(Food food) {
-    if (food == null) {
-      return;
-    }
-
-    mFoodDataModel.setFoodName(food.getFoodName());
-    mFoodDataModel.setBrandName(food.getBrandName());
-    mFoodDataModel.setType(food.getFoodType());
-    mFoodDataModel.setKiloCalories(food.getKiloCalories());
-    mFoodDataModel.setKiloJoules(food.getKiloJoules());
-    mFoodDataModel.setFat(food.getFat());
-    mFoodDataModel.setSaturates(food.getSaturates());
-    mFoodDataModel.setProtein(food.getProtein());
-    mFoodDataModel.setCarbohydrates(food.getCarbohydrate());
-    mFoodDataModel.setSugar(food.getSugars());
-    mFoodDataModel.setSalt(food.getSalt());
-  }
-
   public void updateMeasurementAddModel(Measurement measurement) {
     if (measurement == null) {
       return;
@@ -240,14 +194,6 @@ public class FoodViewModel extends AndroidViewModel {
 
   public FoodAddModel getFoodAddDataModel() {
     return mFoodAddModel;
-  }
-
-  public FoodOverviewModel getFoodInfoOverviewModel() {
-    return mFoodOverviewModel;
-  }
-
-  public FoodDataModel getFoodInfoDataModel() {
-    return mFoodDataModel;
   }
 
   public MeasurementAddModel getMeasurementAddModel() {

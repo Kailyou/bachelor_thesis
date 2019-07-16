@@ -17,24 +17,32 @@ import androidx.navigation.Navigation;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodDataBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
+/**
+ * @author thielenm
+ *
+ * This class simply displays the data of the food.
+ *
+ * Once the class is created, there will be the before by the user chosen food object loaded and
+ * with that food object, the texts of the textViews will be set.
+ */
 public class FoodDataFragment extends Fragment {
 
-  private static final String TAG = FoodDataFragment.class.getName();
-
   private FoodViewModel mViewModel;
+
+  private FragmentFoodDataBinding mBinding;
 
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     // view model
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FoodViewModel.class);
-
-    mViewModel.loadDataFragment(Samples.getEmptyFood());
+    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+        .get(FoodViewModel.class);
   }
 
   @Nullable
@@ -42,10 +50,9 @@ public class FoodDataFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     // Init data binding
-    FragmentFoodDataBinding binding = DataBindingUtil
+    mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_food_data, container, false);
-    binding.setLifecycleOwner(getViewLifecycleOwner());
-    binding.setVm(mViewModel);
+    mBinding.setLifecycleOwner(getViewLifecycleOwner());
 
     // Get passed food id
     assert getArguments() != null;
@@ -55,17 +62,34 @@ public class FoodDataFragment extends Fragment {
     Bundle bundle = new Bundle();
     bundle.putInt("food_id", foodId);
 
-    binding.fab.setOnClickListener(
-        Navigation.createNavigateOnClickListener(R.id.action_foodInfoFragment_to_editFoodDataFragment2,
-            bundle));
+    mBinding.fab.setOnClickListener(
+        Navigation
+            .createNavigateOnClickListener(R.id.action_foodInfoFragment_to_editFoodDataFragment2,
+                bundle));
 
+    // Load The food object
     mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
-        mViewModel.loadDataFragment(food);
+        /* Update text views */
+
+        // General
+        mBinding.foodName.setText(food.getFoodName());
+        mBinding.brandName.setText(food.getBrandName());
+        mBinding.type.setText(food.getFoodType());
+
+        // Nutritional information
+        mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
+        mBinding.kiloJoules.setText(Converter.convertFloat(food.getKiloJoules()));
+        mBinding.fat.setText(Converter.convertFloat(food.getFat()));
+        mBinding.saturates.setText(Converter.convertFloat(food.getSaturates()));
+        mBinding.protein.setText(Converter.convertFloat(food.getProtein()));
+        mBinding.carbohydrates.setText(Converter.convertFloat(food.getCarbohydrate()));
+        mBinding.sugar.setText(Converter.convertFloat(food.getSugars()));
+        mBinding.salt.setText(Converter.convertFloat(food.getSalt()));
       }
     });
 
-    return binding.getRoot();
+    return mBinding.getRoot();
   }
 }
