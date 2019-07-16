@@ -86,8 +86,8 @@
   </fragment>
   <fragment
     android:id="@+id/editMeasurementFragment"
+    android:label="Edit measurement"
     android:name="hochschule.de.bachelorthesis.view.food.MeasurementEditFragment"
-    android:label="fragment_edit_measurement"
     tools:layout="@layout/fragment_measurement_edit">
     <argument
       android:name="measurement_id"

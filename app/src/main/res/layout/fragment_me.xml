@@ -2,14 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <data>
-    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
-
-    <variable
-      name="vm"
-      type="hochschule.de.bachelorthesis.viewmodels.MeViewModel"/>
-  </data>
-
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -51,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -73,7 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -95,7 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -107,17 +96,16 @@
           android:layout_marginEnd="16dp">
 
           <TextView
-            android:id="@+id/sex"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/sex"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{vm.sex}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -148,7 +136,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{vm.fitnessLevel}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -160,17 +147,16 @@
           android:layout_marginEnd="16dp">
 
           <TextView
-            android:id="@+id/medication"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/taking_medication"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
+            android:id="@+id/medication"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean((safeUnbox(vm.medication)))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -192,7 +178,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean((safeUnbox(vm.allergies)))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -214,7 +199,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean((safeUnbox(vm.smoking)))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
         <LinearLayout
@@ -235,7 +219,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
-            android:text="@{Converter.convertBoolean((safeUnbox(vm.diabetes)))}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 

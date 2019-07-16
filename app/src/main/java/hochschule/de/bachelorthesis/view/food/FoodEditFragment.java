@@ -126,6 +126,21 @@ public class FoodEditFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Updates the text views.
+   *
+   * @param foodName Name of the food
+   * @param brandName Brand name of the food
+   * @param type Type of the food
+   * @param kiloCalories Kilo calories of the food
+   * @param kiloJoules Kilo joules of the food
+   * @param fat Fat of the food
+   * @param saturates Saturates of the food
+   * @param protein Protein of the food
+   * @param carbohydrates Carbohydrates of the food
+   * @param sugar Sugar of the food
+   * @param salt Salt of the food
+   */
   private void updateTextViews(String foodName, String brandName, String type,
       float kiloCalories, float kiloJoules, float fat, float saturates, float protein,
       float carbohydrates, float sugar, float salt) {
@@ -134,7 +149,7 @@ public class FoodEditFragment extends Fragment {
     // General
     mBinding.foodName.setText(foodName);
     mBinding.brandName.setText(brandName);
-    mBinding.type.setText(type);
+    mBinding.type.setText(type, false);
 
     // Nutritional information
     mBinding.kiloCalories.setText(Converter.convertFloat(kiloCalories));

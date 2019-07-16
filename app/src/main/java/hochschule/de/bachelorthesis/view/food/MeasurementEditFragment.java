@@ -132,8 +132,8 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
             // Advance information
             mBinding.gi.setChecked(measurement.isGi());
             mBinding.amount.setText(String.valueOf(measurement.getAmount()));
-            mBinding.stress.setText(measurement.getStress());
-            mBinding.tired.setText(measurement.getTired());
+            mBinding.stress.setText(measurement.getStress(), false);
+            mBinding.tired.setText(measurement.getTired(), false);
             mBinding.physicallyActive.setChecked(measurement.isPhysicallyActivity());
             mBinding.alcoholConsumed.setChecked(measurement.isAlcoholConsumed());
 

@@ -17,7 +17,6 @@ import java.util.List;
  *
  * This ViewModel class contains the data for the food related classes.
  *
- *
  */
 public class FoodViewModel extends AndroidViewModel {
 

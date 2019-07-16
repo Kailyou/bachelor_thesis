@@ -1,7 +1,6 @@
 package hochschule.de.bachelorthesis.view.me;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.Converter;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -28,6 +28,8 @@ import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 public class MeFragment extends Fragment {
 
   private MeViewModel mViewModel;
+
+  private FragmentMeBinding mBinding;
 
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,23 +50,35 @@ public class MeFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     // Init data binding
-    final FragmentMeBinding binding = DataBindingUtil
+    mBinding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_me, container, false);
-    binding.setLifecycleOwner(this);
-    binding.setVm(mViewModel);
+    mBinding.setLifecycleOwner(this);
 
-    binding.buttonEditMe.setOnClickListener(
+    mBinding.buttonEditMe.setOnClickListener(
         Navigation.createNavigateOnClickListener(R.id.action_meFragment_to_meEditFragment));
 
     final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
     ldu.observe(this, new Observer<UserHistory>() {
       @Override
-      public void onChanged(UserHistory userHistory) {
-        mViewModel.load(userHistory);
+      public void onChanged(UserHistory uh) {
+        /* Update text views */
+
+        // Personal data
+        mBinding.age.setText(Converter.convertInteger(uh.getAge()));
+        mBinding.height.setText(Converter.convertInteger(uh.getHeight()));
+        mBinding.weight.setText(Converter.convertInteger(uh.getWeight()));
+        mBinding.sex.setText(uh.getSex());
+
+        // Lifestyle
+        mBinding.fitnessLevel.setText(uh.getFitness_level());
+        mBinding.medication.setText(Converter.convertBoolean(uh.getMedication()));
+        mBinding.allergies.setText(Converter.convertBoolean(uh.getAllergies()));
+        mBinding.smoking.setText(Converter.convertBoolean(uh.getSmoking()));
+        mBinding.diabetes.setText(Converter.convertBoolean(uh.getDiabetes()));
       }
     });
 
-    return binding.getRoot();
+    return mBinding.getRoot();
   }
 
 

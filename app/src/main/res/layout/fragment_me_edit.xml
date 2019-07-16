@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <data>
-
-    <import type="hochschule.de.bachelorthesis.utility.Converter"/>
-
-    <variable
-      name="vm"
-      type="hochschule.de.bachelorthesis.viewmodels.MeViewModel"/>
-  </data>
-
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -41,8 +32,7 @@
           android:id="@+id/age"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.age))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -58,8 +48,7 @@
           android:id="@+id/height"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.height))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -75,8 +64,7 @@
           android:id="@+id/weight"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
-          android:text="@{Converter.convertInteger(safeUnbox(vm.weight))}"/>
+          android:inputType="number"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +75,7 @@
         android:paddingEnd="32dp">
 
         <AutoCompleteTextView
-          android:id="@+id/dropdown_sex"
+          android:id="@+id/sex"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:cursorVisible="false"
@@ -112,7 +100,7 @@
         android:paddingEnd="32dp">
 
         <AutoCompleteTextView
-          android:id="@+id/dropdown_fitness_level"
+          android:id="@+id/fitness_level"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:cursorVisible="false"
@@ -127,11 +115,10 @@
 
         <com.google.android.material.checkbox.MaterialCheckBox
           android:id="@+id/medication"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="match_parent"
-          android:layout_marginStart="32dp"
           android:layout_weight="1"
-          android:checked="@{safeUnbox(vm.medication)}"
+          android:layout_marginStart="32dp"
           android:text="@string/taking_medication"/>
 
         <com.google.android.material.checkbox.MaterialCheckBox
@@ -139,7 +126,6 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:layout_marginEnd="32dp"
-          android:checked="@{safeUnbox(vm.allergies)}"
           android:text="@string/allergies_available"/>
       </LinearLayout>
 
@@ -150,11 +136,10 @@
 
         <com.google.android.material.checkbox.MaterialCheckBox
           android:id="@+id/smoking"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="match_parent"
-          android:layout_marginStart="32dp"
           android:layout_weight="1"
-          android:checked="@{safeUnbox(vm.smoking)}"
+          android:layout_marginStart="32dp"
           android:text="@string/smoking"/>
 
         <com.google.android.material.checkbox.MaterialCheckBox
@@ -162,7 +147,6 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:layout_marginEnd="32dp"
-          android:checked="@{safeUnbox(vm.diabetes)}"
           android:text="@string/diabetes"/>
       </LinearLayout>
     </LinearLayout>
