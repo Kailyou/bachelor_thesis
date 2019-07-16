@@ -22,7 +22,18 @@ import hochschule.de.bachelorthesis.view.MainActivity;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.util.Objects;
 
-public class FoodInfoFragment extends Fragment {
+/**
+ * @author thielenm
+ *
+ * This class is the wrapper class for the tabs.
+ *
+ * Returns the correct fragment after the user swiped or clicked on one tab element.
+ *
+ * The navigation is not optiomal because currently NavigationComponent is not supporting Tabs.
+ *
+ * In the future, the navigation here maybe could be outsourced to the navigation.xml file.
+ */
+public class FoodHostFragment extends Fragment {
 
   private FoodViewModel mViewModel;
   private int mFoodId;

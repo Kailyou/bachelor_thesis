@@ -26,18 +26,17 @@ import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
- * @author Maik T.
+ * @author thielenm
  *
- * This class handles the add food feature.
+ * The fragment for the View to create a new food.
  *
- * The user will be able to add a new food to the list by filling out the views and pressing the
- * save button on the toolbar. Also filled out view data will be restored as long as the user does
- * not quit the APP.
+ * Entered data will be saved to a ViewModel, so as long as the APP does not be closed for any
+ * reason, the data will be restored as soon as the View will be loaded again.
  *
- * The user can do the following actions:
+ * The user can clear the data himself by pressing the clear button in the action bar.
  *
- * Save food: A new food object will be created and added to the list. Clear list: The views will be
- * cleared
+ * Finally, the user can save the food by pressing the save icon if every text field has been filled
+ * out.
  */
 public class FoodAddFragment extends Fragment {
 
@@ -146,7 +145,7 @@ public class FoodAddFragment extends Fragment {
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.add_food_menu, menu);
+    inflater.inflate(R.menu.food_add_menu, menu);
   }
 
   @Override
@@ -275,9 +274,15 @@ public class FoodAddFragment extends Fragment {
     mViewModel.insertFood(newFood);
 
     MySnackBar
-        .createSnackBar(getContext(), mBinding.foodName.getText().toString() + "added to the list..");
+        .createSnackBar(getContext(),
+            mBinding.foodName.getText().toString() + "added to the list..");
   }
 
+  /**
+   * Helper function for faster SnackBar creation
+   *
+   * @param msg The message to display in the SnackBar
+   */
   private void toast(String msg) {
     MySnackBar.createSnackBar(getContext(), msg);
   }

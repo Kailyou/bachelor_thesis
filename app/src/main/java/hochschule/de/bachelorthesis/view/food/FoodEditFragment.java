@@ -69,7 +69,7 @@ public class FoodEditFragment extends Fragment {
     assert getArguments() != null;
     mFoodId = getArguments().getInt("food_id");
 
-    // Spinner
+    // Dropdown list
     ArrayAdapter<CharSequence> adapter = ArrayAdapter
         .createFromResource(Objects.requireNonNull(getContext()),
             R.array.type, android.R.layout.simple_spinner_item);
@@ -83,20 +83,12 @@ public class FoodEditFragment extends Fragment {
       public void onChanged(Food food) {
         /* Update text views */
 
-        // General
-        mBinding.foodName.setText(food.getFoodName());
-        mBinding.brandName.setText(food.getBrandName());
-        mBinding.type.setText(food.getFoodType(), false);
-
-        // Nutritional information
-        mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
-        mBinding.kiloJoules.setText(Converter.convertFloat(food.getKiloJoules()));
-        mBinding.fat.setText(Converter.convertFloat(food.getFat()));
-        mBinding.saturates.setText(Converter.convertFloat(food.getSaturates()));
-        mBinding.protein.setText(Converter.convertFloat(food.getProtein()));
-        mBinding.carbohydrates.setText(Converter.convertFloat(food.getCarbohydrate()));
-        mBinding.sugar.setText(Converter.convertFloat(food.getSugars()));
-        mBinding.salt.setText(Converter.convertFloat(food.getSalt()));
+        updateTextViews(food.getFoodName(),
+            food.getBrandName(), food.getFoodType(),
+            food.getKiloCalories(), food.getKiloJoules(), food.getFat(),
+            food.getSaturates(), food.getProtein(), food.getCarbohydrate(), food.getSugars(),
+            food.getSalt()
+        );
       }
     });
 
@@ -106,20 +98,53 @@ public class FoodEditFragment extends Fragment {
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.food_data_menu, menu);
+    inflater.inflate(R.menu.food_edit_menu, menu);
 
   }
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.save) {
-      if (inPutOkay()) {
-        updateFood();
+    switch (item.getItemId()) {
+      case R.id.save:
+        if (isInputOkay()) {
+          updateFood();
+        }
         return true;
-      }
+
+      // While clearing. Counts will be set to -1, so they
+      // can be parsed to an empty String.
+      case R.id.clear:
+        /* Update text views */
+        updateTextViews("",
+            "", "",
+            -1, -1, -1,
+            -1, -1, -1, -1, -1
+        );
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private void updateTextViews(String foodName, String brandName, String type,
+      float kiloCalories, float kiloJoules, float fat, float saturates, float protein,
+      float carbohydrates, float sugar, float salt) {
+    /* Update text views */
+
+    // General
+    mBinding.foodName.setText(foodName);
+    mBinding.brandName.setText(brandName);
+    mBinding.type.setText(type);
+
+    // Nutritional information
+    mBinding.kiloCalories.setText(Converter.convertFloat(kiloCalories));
+    mBinding.kiloJoules.setText(Converter.convertFloat(kiloJoules));
+    mBinding.fat.setText(Converter.convertFloat(fat));
+    mBinding.saturates.setText(Converter.convertFloat(saturates));
+    mBinding.protein.setText(Converter.convertFloat(protein));
+    mBinding.carbohydrates.setText(Converter.convertFloat(carbohydrates));
+    mBinding.sugar.setText(Converter.convertFloat(sugar));
+    mBinding.salt.setText(Converter.convertFloat(salt));
   }
 
   /**
@@ -127,7 +152,7 @@ public class FoodEditFragment extends Fragment {
    *
    * @return returns true if the input was okay. returns false otherwise.
    */
-  private boolean inPutOkay() {
+  private boolean isInputOkay() {
     // checks the text fields
     if (mBinding.foodName.getText() == null || mBinding.foodName.getText().toString().equals("")) {
       toast("Please enter the food's name.");
@@ -277,6 +302,11 @@ public class FoodEditFragment extends Fragment {
     });
   }
 
+  /**
+   * Helper function for faster SnackBar creation
+   *
+   * @param msg The message to display in the SnackBar
+   */
   private void toast(String msg) {
     MySnackBar.createSnackBar(getContext(), msg);
   }

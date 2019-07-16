@@ -31,6 +31,18 @@ import java.util.List;
 import java.util.Objects;
 
 
+/**
+ * @author thielenm
+ *
+ * Displays the overview about the loaded food object.
+ *
+ * This fragment will appear after the user selected a food in the foods fragment.
+ *
+ * The food object behind the selected food will be loaded from the database and the text views will
+ * be updated to show the information.
+ *
+ * TODO: Rating and Personal index
+ */
 public class FoodOverviewFragment extends Fragment {
 
   private FoodViewModel mViewModel;
@@ -141,11 +153,16 @@ public class FoodOverviewFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Loads and deletes the selected food from the database and navigate back.
+   */
   private void delete() {
+    // Load the food object which should be deleted
     final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
     ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(Food food) {
+        ldf.removeObserver(this);
         mViewModel.deleteFood(food);
 
         // Navigate back to food fragment

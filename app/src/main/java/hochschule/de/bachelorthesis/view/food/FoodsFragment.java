@@ -34,7 +34,23 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
-public class FoodFragment extends Fragment {
+/**
+ * @author thielenm
+ *
+ * This class contains the logic for the food list.
+ *
+ * All foods will be loaded from the databased and displayed in a recycler view.
+ *
+ * The list will be sorted automatically alphanumeric by default.
+ *
+ * The user also can add a new food by pressing the FAB button and enter the following formular.
+ *
+ * Also, the user can delete all measurements by clicking the "delte all measurement" setting
+ * button.
+ *
+ * For debug reasons, it is currently possible to add three different foods by setting buttons.
+ */
+public class FoodsFragment extends Fragment {
 
   private FoodViewModel mViewModel;
 
@@ -65,10 +81,10 @@ public class FoodFragment extends Fragment {
     mFab = binding.buttonAddNote;
 
     // Adapter
-    NavController mNavcontroller = Navigation
+    NavController mNavController = Navigation
         .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
 
-    mAdapter = new AdapterFood(mNavcontroller);
+    mAdapter = new AdapterFood(mNavController);
 
     // RecyclerView
     RecyclerView recyclerView = binding.recyclerView;
@@ -128,7 +144,7 @@ public class FoodFragment extends Fragment {
   }
 
   /**
-   * Will sort the list alphanumeric
+   * Will sort the food list alphanumeric
    */
   private void sort() {
     final LiveData<List<Food>> ldf = mViewModel.getAllFoods();
@@ -141,19 +157,24 @@ public class FoodFragment extends Fragment {
     });
   }
 
+  /**
+   * Create a comperator depending on how to sort the list, sort the list and pass the list to the
+   * adapter, which will cause the list to be visible.
+   *
+   * @param sortType How to sort the list
+   * @param adapter The list adapter
+   * @param list The food list
+   */
   private void sortFoodList(String sortType, AdapterFood adapter, List<Food> list) {
-
     Comparator<Food> comparator = null;
 
-    switch (sortType) {
-      case "alphanumeric":
-        comparator = new Comparator<Food>() {
-          @Override
-          public int compare(Food food1, Food food2) {
-            return String.CASE_INSENSITIVE_ORDER.compare(food1.getFoodName(), food2.getFoodName());
-          }
-        };
-        break;
+    if (sortType.equals("alphanumeric")) {
+      comparator = new Comparator<Food>() {
+        @Override
+        public int compare(Food food1, Food food2) {
+          return String.CASE_INSENSITIVE_ORDER.compare(food1.getFoodName(), food2.getFoodName());
+        }
+      };
     }
 
     if (comparator != null) {

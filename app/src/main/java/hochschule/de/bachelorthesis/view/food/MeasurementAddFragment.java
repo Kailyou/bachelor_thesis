@@ -34,6 +34,19 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * @author thielenm
+ *
+ * The fragment for the View to create a new measurement for the selected food by the user.
+ *
+ * Entered data will be saved to a ViewModel, so as long as the APP does not be closed for any
+ * reason, the data will be restored as soon as the View will be loaded again.
+ *
+ * The user can clear the data himself by pressing the clear button in the action bar.
+ *
+ * Finally, the user can save the measurement by pressing the save icon if every text field has been
+ * filled out.
+ */
 public class MeasurementAddFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
@@ -118,7 +131,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.add_measurement_menu, menu);
+    inflater.inflate(R.menu.measurement_add_menu, menu);
   }
 
   @Override
@@ -186,23 +199,6 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     mViewModel.getMeasurementAddModel().getTired().setValue(mBinding.tired.getText().toString());
   }
 
-  private void chooseDateDialog() {
-    Calendar c = Calendar.getInstance();
-    int year = c.get(Calendar.YEAR);
-    int month = c.get(Calendar.MONTH);
-    int day = c.get(Calendar.DATE);
-
-    DatePickerDialog datePickerDialog =
-        new DatePickerDialog(Objects.requireNonNull(getContext()), this, year, month, day);
-    datePickerDialog.show();
-  }
-
-  private void chooseTimeDialog() {
-    TimePickerDialog timePickerDialog =
-        new TimePickerDialog(getContext(), this, 0, 0, false);
-    timePickerDialog.show();
-  }
-
   @Override
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     // Build a string of a date by using the calender class
@@ -226,6 +222,33 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     Date date = calendar.getTime();
     SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa", Locale.getDefault());
     mBinding.time.setText(sdf.format(date));
+  }
+
+  /**
+   * Opens a dialog to choose the date with predefined date values (the current ones).
+   */
+  private void chooseDateDialog() {
+    Calendar c = Calendar.getInstance();
+    int year = c.get(Calendar.YEAR);
+    int month = c.get(Calendar.MONTH);
+    int day = c.get(Calendar.DATE);
+
+    DatePickerDialog datePickerDialog =
+        new DatePickerDialog(Objects.requireNonNull(getContext()), this, year, month, day);
+    datePickerDialog.show();
+  }
+
+  /**
+   * Opens a dialog to choose the time with predefined date values (the current ones).
+   */
+  private void chooseTimeDialog() {
+    Calendar c = Calendar.getInstance();
+    int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+    int minute = c.get(Calendar.MINUTE);
+
+    TimePickerDialog timePickerDialog =
+        new TimePickerDialog(getContext(), this, hourOfDay, minute, false);
+    timePickerDialog.show();
   }
 
   /**
@@ -351,9 +374,9 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
   }
 
   /**
-   * Creates a snack bar faster.
+   * Helper function for faster SnackBar creation
    *
-   * @param msg - Message to display in the snack bar.
+   * @param msg The message to display in the SnackBar
    */
   private void toast(String msg) {
     MySnackBar.createSnackBar(getContext(), msg);

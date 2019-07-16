@@ -3,7 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,22 +19,31 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import com.google.android.material.textfield.TextInputEditText;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementEditBinding;
-import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * @author thielenm
+ *
+ * The View class for editing an existing measurement.
+ *
+ * First the existing measurement will be loaded from the database and the text fields will be
+ * updated.
+ *
+ * The user can clear the data himself by pressing the clear button in the action bar.
+ *
+ * Finally, the user can save the measurement by pressing the save icon if every text field has been
+ * filled out.
+ */
 public class MeasurementEditFragment extends Fragment implements DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
@@ -98,12 +106,21 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
       }
     });
 
-    // Load
+    // Load the measurement from database
     mViewModel.getMeasurementById(mMeasurementId).observe(getViewLifecycleOwner(),
         new Observer<Measurement>() {
           @Override
           public void onChanged(Measurement measurement) {
             /* Update text views */
+            updateTextViews(measurement.getTimeStamp(),
+                measurement.isGi(), measurement.getAmount(),
+                measurement.getStress(), measurement.getTired(), measurement.isPhysicallyActivity(),
+                measurement.isAlcoholConsumed(), measurement.isIll(), measurement.isMedication(),
+                measurement.isPeriod(), measurement.getGlucoseStart(), measurement.getGlucose15(),
+                measurement.getGlucose30(), measurement.getGlucose45(), measurement.getGlucose60(),
+                measurement.getGlucose75(), measurement.getGlucose90(), measurement.getGlucose105(),
+                measurement.getGlucose120()
+            );
 
             // Time information
             mBinding.date.setText(
@@ -144,16 +161,29 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.add_measurement_menu, menu);
+    inflater.inflate(R.menu.measurement_add_menu, menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.save) {
-      if (isPutOkay()) {
-        save();
-      }
-      return true;
+    switch (item.getItemId()) {
+      case R.id.save:
+        if (isInputOkay()) {
+          save();
+        }
+        return true;
+
+      // While clearing. Counts will be set to -1, so they
+      // can be parsed to an empty String.
+      case R.id.clear:
+        /* Update text views */
+        updateTextViews("",
+            false, -1,
+            "", "", false,
+            false, false, false,
+            false, -1, -1, -1, -1, -1, -1, -1, -1, -1
+        );
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
@@ -187,7 +217,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
   }
 
   /**
-   * Opens a dialog to chose the date.
+   * Opens a dialog to choose the date with predefined date values (the current ones).
    */
   private void chooseDateDialog() {
     Calendar c = Calendar.getInstance();
@@ -200,10 +230,80 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     datePickerDialog.show();
   }
 
+  /**
+   * Opens a dialog to choose the time with predefined date values (the current ones).
+   */
   private void chooseTimeDialog() {
+    Calendar c = Calendar.getInstance();
+    int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+    int minute = c.get(Calendar.MINUTE);
+
     TimePickerDialog timePickerDialog =
-        new TimePickerDialog(getContext(), this, 0, 0, false);
+        new TimePickerDialog(getContext(), this, hourOfDay, minute, false);
     timePickerDialog.show();
+  }
+
+  /**
+   * Updates the text views.
+   *
+   * @param timeStamp The timestamp
+   * @param isGi Gi calculation or not
+   * @param amount Amount food consumed
+   * @param stress Stress
+   * @param tired Tired
+   * @param isPhysicallyActive Physically active
+   * @param hasAlcoholConsumed Alcohol consumed
+   * @param isIll Ill
+   * @param takesMedication Taking medication
+   * @param hasPeriod is on Period
+   * @param mv0 glucose value start
+   * @param mv15 glucose value after 15 minutes
+   * @param mv30 glucose value after 30 minutes
+   * @param mv45 glucose value after 45 minutes
+   * @param mv60 glucose value after 60 minutes
+   * @param mv75 glucose value after 75 minutes
+   * @param mv90 glucose value after 90 minutes
+   * @param mv105 glucose value after 105 minutes
+   * @param mv120 glucose value after 120 minutes
+   */
+  private void updateTextViews(String timeStamp,
+      boolean isGi, int amount, String stress, String tired, boolean isPhysicallyActive,
+      boolean hasAlcoholConsumed,
+      boolean isIll, boolean takesMedication, boolean hasPeriod,
+      int mv0, int mv15, int mv30, int mv45, int mv60,
+      int mv75, int mv90, int mv105, int mv120) {
+    /* Update text views */
+
+    // Time information
+    mBinding.date.setText(
+        Converter.convertTimeStampToDate(timeStamp));
+
+    mBinding.time
+        .setText(Converter.convertTimeStampToTimeStart(timeStamp));
+
+    // Advance information
+    mBinding.gi.setChecked(isGi);
+    mBinding.amount.setText(Converter.convertInteger(amount));
+    mBinding.stress.setText(stress);
+    mBinding.tired.setText(tired);
+    mBinding.physicallyActive.setChecked(isPhysicallyActive);
+    mBinding.alcoholConsumed.setChecked(hasAlcoholConsumed);
+
+    // Events
+    mBinding.ill.setChecked(isIll);
+    mBinding.medication.setChecked(takesMedication);
+    mBinding.period.setChecked(hasPeriod);
+
+    // Glucose Values
+    mBinding.mv0.setText(Converter.convertInteger(mv0));
+    mBinding.mv15.setText(Converter.convertInteger(mv15));
+    mBinding.mv30.setText(Converter.convertInteger(mv30));
+    mBinding.mv45.setText(Converter.convertInteger(mv45));
+    mBinding.mv60.setText(Converter.convertInteger(mv60));
+    mBinding.mv75.setText(Converter.convertInteger(mv75));
+    mBinding.mv90.setText(Converter.convertInteger(mv90));
+    mBinding.mv105.setText(Converter.convertInteger(mv105));
+    mBinding.mv120.setText(Converter.convertInteger(mv120));
   }
 
   /**
@@ -217,7 +317,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
    *
    * @return returns true if the input was okay. returns false otherwise.
    */
-  private boolean isPutOkay() {
+  private boolean isInputOkay() {
     // checks the text fields
     if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
       toast("Please select the date.");

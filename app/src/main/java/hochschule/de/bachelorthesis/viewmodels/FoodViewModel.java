@@ -5,8 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import hochschule.de.bachelorthesis.model.FoodAddModel;
-import hochschule.de.bachelorthesis.model.FoodDataModel;
-import hochschule.de.bachelorthesis.model.FoodOverviewModel;
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
@@ -14,6 +12,13 @@ import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import java.util.List;
 
+/**
+ * @author thielen
+ *
+ * This ViewModel class contains the data for the food related classes.
+ *
+ *
+ */
 public class FoodViewModel extends AndroidViewModel {
 
   // Database

@@ -13,7 +13,7 @@
     tools:layout="@layout/fragment_home"/>
   <fragment
     android:id="@+id/foodFragment"
-    android:name="hochschule.de.bachelorthesis.view.food.FoodFragment"
+    android:name="hochschule.de.bachelorthesis.view.food.FoodsFragment"
     android:label="My Foods"
     tools:layout="@layout/fragment_food">
     <action
@@ -33,7 +33,7 @@
   <fragment
     android:id="@+id/foodInfoFragment"
     android:label="Food information"
-    android:name="hochschule.de.bachelorthesis.view.food.FoodInfoFragment"
+    android:name="hochschule.de.bachelorthesis.view.food.FoodHostFragment"
     tools:layout="@layout/fragment_food_info">
     <action
       android:id="@+id/action_foodInfoFragment_to_addMeasurement"
