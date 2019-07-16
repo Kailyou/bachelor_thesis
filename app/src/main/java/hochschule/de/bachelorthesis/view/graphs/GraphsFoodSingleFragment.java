@@ -214,6 +214,14 @@ public class GraphsFoodSingleFragment extends Fragment {
             getViewLifecycleOwner(), new Observer<Food>() {
               @Override
               public void onChanged(Food food) {
+                // If food object got deleted food will be null, leave function
+                if (food == null) {
+                  // Save the selected food
+                  mViewModel.getGraphSingleModel()
+                      .setSelectedFood("");
+                  return;
+                }
+
                 // Get all measurements for the selected food
                 mViewModel.getAllMeasurementsByFoodId(food.id)
                     .observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
