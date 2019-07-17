@@ -222,6 +222,9 @@ public class GraphsFoodsFragment extends Fragment {
    * set up the data and show the graph.
    */
   private void createChartGlucoseMax() {
+    // Update header
+    mBinding.header.setText(getResources().getString(R.string.header_glucose_max));
+
     // Sort
     Collections.sort(mFoodData, new Comparator<FoodData>() {
       @Override
@@ -260,6 +263,9 @@ public class GraphsFoodsFragment extends Fragment {
    * set up the data and show the graph.
    */
   private void createChartGlucoseAverage() {
+    // Update header
+    mBinding.header.setText(getResources().getString(R.string.header_glucose_average));
+
     // Sort
     Collections.sort(mFoodData, new Comparator<FoodData>() {
       @Override
@@ -296,6 +302,9 @@ public class GraphsFoodsFragment extends Fragment {
    * set up the data and show the graph.
    */
   private void createChartGlucoseIntegral() {
+    // Update header
+    mBinding.header.setText(getResources().getString(R.string.header_integral));
+
     // Sort
     Collections.sort(mFoodData, new Comparator<FoodData>() {
       @Override
@@ -312,7 +321,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Set max
     mBinding.chart.getAxisLeft()
-        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIntegralValues) + 20);
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIntegralValues) + 500);
 
     // Entries
     ArrayList<BarEntry> dataValues = new ArrayList<>();
@@ -332,6 +341,9 @@ public class GraphsFoodsFragment extends Fragment {
    * set up the data and show the graph.
    */
   private void createChartGlucoseStandardDeviation() {
+    // Update header
+    mBinding.header.setText(getResources().getString(R.string.standard_deviation));
+
     // Sort
     Collections.sort(mFoodData, new Comparator<FoodData>() {
       @Override

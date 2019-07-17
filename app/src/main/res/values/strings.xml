@@ -150,6 +150,11 @@
   <string name="_200">200</string>
   <string name="_120">120</string>
   <string name="unrated">unrated</string>
+  <string name="header_glucose_max">Glucose max peak (mg/dl)</string>
+  <string name="header_glucose_average">Glucose average (mg/dl)</string>
+  <string name="header_integral">Integral (area unit) </string>
+  <string name="header_standard_deviation">Standard Deviation (mg/dl)</string>
+
 
   <string-array name="type">
     <item>Grains</item>
