@@ -346,6 +346,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Add data
     BarData data = new BarData(mDataSets);
+    data.setBarWidth(0.5f);
     mBinding.chart.setData(data);
 
     // Notify changes
