@@ -100,7 +100,7 @@ public class FoodOverviewFragment extends Fragment {
                 mBinding.foodName.setText(food.getFoodName());
                 mBinding.brandName.setText(food.getBrandName());
                 mBinding.type.setText(food.getFoodType());
-                mBinding.type.setText(Converter.convertFloat(food.getKiloCalories()));
+                mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
 
                 // Measurements
                 mBinding.amount.setText(String.valueOf(measurements.size()));
