@@ -275,6 +275,8 @@ public class GraphsFoodsFragment extends Fragment {
       }
     });
 
+    Collections.reverse(mFoodData);
+
     ArrayList<Float> glucoseAverageValues = new ArrayList<>();
 
     for (int i = 0; i < mFoodData.size(); i++) {
@@ -314,6 +316,8 @@ public class GraphsFoodsFragment extends Fragment {
       }
     });
 
+    Collections.reverse(mFoodData);
+
     ArrayList<Float> glucoseIntegralValues = new ArrayList<>();
 
     for (int i = 0; i < mFoodData.size(); i++) {
@@ -352,6 +356,8 @@ public class GraphsFoodsFragment extends Fragment {
         return o1.getStdev().compareTo(o2.getStdev());
       }
     });
+
+    Collections.reverse(mFoodData);
 
     ArrayList<Float> glucoseStdevValues = new ArrayList<>();
 
