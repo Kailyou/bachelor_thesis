@@ -506,7 +506,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     }
 
     // Diverse settings for the bar chart
-    mBinding.barChart.getDescription().setText("Test");
+    mBinding.barChart.getDescription().setText("");
     mBinding.barChart.setTouchEnabled(false);
     mBinding.barChart.getLegend().setEnabled(false);
     animateGraph();
