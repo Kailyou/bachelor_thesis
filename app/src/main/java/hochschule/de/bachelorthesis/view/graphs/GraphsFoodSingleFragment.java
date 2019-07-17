@@ -237,7 +237,7 @@ public class GraphsFoodSingleFragment extends Fragment {
                             buildLineChart(measurements);
                             break;
                           case 1:
-                            createTestBarChart(measurements);
+                            buildBarChart(measurements);
                             break;
                           default:
                             throw new IllegalStateException("Unexpected switch case!");
@@ -489,7 +489,7 @@ public class GraphsFoodSingleFragment extends Fragment {
   /**
    *
    */
-  private void createTestBarChart(List<Measurement> measurements) {
+  private void buildBarChart(List<Measurement> measurements) {
     // hide line chart view elements
     mBinding.textViewLineStyle.setVisibility(View.GONE);
     mBinding.radioGroupLineStyle.setVisibility(View.GONE);
@@ -511,18 +511,18 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.barChart.getLegend().setEnabled(false);
     animateGraph();
 
-    // X Axis (left)
+    // X Axis (bottom)
     XAxis xAxis = mBinding.barChart.getXAxis();
     xAxis.setDrawGridLines(false);
     xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
-    xAxis.setLabelCount(4);
-    String[] values = {"Max Glucose", "Avg. Glucose", "Integral", "STDEV"};
+    xAxis.setLabelCount(3);
+    String[] values = {"STDEV", "Avg. Glucose", "Max. Glucose"};
     xAxis.setValueFormatter(new BarChartValueFormatter(values));
 
-    // Y Axis left (top)
+    // Y Axis left (left)
     YAxis topAxis = mBinding.barChart.getAxisLeft();
     topAxis.setAxisMinimum(0);
-    topAxis.setAxisMaximum(250f);
+    topAxis.setAxisMaximum(Measurement.getGlucoseMaxFromList(measurements) + 50);
 
     // Y Axis right (bottom)
     YAxis bottomAxis = mBinding.barChart.getAxisRight();
@@ -532,13 +532,13 @@ public class GraphsFoodSingleFragment extends Fragment {
     ArrayList<BarEntry> dataValues = new ArrayList<>();
 
     // Entries
-    dataValues.add(new BarEntry(0, Measurement.getGlucoseMaxFromList(measurements)));
+    dataValues.add(new BarEntry(0, Measurement.getStandardDeviationFromList(measurements)));
     dataValues.add(new BarEntry(1, Measurement.getGlucoseAverageFromList(measurements)));
-    dataValues.add(new BarEntry(2, 0));
-    dataValues.add(new BarEntry(3, 0));
+    dataValues.add(new BarEntry(2, Measurement.getGlucoseMaxFromList(measurements)));
+    //dataValues.add(new BarEntry(3, Measurement.getAverageIntegralFromList(measurements)));
 
     // Set
-    BarDataSet set = new BarDataSet(dataValues, "Test");
+    BarDataSet set = new BarDataSet(dataValues, "");
     set.setColor(getResources().getColor(R.color.colorPrimary));
     set.setValueTextColor(getResources().getColor(R.color.colorPrimary));
     set.setValueTextSize(10f);
