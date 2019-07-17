@@ -331,7 +331,7 @@ public class GraphsFoodsFragment extends Fragment {
     // Set label
     String[] labels = new String[mFoodData.size()];
     XAxis xAxis = mBinding.chart.getXAxis();
-    xAxis.setLabelCount(labels.length, true);
+    xAxis.setLabelCount(labels.length);
     xAxis.setValueFormatter(new BarChartValueFormatter(labels));
 
     for (int i = 0; i < mFoodData.size(); i++) {
