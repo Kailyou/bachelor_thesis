@@ -322,7 +322,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Set max
     mBinding.chart.getAxisLeft()
-        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIntegralValues) + 500);
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIntegralValues) + 5000);
 
     // Entries
     ArrayList<BarEntry> dataValues = new ArrayList<>();
