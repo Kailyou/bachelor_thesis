@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.graphs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -330,7 +331,7 @@ public class GraphsFoodsFragment extends Fragment {
     // Set label
     String[] labels = new String[mFoodData.size()];
     XAxis xAxis = mBinding.chart.getXAxis();
-    xAxis.setLabelCount(labels.length);
+    xAxis.setLabelCount(labels.length, true);
     xAxis.setValueFormatter(new BarChartValueFormatter(labels));
 
     for (int i = 0; i < mFoodData.size(); i++) {
