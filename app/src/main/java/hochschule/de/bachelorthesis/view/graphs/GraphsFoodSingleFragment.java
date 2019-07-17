@@ -100,12 +100,12 @@ public class GraphsFoodSingleFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.graphs_single_line_graph:
-        mViewModel.getGraphAllModel().setChartType(0);
+        mViewModel.getGraphSingleModel().setChartType(0);
         loadMeasurementsAndBuildGraph();
         return true;
 
       case R.id.graphs_single_bar_graph:
-        mViewModel.getGraphAllModel().setChartType(1);
+        mViewModel.getGraphSingleModel().setChartType(1);
         loadMeasurementsAndBuildGraph();
         return true;
 
