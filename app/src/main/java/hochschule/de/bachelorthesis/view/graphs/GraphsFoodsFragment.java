@@ -135,7 +135,7 @@ public class GraphsFoodsFragment extends Fragment {
                       Measurement.getGlucoseMaxFromList(measurements),
                       Measurement.getGlucoseAverageFromList(measurements),
                       Measurement.getAverageIntegralFromList(measurements),
-                      0f);
+                      Measurement.getStandardDeviationFromList(measurements));
 
                   mFoodData.add(foodData);
 
@@ -207,6 +207,7 @@ public class GraphsFoodsFragment extends Fragment {
         createChartGlucoseIntegral();
         break;
       case 3:
+        createChartGlucoseStandardDeviation();
         break;
       default:
         throw new IllegalStateException("Unexpected switch case!");
@@ -324,6 +325,42 @@ public class GraphsFoodsFragment extends Fragment {
   }
 
   /**
+   * First sort the data in standard deviation order. (From low to max)
+   *
+   * then get the data for the chart and call the function, which will
+   *
+   * set up the data and show the graph.
+   */
+  private void createChartGlucoseStandardDeviation() {
+    // Sort
+    Collections.sort(mFoodData, new Comparator<FoodData>() {
+      @Override
+      public int compare(FoodData o1, FoodData o2) {
+        return o1.getStdev().compareTo(o2.getStdev());
+      }
+    });
+
+    ArrayList<Float> glucoseStdevValues = new ArrayList<>();
+
+    for (int i = 0; i < mFoodData.size(); i++) {
+      glucoseStdevValues.add(mFoodData.get(i).getStdev());
+    }
+
+    // Set max
+    mBinding.chart.getAxisLeft()
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseStdevValues) + 20);
+
+    // Entries
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+    for (int i = 0; i < glucoseStdevValues.size(); ++i) {
+      dataValues.add(new BarEntry(i, glucoseStdevValues.get(i)));
+    }
+
+    // Set
+    finishGraph(new BarDataSet(dataValues, "Standard Deviation"));
+  }
+
+  /**
    * Finish the graph by setting the label, the data, doing some final formatting and notify the
    * changes to the chart itself to display them.
    */
@@ -402,11 +439,11 @@ public class GraphsFoodsFragment extends Fragment {
       return mAverage;
     }
 
-    public Float getIntegral() {
+    private Float getIntegral() {
       return mIntegral;
     }
 
-    public Float getStdev() {
+    private Float getStdev() {
       return mStdev;
     }
   }
