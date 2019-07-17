@@ -232,7 +232,7 @@ public class GraphsFoodSingleFragment extends Fragment {
                         }
 
                         // Check which graph to build
-                        switch (mViewModel.getGraphAllModel().getChartType()) {
+                        switch (mViewModel.getGraphSingleModel().getChartType()) {
                           case 0:
                             buildLineChart(measurements);
                             break;
