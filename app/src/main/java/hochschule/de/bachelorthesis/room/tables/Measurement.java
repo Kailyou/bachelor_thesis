@@ -257,10 +257,10 @@ public class Measurement {
     return res;
   }
 
-  // Checks if the measurement is done, as soon as one value is zero, the measurement cannot be finished yet.
-  private boolean isDone() {
-    return glucose15 != 0 && glucose30 != 0 && glucose45 != 0 && glucose60 != 0 && glucose75 != 0
-        && glucose90 != 0 && glucose105 != 0 && glucose120 != 0;
+  // Checks if the measurement still is active
+  public boolean isActive() {
+    return glucose15 == 0 || glucose30 == 0 || glucose45 == 0 || glucose60 == 0 || glucose75 == 0
+        || glucose90 == 0 || glucose105 == 0 || glucose120 == 0;
   }
 
   /**
@@ -312,7 +312,7 @@ public class Measurement {
     Iterator<Measurement> iterator = measurements.iterator();
 
     while (iterator.hasNext()) {
-      if (!iterator.next().isDone()) {
+      if (iterator.next().isActive()) {
         iterator.remove();
       }
     }
