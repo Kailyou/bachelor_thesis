@@ -22,9 +22,6 @@ public class FoodViewModel extends AndroidViewModel {
 
   // Database
   private Repository mRepository;
-  private LiveData<List<Food>> mAllFoods;
-  private LiveData<List<Measurement>> mAllMeasurements;
-  private LiveData<UserHistory> mUserHistoryLatest;
 
   // Models
   private FoodAddModel mFoodAddModel;
@@ -34,9 +31,6 @@ public class FoodViewModel extends AndroidViewModel {
     super(application);
 
     mRepository = new Repository(application);
-    mAllFoods = mRepository.getAllFoods();
-    mAllMeasurements = mRepository.getAllMeasurements();
-    mUserHistoryLatest = mRepository.getUserHistoryLatest();
 
     mFoodAddModel = new FoodAddModel();
     mMeasurementAddModel = new MeasurementAddModel();
@@ -126,7 +120,7 @@ public class FoodViewModel extends AndroidViewModel {
    * @return - A Live data list with all foods.
    */
   public LiveData<List<Food>> getAllFoods() {
-    return mAllFoods;
+    return mRepository.getAllFoods();
   }
 
   /**
@@ -168,7 +162,7 @@ public class FoodViewModel extends AndroidViewModel {
   }
 
   public LiveData<List<Measurement>> getAllMeasurements() {
-    return mAllMeasurements;
+    return mRepository.getAllMeasurements();
   }
 
   /**
@@ -193,7 +187,7 @@ public class FoodViewModel extends AndroidViewModel {
    * @return - A live data list of the latest user history
    */
   public LiveData<UserHistory> getUserHistoryLatest() {
-    return mUserHistoryLatest;
+    return mRepository.getUserHistoryLatest();
   }
 
   public void deleteAllMeasurementFromFoodWithId(int foodId) {

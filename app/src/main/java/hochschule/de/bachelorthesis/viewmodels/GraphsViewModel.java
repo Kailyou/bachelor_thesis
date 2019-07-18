@@ -15,7 +15,6 @@ public class GraphsViewModel extends AndroidViewModel {
 
   // Database
   private Repository mRepository;
-  private LiveData<List<Food>> mAllFoods;
 
   // Model
   private GraphSingleModel mGraphSingleModel;
@@ -26,7 +25,6 @@ public class GraphsViewModel extends AndroidViewModel {
     super(application);
 
     mRepository = new Repository(application);
-    mAllFoods = mRepository.getAllFoods();
 
     mGraphSingleModel = new GraphSingleModel();
     mGraphModelAll = new GraphAllModel();
@@ -41,7 +39,7 @@ public class GraphsViewModel extends AndroidViewModel {
    * @return - A Live data list with all foods.
    */
   public LiveData<List<Food>> getAllFoods() {
-    return mAllFoods;
+    return mRepository.getAllFoods();
   }
 
   /**

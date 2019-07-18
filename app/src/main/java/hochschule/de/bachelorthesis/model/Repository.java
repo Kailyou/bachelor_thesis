@@ -26,16 +26,11 @@ public class Repository {
   private FoodDao mFoodDao;
   private UserHistoryDao mUserHistoryDao;
 
-  private LiveData<List<Food>> mAllFood;
-  private LiveData<List<Measurement>> mAllMeasurements;
-
   public Repository(Application application) {
     FoodDatabase database = FoodDatabase.getDatabase(application);
     mMeasurementDao = database.measurementDao();
     mFoodDao = database.foodDao();
     mUserHistoryDao = database.userHistoryDao();
-    mAllFood = mFoodDao.getAllFoods();
-    mAllMeasurements = mMeasurementDao.getAllMeasurements();
   }
 
   // API methods that will be used by outside (View Model)
@@ -58,7 +53,7 @@ public class Repository {
 
   // already executed on a background thread because of live data
   public LiveData<List<Measurement>> getAllMeasurements() {
-    return mAllMeasurements;
+    return mMeasurementDao.getAllMeasurements();
   }
 
   // already executed on a background thread because of live data
@@ -102,7 +97,7 @@ public class Repository {
 
   // already executed on a background thread because of live data
   public LiveData<List<Food>> getAllFoods() {
-    return mAllFood;
+    return mFoodDao.getAllFoods();
   }
 
   public LiveData<Food> getFoodById(int id) {

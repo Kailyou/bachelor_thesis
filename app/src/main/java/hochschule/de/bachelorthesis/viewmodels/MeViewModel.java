@@ -11,13 +11,10 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 public class MeViewModel extends AndroidViewModel {
 
   private Repository mRepository;
-  private LiveData<UserHistory> mUserHistoryLatest;
-
 
   public MeViewModel(@NonNull Application application) {
     super(application);
     mRepository = new Repository(application);
-    mUserHistoryLatest = mRepository.getUserHistoryLatest();
   }
 
   /**
@@ -34,6 +31,6 @@ public class MeViewModel extends AndroidViewModel {
    */
 
   public LiveData<UserHistory> getUserHistoryLatest() {
-    return mUserHistoryLatest;
+    return mRepository.getUserHistoryLatest();
   }
 }
