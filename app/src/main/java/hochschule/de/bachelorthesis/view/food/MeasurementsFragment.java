@@ -130,6 +130,7 @@ public class MeasurementsFragment extends Fragment {
 
         if (userHistory == null) {
           MySnackBar.createSnackBar(getContext(), "Enter user data first!");
+          return;
         }
 
         Measurement templateMeasurement;
