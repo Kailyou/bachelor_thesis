@@ -61,6 +61,10 @@ public class MeFragment extends Fragment {
     ldu.observe(this, new Observer<UserHistory>() {
       @Override
       public void onChanged(UserHistory uh) {
+        if(uh == null) {
+          return;
+        }
+
         /* Update text views */
 
         // Personal data
