@@ -121,37 +121,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
                 measurement.getGlucose75(), measurement.getGlucose90(), measurement.getGlucose105(),
                 measurement.getGlucose120()
             );
-
-            // Time information
-            mBinding.date.setText(
-                Converter.convertTimeStampToDate(measurement.getTimeStamp()));
-
-            mBinding.time
-                .setText(Converter.convertTimeStampToTimeStart(measurement.getTimeStamp()));
-
-            // Advance information
-            mBinding.gi.setChecked(measurement.isGi());
-            mBinding.amount.setText(String.valueOf(measurement.getAmount()));
-            mBinding.stress.setText(measurement.getStress(), false);
-            mBinding.tired.setText(measurement.getTired(), false);
-            mBinding.physicallyActive.setChecked(measurement.isPhysicallyActivity());
-            mBinding.alcoholConsumed.setChecked(measurement.isAlcoholConsumed());
-
-            // Events
-            mBinding.ill.setChecked(measurement.isIll());
-            mBinding.medication.setChecked(measurement.isMedication());
-            mBinding.period.setChecked(measurement.isPeriod());
-
-            // Glucose Values
-            mBinding.mv0.setText(String.valueOf(measurement.getGlucoseStart()));
-            mBinding.mv15.setText(String.valueOf(measurement.getGlucose15()));
-            mBinding.mv30.setText(String.valueOf(measurement.getGlucose30()));
-            mBinding.mv45.setText(String.valueOf(measurement.getGlucose45()));
-            mBinding.mv60.setText(String.valueOf(measurement.getGlucose60()));
-            mBinding.mv75.setText(String.valueOf(measurement.getGlucose75()));
-            mBinding.mv90.setText(String.valueOf(measurement.getGlucose90()));
-            mBinding.mv105.setText(String.valueOf(measurement.getGlucose105()));
-            mBinding.mv120.setText(String.valueOf(measurement.getGlucose120()));
           }
         });
 
@@ -272,6 +241,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
       boolean isIll, boolean takesMedication, boolean hasPeriod,
       int mv0, int mv15, int mv30, int mv45, int mv60,
       int mv75, int mv90, int mv105, int mv120) {
+
     /* Update text views */
 
     // Time information
@@ -295,15 +265,15 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     mBinding.period.setChecked(hasPeriod);
 
     // Glucose Values
-    mBinding.mv0.setText(Converter.convertInteger(mv0));
-    mBinding.mv15.setText(Converter.convertInteger(mv15));
-    mBinding.mv30.setText(Converter.convertInteger(mv30));
-    mBinding.mv45.setText(Converter.convertInteger(mv45));
-    mBinding.mv60.setText(Converter.convertInteger(mv60));
-    mBinding.mv75.setText(Converter.convertInteger(mv75));
-    mBinding.mv90.setText(Converter.convertInteger(mv90));
-    mBinding.mv105.setText(Converter.convertInteger(mv105));
-    mBinding.mv120.setText(Converter.convertInteger(mv120));
+    mBinding.mv0.setText(Converter.convertIntegerMeasurement(mv0));
+    mBinding.mv15.setText(Converter.convertIntegerMeasurement(mv15));
+    mBinding.mv30.setText(Converter.convertIntegerMeasurement(mv30));
+    mBinding.mv45.setText(Converter.convertIntegerMeasurement(mv45));
+    mBinding.mv60.setText(Converter.convertIntegerMeasurement(mv60));
+    mBinding.mv75.setText(Converter.convertIntegerMeasurement(mv75));
+    mBinding.mv90.setText(Converter.convertIntegerMeasurement(mv90));
+    mBinding.mv105.setText(Converter.convertIntegerMeasurement(mv105));
+    mBinding.mv120.setText(Converter.convertIntegerMeasurement(mv120));
   }
 
   /**
