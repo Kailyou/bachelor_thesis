@@ -23,6 +23,7 @@ public class FoodViewModel extends AndroidViewModel {
   // Database
   private Repository mRepository;
   private LiveData<List<Food>> mAllFoods;
+  private LiveData<List<Measurement>> mAllMeasurements;
   private LiveData<UserHistory> mUserHistoryLatest;
 
   // Models
@@ -34,6 +35,7 @@ public class FoodViewModel extends AndroidViewModel {
 
     mRepository = new Repository(application);
     mAllFoods = mRepository.getAllFoods();
+    mAllMeasurements = mRepository.getAllMeasurements();
     mUserHistoryLatest = mRepository.getUserHistoryLatest();
 
     mFoodAddModel = new FoodAddModel();
@@ -163,6 +165,10 @@ public class FoodViewModel extends AndroidViewModel {
    */
   public void updateMeasurement(Measurement measurement) {
     mRepository.update(measurement);
+  }
+
+  public LiveData<List<Measurement>> getAllMeasurements() {
+    return mAllMeasurements;
   }
 
   /**

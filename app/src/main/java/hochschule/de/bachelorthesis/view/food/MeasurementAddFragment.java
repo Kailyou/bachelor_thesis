@@ -31,6 +31,7 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -298,61 +299,83 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
    * Save the food to the database.
    */
   private void save() {
-    //TODO check if no other measurement is unfinished
-
-    final LiveData<UserHistory> uh = mViewModel.getUserHistoryLatest();
-    uh.observe(this, new Observer<UserHistory>() {
+    // Load all measurements to check later if all has been finished
+    final LiveData<List<Measurement>> ldMeasurements = mViewModel.getAllMeasurements();
+    ldMeasurements.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
       @Override
-      public void onChanged(UserHistory userHistory) {
-        uh.removeObserver(this);
+      public void onChanged(final List<Measurement> allMeasurements) {
+        ldMeasurements.removeObserver(this);
 
-        if (userHistory == null) {
-          MySnackBar.createSnackBar(getContext(), "Please enter user data first!");
-          return;
+        // Only insert if no other measurement is active right now
+        for (Measurement m : allMeasurements) {
+          if (m.isActive()) {
+            MySnackBar
+                .createSnackBar(getContext(),
+                    "Cannot add measurement because another one is still active!");
+
+            return;
+          }
         }
 
-        final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
-        ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+        // Load latest user history
+        final LiveData<UserHistory> ldUserHistory = mViewModel.getUserHistoryLatest();
+        ldUserHistory.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
           @Override
-          public void onChanged(Food food) {
-            ldf.removeObserver(this);
+          public void onChanged(UserHistory userHistory) {
+            ldUserHistory.removeObserver(this);
 
-            String timeStamp = buildTimestamp();
+            // Return if there are no user data yet
+            if (userHistory == null) {
+              MySnackBar.createSnackBar(getContext(), "Please enter user data first!");
+              return;
+            }
 
-            int amount = Integer
-                .parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
-            String stress = mBinding.stress.getText().toString();
-            String tired = mBinding.tired.getText().toString();
-            boolean gi = mBinding.gi.isChecked();
-            boolean physicallyActive = mBinding.physicallyActive.isChecked();
-            boolean alcoholConsumed = mBinding.alcoholConsumed.isChecked();
-            boolean ill = mBinding.ill.isChecked();
-            boolean medication = mBinding.medication.isChecked();
-            boolean period = mBinding.period.isChecked();
+            // Load food object
+            final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+            ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+              @Override
+              public void onChanged(Food food) {
+                ldf.removeObserver(this);
 
-            int glucose_0 = Integer
-                .parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
+                String timeStamp = buildTimestamp();
 
-            Measurement newMeasurement = new Measurement(
-                mFoodId,
-                Objects.requireNonNull(uh.getValue()).id,
-                gi,
-                timeStamp,
-                amount,
-                stress, tired,
-                physicallyActive, alcoholConsumed,
-                ill, medication, period,
-                glucose_0
-            );
+                int amount = Integer
+                    .parseInt(Objects.requireNonNull(mBinding.amount.getText()).toString());
+                String stress = mBinding.stress.getText().toString();
+                String tired = mBinding.tired.getText().toString();
+                boolean gi = mBinding.gi.isChecked();
+                boolean physicallyActive = mBinding.physicallyActive.isChecked();
+                boolean alcoholConsumed = mBinding.alcoholConsumed.isChecked();
+                boolean ill = mBinding.ill.isChecked();
+                boolean medication = mBinding.medication.isChecked();
+                boolean period = mBinding.period.isChecked();
 
-            mViewModel.insertMeasurement(newMeasurement);
+                int glucose_0 = Integer
+                    .parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
 
-            // Navigate back to me fragment
-            Bundle bundle = new Bundle();
-            bundle.putInt("food_id", mFoodId);
+                // Build new measurement
+                Measurement newMeasurement = new Measurement(
+                    mFoodId,
+                    Objects.requireNonNull(ldUserHistory.getValue()).id,
+                    gi,
+                    timeStamp,
+                    amount,
+                    stress, tired,
+                    physicallyActive, alcoholConsumed,
+                    ill, medication, period,
+                    glucose_0
+                );
 
-            Navigation.findNavController(Objects.requireNonNull(getView()))
-                .navigate(R.id.action_addMeasurement_to_foodInfoFragment, bundle);
+                mViewModel.insertMeasurement(newMeasurement);
+
+                // Navigate back to me fragment
+                Bundle bundle = new Bundle();
+                bundle.putInt("food_id", mFoodId);
+
+                Navigation.findNavController(Objects.requireNonNull(getView()))
+                    .navigate(R.id.action_addMeasurement_to_foodInfoFragment, bundle);
+              }
+            });
           }
         });
       }
