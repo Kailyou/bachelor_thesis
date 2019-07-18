@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -299,11 +300,13 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
    * Save the food to the database.
    */
   private void save() {
+
     // Load all measurements to check later if all has been finished
     final LiveData<List<Measurement>> ldMeasurements = mViewModel.getAllMeasurements();
     ldMeasurements.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
       @Override
       public void onChanged(final List<Measurement> allMeasurements) {
+
         ldMeasurements.removeObserver(this);
 
         // Only insert if no other measurement is active right now

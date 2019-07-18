@@ -122,29 +122,53 @@ public class MeasurementsFragment extends Fragment {
   }
 
   private void createTemplateMeasurement(final boolean finished) {
-    final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
-    ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
+
+    // Load all measurements to check later if all has been finished
+    final LiveData<List<Measurement>> ldMeasurements = mViewModel.getAllMeasurements();
+    ldMeasurements.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
       @Override
-      public void onChanged(final UserHistory userHistory) {
-        ldu.removeObserver(this);
+      public void onChanged(List<Measurement> allMeasurements) {
+        ldMeasurements.removeObserver(this);
 
-        if (userHistory == null) {
-          MySnackBar.createSnackBar(getContext(), "Enter user data first!");
-          return;
+        // Only insert if no other measurement is active right now
+        for (Measurement m : allMeasurements) {
+          if (m.isActive()) {
+            MySnackBar
+                .createSnackBar(getContext(),
+                    "Cannot add measurement because another one is still active!");
+
+            return;
+          }
         }
 
-        Measurement templateMeasurement;
+        // Load user data
+        final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
+        ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
+          @Override
+          public void onChanged(final UserHistory userHistory) {
+            ldu.removeObserver(this);
 
-        // Create either an unfinished or a finished measurement
-        if (finished) {
-          templateMeasurement = Samples.getRandomMeasurement(
-              Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
-        } else {
-          templateMeasurement = Samples
-              .getRandomMeasurementUnfinished(getContext(), mFoodId, userHistory.id);
-        }
+            // Leave if no user data has been set yet
+            if (userHistory == null) {
+              MySnackBar.createSnackBar(getContext(), "Enter user data first!");
+              return;
+            }
 
-        mViewModel.insertMeasurement(templateMeasurement);
+            Measurement templateMeasurement;
+
+            // Create either an unfinished or a finished measurement
+            if (finished) {
+              templateMeasurement = Samples.getRandomMeasurement(
+                  Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
+            } else {
+              templateMeasurement = Samples
+                  .getRandomMeasurementUnfinished(Objects.requireNonNull(getContext()), mFoodId,
+                      userHistory.id);
+            }
+
+            mViewModel.insertMeasurement(templateMeasurement);
+          }
+        });
       }
     });
   }
