@@ -96,7 +96,9 @@ public class MeEditFragment extends Fragment {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.save:
-        save();
+        if (isInputOk()) {
+          save();
+        }
         return true;
 
       // While clearing. Counts will be set to -1, so they
@@ -145,37 +147,34 @@ public class MeEditFragment extends Fragment {
    * VM will update itself.
    */
   private void save() {
-    if (inPutOkay()) {
-      int age = Integer.parseInt(Objects.requireNonNull(mBinding.age.getText()).toString());
-      int height = Integer.parseInt(Objects.requireNonNull(mBinding.height.getText()).toString());
-      int weight = Integer.parseInt(Objects.requireNonNull(mBinding.weight.getText()).toString());
-      String sex = mBinding.sex.getText().toString();
-      String fitnessLevel = mBinding.fitnessLevel.getText().toString();
-      boolean medication = mBinding.medication.isChecked();
-      boolean allergies = mBinding.allergies.isChecked();
-      boolean smoking = mBinding.smoking.isChecked();
-      boolean diabetes = mBinding.diabetes.isChecked();
+    int age = Integer.parseInt(Objects.requireNonNull(mBinding.age.getText()).toString());
+    int height = Integer.parseInt(Objects.requireNonNull(mBinding.height.getText()).toString());
+    int weight = Integer.parseInt(Objects.requireNonNull(mBinding.weight.getText()).toString());
+    String sex = mBinding.sex.getText().toString();
+    String fitnessLevel = mBinding.fitnessLevel.getText().toString();
+    boolean medication = mBinding.medication.isChecked();
+    boolean allergies = mBinding.allergies.isChecked();
+    boolean smoking = mBinding.smoking.isChecked();
+    boolean diabetes = mBinding.diabetes.isChecked();
 
-      final UserHistory uh = new UserHistory(age, height, weight, sex, fitnessLevel, medication,
-          allergies, smoking, diabetes);
+    final UserHistory uh = new UserHistory(age, height, weight, sex, fitnessLevel, medication,
+        allergies, smoking, diabetes);
 
-      final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
-      ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
-        @Override
-        public void onChanged(UserHistory userHistory) {
-          ldu.removeObserver(this);
+    final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
+    ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
+      @Override
+      public void onChanged(UserHistory userHistory) {
+        ldu.removeObserver(this);
 
-          // Only save the new one, if something changed
-          if (!uh.equals(userHistory)) {
-            mViewModel.insertUserHistory(uh);
-          }
+        // Only save the new one, if something changed
+        if (uh.equals(userHistory)) {
+          toast("You cannot update user data if nothing changed. Change data and try again.");
+        } else {
+          mViewModel.insertUserHistory(uh);
+          toast("User data updated successfully!");
         }
-      });
-
-      // Navigate back to me fragment
-      Navigation.findNavController(Objects.requireNonNull(getView()))
-          .navigate(R.id.action_meEditFragment_to_meFragment);
-    }
+      }
+    });
   }
 
   /**
@@ -183,7 +182,7 @@ public class MeEditFragment extends Fragment {
    *
    * @return returns true if the input was okay. returns false otherwise.
    */
-  private boolean inPutOkay() {
+  private boolean isInputOk() {
     // checks the text fields
     if (mBinding.age.getText() == null || mBinding.age.getText().toString().equals("")) {
       toast("Please enter your age.");
@@ -217,15 +216,6 @@ public class MeEditFragment extends Fragment {
   }
 
   /**
-   * Faster toasts ;)
-   *
-   * @param msg - Message to deliver!
-   */
-  private void toast(String msg) {
-    MySnackBar.createSnackBar(getContext(), msg);
-  }
-
-  /**
    * Helper function which will an ArrayAdapter object
    *
    * @param elements - The String array to build the adapter with
@@ -234,5 +224,14 @@ public class MeEditFragment extends Fragment {
   private ArrayAdapter<String> getAdapter(String[] elements) {
     return new ArrayAdapter<>(Objects.requireNonNull(getContext()),
         R.layout.dropdown_menu_popup_item, elements);
+  }
+
+  /**
+   * Helper function for faster SnackBar creation
+   *
+   * @param msg The message to display in the SnackBar
+   */
+  private void toast(String msg) {
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 }

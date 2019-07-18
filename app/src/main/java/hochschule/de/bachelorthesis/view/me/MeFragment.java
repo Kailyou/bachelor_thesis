@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.Converter;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -103,7 +104,7 @@ public class MeFragment extends Fragment {
   }
 
   /**
-   * Adding a temp userHistory object to the database. TODO is getUserHistoryLatest correct?!
+   * Adding a temp userHistory object to the database.
    */
   private void addTemplateUser() {
     final UserHistory newUh = new UserHistory(29, 173, 87, "male", "low", false, false, false,
@@ -116,10 +117,22 @@ public class MeFragment extends Fragment {
         ldu.removeObserver(this);
 
         //Insert
-        if (!newUh.equals(userHistory)) {
+        if (newUh.equals(userHistory)) {
+          toast("You cannot update user data if nothing changed. Change data and try again.");
+        } else {
           mViewModel.insertUserHistory(newUh);
+          toast("Template user data added successfully!");
         }
       }
     });
+  }
+
+  /**
+   * Helper function for faster SnackBar creation
+   *
+   * @param msg The message to display in the SnackBar
+   */
+  private void toast(String msg) {
+    MySnackBar.createSnackBar(getContext(), msg);
   }
 }
