@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -66,7 +69,6 @@ public class MeasurementsFragment extends Fragment {
 
     // RecyclerView
     RecyclerView recyclerView = binding.recyclerView;
-    //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
     recyclerView.setHasFixedSize(true);
 
@@ -121,6 +123,12 @@ public class MeasurementsFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Creates a random measurement, either a unfinished or an unfinished one, depending on the user's
+   * selection.
+   *
+   * @param finished - Measurement unfinished or not
+   */
   private void createTemplateMeasurement(final boolean finished) {
 
     // Load all measurements to check later if all has been finished
@@ -173,6 +181,9 @@ public class MeasurementsFragment extends Fragment {
     });
   }
 
+  /**
+   * Deletes all current measurements for the food.
+   */
   private void deleteMeasurements() {
     final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
     ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
@@ -180,9 +191,21 @@ public class MeasurementsFragment extends Fragment {
       public void onChanged(Food food) {
         ldf.removeObserver(this);
 
-        // Update database
-        mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
-        mViewModel.updateFood(food);
+        new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+            .setTitle("Delete Confirmation")
+            .setMessage(
+                "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
+            .setIcon(android.R.drawable.ic_delete)
+            .setPositiveButton(android.R.string.yes, new OnClickListener() {
+
+              public void onClick(DialogInterface dialog, int whichButton) {
+                if (whichButton == -1) {
+                  mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+                  //mViewModel.updateFood(food); //TODO is this needed?();
+                }
+              }
+            })
+            .setNegativeButton(android.R.string.no, null).show();
       }
     });
   }
