@@ -36,6 +36,20 @@ public class Converter {
   }
 
   /**
+   * Converts a given Integer for a measurement to a String.
+   *
+   * @param i - The given Integer.
+   * @return - returns empty string if the Integer is null or -1 (error code), else return a String
+   * created out of the float value.
+   */
+  public static String convertIntegerMeasurement(Integer i) {
+    if (i == null || i == 0 || i == -1) {
+      return "";
+    }
+    return String.valueOf(i);
+  }
+
+  /**
    * Converts a given float to a String.
    *
    * @param f - The given float.
