@@ -154,6 +154,9 @@
   <string name="header_glucose_average">Glucose average (mg/dl)</string>
   <string name="header_integral">Integral (area unit) </string>
   <string name="header_standard_deviation">Standard Deviation (mg/dl)</string>
+  <string name="estimated_end_time">Estimated end time</string>
+  <string name="measurement_interval">Measurement interval</string>
+  <string name="active_measurement">Active Measurement</string>
 
 
   <string-array name="type">

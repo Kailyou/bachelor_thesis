@@ -89,11 +89,6 @@ public class FoodOverviewFragment extends Fragment {
                 // Remove unfinished measurements
                 Measurement.removeNotFinishedMeasurements(measurements);
 
-                // Leave if there are no measurements
-                if (measurements.size() == 0) {
-                  return;
-                }
-
                 /* Update text views */
 
                 // General
