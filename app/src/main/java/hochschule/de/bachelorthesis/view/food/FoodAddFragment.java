@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -251,12 +254,15 @@ public class FoodAddFragment extends Fragment {
           }
         });
 
-    // Drop down listener
+    // Select food dropdown
     mBinding.selectFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view,
           int position, long id) {
 
+        // Get the selected food by comparing the selected element's string with
+        // all from the food data list. There can only be one match because of the
+        // unique name. Update text views if match.
         for (int i = 0; i < mFoodData.size(); i++) {
           if (mFoodData.get(i).food
               .equals(parent.getItemAtPosition(position).toString())) {
@@ -354,6 +360,42 @@ public class FoodAddFragment extends Fragment {
    * Save the food to the database.
    */
   private void save() {
+    boolean isFromDb = false;
+
+    String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
+    String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
+
+    // Check if food is one of the data base. Build the foodName (brandName) string
+    // and compare them with the entries of the food data list
+    String food = foodName + " (" + brandName + ")";
+
+    for (FoodData fd : mFoodData) {
+      if (fd.food.equals(food)) {
+        isFromDb = true;
+      }
+    }
+
+    if (isFromDb) {
+      buildNewFoodAndUpdateDatabase();
+    } else {
+      new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+          .setTitle("Delete Confirmation")
+          .setMessage(
+              "It is suggest to choose a food from list, continue?")
+          .setIcon(android.R.drawable.ic_delete)
+          .setPositiveButton(android.R.string.yes, new OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+              if (whichButton == -1) {
+                buildNewFoodAndUpdateDatabase();
+              }
+            }
+          })
+          .setNegativeButton(android.R.string.no, null).show();
+    }
+  }
+
+  private void buildNewFoodAndUpdateDatabase() {
     String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
     String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
     String type = mBinding.type.getText().toString();
