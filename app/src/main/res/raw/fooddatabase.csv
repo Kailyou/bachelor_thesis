@@ -1,0 +1,5 @@
+food_name,brand_name,type,energy_kcal,energy_kj,fat,saturates,protein,carbohydrates,sugar,salt
+Apple,Pink Lady,Fruit,52,217,0.2,0.03,0.3,13.8,10.4,0
+Apple,Golden Delicious,Fruit,57,238,0.15,0,0.28,13.6,10.04,0
+Coca-Cola,Coca-Cola Company,Drink,42,180,0,0,0,10.6,10.6,0
+Pizza Salame,Dr. Oetker,Fast food,273,1142,14,4.8,10,26,3.1,1.4
