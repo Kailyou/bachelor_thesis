@@ -379,55 +379,53 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     // TODO check if user is male or female, if female, disable
     measurement.setPeriod(mBinding.period.isChecked());
 
-    int mv0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
-    int mv15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
-    int mv30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
-    int mv45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
-    int mv60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
-    int mv75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
-    int mv90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
-    int mv105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
-    int mv120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
-
-    if (mv0 != 0) {
+    if (mBinding.mv0.getText() != null && !mBinding.mv0.getText().toString().equals("")) {
+      int mv0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
       measurement.setGlucoseStart(mv0);
     }
 
-    if (mv15 != 0) {
+    if (mBinding.mv15.getText() != null && !mBinding.mv15.getText().toString().equals("")) {
+      int mv15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
       measurement.setGlucose15(mv15);
     }
 
-    if (mv30 != 0) {
+    if (mBinding.mv30.getText() != null && !mBinding.mv30.getText().toString().equals("")) {
+      int mv30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
       measurement.setGlucose30(mv30);
     }
 
-    if (mv45 != 0) {
+    if (mBinding.mv45.getText() != null && !mBinding.mv45.getText().toString().equals("")) {
+      int mv45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
       measurement.setGlucose45(mv45);
     }
 
-    if (mv60 != 0) {
+    if (mBinding.mv60.getText() != null && !mBinding.mv60.getText().toString().equals("")) {
+      int mv60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
       measurement.setGlucose60(mv60);
     }
 
-    if (mv75 != 0) {
+    if (mBinding.mv75.getText() != null && !mBinding.mv75.getText().toString().equals("")) {
+      int mv75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
       measurement.setGlucose75(mv75);
     }
 
-    if (mv90 != 0) {
+    if (mBinding.mv90.getText() != null && !mBinding.mv90.getText().toString().equals("")) {
+      int mv90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
       measurement.setGlucose90(mv90);
     }
 
-    if (mv105 != 0) {
+    if (mBinding.mv105.getText() != null && !mBinding.mv105.getText().toString().equals("")) {
+      int mv105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
       measurement.setGlucose105(mv105);
     }
 
-    if (mv120 != 0) {
+    if (mBinding.mv120.getText() != null && !mBinding.mv120.getText().toString().equals("")) {
+      int mv120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
       measurement.setGlucose120(mv120);
     }
 
     mViewModel.updateMeasurement(measurement);
   }
-
 
   /**
    * @return Returns a timestamp with the pattern "dd/MM/yyyy_KK:mm aa"
