@@ -1,116 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/scroll"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".view.home.HomeFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
 
-  <LinearLayout
+  </data>
+
+  <ScrollView
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <!-- Current measurement -->
-    <TextView
-      android:id="@+id/time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="16dp"
-      android:text="@string/active_measurement"
-      android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-      android:textColor="@color/colorPrimary"/>
+    android:layout_height="match_parent"
+    tools:context=".view.home.HomeFragment">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp">
+      android:orientation="vertical">
 
+      <!-- Current measurement -->
       <TextView
+        android:id="@+id/time"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/food_name"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/active_measurement"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
 
-      <TextView
-        android:id="@+id/age"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="end"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp">
-
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/time_consumed"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-
-      <TextView
-        android:id="@+id/height"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="end"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp">
-
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/estimated_end_time"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-
-      <TextView
-        android:id="@+id/weight"
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-    </LinearLayout>
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp">
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/food_name"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/measurement_interval"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        <TextView
+          android:id="@+id/food_name"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
 
-      <TextView
-        android:id="@+id/sex"
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/time_started"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+          android:id="@+id/time_started"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="end"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/estimated_end_time"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+          android:id="@+id/time_ended"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="@string/measurement_interval"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+          android:id="@+id/interval"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+      </LinearLayout>
+
+      <Button
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/update"/>
+
     </LinearLayout>
-
-    <Button
-      android:id="@+id/button1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Button - Go to mkyong.com" />
-
-  </LinearLayout>
-</ScrollView>
+  </ScrollView>
+</layout>
 

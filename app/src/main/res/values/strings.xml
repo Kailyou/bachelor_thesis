@@ -158,6 +158,7 @@
   <string name="measurement_interval">Measurement interval</string>
   <string name="active_measurement">Active Measurement</string>
   <string name="select_food">Select food</string>
+  <string name="update">Update</string>
 
 
   <string-array name="type">
