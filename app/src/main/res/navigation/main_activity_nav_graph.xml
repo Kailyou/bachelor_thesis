@@ -10,7 +10,11 @@
     android:id="@+id/homeFragment"
     android:name="hochschule.de.bachelorthesis.view.home.HomeFragment"
     android:label="Home"
-    tools:layout="@layout/fragment_home"/>
+    tools:layout="@layout/fragment_home">
+    <action
+      android:id="@+id/action_homeFragment_to_updateFragment"
+      app:destination="@id/updateFragment"/>
+  </fragment>
   <fragment
     android:id="@+id/foodFragment"
     android:name="hochschule.de.bachelorthesis.view.food.FoodsFragment"
@@ -116,6 +120,15 @@
     android:label="Graphs"
     android:name="hochschule.de.bachelorthesis.view.graphs.GraphsHostFragment"
     tools:layout="@layout/fragment_graphs_host"/>
+  <fragment
+    android:id="@+id/updateFragment"
+    android:name="hochschule.de.bachelorthesis.view.home.UpdateFragment"
+    android:label="fragment_update"
+    tools:layout="@layout/fragment_update">
+    <argument
+      android:name="measurement_id"
+      app:argType="integer"/>
+  </fragment>
 
 
 </navigation>

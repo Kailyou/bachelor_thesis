@@ -67,7 +67,6 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
 
     // Get passed food id
     assert getArguments() != null;
-    //mFoodId = getArguments().getInt("food_id");
     mMeasurementId = getArguments().getInt("measurement_id");
   }
 
@@ -380,48 +379,48 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     measurement.setPeriod(mBinding.period.isChecked());
 
     if (mBinding.mv0.getText() != null && !mBinding.mv0.getText().toString().equals("")) {
-      int mv0 = Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString());
-      measurement.setGlucoseStart(mv0);
+      measurement.setGlucoseStart(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv0.getText()).toString()));
     }
 
     if (mBinding.mv15.getText() != null && !mBinding.mv15.getText().toString().equals("")) {
-      int mv15 = Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString());
-      measurement.setGlucose15(mv15);
+      measurement.setGlucose15(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv15.getText()).toString()));
     }
 
     if (mBinding.mv30.getText() != null && !mBinding.mv30.getText().toString().equals("")) {
-      int mv30 = Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString());
-      measurement.setGlucose30(mv30);
+      measurement.setGlucose30(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv30.getText()).toString()));
     }
 
     if (mBinding.mv45.getText() != null && !mBinding.mv45.getText().toString().equals("")) {
-      int mv45 = Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString());
-      measurement.setGlucose45(mv45);
+      measurement.setGlucose45(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv45.getText()).toString()));
     }
 
     if (mBinding.mv60.getText() != null && !mBinding.mv60.getText().toString().equals("")) {
-      int mv60 = Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString());
-      measurement.setGlucose60(mv60);
+      measurement.setGlucose60(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv60.getText()).toString()));
     }
 
     if (mBinding.mv75.getText() != null && !mBinding.mv75.getText().toString().equals("")) {
-      int mv75 = Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString());
-      measurement.setGlucose75(mv75);
+      measurement.setGlucose75(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv75.getText()).toString()));
     }
 
     if (mBinding.mv90.getText() != null && !mBinding.mv90.getText().toString().equals("")) {
-      int mv90 = Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString());
-      measurement.setGlucose90(mv90);
+      measurement.setGlucose90(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv90.getText()).toString()));
     }
 
     if (mBinding.mv105.getText() != null && !mBinding.mv105.getText().toString().equals("")) {
-      int mv105 = Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString());
-      measurement.setGlucose105(mv105);
+      measurement.setGlucose105(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv105.getText()).toString()));
     }
 
     if (mBinding.mv120.getText() != null && !mBinding.mv120.getText().toString().equals("")) {
-      int mv120 = Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString());
-      measurement.setGlucose120(mv120);
+      measurement.setGlucose120(
+          Integer.parseInt(Objects.requireNonNull(mBinding.mv120.getText()).toString()));
     }
 
     mViewModel.updateMeasurement(measurement);

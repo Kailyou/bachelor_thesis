@@ -20,6 +20,15 @@ public class HomeViewModel extends AndroidViewModel {
   }
 
   /**
+   * Updates the measurement object in the table.
+   *
+   * @param measurement - Measurement object to update
+   */
+  public void updateMeasurement(Measurement measurement) {
+    mRepository.update(measurement);
+  }
+
+  /**
    * Gets the food by ID.
    *
    * @param id - The food's id.
@@ -31,5 +40,9 @@ public class HomeViewModel extends AndroidViewModel {
 
   public LiveData<List<Measurement>> getAllMeasurements() {
     return mRepository.getAllMeasurements();
+  }
+
+  public LiveData<Measurement> getMeasurementById(int id) {
+    return mRepository.getMeasurementById(id);
   }
 }

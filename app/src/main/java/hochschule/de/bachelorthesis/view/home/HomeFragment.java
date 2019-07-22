@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -111,6 +112,14 @@ public class HomeFragment extends Fragment {
                         .setText(Converter.convertTimeStampToTimeEnd(measurement.getTimeStamp()));
                     mBinding.interval.setText(String.valueOf(15));
                     buildGraph(measurement);
+
+                    // fab
+                    // navigate to the update fragment and pass the food's id.
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("measurement_id", measurement.id);
+                    mBinding.update.setOnClickListener(Navigation
+                        .createNavigateOnClickListener(R.id.action_homeFragment_to_updateFragment,
+                            bundle));
                   }
                 });
               }
