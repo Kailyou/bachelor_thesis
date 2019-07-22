@@ -120,6 +120,10 @@ public class FoodAddFragment extends Fragment {
     super.onStop();
 
     // The normal String values can just be taken
+
+    mViewModel.getFoodAddDataModel().getSelectedFood()
+        .setValue(mBinding.selectFood.getText().toString());
+
     mViewModel.getFoodAddDataModel().getFoodName().setValue(
         Objects.requireNonNull(mBinding.foodName.getText()).toString());
 
@@ -178,6 +182,8 @@ public class FoodAddFragment extends Fragment {
         return true;
 
       case R.id.clear:
+        mViewModel.getFoodAddDataModel().setSelectedFood("");
+
         mViewModel.updateFoodAddModeL(new Food("", "", "",
             -1, -1, -1, -1, -1, -1, -1, -1));
         return true;
@@ -375,6 +381,7 @@ public class FoodAddFragment extends Fragment {
       }
     }
 
+    // If food was taken from DB add it, if not first create a confirmation dialog.
     if (isFromDb) {
       buildNewFoodAndUpdateDatabase();
     } else {
@@ -395,6 +402,10 @@ public class FoodAddFragment extends Fragment {
     }
   }
 
+  /**
+   * Builds a food object with the Strings of the text views the user filled out. Then insert this
+   * new food object to the database. Finally, a SnackBar will be printed.
+   */
   private void buildNewFoodAndUpdateDatabase() {
     String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
     String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
