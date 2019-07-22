@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
+
+  </data>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.food.MeasurementAddFragment">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <!-- Measurement values-->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/update_active_measurement_values"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimary"/>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_at_begin">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv0"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_15_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv15"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_30_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv30"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_45_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv45"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_60_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv60"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_75_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv75"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_90_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv90"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_105_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv105"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:hint="@string/glucose_after_120_min">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/mv120"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"/>
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+  </ScrollView>
+</layout>
