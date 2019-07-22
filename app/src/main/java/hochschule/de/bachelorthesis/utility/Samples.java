@@ -58,14 +58,14 @@ public class Samples {
     return new Food("Coca-Cola",
         "Coca-Cola Company",
         "Drink",
-        176,
         42,
+        180,
         0,
         0f,
         0f,
-        10.5f,
-        10.5f,
-        8f);
+        10.6f,
+        10.6f,
+        0f);
   }
 
   public static Measurement getRandomMeasurementUnfinished(Context context, int foodId,

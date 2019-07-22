@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 public class FoodAddModel {
 
   // About the food
+  private MutableLiveData<String> mSelectedFood;
   private MutableLiveData<String> mFoodName;
   private MutableLiveData<String> mBrandName;
   private MutableLiveData<String> mType;
@@ -27,6 +28,7 @@ public class FoodAddModel {
 
 
   public FoodAddModel() {
+    mSelectedFood = new MutableLiveData<>();
     mFoodName = new MutableLiveData<>();
     mBrandName = new MutableLiveData<>();
     mType = new MutableLiveData<>();
@@ -42,6 +44,10 @@ public class FoodAddModel {
   }
 
   /* GETTER */
+
+  public MutableLiveData<String> getSelectedFood() {
+    return mSelectedFood;
+  }
 
   public MutableLiveData<String> getFoodName() {
     return mFoodName;
@@ -88,6 +94,10 @@ public class FoodAddModel {
   }
 
   /* SETTER */
+
+  public void setSelectedFood(String selectedFood) {
+    mSelectedFood.setValue(selectedFood);
+  }
 
   public void setFoodName(String foodName) {
     mFoodName.setValue(foodName);

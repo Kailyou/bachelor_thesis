@@ -157,6 +157,7 @@
   <string name="estimated_end_time">Estimated end time</string>
   <string name="measurement_interval">Measurement interval</string>
   <string name="active_measurement">Active Measurement</string>
+  <string name="select_food">Select food</string>
 
 
   <string-array name="type">
