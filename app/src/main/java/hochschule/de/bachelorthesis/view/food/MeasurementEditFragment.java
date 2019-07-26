@@ -437,7 +437,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
       return "";
     }
 
-    return mBinding.date.getText().toString() + ":" + mBinding.time.getText().toString();
+    return mBinding.date.getText().toString() + "_" + mBinding.time.getText().toString();
   }
 
   private void toast(String msg) {

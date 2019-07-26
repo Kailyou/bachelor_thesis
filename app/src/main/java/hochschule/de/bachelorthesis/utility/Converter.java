@@ -98,10 +98,12 @@ public class Converter {
       return "";
     }
 
+    Log.d("yolo", "convertTimeStampToTimeEnd: timestamp = " + timeStamp);
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy_hh:mm aa", Locale.getDefault());
+
     try {
       // Get Date from the time stamp
-      // Remove the last 3 characters from timeStamp, which is the formatting AM/PM
       Date date = sdf.parse(timeStamp);
 
       // Add two hours
@@ -113,7 +115,10 @@ public class Converter {
       date = calendar.getTime();
 
       // Convert to string again and return
-      sdf = new SimpleDateFormat("KK:mm aa", Locale.getDefault());
+      sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+
+      Log.d("yolo", "convertTimeStampToTimeEnd: result = " + sdf.format(date));
+
       return sdf.format(date);
     } catch (ParseException e) {
       e.printStackTrace();

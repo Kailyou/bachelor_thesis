@@ -222,7 +222,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     Calendar calendar = Calendar.getInstance();
     calendar.set(0, 0, 0, hourOfDay, minute, 0);
     Date date = calendar.getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa", Locale.getDefault());
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
     mBinding.time.setText(sdf.format(date));
   }
 
@@ -396,7 +396,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
       return "";
     }
 
-    return mBinding.date.getText().toString() + ":" + mBinding.time.getText().toString();
+    return mBinding.date.getText().toString() + "_" + mBinding.time.getText().toString();
   }
 
   /**
