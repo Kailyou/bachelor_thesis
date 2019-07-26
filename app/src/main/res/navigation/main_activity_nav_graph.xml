@@ -122,8 +122,8 @@
     tools:layout="@layout/fragment_graphs_host"/>
   <fragment
     android:id="@+id/updateFragment"
+    android:label="Update measurement"
     android:name="hochschule.de.bachelorthesis.view.home.UpdateFragment"
-    android:label="fragment_update"
     tools:layout="@layout/fragment_update">
     <argument
       android:name="measurement_id"
