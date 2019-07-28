@@ -95,8 +95,12 @@ public class HomeFragment extends Fragment {
           public void onChanged(List<Measurement> measurements) {
             ldMeasurements.removeObserver(this);
 
+            boolean isMeasurementActive = false;
+
             for (final Measurement measurement : measurements) {
               if (measurement.isActive()) {
+
+                isMeasurementActive = true;
 
                 // Load food object
                 final LiveData<Food> ldFood = mViewModel.getFoodById(measurement.getFoodId());
@@ -105,12 +109,21 @@ public class HomeFragment extends Fragment {
                   public void onChanged(Food food) {
                     ldFood.removeObserver(this);
 
+                    // Enable the views
+                    mBinding.noMeasurementActive.setVisibility(View.GONE);
+                    mBinding.containerFoodName.setVisibility(View.VISIBLE);
+                    mBinding.containerTimeStarted.setVisibility(View.VISIBLE);
+                    mBinding.containerEndTime.setVisibility(View.VISIBLE);
+                    mBinding.containerInterval.setVisibility(View.VISIBLE);
+                    mBinding.lineChart.setVisibility(View.VISIBLE);
+                    mBinding.update.setVisibility(View.VISIBLE);
+
                     mBinding.foodName.setText(food.getFoodName());
                     mBinding.timeStarted
                         .setText(Converter.convertTimeStampToTimeStart(measurement.getTimeStamp()));
                     mBinding.timeEnded
                         .setText(Converter.convertTimeStampToTimeEnd(measurement.getTimeStamp()));
-                    mBinding.interval.setText(String.valueOf(15));
+                    mBinding.interval.setText("15 minutes");
                     buildGraph(measurement);
 
                     // fab
@@ -123,6 +136,18 @@ public class HomeFragment extends Fragment {
                   }
                 });
               }
+            }
+
+            // If no measurement is active, swap out the text views to inform the user, there is
+            // no measurement active right now.
+            if (!isMeasurementActive) {
+              mBinding.noMeasurementActive.setVisibility(View.VISIBLE);
+              mBinding.containerFoodName.setVisibility(View.GONE);
+              mBinding.containerTimeStarted.setVisibility(View.GONE);
+              mBinding.containerEndTime.setVisibility(View.GONE);
+              mBinding.containerInterval.setVisibility(View.GONE);
+              mBinding.lineChart.setVisibility(View.GONE);
+              mBinding.update.setVisibility(View.GONE);
             }
           }
         });
