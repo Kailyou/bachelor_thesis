@@ -340,8 +340,11 @@ public class GraphsFoodSingleFragment extends Fragment {
     percentileValues.add(new Entry(120, percentile120));
 
     // Create set
-    LineDataSet set = new LineDataSet(percentileValues, "");
+    LineDataSet set = new LineDataSet(percentileValues, "Deviation");
     set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+    if(fillColor == Color.WHITE) {
+      set.setLabel("");
+    }
     set.setDrawCircles(false);
     set.setFillAlpha(110);
     set.setLineWidth(1f);
