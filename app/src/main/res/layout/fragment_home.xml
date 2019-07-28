@@ -24,7 +24,17 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/colorPrimary"/>
 
+      <TextView
+        android:id="@+id/no_measurement_active"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:text="@string/no_measurement_active"
+        android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
+
       <LinearLayout
+        android:id="@+id/container_food_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -45,6 +55,7 @@
       </LinearLayout>
 
       <LinearLayout
+        android:id="@+id/container_time_started"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -66,6 +77,7 @@
       </LinearLayout>
 
       <LinearLayout
+        android:id="@+id/container_end_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -87,6 +99,7 @@
       </LinearLayout>
 
       <LinearLayout
+        android:id="@+id/container_interval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
