@@ -160,6 +160,7 @@
   <string name="select_food">Select food</string>
   <string name="update">Update</string>
   <string name="update_active_measurement_values">Update active measurement values</string>
+  <string name="no_measurement_active">No measurement active</string>
 
 
   <string-array name="type">

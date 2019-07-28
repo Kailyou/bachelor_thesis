@@ -1,25 +1,17 @@
 package hochschule.de.bachelorthesis.utility;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.MainThread;
-import androidx.lifecycle.ViewModelProviders;
-import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
 
