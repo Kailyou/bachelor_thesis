@@ -52,8 +52,8 @@
   <string name="kcal_100">kCal (100g)</string>
   <string name="measurements">Measurements</string>
   <string name="measurements_done">Amount</string>
-  <string name="max_glucose">Max. Glucose</string>
-  <string name="average_glucose">Average Glucose</string>
+  <string name="max_glucose">Max. glucose</string>
+  <string name="average_glucose">Average glucose</string>
   <string name="analyses">Analyses</string>
   <string name="rating">Rating</string>
   <string name="personal_index">Personal Index</string>
@@ -170,6 +170,8 @@
   <string name="glucose_increase_avg">Glucose increase (avg)</string>
   <string name="glucose_max">Glucose (max)</string>
   <string name="glucose_average">Glucose (average)</string>
+  <string name="max_increase_glucose">Max increase glucose</string>
+  <string name="average_increase_glucose">Average increase glucose</string>
 
   <string-array name="type">
     <item>Grains</item>

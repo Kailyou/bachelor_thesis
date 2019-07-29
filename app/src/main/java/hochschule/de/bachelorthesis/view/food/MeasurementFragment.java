@@ -111,6 +111,10 @@ public class MeasurementFragment extends Fragment {
             // Analyses
             mBinding.glucoseMax.setText(String.valueOf(measurement.getGlucoseMax()));
             mBinding.glucoseAverage.setText(String.valueOf((int) measurement.getGlucoseAverage()));
+            mBinding.glucoseIncreaseMax
+                .setText(String.valueOf(measurement.getGlucoseIncreaseMax()));
+            mBinding.glucoseIncreaseAvg
+                .setText(String.valueOf((int) measurement.getGlucoseIncreaseAverage()));
             mBinding.integral.setText(String.valueOf((int) measurement.getIntegral()));
             mBinding.standardDeviation
                 .setText(String.valueOf((int) measurement.getStandardDeviation()));

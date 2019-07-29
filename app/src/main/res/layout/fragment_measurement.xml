@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -107,7 +108,7 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="GI measurement"
+            android:text="@string/gi_measurement"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
@@ -354,6 +355,48 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:text="@string/max_increase_glucose"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/glucose_increase_max"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/average_increase_glucose"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+          <TextView
+            android:id="@+id/glucose_increase_avg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/integral"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
@@ -519,7 +562,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:layout_marginStart="32dp"
-          android:layout_marginEnd="16dp">
+          android:layout_marginEnd="16dp"
+          tools:ignore="TooManyViews">
 
           <TextView
             android:layout_width="wrap_content"
