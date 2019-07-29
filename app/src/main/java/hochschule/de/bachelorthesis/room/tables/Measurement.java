@@ -272,12 +272,16 @@ public class Measurement {
    * not done, return 0.
    */
   public float getGlucoseIncreaseAverage() {
-    ArrayList<Integer> glucoseIncreaseValues = getAllGlucoseValuesAsList(1);
+    ArrayList<Integer> glucoseIncreaseValues = getAllGlucoseValuesAsList(0);
 
     // We need to remove the first element of the list because this is the start value.
     glucoseIncreaseValues.remove(0);
 
-    return MyMath.calculateMeanFromIntegers(glucoseIncreaseValues);
+    if (glucoseIncreaseValues.size() <= 1) {
+      return 0;
+    } else {
+      return MyMath.calculateMeanFromIntegers(glucoseIncreaseValues);
+    }
   }
 
   /**
@@ -305,7 +309,10 @@ public class Measurement {
   public float getGlucoseAverage() {
     ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
 
-    if (glucoseValues == null || glucoseValues.size() == 1) {
+    // We need to remove the first element of the list because this is the start value.
+    glucoseValues.remove(0);
+
+    if (glucoseValues.size() <= 1) {
       return 0;
     } else {
       return MyMath.calculateMeanFromIntegers(glucoseValues);
