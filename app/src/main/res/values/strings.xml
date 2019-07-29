@@ -150,7 +150,9 @@
   <string name="_200">200</string>
   <string name="_120">120</string>
   <string name="unrated">unrated</string>
+  <string name="header_glucose_increase_max">Glucose increase max (mg/dl)</string>
   <string name="header_glucose_max">Glucose max peak (mg/dl)</string>
+  <string name="header_glucose_increase_average">Glucose increase average(mg/dl)</string>
   <string name="header_glucose_average">Glucose average (mg/dl)</string>
   <string name="header_integral">Integral (area unit) </string>
   <string name="header_standard_deviation">Standard Deviation (mg/dl)</string>
@@ -161,7 +163,13 @@
   <string name="update">Update</string>
   <string name="update_active_measurement_values">Update active measurement values</string>
   <string name="no_measurement_active">No measurement active</string>
-
+  <string name="draw_line_graph_glucose_increase">Draw Line Graph (Glucose increase)</string>
+  <string name="draw_line_graph_glucose_over_time">Draw line Graph (Glucose over time)</string>
+  <string name="compare_values">Compare Values</string>
+  <string name="glucose_increase_max">Glucose increase (max)</string>
+  <string name="glucose_increase_avg">Glucose increase (avg)</string>
+  <string name="glucose_max">Glucose (max)</string>
+  <string name="glucose_average">Glucose (average)</string>
 
   <string-array name="type">
     <item>Grains</item>

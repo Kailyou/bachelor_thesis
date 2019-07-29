@@ -216,41 +216,31 @@ public class Measurement {
   }
 
   /**
+   * @param type 0 = glucose increase (value - start), 1 = glucose value
    * @return All glucose values as an array list.
    */
-  private ArrayList<Integer> getAllGlucoseValuesAsList() {
+  private ArrayList<Integer> getAllGlucoseValuesAsList(int type) {
     ArrayList<Integer> res = new ArrayList<>();
-    res.add(glucoseStart);
 
-    if (glucose15 != 0) {
+    if (type == 0) {
+      res.add(0); // start - start
+      res.add(glucose15 - glucoseStart);
+      res.add(glucose30 - glucoseStart);
+      res.add(glucose45 - glucoseStart);
+      res.add(glucose60 - glucoseStart);
+      res.add(glucose75 - glucoseStart);
+      res.add(glucose90 - glucoseStart);
+      res.add(glucose105 - glucoseStart);
+      res.add(glucose120 - glucoseStart);
+    } else {
+      res.add(glucoseStart);
       res.add(glucose15);
-    }
-
-    if (glucose30 != 0) {
       res.add(glucose30);
-    }
-
-    if (glucose45 != 0) {
       res.add(glucose45);
-    }
-
-    if (glucose60 != 0) {
       res.add(glucose60);
-    }
-
-    if (glucose75 != 0) {
       res.add(glucose75);
-    }
-
-    if (glucose90 != 0) {
       res.add(glucose90);
-    }
-
-    if (glucose105 != 0) {
       res.add(glucose105);
-    }
-
-    if (glucose120 != 0) {
       res.add(glucose120);
     }
 
@@ -264,11 +254,11 @@ public class Measurement {
   }
 
   /**
-   * @return Returns the max glucose value if the measurement is done. If the measurement is not
+   * @return Returns the max glucose increase if the measurement is done. If the measurement is not
    * done, return 0.
    */
-  public int getGlucoseMax() {
-    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList();
+  public int getGlucoseIncreaseMax() {
+    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(0);
 
     if (glucoseValues == null) {
       return 0;
@@ -278,22 +268,59 @@ public class Measurement {
   }
 
   /**
-   * @return Returns the average glucose value if the measurement is done. If the measurement is not
-   * done, return 0.
+   * @return Returns the average glucose increase if the measurement is done. If the measurement is
+   * not done, return 0.
+   */
+  public float getGlucoseIncreaseAverage() {
+    ArrayList<Integer> glucoseIncreaseValues = getAllGlucoseValuesAsList(1);
+
+    // We need to remove the first element of the list because this is the start value.
+    glucoseIncreaseValues.remove(0);
+
+    return MyMath.calculateMeanFromIntegers(glucoseIncreaseValues);
+  }
+
+  /**
+   * This function does not return 0 if measurement is not done to display the current average for
+   * unfinished measurements.
+   *
+   * @return Returns the max glucose value
+   */
+  public int getGlucoseMax() {
+    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
+
+    if (glucoseValues == null || glucoseValues.size() == 1) {
+      return 0;
+    } else {
+      return MyMath.calculateMaxFromIntList(glucoseValues);
+    }
+  }
+
+  /**
+   * This function does not return 0 if measurement is not done to display the current average for
+   * unfinished measurements.
+   *
+   * @return Returns the average glucose value.
    */
   public float getGlucoseAverage() {
-    return MyMath.calculateMeanFromIntegers(getAllGlucoseValuesAsList());
+    ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
+
+    if (glucoseValues == null || glucoseValues.size() == 1) {
+      return 0;
+    } else {
+      return MyMath.calculateMeanFromIntegers(glucoseValues);
+    }
   }
 
   /**
    * @return Returns the integral of the measurement. If the measurement is not done, return 0.
    */
   public float getIntegral() {
-    return MyMath.calculateIntegral(getAllGlucoseValuesAsList());
+    return MyMath.calculateIntegral(getAllGlucoseValuesAsList(1));
   }
 
   public float getStandardDeviation() {
-    return MyMath.calculateStandardDeviation(getAllGlucoseValuesAsList());
+    return MyMath.calculateStandardDeviation(getAllGlucoseValuesAsList(1));
   }
 
 
@@ -316,6 +343,72 @@ public class Measurement {
         iterator.remove();
       }
     }
+  }
+
+  /**
+   * This functions returns the max glucose increase from a list of measurements.
+   *
+   * Calculates the max glucose increase values for all measurements and compares then. Finally,
+   * returns the greatest of them.
+   *
+   * @return Returns max glucose or 0 if the list is empty.
+   */
+  public static int getGlucoseIncreaseMaxFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    // Return 0 is list is empty
+    if (measurements.size() == 0) {
+      return 0;
+    }
+
+    // Return the max of the first measurement, if there is only one measurement
+    if (measurements.size() == 1) {
+      return measurements.get(0).getGlucoseMax() - measurements.get(0).getGlucoseStart();
+    }
+
+    // Calculate the max glucose increase of all measurements and return the biggest one
+    int glucoseIncreaseMax =
+        measurements.get(0).getGlucoseMax() - measurements.get(0).getGlucoseStart();
+
+    for (int i = 1; i < measurements.size(); ++i) {
+
+      int newGlucoseIncrease =
+          measurements.get(i).getGlucoseMax() - measurements.get(i).getGlucoseStart();
+
+      if (newGlucoseIncrease > glucoseIncreaseMax) {
+        glucoseIncreaseMax = newGlucoseIncrease;
+      }
+    }
+
+    return glucoseIncreaseMax;
+  }
+
+  /**
+   * This functions returns the average glucose increase from a list of measurements.
+   *
+   * First taking all glucose values from all measurements into one list and then calculating the
+   * average increase of those.
+   *
+   * @return Returns max glucose or 0 if the list is empty.
+   */
+  public static float getGlucoseIncreaseAverageFromList(List<Measurement> measurements) {
+    // Remove unfinished measurements
+    removeNotFinishedMeasurements(measurements);
+
+    // Return 0 is list is empty
+    if (measurements.size() == 0) {
+      return 0;
+    }
+
+    // Add all glucose values from all measurements to one list
+    ArrayList<Integer> allGlucoseValues = new ArrayList<>();
+
+    for (Measurement m : measurements) {
+      allGlucoseValues.addAll(m.getAllGlucoseValuesAsList(0));
+    }
+
+    return MyMath.calculateMeanFromIntegers(allGlucoseValues);
   }
 
   /**
@@ -373,7 +466,7 @@ public class Measurement {
     ArrayList<Integer> allGlucoseValues = new ArrayList<>();
 
     for (Measurement m : measurements) {
-      allGlucoseValues.addAll(m.getAllGlucoseValuesAsList());
+      allGlucoseValues.addAll(m.getAllGlucoseValuesAsList(1));
     }
 
     return MyMath.calculateMeanFromIntegers(allGlucoseValues);
@@ -400,7 +493,7 @@ public class Measurement {
     // Calculate the integral for each measurement
     for (Measurement m : measurements) {
       // Add all glucose values from all measurements to one list
-      allIntegrals.add(MyMath.calculateIntegral(m.getAllGlucoseValuesAsList()));
+      allIntegrals.add(MyMath.calculateIntegral(m.getAllGlucoseValuesAsList(1)));
     }
 
     return MyMath.calculateMeanFromFloats(allIntegrals);
@@ -427,7 +520,7 @@ public class Measurement {
     // Calculate the standard deviation for each measurement
     for (Measurement m : measurements) {
       // Add all glucose values from all measurements to one list
-      allStandardDeviations.add(MyMath.calculateStandardDeviation(m.getAllGlucoseValuesAsList()));
+      allStandardDeviations.add(MyMath.calculateStandardDeviation(m.getAllGlucoseValuesAsList(1)));
     }
 
     return MyMath.calculateMeanFromFloats(allStandardDeviations);

@@ -82,23 +82,34 @@ public class GraphsFoodsFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.graphs_all_glucose_max:
+
+      case R.id.graphs_all_glucose_increase_max:
         mViewModel.getGraphAllModel().setChartType(0);
         loadFoodDataAndBuildChart();
         return true;
 
-      case R.id.graphs_all_glucose_avg:
+      case R.id.graphs_all_glucose_increase_avg:
         mViewModel.getGraphAllModel().setChartType(1);
         loadFoodDataAndBuildChart();
         return true;
 
-      case R.id.graphs_all_integral:
+      case R.id.graphs_all_glucose_max:
         mViewModel.getGraphAllModel().setChartType(2);
         loadFoodDataAndBuildChart();
         return true;
 
-      case R.id.graphs_all_stdev:
+      case R.id.graphs_all_glucose_avg:
         mViewModel.getGraphAllModel().setChartType(3);
+        loadFoodDataAndBuildChart();
+        return true;
+
+      case R.id.graphs_all_integral:
+        mViewModel.getGraphAllModel().setChartType(4);
+        loadFoodDataAndBuildChart();
+        return true;
+
+      case R.id.graphs_all_stdev:
+        mViewModel.getGraphAllModel().setChartType(5);
         loadFoodDataAndBuildChart();
         return true;
 
@@ -133,6 +144,8 @@ public class GraphsFoodsFragment extends Fragment {
                   // Create food data object and save it to the list
                   FoodData foodData = new FoodData(
                       food.getFoodName(),
+                      Measurement.getGlucoseIncreaseMaxFromList(measurements),
+                      Measurement.getGlucoseIncreaseAverageFromList(measurements),
                       Measurement.getGlucoseMaxFromList(measurements),
                       Measurement.getGlucoseAverageFromList(measurements),
                       Measurement.getAverageIntegralFromList(measurements),
@@ -199,20 +212,109 @@ public class GraphsFoodsFragment extends Fragment {
     // Check which graph to build
     switch (mViewModel.getGraphAllModel().getChartType()) {
       case 0:
-        createChartGlucoseMax();
+        createChartGlucoseIncreaseMax();
         break;
       case 1:
-        createChartGlucoseAverage();
+        createChartGlucoseIncreaseAverage();
         break;
       case 2:
-        createChartGlucoseIntegral();
+        createChartGlucoseMax();
         break;
       case 3:
+        createChartGlucoseAverage();
+        break;
+      case 4:
+        createChartGlucoseIntegral();
+        break;
+      case 5:
         createChartGlucoseStandardDeviation();
         break;
       default:
         throw new IllegalStateException("Unexpected switch case!");
     }
+  }
+
+
+  /**
+   * First sort the data in glucose increase max order. (From low to max)
+   *
+   * then get the data for the chart and call the function, which will
+   *
+   * set up the data and show the graph.
+   */
+  private void createChartGlucoseIncreaseMax() {
+    // Update header
+    mBinding.header.setText(getResources().getString(R.string.header_glucose_increase_max));
+
+    // Sort
+    Collections.sort(mFoodData, new Comparator<FoodData>() {
+      @Override
+      public int compare(FoodData o1, FoodData o2) {
+        return o1.getIncreaseMax().compareTo(o2.getIncreaseMax());
+      }
+    });
+
+    Collections.reverse(mFoodData);
+
+    ArrayList<Integer> glucoseIncreaseMaxValues = new ArrayList<>();
+
+    for (int i = 0; i < mFoodData.size(); i++) {
+      glucoseIncreaseMaxValues.add(mFoodData.get(i).getIncreaseMax());
+    }
+
+    // Set max
+    mBinding.chart.getAxisLeft()
+        .setAxisMaximum(MyMath.calculateMaxFromIntList(glucoseIncreaseMaxValues) + 50);
+
+    // Entries
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+    for (int i = 0; i < glucoseIncreaseMaxValues.size(); ++i) {
+      dataValues.add(new BarEntry(i, glucoseIncreaseMaxValues.get(i)));
+    }
+
+    // Set
+    finishGraph(new BarDataSet(dataValues, "Glucose Increase Max."));
+  }
+
+  /**
+   * First sort the data in glucose increase average order. (From low to max)
+   *
+   * then get the data for the chart and call the function, which will
+   *
+   * set up the data and show the graph.
+   */
+  private void createChartGlucoseIncreaseAverage() {
+    // Update header
+    mBinding.header.setText(getResources().getString(R.string.header_glucose_increase_average));
+
+    // Sort
+    Collections.sort(mFoodData, new Comparator<FoodData>() {
+      @Override
+      public int compare(FoodData o1, FoodData o2) {
+        return o1.getIncreaseAverage().compareTo(o2.getIncreaseAverage());
+      }
+    });
+
+    Collections.reverse(mFoodData);
+
+    ArrayList<Float> glucoseIncreaseAverageValues = new ArrayList<>();
+
+    for (int i = 0; i < mFoodData.size(); i++) {
+      glucoseIncreaseAverageValues.add(mFoodData.get(i).getIncreaseAverage());
+    }
+
+    // Set max
+    mBinding.chart.getAxisLeft()
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIncreaseAverageValues) + 200);
+
+    // Entries
+    ArrayList<BarEntry> dataValues = new ArrayList<>();
+    for (int i = 0; i < glucoseIncreaseAverageValues.size(); ++i) {
+      dataValues.add(new BarEntry(i, glucoseIncreaseAverageValues.get(i)));
+    }
+
+    // Set
+    finishGraph(new BarDataSet(dataValues, "Glucose increase average"));
   }
 
   /**
@@ -244,7 +346,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Set max
     mBinding.chart.getAxisLeft()
-        .setAxisMaximum(MyMath.calculateMaxFromIntList(glucoseMaxValues) + 20);
+        .setAxisMaximum(MyMath.calculateMaxFromIntList(glucoseMaxValues) + 200);
 
     // Entries
     ArrayList<BarEntry> dataValues = new ArrayList<>();
@@ -285,7 +387,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     // Set max
     mBinding.chart.getAxisLeft()
-        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseAverageValues) + 20);
+        .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseAverageValues) + 200);
 
     // Entries
     ArrayList<BarEntry> dataValues = new ArrayList<>();
@@ -433,13 +535,19 @@ public class GraphsFoodsFragment extends Fragment {
   private class FoodData {
 
     private String mFoodName;
+    private Integer mIncreaseMax;
+    private Float mIncreaseAverage;
     private Integer mMax;
     private Float mAverage;
     private Float mIntegral;
     private Float mStdev;
 
-    private FoodData(String foodName, int max, float average, float integral, float stdev) {
+    private FoodData(String foodName, int increaseMax, float increaseAverage,
+        int max, float average, float integral,
+        float stdev) {
       mFoodName = foodName;
+      mIncreaseMax = increaseMax;
+      mIncreaseAverage = increaseAverage;
       mMax = max;
       mAverage = average;
       mIntegral = integral;
@@ -448,6 +556,14 @@ public class GraphsFoodsFragment extends Fragment {
 
     private String getFoodName() {
       return mFoodName;
+    }
+
+    private Integer getIncreaseMax() {
+      return mIncreaseMax;
+    }
+
+    private Float getIncreaseAverage() {
+      return mIncreaseAverage;
     }
 
     private Integer getGlucoseMax() {
