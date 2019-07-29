@@ -78,7 +78,7 @@ public class FoodOverviewFragment extends Fragment {
     mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
       @Override
       public void onChanged(final Food food) {
-        if(food == null) {
+        if (food == null) {
           return;
         }
 
@@ -106,6 +106,15 @@ public class FoodOverviewFragment extends Fragment {
 
                 mBinding.glucoseAverage.setText(
                     String.valueOf((int) Measurement.getGlucoseAverageFromList(measurements)));
+
+                mBinding.glucoseIncreaseMax.setText(
+                    String.valueOf(Measurement.getGlucoseIncreaseMaxFromList(measurements))
+                );
+
+                mBinding.glucoseIncreaseAvg.setText(
+                    String
+                        .valueOf((int) Measurement.getGlucoseIncreaseAverageFromList(measurements))
+                );
 
                 mBinding.integral.setText(
                     String.valueOf((int) Measurement.getAverageIntegralFromList(measurements)));
