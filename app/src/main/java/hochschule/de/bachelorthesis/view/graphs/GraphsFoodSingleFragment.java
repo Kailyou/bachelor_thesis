@@ -99,13 +99,22 @@ public class GraphsFoodSingleFragment extends Fragment {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
+
+      // chart type 0 displays a line chart to display glucose over time
       case R.id.graphs_single_line_graph:
         mViewModel.getGraphSingleModel().setChartType(0);
         loadMeasurementsAndBuildGraph();
         return true;
 
-      case R.id.graphs_single_bar_graph:
+      // chart type 1 displays a line chart to display glucose increase over time
+      case R.id.graphs_single_line_graph_increase:
         mViewModel.getGraphSingleModel().setChartType(1);
+        loadMeasurementsAndBuildGraph();
+        return true;
+
+      // chart type 2 displays a bar chart
+      case R.id.graphs_single_bar_graph:
+        mViewModel.getGraphSingleModel().setChartType(2);
         loadMeasurementsAndBuildGraph();
         return true;
 
@@ -233,10 +242,16 @@ public class GraphsFoodSingleFragment extends Fragment {
 
                         // Check which graph to build
                         switch (mViewModel.getGraphSingleModel().getChartType()) {
+                          // chart type 0 displays a line chart to display glucose over time
                           case 0:
                             buildLineChart(measurements);
                             break;
+                          // chart type 1 displays a line chart to display glucose increase over time
                           case 1:
+                            buildLineChart(measurements);
+                            break;
+                          case 2:
+                            // chart type 2 displays a bar chart
                             buildBarChart(measurements);
                             break;
                           default:
@@ -286,6 +301,7 @@ public class GraphsFoodSingleFragment extends Fragment {
     createPercentileLine(measurements, 0.75f, Color.YELLOW);
     createPercentileLine(measurements, 0.25f, Color.WHITE);
 
+    // Draw either an average line or a median line
     if (mBinding.lineStyleAverage.isChecked()) {
       createAverageLine(measurements);
     } else if (mBinding.lineStyleMedian.isChecked()) {
@@ -301,10 +317,18 @@ public class GraphsFoodSingleFragment extends Fragment {
    * @param fillColor Fill color
    */
   private void createPercentileLine(List<Measurement> measurements, float p, int fillColor) {
-    HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
     // check the amount of values
     if (measurements.size() <= 1) {
+      return;
+    }
+
+    HashMap<String, ArrayList<Integer>> allGlucoseValues = getGlucoseValuesOverTime(
+        measurements);
+
+    // Should never happen but if the chart type is false somehow the list will be null,
+    // leave in this case
+    if (allGlucoseValues == null) {
       return;
     }
 
@@ -342,9 +366,11 @@ public class GraphsFoodSingleFragment extends Fragment {
     // Create set
     LineDataSet set = new LineDataSet(percentileValues, "Deviation");
     set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-    if(fillColor == Color.WHITE) {
+
+    if (fillColor == Color.WHITE) {
       set.setLabel("");
     }
+
     set.setDrawCircles(false);
     set.setFillAlpha(110);
     set.setLineWidth(1f);
@@ -374,42 +400,55 @@ public class GraphsFoodSingleFragment extends Fragment {
       return;
     }
 
-    HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
+    HashMap<String, ArrayList<Integer>> allGlucoseValues = getGlucoseValuesOverTime(
+        measurements);
 
-    // Get average values
-    float glucose_avg_start = MyMath.calculateMeanFromIntegers(
+    // Should never happen but if the chart type is false somehow the list will be null,
+    // leave in this case
+    if (allGlucoseValues == null) {
+      return;
+    }
+
+    float averageStart = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_start")));
-    float glucose_avg_15 = MyMath.calculateMeanFromIntegers(
+    float average15 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_15")));
-    float glucose_avg_30 = MyMath.calculateMeanFromIntegers(
+    float average30 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_30")));
-    float glucose_avg_45 = MyMath.calculateMeanFromIntegers(
+    float average45 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_45")));
-    float glucose_avg_60 = MyMath.calculateMeanFromIntegers(
+    float average60 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_60")));
-    float glucose_avg_75 = MyMath.calculateMeanFromIntegers(
+    float average75 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_75")));
-    float glucose_avg_90 = MyMath.calculateMeanFromIntegers(
+    float average90 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_90")));
-    float glucose_avg_105 = MyMath.calculateMeanFromIntegers(
+    float average105 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_105")));
-    float glucose_avg_120 = MyMath.calculateMeanFromIntegers(
+    float average120 = MyMath.calculateMeanFromIntegers(
         Objects.requireNonNull(allGlucoseValues.get("glucose_values_120")));
 
     // Create Entry ArrayList
     ArrayList<Entry> avg_values = new ArrayList<>();
-    avg_values.add(new Entry(0, glucose_avg_start));
-    avg_values.add(new Entry(15, glucose_avg_15));
-    avg_values.add(new Entry(30, glucose_avg_30));
-    avg_values.add(new Entry(45, glucose_avg_45));
-    avg_values.add(new Entry(60, glucose_avg_60));
-    avg_values.add(new Entry(75, glucose_avg_75));
-    avg_values.add(new Entry(90, glucose_avg_90));
-    avg_values.add(new Entry(105, glucose_avg_105));
-    avg_values.add(new Entry(120, glucose_avg_120));
+    avg_values.add(new Entry(0, averageStart));
+    avg_values.add(new Entry(15, average15));
+    avg_values.add(new Entry(30, average30));
+    avg_values.add(new Entry(45, average45));
+    avg_values.add(new Entry(60, average60));
+    avg_values.add(new Entry(75, average75));
+    avg_values.add(new Entry(90, average90));
+    avg_values.add(new Entry(105, average105));
+    avg_values.add(new Entry(120, average120));
 
     // Create set
-    LineDataSet set = new LineDataSet(avg_values, "Average Glucose");
+    LineDataSet set = new LineDataSet(avg_values, "");
+
+    if (mViewModel.getGraphSingleModel().getChartType() == 0) {
+      set.setLabel("Glucose average");
+    } else if (mViewModel.getGraphSingleModel().getChartType() == 1) {
+      set.setLabel("Glucose increase average");
+    }
+
     set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setFillAlpha(110);
     set.setLineWidth(2f);  // how fat is the line
@@ -432,10 +471,16 @@ public class GraphsFoodSingleFragment extends Fragment {
    * @param measurements List of measurements.
    */
   private void createMedianLine(List<Measurement> measurements) {
-    HashMap<String, ArrayList<Integer>> allGlucoseValues = getAllGlucoseByTime(measurements);
 
-    // check the amount of values
     if (measurements == null || measurements.size() == 0) {
+      return;
+    }
+
+    HashMap<String, ArrayList<Integer>> allGlucoseValues = getGlucoseValuesOverTime(measurements);
+
+    // Should never happen but if the chart type is false somehow the list will be null,
+    // leave in this case
+    if (allGlucoseValues == null) {
       return;
     }
 
@@ -472,6 +517,13 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     // Set
     LineDataSet set = new LineDataSet(avg_values, "");
+
+    if (mViewModel.getGraphSingleModel().getChartType() == 0) {
+      set.setLabel("Glucose median");
+    } else if (mViewModel.getGraphSingleModel().getChartType() == 1) {
+      set.setLabel("Glucose increase median");
+    }
+
     set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setFillAlpha(110);
     set.setLineWidth(2f);
@@ -558,14 +610,37 @@ public class GraphsFoodSingleFragment extends Fragment {
   }
 
   /**
+   * Helper function which will call the correct buildGlucoseHashMapForAllTimes variant.
+   *
+   * @param measurements A list of glucose measurements
+   * @return A HashMap with the glucose values saved in ArrayLists.
+   */
+  private HashMap<String, ArrayList<Integer>> getGlucoseValuesOverTime(
+      List<Measurement> measurements) {
+    if (mViewModel.getGraphSingleModel().getChartType() == 0) {
+      return buildGlucoseHashMapForAllTimes(measurements, false);
+    } else if (mViewModel.getGraphSingleModel().getChartType() == 1) {
+      return buildGlucoseHashMapForAllTimes(measurements, true);
+    }
+    // Should never happen but leave if chart type is wrong somehow
+    else {
+      return null;
+    }
+  }
+
+  /**
    * This function will take all measurements and first remove all unfinished ones. Then there will
    * be created ArrayLists for each time stamp (start value, 15 minute value, ...) Finally, those
    * will be saved in a HashMap and this will be returned.
    *
    * @param measurements A list of glucose measurements.
+   * @param isIncrease If isIncrease is true the data will contain the increase rather than the
+   * glucose values. Therefore the start value will be subtracted.
    * @return A HashMap with the glucose values saved in ArrayLists
    */
-  private HashMap<String, ArrayList<Integer>> getAllGlucoseByTime(List<Measurement> measurements) {
+  private HashMap<String, ArrayList<Integer>> buildGlucoseHashMapForAllTimes(
+      List<Measurement> measurements,
+      boolean isIncrease) {
 
     if (measurements == null || measurements.size() == 0) {
       return null;
@@ -590,16 +665,30 @@ public class GraphsFoodSingleFragment extends Fragment {
     ArrayList<Integer> all120Values = new ArrayList<>();
 
     // Save each glucose values by time in arrays
-    for (Measurement m : measurements) {
-      allStartValues.add(m.getGlucoseStart());
-      all15Values.add(m.getGlucose15());
-      all30Values.add(m.getGlucose30());
-      all45Values.add(m.getGlucose45());
-      all60Values.add(m.getGlucose60());
-      all75Values.add(m.getGlucose75());
-      all90Values.add(m.getGlucose90());
-      all105Values.add(m.getGlucose105());
-      all120Values.add(m.getGlucose120());
+    if (isIncrease) {
+      for (Measurement m : measurements) {
+        allStartValues.add(0);
+        all15Values.add(m.getGlucose15() - m.getGlucoseStart());
+        all30Values.add(m.getGlucose30() - m.getGlucoseStart());
+        all45Values.add(m.getGlucose45() - m.getGlucoseStart());
+        all60Values.add(m.getGlucose60() - m.getGlucoseStart());
+        all75Values.add(m.getGlucose75() - m.getGlucoseStart());
+        all90Values.add(m.getGlucose90() - m.getGlucoseStart());
+        all105Values.add(m.getGlucose105() - m.getGlucoseStart());
+        all120Values.add(m.getGlucose120() - m.getGlucoseStart());
+      }
+    } else {
+      for (Measurement m : measurements) {
+        allStartValues.add(m.getGlucoseStart());
+        all15Values.add(m.getGlucose15());
+        all30Values.add(m.getGlucose30());
+        all45Values.add(m.getGlucose45());
+        all60Values.add(m.getGlucose60());
+        all75Values.add(m.getGlucose75());
+        all90Values.add(m.getGlucose90());
+        all105Values.add(m.getGlucose105());
+        all120Values.add(m.getGlucose120());
+      }
     }
 
     // Fill HashMap with key value pairs

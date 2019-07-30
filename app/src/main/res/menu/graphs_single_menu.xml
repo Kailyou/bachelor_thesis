@@ -2,21 +2,27 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
-  <item
-    android:id="@+id/graphs_single_line_graph"
-    android:orderInCategory="100"
-    android:title="@string/draw_line_graph_glucose_over_time"
-    app:showAsAction="never"/>
-  <item
-    android:id="@+id/graphs_single_line_graph_rise"
-    android:orderInCategory="100"
-    android:title="@string/draw_line_graph_glucose_increase"
-    app:showAsAction="never"/>
-  <item
-    android:id="@+id/graphs_single_bar_graph"
-    android:orderInCategory="100"
-    android:title="@string/draw_bar_graph"
-    app:showAsAction="never"/>
+
+  <item android:title="@string/draw_graph">
+    <menu>
+      <item
+        android:id="@+id/graphs_single_line_graph"
+        android:orderInCategory="100"
+        android:title="@string/draw_line_graph_glucose_over_time"
+        app:showAsAction="never"/>
+      <item
+        android:id="@+id/graphs_single_line_graph_increase"
+        android:orderInCategory="100"
+        android:title="@string/draw_line_graph_glucose_increase"
+        app:showAsAction="never"/>
+      <item
+        android:id="@+id/graphs_single_bar_graph"
+        android:orderInCategory="100"
+        android:title="@string/draw_bar_graph"
+        app:showAsAction="never"/>
+    </menu>
+  </item>
+
   <item
     android:id="@+id/graphs_single_animate"
     android:orderInCategory="100"

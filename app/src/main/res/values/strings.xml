@@ -172,6 +172,7 @@
   <string name="glucose_average">Glucose (average)</string>
   <string name="max_increase_glucose">Max increase glucose</string>
   <string name="average_increase_glucose">Average increase glucose</string>
+  <string name="draw_graph">Draw Graph</string>
 
   <string-array name="type">
     <item>Grains</item>
