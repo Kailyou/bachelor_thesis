@@ -570,8 +570,10 @@ public class GraphsFoodSingleFragment extends Fragment {
     XAxis xAxis = mBinding.barChart.getXAxis();
     xAxis.setDrawGridLines(false);
     xAxis.setPosition(XAxisPosition.BOTTOM); // Shown left instead of right
-    xAxis.setLabelCount(3);
-    String[] values = {"STDEV", "Avg. Glucose", "Max. Glucose"};
+    xAxis.setLabelCount(5);
+    xAxis.setLabelRotationAngle(45f); // To prevent overlapping labels
+    String[] values = {"STDEV", "Avg. Increase", "Max. Increase", "Avg. Glucose",
+        "Max. Glucose"};
     xAxis.setValueFormatter(new BarChartValueFormatter(values));
 
     // Y Axis left (left)
@@ -588,9 +590,10 @@ public class GraphsFoodSingleFragment extends Fragment {
 
     // Entries
     dataValues.add(new BarEntry(0, Measurement.getStandardDeviationFromList(measurements)));
-    dataValues.add(new BarEntry(1, Measurement.getGlucoseAverageFromList(measurements)));
-    dataValues.add(new BarEntry(2, Measurement.getGlucoseMaxFromList(measurements)));
-    //dataValues.add(new BarEntry(3, Measurement.getAverageIntegralFromList(measurements)));
+    dataValues.add(new BarEntry(1, Measurement.getGlucoseIncreaseAverageFromList(measurements)));
+    dataValues.add(new BarEntry(2, Measurement.getGlucoseIncreaseMaxFromList(measurements)));
+    dataValues.add(new BarEntry(3, Measurement.getGlucoseAverageFromList(measurements)));
+    dataValues.add(new BarEntry(4, Measurement.getGlucoseMaxFromList(measurements)));
 
     // Set
     BarDataSet set = new BarDataSet(dataValues, "");
@@ -738,4 +741,3 @@ public class GraphsFoodSingleFragment extends Fragment {
     mBinding.barChart.invalidate();
   }
 }
-
