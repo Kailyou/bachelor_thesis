@@ -1,9 +1,11 @@
 package hochschule.de.bachelorthesis.view.food;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -15,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.lifecycle.LiveData;
+
 import hochschule.de.bachelorthesis.utility.Samples;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +31,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
 import hochschule.de.bachelorthesis.utility.AdapterFood;
@@ -36,151 +41,165 @@ import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 /**
  * @author thielenm
- *
+ * <p>
  * This class contains the logic for the food list.
- *
+ * <p>
  * All foods will be loaded from the databased and displayed in a recycler view.
- *
+ * <p>
  * The list will be sorted automatically alphanumeric by default.
- *
+ * <p>
  * The user also can add a new food by pressing the FAB button and enter the following formular.
- *
+ * <p>
  * Also, the user can delete all measurements by clicking the "delte all measurement" setting
  * button.
- *
+ * <p>
  * For debug reasons, it is currently possible to add three different foods by setting buttons.
  */
 public class FoodsFragment extends Fragment {
 
-  private FoodViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
-  private BetterFloatingActionButton mFab;
+    private BetterFloatingActionButton mFab;
 
-  private AdapterFood mAdapter;
+    private AdapterFood mAdapter;
 
 
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    // View model
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
-        .get(FoodViewModel.class);
+        // View model
+        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+                .get(FoodViewModel.class);
 
-    // Enable menu
-    setHasOptionsMenu(true);
-  }
-
-  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-
-    // Init data binding
-    FragmentFoodBinding binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_food, container, false);
-    binding.setLifecycleOwner(getViewLifecycleOwner());
-
-    mFab = binding.buttonAddNote;
-
-    // Adapter
-    NavController mNavController = Navigation
-        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-
-    mAdapter = new AdapterFood(mNavController);
-
-    // RecyclerView
-    RecyclerView recyclerView = binding.recyclerView;
-    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setAdapter(mAdapter);
-
-    mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
-      @Override
-      public void onChanged(List<Food> foods) {
-        sortFoodList("alphanumeric", mAdapter, foods);
-      }
-    });
-
-    return binding.getRoot();
-  }
-
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-
-    mFab.setOnClickListener(
-        Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.food_menu, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.sort:
-        sort();
-        return true;
-
-      case R.id.add_apple:
-        mViewModel.insertFood(Samples.getApple());
-        return true;
-
-      case R.id.add_coke:
-        mViewModel.insertFood(Samples.getCoke());
-        return true;
-
-      case R.id.add_pizza:
-        mViewModel.insertFood(Samples.getPizza());
-        return true;
-
-      case R.id.delete_foods:
-        mViewModel.deleteAllFoods();
-        return true;
+        // Enable menu
+        setHasOptionsMenu(true);
     }
 
-    return super.onOptionsItemSelected(item);
-  }
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-  /**
-   * Will sort the food list alphanumeric
-   */
-  private void sort() {
-    final LiveData<List<Food>> ldf = mViewModel.getAllFoods();
-    ldf.observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
-      @Override
-      public void onChanged(List<Food> foods) {
-        ldf.removeObserver(this);
-        sortFoodList("alphanumeric", mAdapter, foods);
-      }
-    });
-  }
+        // Init data binding
+        FragmentFoodBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.fragment_food, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
-  /**
-   * Create a comperator depending on how to sort the list, sort the list and pass the list to the
-   * adapter, which will cause the list to be visible.
-   *
-   * @param sortType How to sort the list
-   * @param adapter The list adapter
-   * @param list The food list
-   */
-  private void sortFoodList(String sortType, AdapterFood adapter, List<Food> list) {
-    Comparator<Food> comparator = null;
+        mFab = binding.buttonAddNote;
 
-    if (sortType.equals("alphanumeric")) {
-      comparator = new Comparator<Food>() {
-        @Override
-        public int compare(Food food1, Food food2) {
-          return String.CASE_INSENSITIVE_ORDER.compare(food1.getFoodName(), food2.getFoodName());
+        // Adapter
+        NavController mNavController = Navigation
+                .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
+
+        mAdapter = new AdapterFood(mNavController);
+
+        // RecyclerView
+        RecyclerView recyclerView = binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(mAdapter);
+
+        mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foods) {
+                sortFoodList("alphanumeric", mAdapter, foods);
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mFab.setOnClickListener(
+                Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.food_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort:
+                sort();
+                return true;
+
+            case R.id.add_apple:
+                mViewModel.insertFood(Samples.getApple());
+                return true;
+
+            case R.id.add_coke:
+                mViewModel.insertFood(Samples.getCoke());
+                return true;
+
+            case R.id.add_pizza:
+                mViewModel.insertFood(Samples.getPizza());
+                return true;
+
+            case R.id.delete_foods:
+                new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                        .setTitle("Delete Confirmation")
+                        .setMessage(
+                                "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                if (whichButton == -1) {
+                                    mViewModel.deleteAllFoods();
+                                }
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+
+                return true;
         }
-      };
+
+        return super.onOptionsItemSelected(item);
     }
 
-    if (comparator != null) {
-      Collections.sort(list, comparator);
-      mAdapter.setFoods(list);
+    /**
+     * Will sort the food list alphanumeric
+     */
+    private void sort() {
+        final LiveData<List<Food>> ldf = mViewModel.getAllFoods();
+        ldf.observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foods) {
+                ldf.removeObserver(this);
+                sortFoodList("alphanumeric", mAdapter, foods);
+            }
+        });
     }
-  }
+
+    /**
+     * Create a comperator depending on how to sort the list, sort the list and pass the list to the
+     * adapter, which will cause the list to be visible.
+     *
+     * @param sortType How to sort the list
+     * @param adapter  The list adapter
+     * @param list     The food list
+     */
+    private void sortFoodList(String sortType, AdapterFood adapter, List<Food> list) {
+        Comparator<Food> comparator = null;
+
+        if (sortType.equals("alphanumeric")) {
+            comparator = new Comparator<Food>() {
+                @Override
+                public int compare(Food food1, Food food2) {
+                    return String.CASE_INSENSITIVE_ORDER.compare(food1.getFoodName(), food2.getFoodName());
+                }
+            };
+        }
+
+        if (comparator != null) {
+            Collections.sort(list, comparator);
+            mAdapter.setFoods(list);
+        }
+    }
 }
 
