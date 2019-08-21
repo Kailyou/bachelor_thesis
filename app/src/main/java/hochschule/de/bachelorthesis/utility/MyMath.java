@@ -6,205 +6,205 @@ import java.util.Random;
 
 public class MyMath {
 
-  /* ANALYSE MEASUREMENTS */
+    /* ANALYSE MEASUREMENTS */
 
-  /**
-   * Gets the max value of an array.
-   *
-   * @param arr - The array.
-   * @return - Returns 0 if the array is empty, else the highest value inside.
-   */
-  public static int calculateMaxFromIntList(ArrayList<Integer> arr) {
-    if (arr.size() <= 0) {
-      return 0;
+    /**
+     * Gets the max value of an array.
+     *
+     * @param arr - The array.
+     * @return - Returns 0 if the array is empty, else the highest value inside.
+     */
+    public static int calculateMaxFromIntList(ArrayList<Integer> arr) {
+        if (arr.size() <= 0) {
+            return 0;
+        }
+
+        int res = arr.get(0);
+
+        for (int i = 1; i < arr.size(); ++i) {
+            if (arr.get(i) > res) {
+                res = arr.get(i);
+            }
+        }
+
+        return res;
     }
 
-    int res = arr.get(0);
+    /**
+     * Gets the max value of an array.
+     *
+     * @param arr - The array.
+     * @return - Returns 0 if the array is empty, else the highest value inside.
+     */
+    public static float calculateMaxFromFloatList(ArrayList<Float> arr) {
+        if (arr.size() <= 0) {
+            return 0;
+        }
 
-    for (int i = 1; i < arr.size(); ++i) {
-      if (arr.get(i) > res) {
-        res = arr.get(i);
-      }
+        float res = arr.get(0);
+
+        for (int i = 1; i < arr.size(); ++i) {
+            if (arr.get(i) > res) {
+                res = arr.get(i);
+            }
+        }
+
+        return res;
     }
 
-    return res;
-  }
+    /**
+     * Calculates the integral using the numeric integration: Trapezoidal Rule
+     *
+     * @param values - values to integrate
+     * @return The integral
+     */
+    public static float calculateIntegral(ArrayList<Integer> values) {
+        // (b-a)/n
+        // b = upper limit
+        // a = lower limit
+        // n = amount measurements
+        float deltaX = (120f - 0f) / 8f;
 
-  /**
-   * Gets the max value of an array.
-   *
-   * @param arr - The array.
-   * @return - Returns 0 if the array is empty, else the highest value inside.
-   */
-  public static float calculateMaxFromFloatList(ArrayList<Float> arr) {
-    if (arr.size() <= 0) {
-      return 0;
+        // Add every value besides the first and the last
+        int sum = 0;
+
+        for (int i = 1; i < values.size() - 1; ++i) {
+            sum += values.get(i);
+        }
+
+        return (deltaX / 2) * (values.get(0) + 2 * (sum) + values.get(values.size() - 1));
     }
 
-    float res = arr.get(0);
 
-    for (int i = 1; i < arr.size(); ++i) {
-      if (arr.get(i) > res) {
-        res = arr.get(i);
-      }
+    /* STATISTICS */
+
+    /**
+     * @param values Array list with counts
+     * @return The average from the given list.
+     */
+    public static float calculateMeanFromIntegers(ArrayList<Integer> values) {
+        float average = 0.0f;
+        for (int i = 0; i < values.size(); i++) {
+            average += values.get(i);
+        }
+        return average / values.size();
     }
 
-    return res;
-  }
-
-  /**
-   * Calculates the integral using the numeric integration: Trapezoidal Rule
-   *
-   * @param values - values to integrate
-   * @return The integral
-   */
-  public static float calculateIntegral(ArrayList<Integer> values) {
-    // (b-a)/n
-    // b = upper limit
-    // a = lower limit
-    // n = amount measurements
-    float deltaX = (120f - 0f) / 8f;
-
-    // Add every value besides the first and the last
-    int sum = 0;
-
-    for (int i = 1; i < values.size() - 1; ++i) {
-      sum += values.get(i);
+    /**
+     * @param values Array list with counts
+     * @return The average from the given list.
+     */
+    public static float calculateMeanFromFloats(ArrayList<Float> values) {
+        float average = 0.0f;
+        for (int i = 0; i < values.size(); i++) {
+            average += values.get(i);
+        }
+        return average / values.size();
     }
 
-    return (deltaX / 2) * (values.get(0) + 2 * (sum) + values.get(values.size() - 1));
-  }
+    /**
+     * This function will return the median of a list of values.
+     *
+     * @param values - ArrayList with values inside.
+     * @return Returns the median.
+     */
+    public static float getMedianValue(ArrayList<Integer> values) {
+        if (values.size() == 0) {
+            return 0;
+        }
 
+        // Sort the list
+        Collections.sort(values);
 
-  /* STATISTICS */
+        int amount = values.size();
 
-  /**
-   * @param values Array list with counts
-   * @return The average from the given list.
-   */
-  public static float calculateMeanFromIntegers(ArrayList<Integer> values) {
-    float average = 0.0f;
-    for (int i = 0; i < values.size(); i++) {
-      average += values.get(i);
-    }
-    return average / values.size();
-  }
-
-  /**
-   * @param values Array list with counts
-   * @return The average from the given list.
-   */
-  public static float calculateMeanFromFloats(ArrayList<Float> values) {
-    float average = 0.0f;
-    for (int i = 0; i < values.size(); i++) {
-      average += values.get(i);
-    }
-    return average / values.size();
-  }
-
-  /**
-   * This function will return the median of a list of values.
-   *
-   * @param values - ArrayList with values inside.
-   * @return Returns the median.
-   */
-  public static float getMedianValue(ArrayList<Integer> values) {
-    if (values.size() == 0) {
-      return 0;
+        // Last bit = 0 even, else odd.
+        if ((amount & 1) == 0) {
+            // -1 because arrays start at 1
+            return (float) 0.5 * (values.get((amount / 2) - 1) + values.get((amount / 2)));
+        } else {
+            // +1 is missing here because of the -1 because of array index
+            return values.get((amount) / 2);
+        }
     }
 
-    // Sort the list
-    Collections.sort(values);
+    /**
+     * Returns the percentile value of a given list of values and the percentage given.
+     * <p>
+     * n = amount of values p = percentile per cent
+     * <p>
+     * First calculate k with k = (n * p)
+     * <p>
+     * Check if the result k is even or odd.
+     * <p>
+     * If it is odd use this formula: xp = x(k)
+     * <p>
+     * If it is even use this formula: 0.5 (x(k) + x(k+1)
+     * <p>
+     * The -1 is due the fact that arrays start at index 0 and not at 1.
+     *
+     * @param values - ArrayList with values inside.
+     * @param p      - The percent for the percentile
+     * @return Returns the percentile.
+     */
+    public static float getPercentile(ArrayList<Integer> values, float p) {
+        if (values.size() == 0 || values.size() == 1) {
+            return 0;
+        }
 
-    int amount = values.size();
+        // Sort the list
+        Collections.sort(values);
 
-    // Last bit = 0 even, else odd.
-    if ((amount & 1) == 0) {
-      // -1 because arrays start at 1
-      return (float) 0.5 * (values.get((amount / 2) - 1) + values.get((amount / 2)));
-    } else {
-      // +1 is missing here because of the -1 because of array index
-      return values.get((amount) / 2);
-    }
-  }
+        double k = values.size() * p;
 
-  /**
-   * Returns the percentile value of a given list of values and the percentage given.
-   *
-   * n = amount of values p = percentile per cent
-   *
-   * First calculate k with k = (n * p)
-   *
-   * Check if the result k is even or odd.
-   *
-   * If it is odd use this formula: xp = x(k)
-   *
-   * If it is even use this formula: 0.5 (x(k) + x(k+1)
-   *
-   * The -1 is due the fact that arrays start at index 0 and not at 1.
-   *
-   * @param values - ArrayList with values inside.
-   * @param p - The percent for the percentile
-   * @return Returns the percentile.
-   */
-  public static float getPercentile(ArrayList<Integer> values, float p) {
-    if (values.size() == 0 || values.size() == 1) {
-      return 0;
-    }
+        // Even or odd
+        if (k == (int) k) {
+            // -1 because arrays start at 1
+            float v1 = values.get((int) k - 1);
+            float v2 = values.get((int) k);
 
-    // Sort the list
-    Collections.sort(values);
-
-    double k = values.size() * p;
-
-    // Even or odd
-    if (k == (int) k) {
-      // -1 because arrays start at 1
-      float v1 = values.get((int) k - 1);
-      float v2 = values.get((int) k);
-
-      return (float) 0.5 * (v1 + v2);
-    } else {
-      return values.get(((int) Math.ceil(k)) - 1);
-    }
-  }
-
-  /**
-   * Calculates the variance of a list of data.
-   *
-   * Needed to calculate the standard deviation
-   * @param values ArrayList with values inside.
-   * @return  The variance.
-   */
-  private static float calculateVariance(ArrayList<Integer> values) {
-    float average = calculateMeanFromIntegers(values);
-    float temp = 0f;
-    for (Integer i : values) {
-      temp += (i - average) * (i - average);
+            return (float) 0.5 * (v1 + v2);
+        } else {
+            return values.get(((int) Math.ceil(k)) - 1);
+        }
     }
 
-    return temp / values.size() - 1;
-  }
+    /**
+     * Calculates the variance of a list of data.
+     * <p>
+     * Needed to calculate the standard deviation
+     *
+     * @param values ArrayList with values inside.
+     * @return The variance.
+     */
+    private static float calculateVariance(ArrayList<Integer> values) {
+        float average = calculateMeanFromIntegers(values);
+        float temp = 0f;
+        for (Integer i : values) {
+            temp += (i - average) * (i - average);
+        }
 
-  public static float calculateStandardDeviation(ArrayList<Integer> values) {
-    if (values.size() == 0 || values.size() == 1) {
-      return 0;
+        return temp / values.size() - 1;
     }
 
-    return (float) Math.sqrt(calculateVariance(values));
-  }
+    public static float calculateStandardDeviation(ArrayList<Integer> values) {
+        if (values.size() == 0 || values.size() == 1) {
+            return 0;
+        }
+
+        return (float) Math.sqrt(calculateVariance(values));
+    }
 
 
-  /* OTHERS */
+    /* OTHERS */
 
-  /**
-   * @param min The minimum count (included)
-   * @param max The maximum count (included)
-   * @return Returns a random count between a given range.
-   */
-  public static int getRandomInt(int min, int max) {
-    Random random = new Random();
-    return random.nextInt(max - min + 1) + min;
-  }
-
+    /**
+     * @param min The minimum count (included)
+     * @param max The maximum count (included)
+     * @return Returns a random count between a given range.
+     */
+    public static int getRandomInt(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
+    }
 }

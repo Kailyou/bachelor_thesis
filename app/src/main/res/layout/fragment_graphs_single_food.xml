@@ -71,6 +71,14 @@
         </RadioGroup>
       </GridLayout>
 
+      <TextView
+          android:id="@+id/y_axis"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:text="@string/glucose_mg_dl"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
       <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
@@ -78,6 +86,16 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
       </com.github.mikephil.charting.charts.LineChart>
+
+      <TextView
+          android:id="@+id/x_axis"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="32dp"
+          android:gravity="end"
+          android:text="@string/time_min"
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
       <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
