@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<GridLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:columnCount="5"
-  android:rowCount="1"
-  android:layout_marginTop="8dp"
-  android:layout_marginStart="16dp"
-  android:orientation="horizontal">
-
-  <TextView
-    android:id="@+id/date"
-    style="@style/TextAppearance.MaterialComponents.Body1"
-    android:layout_width="90dp"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_columnWeight="1"
-    android:gravity="center"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-    android:text="@string/_24_06_2019"/>
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:columnCount="5"
+    android:orientation="horizontal"
+    android:rowCount="1">
 
-  <TextView
-    android:id="@+id/amount"
-    style="@style/TextAppearance.MaterialComponents.Body1"
-    android:layout_width="60dp"
-    android:layout_height="wrap_content"
-    android:layout_columnWeight="1"
-    android:gravity="center"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-    android:text="@string/_1235_ml"/>
+    <TextView
+        android:id="@+id/date"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="@string/_24_06_2019"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-  <TextView
-    android:id="@+id/max_glucose"
-    style="@style/TextAppearance.MaterialComponents.Body1"
-    android:layout_width="40dp"
-    android:layout_height="wrap_content"
-    android:layout_columnWeight="1"
-    android:gravity="center"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-    android:text="@string/_200"/>
+    <TextView
+        android:id="@+id/amount"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="@string/_1235_ml"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-  <TextView
-    android:id="@+id/avg_glucose"
-    style="@style/TextAppearance.MaterialComponents.Body1"
-    android:layout_width="40dp"
-    android:layout_height="wrap_content"
-    android:layout_columnWeight="1"
-    android:gravity="center"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-    android:text="@string/_120"/>
+    <TextView
+        android:id="@+id/max_glucose"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="@string/_200"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-  <TextView
-    android:id="@+id/rating"
-    style="@style/TextAppearance.MaterialComponents.Body1"
-    android:layout_width="60dp"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
-    android:layout_columnWeight="1"
-    android:gravity="center"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-    android:text="@string/unrated"/>
+    <TextView
+        android:id="@+id/avg_glucose"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="@string/_120"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+    <TextView
+        android:id="@+id/rating"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/unrated"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 </GridLayout>
