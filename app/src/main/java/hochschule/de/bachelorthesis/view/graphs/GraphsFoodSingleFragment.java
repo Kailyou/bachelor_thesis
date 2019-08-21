@@ -19,6 +19,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
@@ -281,6 +283,13 @@ public class GraphsFoodSingleFragment extends Fragment {
     // Diverse Settings
     mBinding.lineChart.setTouchEnabled(false);
     animateGraph();
+
+    // Change description
+    if (mViewModel.getGraphSingleModel().getChartType() == 0) {
+      mBinding.lineChart.getDescription().setText("Glucose over time");
+    } else if (mViewModel.getGraphSingleModel().getChartType() == 1) {
+      mBinding.lineChart.getDescription().setText("Glucose increase over time");
+    }
 
     // Left-Axis
     YAxis leftAxis = mBinding.lineChart.getAxisLeft();
