@@ -9,16 +9,19 @@
   <fragment
     android:id="@+id/homeFragment"
     android:name="hochschule.de.bachelorthesis.view.home.HomeFragment"
-    android:label="Home"
+    android:label="@string/bottom_nav_home"
     tools:layout="@layout/fragment_home">
     <action
       android:id="@+id/action_homeFragment_to_updateFragment"
       app:destination="@id/updateFragment"/>
+    <action
+        android:id="@+id/action_homeFragment_to_legalNotificationsFragment"
+        app:destination="@id/legalNotificationsFragment" />
   </fragment>
   <fragment
     android:id="@+id/foodFragment"
     android:name="hochschule.de.bachelorthesis.view.food.FoodsFragment"
-    android:label="My Foods"
+    android:label="@string/bottom_nav_food"
     tools:layout="@layout/fragment_food">
     <action
       android:id="@+id/action_foodFragment_to_addFood"
@@ -31,12 +34,12 @@
   <fragment
     android:id="@+id/addFood"
     android:name="hochschule.de.bachelorthesis.view.food.FoodAddFragment"
-    android:label="Add Food"
+    android:label="@string/add_food"
     tools:layout="@layout/fragment_food_add"/>
 
   <fragment
     android:id="@+id/foodInfoFragment"
-    android:label="Food information"
+    android:label="@string/food_information"
     android:name="hochschule.de.bachelorthesis.view.food.FoodHostFragment"
     tools:layout="@layout/fragment_food_info">
     <action
@@ -60,7 +63,7 @@
   <fragment
     android:id="@+id/addMeasurement"
     android:name="hochschule.de.bachelorthesis.view.food.MeasurementAddFragment"
-    android:label="Add Measurement"
+    android:label="@string/add_measurement"
     tools:layout="@layout/fragment_measurement_add">
     <argument
       android:name="food_id"
@@ -73,7 +76,7 @@
   <fragment
     android:id="@+id/meFragment"
     android:name="hochschule.de.bachelorthesis.view.me.MeFragment"
-    android:label="Me"
+    android:label="@string/bottom_nav_me"
     tools:layout="@layout/fragment_me">
     <action
       android:id="@+id/action_meFragment_to_meEditFragment"
@@ -82,7 +85,7 @@
   <fragment
     android:id="@+id/meEditFragment"
     android:name="hochschule.de.bachelorthesis.view.me.MeEditFragment"
-    android:label="Edit User Data"
+    android:label="@string/edit_user_data"
     tools:layout="@layout/fragment_me_edit">
     <action
       android:id="@+id/action_meEditFragment_to_meFragment"
@@ -90,7 +93,7 @@
   </fragment>
   <fragment
     android:id="@+id/editMeasurementFragment"
-    android:label="Edit measurement"
+    android:label="@string/edit_measurement"
     android:name="hochschule.de.bachelorthesis.view.food.MeasurementEditFragment"
     tools:layout="@layout/fragment_measurement_edit">
     <argument
@@ -99,7 +102,7 @@
   </fragment>
   <fragment
     android:id="@+id/measurementFragment"
-    android:label="Measurement"
+    android:label="@string/measurement"
     android:name="hochschule.de.bachelorthesis.view.food.MeasurementFragment"
     tools:layout="@layout/fragment_measurement">
     <action
@@ -108,7 +111,7 @@
   </fragment>
   <fragment
     android:id="@+id/editFoodDataFragment2"
-    android:label="Edit Food"
+    android:label="@string/edit_food"
     android:name="hochschule.de.bachelorthesis.view.food.FoodEditFragment"
     tools:layout="@layout/fragment_food_edit">
     <argument
@@ -117,19 +120,23 @@
   </fragment>
   <fragment
     android:id="@+id/graphsFoodSingleFragment"
-    android:label="Graphs"
+    android:label="@string/bottom_nav_graphs"
     android:name="hochschule.de.bachelorthesis.view.graphs.GraphsHostFragment"
     tools:layout="@layout/fragment_graphs_host"/>
   <fragment
     android:id="@+id/updateFragment"
-    android:label="Update measurement"
+    android:label="@string/update_measurement"
     android:name="hochschule.de.bachelorthesis.view.home.UpdateFragment"
     tools:layout="@layout/fragment_update">
     <argument
       android:name="measurement_id"
       app:argType="integer"/>
   </fragment>
-
+  <fragment
+      android:id="@+id/legalNotificationsFragment"
+      android:name="hochschule.de.bachelorthesis.view.home.LegalNotificationsFragment"
+      android:label="@string/legal_notifications"
+      tools:layout="@layout/fragment_legal_notifications" />
 
 </navigation>
 

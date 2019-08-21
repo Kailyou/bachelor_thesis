@@ -94,19 +94,19 @@ public class MeasurementFragment extends Fragment {
                 .setText(Converter.convertTimeStampToTimeEnd(measurement.getTimeStamp()));
 
             // Advance information
-            mBinding.isGi.setText(Converter.convertBoolean(measurement.isGi()));
+            mBinding.isGi.setText(Converter.convertBoolean(getContext(), measurement.isGi()));
             mBinding.amount.setText(String.valueOf(measurement.getAmount()));
             mBinding.stress.setText(measurement.getStress());
             mBinding.tired.setText(measurement.getTired());
             mBinding.physicallyActive
-                .setText(Converter.convertBoolean(measurement.isPhysicallyActivity()));
+                .setText(Converter.convertBoolean(getContext(), measurement.isPhysicallyActivity()));
             mBinding.alcoholConsumed
-                .setText(Converter.convertBoolean(measurement.isAlcoholConsumed()));
+                .setText(Converter.convertBoolean(getContext(), measurement.isAlcoholConsumed()));
 
             // Events
-            mBinding.ill.setText(Converter.convertBoolean(measurement.isIll()));
-            mBinding.medication.setText(Converter.convertBoolean(measurement.isMedication()));
-            mBinding.period.setText(Converter.convertBoolean(measurement.isPeriod()));
+            mBinding.ill.setText(Converter.convertBoolean(getContext(), measurement.isIll()));
+            mBinding.medication.setText(Converter.convertBoolean(getContext(), measurement.isMedication()));
+            mBinding.period.setText(Converter.convertBoolean(getContext(), measurement.isPeriod()));
 
             // Analyses
             mBinding.glucoseMax.setText(String.valueOf(measurement.getGlucoseMax()));

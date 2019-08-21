@@ -1,210 +1,187 @@
 <resources>
-  <string name="app_name">BachelorThesis</string>
-  <string name="title_home">Home</string>
-  <string name="title_my_food">My Food</string>
-  <string name="title_plan">Plan</string>
-  <string name="tab_left">left</string>
-  <string name="tab_middle">middle</string>
-  <string name="tab_right">right</string>
-  <string name="title_activity_food">FoodActivity</string>
-  <string name="tab_text_1">Overview</string>
-  <string name="tab_text_2">Measuring</string>
-  <string name="tab_text_3">Food data</string>
-  <string name="action_settings">Settings</string>
-  <string name="hello_world">Hello World from section: %1$d</string>
-  <string name="food_list_main_text">Main Text</string>
-  <string name="food_list_sub_text">Sub text</string>,
-  <string name="food_list_meta_data">Meta data</string>
-  <string name="about_the_food">About the food</string>
-  <string name="food_name">Food name</string>
-  <string name="brand_name">Brand name</string>
-  <string name="main_text">Main Text</string>
-  <string name="_1">1</string>
-  <string name="subtext">subtext</string>
-  <string name="nutritional_information">Nutritional information</string>
-  <string name="energy_kcal">Energy (kcal)</string>
-  <string name="home_fragment">Home fragment</string>
-  <string name="personal_data">Personal data</string>
-  <string name="age">Age</string>
-  <string name="height">Height</string>
-  <string name="weight">Weight</string>
-  <string name="sex">Sex</string>
-  <string name="lifestyle">Lifestyle</string>
-  <string name="fitness_level">Fitness Level</string>
-  <string name="taking_medication">Medication</string>
-  <string name="yes">yes</string>
-  <string name="no">no</string>
-  <string name="allergies_available">Allergies</string>
-  <string name="smoking">Smoking</string>
-  <string name="edit">Edit</string>
-  <string name="cancel">Cancel</string>
-  <string name="save">Save</string>
-  <string name="save_fragment_me_age">save_fragment_me_age</string>
-  <string name="save_fragment_me_fitness_level">save_fragment_me_fitness_level</string>
-  <string name="save_fragment_me_gender">save_fragment_me_gender</string>
-  <string name="save_fragment_me_height">save_fragment_me_height</string>
-  <string name="save_fragment_me_weight">save_fragment_me_weight</string>
-  <string name="save_fragment_me_smoking">save_fragment_me_smoking</string>
-  <string name="save_fragment_me_medication">save_fragment_me_medication</string>
-  <string name="save_fragment_me_allergies">save_fragment_me_allergies</string>
-  <string name="general">General</string>
-  <string name="type">Type</string>
-  <string name="kcal_100">kCal (100g)</string>
-  <string name="measurements">Measurements</string>
-  <string name="measurements_done">Amount</string>
-  <string name="max_glucose">Max. glucose</string>
-  <string name="average_glucose">Average glucose</string>
-  <string name="analyses">Analyses</string>
-  <string name="rating">Rating</string>
-  <string name="personal_index">Personal Index</string>
-  <string name="nutreons">Nutreons</string>
-  <string name="energy_kj">Energy (kJ)</string>
-  <string name="fat">Fat</string>
-  <string name="of_which_saturates">of which saturates</string>
-  <string name="protein">Protein</string>
-  <string name="carbohydrate">Carbohydrates</string>
-  <string name="of_which_sugars">of which sugars</string>
-  <string name="salt">Salt</string>
-  <string name="advance_information">Advance information</string>
-  <string name="amount_food_consumed">Amount food consumed</string>
-  <string name="start_value">Start value</string>
-  <string name="_15_min">15 min</string>
-  <string name="_30_min">30 min</string>
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-  <string name="time_consumed">Time consumed</string>
-  <string name="add_sample_user">Add sample user (debug)</string>
-  <string name="delete_user_debug">Delete user (debug)</string>
-  <string name="add_sample_measurement_debug">Add sample measurement (debug)</string>
-  <string name="sort">sort</string>
-  <string name="delete_all_measurements">Delete all measurements</string>
-  <string name="chose_date">Chose Date</string>
-  <string name="chose_time">Chose Time</string>
-  <string name="amount_consumed">Amount consumed</string>
-  <string name="stress_level">Stress level</string>
-  <string name="tired_level">Tired level</string>
-  <string name="glucose_at_begin">glucose at begin</string>
-  <string name="glucose_after_15_min">glucose after 15 min</string>
-  <string name="glucose_after_30_min">glucose after 30 min</string>
-  <string name="glucose_after_45_min">glucose after 45 min</string>
-  <string name="glucose_after_60_min">glucose after 60 min</string>
-  <string name="glucose_after_75_min">glucose after 75 min</string>
-  <string name="glucose_after_90_min">glucose after 90 min</string>
-  <string name="glucose_after_105_min">glucose after 105 min</string>
-  <string name="glucose_after_120_min">glucose after 120 min</string>
-  <string name="time_information">Time information</string>
-  <string name="date">Date</string>
-  <string name="time_started">Time started</string>
-  <string name="time_ended">Time ended</string>
-  <string name="delete_measurement">Delete Measurement</string>
-  <string name="clear">Clear</string>
-  <string name="glucose_values">Glucose Values</string>
-  <string name="glucose_after">Glucose after…</string>
-  <string name="_15_minutes">… 15 minutes</string>
-  <string name="_30_minutes">… 30 minutes</string>
-  <string name="_45_minutes">… 45 minutes</string>
-  <string name="_60_minutes">… 60 minutes</string>
-  <string name="_75_minutes">… 75 minutes</string>
-  <string name="_90_minutes">… 90 minutes</string>
-  <string name="_105_minutes">… 105 minutes</string>
-  <string name="_120_minutes">… 120 minutes</string>
-  <string name="add_random_measurement_unfinished">Add random measurement (unfinished)</string>
-  <string name="add_random_measurement_finished">Add random measurement (finished)</string>
-  <string name="add_coke_debug">Add Coke (Debug)</string>
-  <string name="add_pizza_debug">Add Pizza (Debug)</string>
-  <string name="add_apple_debug">Add Apple (Debug)</string>
-  <string name="delete_all_foods">Delete all foods</string>
-  <string name="delete_food">Delete Food</string>
-  <string name="time_min">Time (min)</string>
-  <string name="glucose_mg_dl">Glucose (mg/dl)</string>
-  <string name="glucose_max_peak_mg_dl">Glucose max peak (mg/dl)</string>
-  <string name="glucose_average_mg_dl">Glucose average (mg/dl)</string>
-  <string name="amount_measurements">Amount measurements</string>
-  <string name="choose_food">Choose Food</string>
-  <string name="diabetes">Diabetes</string>
-  <string name="physically_active_more_than_usual">Physically Active (More than usual)</string>
-  <string name="alcohol_consumed">Alcohol consumed</string>
-  <string name="ill_while_measuring">Ill (While measuring)</string>
-  <string name="period">Period</string>
-  <string name="physically_active2">Physically Active</string>
-  <string name="events">Events</string>
-  <string name="gi_measurement">Gi Measurement</string>
-  <string name="show_average">Show average</string>
-  <string name="show_median">Show Median</string>
-  <string name="graph_type">Graph Type</string>
-  <string name="line_chart">Line Chart</string>
-  <string name="bar_chart">Bar Chart</string>
-  <string name="line_style">Line Style</string>
-  <string name="average">Average</string>
-  <string name="median">Median</string>
-  <string name="compare_glucose_max">Compare Glucose Max</string>
-  <string name="compare_glucose_average">Compare Glucose Average</string>
-  <string name="compare_integral">Compare Integral</string>
-  <string name="animate_graph">Animate Graph</string>
-  <string name="draw_bar_graph">Draw Bar Graph</string>
-  <string name="draw_line_graph">Draw Line Graph</string>
-  <string name="compare_stdev">Compare STDEV</string>
-  <string name="integral">Integral</string>
-  <string name="standard_deviation">Standard deviation</string>
-  <string name="_24_06_2019">24.06.2019</string>
-  <string name="_1235_ml">1235 ml</string>
-  <string name="_200">200</string>
-  <string name="_120">120</string>
-  <string name="unrated">unrated</string>
-  <string name="header_glucose_increase_max">Glucose increase max (mg/dl)</string>
-  <string name="header_glucose_max">Glucose max peak (mg/dl)</string>
-  <string name="header_glucose_increase_average">Glucose increase average(mg/dl)</string>
-  <string name="header_glucose_average">Glucose average (mg/dl)</string>
-  <string name="header_integral">Integral (area unit) </string>
-  <string name="header_standard_deviation">Standard Deviation (mg/dl)</string>
-  <string name="estimated_end_time">Estimated end time</string>
-  <string name="measurement_interval">Measurement interval</string>
-  <string name="active_measurement">Active Measurement</string>
-  <string name="select_food">Select food</string>
-  <string name="update">Update</string>
-  <string name="update_active_measurement_values">Update active measurement values</string>
-  <string name="no_measurement_active">No measurement active</string>
-  <string name="draw_line_graph_glucose_increase">Draw Line Graph (Glucose increase)</string>
-  <string name="draw_line_graph_glucose_over_time">Draw line Graph (Glucose over time)</string>
-  <string name="compare_values">Compare Values</string>
-  <string name="glucose_increase_max">Glucose increase (max)</string>
-  <string name="glucose_increase_avg">Glucose increase (avg)</string>
-  <string name="glucose_max">Glucose (max)</string>
-  <string name="glucose_average">Glucose (average)</string>
-  <string name="max_increase_glucose">Max increase glucose</string>
-  <string name="average_increase_glucose">Average increase glucose</string>
-  <string name="draw_graph">Draw Graph</string>
+    <string name="app_name">BachelorThesis</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_food">My Food</string>
+    <string name="bottom_nav_graphs">Graphs</string>
+    <string name="bottom_nav_me">Me</string>
+    <string name="food_list_main_text" translatable="false">Main Text</string>
+    <string name="food_list_sub_text" translatable="false">Sub text</string>
+    <string name="active_measurement">Active Measurement</string>
+    <string name="no_measurement_active">No measurement active</string>
+    <string name="legal_notifications">Legal Notifications</string>
+    <string name="update">Update</string>
+    <string name="tab_text_1">Overview</string>
+    <string name="tab_text_2">Measuring</string>
+    <string name="tab_text_3">Food data</string>
+    <string name="add_random_measurement_unfinished">Add random measurement (unfinished)</string>
+    <string name="add_random_measurement_finished">Add random measurement (finished)</string>
+    <string name="delete_all_measurements">Delete all measurements</string>
+    <string name="tmp_name" translatable="false">Lorem Ipsum</string>
+    <string name="tmp_street">Loremway 5</string>
+    <string name="tmp_city" translatable="false">12345 Lorem</string>
+    <string name="tmp_phone">Phone: 01234/789456</string>
+    <string name="tmp_fax" translatable="false">Fax: 01234/789456</string>
+    <string name="update_active_measurement_values">Update active measurement values</string>
+    <string name="food_name">Food name</string>
+    <string name="brand_name">Brand name</string>
+    <string name="about_the_food">About the food</string>
+    <string name="nutritional_information">Nutritional information</string>
+    <string name="energy_kcal">Energy (kCal)</string>
+    <string name="measurement_time_started">Time started</string>
+    <string name="measurement_estimated_end_time">Estimated end time</string>
+    <string name="measurement_interval">Measurement interval</string>
+    <string name="measurement_date_created">Date</string>
+    <string name="measurement_glucose_at_begin">glucose at begin</string>
+    <string name="measurement_glucose_after_15_min">glucose after 15 min</string>
+    <string name="measurement_glucose_after_30_min">glucose after 30 min</string>
+    <string name="measurement_glucose_after_45_min">glucose after 45 min</string>
+    <string name="measurement_glucose_after_60_min">glucose after 60 min</string>
+    <string name="measurement_glucose_after_75_min">glucose after 75 min</string>
+    <string name="measurement_glucose_after_90_min">glucose after 90 min</string>
+    <string name="measurement_glucose_after_105_min">glucose after 105 min</string>
+    <string name="measurement_glucose_after_120_min">glucose after 120 min</string>
+    <string name="personal_data">Personal data</string>
+    <string name="age">Age</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="sex">Sex</string>
+    <string name="lifestyle">Lifestyle</string>
+    <string name="fitness_level">Fitness Level</string>
+    <string name="taking_medication">Medication</string>
+    <string name="allergies_available">Allergies</string>
+    <string name="smoking">Smoking</string>
+    <string name="save">Save</string>
+    <string name="general">General</string>
+    <string name="type">Type</string>
+    <string name="kcal_100" translatable="false">kCal (100g)</string>
+    <string name="measurements">Measurements</string>
+    <string name="max_glucose">Max. glucose</string>
+    <string name="average_glucose">Average glucose</string>
+    <string name="analyses">Analyses</string>
+    <string name="rating">Rating</string>
+    <string name="personal_index">Personal Index</string>
+    <string name="energy_kj">Energy (kJ)</string>
+    <string name="fat">Fat</string>
+    <string name="of_which_saturates">of which saturates</string>
+    <string name="protein">Protein</string>
+    <string name="carbohydrate">Carbohydrates</string>
+    <string name="of_which_sugars">of which sugars</string>
+    <string name="salt">Salt</string>
+    <string name="advance_information">Advance information</string>
+    <string name="start_value">Start value</string>
+    <string name="time_consumed">Time consumed</string>
+    <string name="add_sample_user">Add sample user (debug)</string>
+    <string name="sort">sort</string>
+    <string name="chose_date">Chose Date</string>
+    <string name="chose_time">Chose Time</string>
+    <string name="amount_consumed">Amount consumed</string>
+    <string name="stress_level">Stress level</string>
+    <string name="tired_level">Tired level</string>
+    <string name="time_information">Time information</string>
+    <string name="time_ended">Time ended</string>
+    <string name="delete_measurement">Delete Measurement</string>
+    <string name="clear">Clear</string>
+    <string name="glucose_values">Glucose Values</string>
+    <string name="glucose_after">Glucose after…</string>
+    <string name="_15_minutes">… 15 minutes</string>
+    <string name="_30_minutes">… 30 minutes</string>
+    <string name="_45_minutes">… 45 minutes</string>
+    <string name="_60_minutes">… 60 minutes</string>
+    <string name="_75_minutes">… 75 minutes</string>
+    <string name="_90_minutes">… 90 minutes</string>
+    <string name="_105_minutes">… 105 Minuten</string>
+    <string name="_120_minutes">… 120 minutes</string>
+    <string name="add_coke_debug">Add Coke (Debug)</string>
+    <string name="add_pizza_debug">Add Pizza (Debug)</string>
+    <string name="add_apple_debug">Add Apple (Debug)</string>
+    <string name="delete_all_foods">Delete all foods</string>
+    <string name="delete_food">Delete Food</string>
+    <string name="time_min">Time (min)</string>
+    <string name="glucose_mg_dl">Glucose (mg/dl)</string>
+    <string name="glucose_max_peak_mg_dl">Glucose max peak (mg/dl)</string>
+    <string name="amount_measurements">Amount measurements</string>
+    <string name="choose_food">Choose Food</string>
+    <string name="diabetes" translatable="false">Diabetes</string>
+    <string name="physically_active_more_than_usual">Physically Active (More than usual)</string>
+    <string name="alcohol_consumed">Alcohol consumed</string>
+    <string name="ill_while_measuring">Ill (while measuring)</string>
+    <string name="period">Period</string>
+    <string name="physically_active2">Physically Active</string>
+    <string name="events">Events</string>
+    <string name="gi_measurement">Gi Measurement</string>
+    <string name="line_style">Line Style</string>
+    <string name="average">Average</string>
+    <string name="median" translatable="false">Median</string>
+    <string name="animate_graph">Animate Graph</string>
+    <string name="draw_bar_graph">Draw Bar Graph</string>
+    <string name="integral" translatable="false">Integral</string>
+    <string name="standard_deviation">Standard deviation</string>
+    <string name="_24_06_2019" translatable="false">24.06.2019</string>
+    <string name="_1235_ml" translatable="false">1235 ml</string>
+    <string name="_200" translatable="false">200</string>
+    <string name="_120" translatable="false">120</string>
+    <string name="unrated">unrated</string>
+    <string name="header_glucose_increase_max">Glucose increase max (mg/dl)</string>
+    <string name="header_glucose_max">Glucose max peak (mg/dl)</string>
+    <string name="header_glucose_increase_average">Glucose increase average(mg/dl)</string>
+    <string name="header_glucose_average">Glucose average (mg/dl)</string>
+    <string name="header_integral">Integral (area unit) </string>
+    <string name="select_food">Select food</string>
+    <string name="draw_line_graph_glucose_increase">Draw Line Graph (Glucose increase)</string>
+    <string name="draw_line_graph_glucose_over_time">Draw line Graph (Glucose over time)</string>
+    <string name="compare_values">Compare Values</string>
+    <string name="glucose_increase_max">Glucose increase (max)</string>
+    <string name="glucose_increase_avg">Glucose increase (avg)</string>
+    <string name="glucose_max">Glucose (max)</string>
+    <string name="glucose_average">Glucose (average)</string>
+    <string name="max_increase_glucose">Max increase glucose</string>
+    <string name="average_increase_glucose">Average increase glucose</string>
+    <string name="draw_graph">Draw Graph</string>
+    <string name="update_measurement">Update measurement</string>
+    <string name="add_food">Add Food</string>
+    <string name="food_information">Food information</string>
+    <string name="add_measurement">Add Measurement</string>
+    <string name="edit_user_data">Edit User Data</string>
+    <string name="edit_measurement">Edit measurement</string>
+    <string name="measurement">Measurement</string>
+    <string name="edit_food">Edit Food</string>
+    <string name="single_food">Single food</string>
+    <string name="all_foods">All foods</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="minutes_15">15 minutes</string>
 
-  <string-array name="type">
-    <item>Grains</item>
-    <item>Vegetables</item>
-    <item>Fruit</item>
-    <item>Protein</item>
-    <item>Dairy</item>
-    <item>Oils</item>
-    <item>Solid Fats and Added Sugar</item>
-    <item>Drinks</item>
-    <item>Snacks</item>
-  </string-array>
+    <string-array name="type">
+        <item>Grains</item>
+        <item>Vegetables</item>
+        <item>Fruit</item>
+        <item>Protein</item>
+        <item>Dairy</item>
+        <item>Oils</item>
+        <item>Solid Fats and Added Sugar</item>
+        <item>Drinks</item>
+        <item>Snacks</item>
+    </string-array>
 
-  <string-array name="stress">
-    <item>Very stressed</item>
-    <item>A bit stressed</item>
-    <item>Not stressed</item>
-  </string-array>
+    <string-array name="stress">
+        <item>Very stressed</item>
+        <item>A bit stressed</item>
+        <item>Not stressed</item>
+    </string-array>
 
-  <string-array name="tired">
-    <item>Very tired</item>
-    <item>A bit tired</item>
-    <item>Not tired</item>
-  </string-array>
+    <string-array name="tired">
+        <item>Very tired</item>
+        <item>A bit tired</item>
+        <item>Not tired</item>
+    </string-array>
 
-  <string-array name="fragment_me_spinner_sex">
-    <item>Male</item>
-    <item>Female</item>
-  </string-array>
-  <string-array name="fragment_me_spinner_fitness_level">
-    <item>low</item>
-    <item>average</item>
-    <item>good</item>
-  </string-array>
+    <string-array name="fragment_me_spinner_sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="fragment_me_spinner_fitness_level">
+        <item>low</item>
+        <item>average</item>
+        <item>good</item>
+    </string-array>
 </resources>

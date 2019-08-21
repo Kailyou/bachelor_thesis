@@ -3,20 +3,20 @@
   <item
     android:id="@+id/homeFragment"
     android:icon="@drawable/ic_home_white_24dp"
-    android:title="@string/title_home"/>
+    android:title="@string/bottom_nav_home"/>
 
   <item
     android:id="@+id/foodFragment"
     android:icon="@drawable/ic_food_24dp"
-    android:title="@string/title_my_food"/>
+    android:title="@string/bottom_nav_food"/>
 
   <item
     android:id="@+id/graphsFoodSingleFragment"
     android:icon="@drawable/ic_event_white_24dp"
-    android:title="Graphs"/>
+    android:title="@string/bottom_nav_graphs"/>
 
   <item
     android:id="@+id/meFragment"
     android:icon="@drawable/ic_tag_faces_white_24dp"
-    android:title="Me"/>
+    android:title="@string/bottom_nav_me"/>
 </menu>

@@ -29,13 +29,13 @@
           android:id="@+id/tabItem"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Single food"/>
+          android:text="@string/single_food"/>
 
         <com.google.android.material.tabs.TabItem
           android:id="@+id/tabItem2"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="All foods"/>
+          android:text="@string/all_foods"/>
       </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

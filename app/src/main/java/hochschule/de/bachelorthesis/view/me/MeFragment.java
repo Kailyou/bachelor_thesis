@@ -76,10 +76,10 @@ public class MeFragment extends Fragment {
 
         // Lifestyle
         mBinding.fitnessLevel.setText(uh.getFitness_level());
-        mBinding.medication.setText(Converter.convertBoolean(uh.getMedication()));
-        mBinding.allergies.setText(Converter.convertBoolean(uh.getAllergies()));
-        mBinding.smoking.setText(Converter.convertBoolean(uh.getSmoking()));
-        mBinding.diabetes.setText(Converter.convertBoolean(uh.getDiabetes()));
+        mBinding.medication.setText(Converter.convertBoolean(getContext(), uh.getMedication()));
+        mBinding.allergies.setText(Converter.convertBoolean(getContext(), uh.getAllergies()));
+        mBinding.smoking.setText(Converter.convertBoolean(getContext(), uh.getSmoking()));
+        mBinding.diabetes.setText(Converter.convertBoolean(getContext(), uh.getDiabetes()));
       }
     });
 

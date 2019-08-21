@@ -37,7 +37,7 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/date"
+            android:text="@string/measurement_date_created"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView
@@ -58,7 +58,7 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/time_started"
+            android:text="@string/measurement_time_started"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
           <TextView

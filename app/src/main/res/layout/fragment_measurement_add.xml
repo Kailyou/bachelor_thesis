@@ -225,7 +225,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_at_begin">
+        android:hint="@string/measurement_glucose_at_begin">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv0"

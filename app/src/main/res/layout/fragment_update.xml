@@ -31,7 +31,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_at_begin">
+        android:hint="@string/measurement_glucose_at_begin">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv0"
@@ -47,7 +47,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_15_min">
+        android:hint="@string/measurement_glucose_after_15_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv15"
@@ -63,7 +63,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_30_min">
+        android:hint="@string/measurement_glucose_after_30_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv30"
@@ -79,7 +79,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_45_min">
+        android:hint="@string/measurement_glucose_after_45_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv45"
@@ -95,7 +95,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_60_min">
+        android:hint="@string/measurement_glucose_after_60_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv60"
@@ -111,7 +111,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_75_min">
+        android:hint="@string/measurement_glucose_after_75_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv75"
@@ -127,7 +127,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_90_min">
+        android:hint="@string/measurement_glucose_after_90_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv90"
@@ -143,7 +143,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_105_min">
+        android:hint="@string/measurement_glucose_after_105_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv105"
@@ -159,7 +159,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:hint="@string/glucose_after_120_min">
+        android:hint="@string/measurement_glucose_after_120_min">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/mv120"

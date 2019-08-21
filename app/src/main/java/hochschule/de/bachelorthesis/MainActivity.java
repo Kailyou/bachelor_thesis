@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.view;
+package hochschule.de.bachelorthesis;
 
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-import hochschule.de.bachelorthesis.R;
 
 
 public class MainActivity extends AppCompatActivity {

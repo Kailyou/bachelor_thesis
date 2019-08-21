@@ -65,7 +65,7 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="@string/time_started"
+          android:text="@string/measurement_time_started"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <TextView
@@ -87,7 +87,7 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="@string/estimated_end_time"
+          android:text="@string/measurement_estimated_end_time"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <TextView
