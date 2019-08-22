@@ -27,6 +27,7 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -38,176 +39,203 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementsFragment extends Fragment {
 
-  private FoodViewModel mViewModel;
+    private FoodViewModel mViewModel;
 
-  private int mFoodId;
+    private int mFoodId;
 
 
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    // View model
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
-        .get(FoodViewModel.class);
+        // View model
+        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+                .get(FoodViewModel.class);
 
-    setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
-    // get passed food id
-    assert getArguments() != null;
-    mFoodId = getArguments().getInt("food_id");
-  }
-
-  @Nullable
-  @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    // Init data binding
-    FragmentMeasurementsBinding binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_measurements, container, false);
-    binding.setLifecycleOwner(getViewLifecycleOwner());
-    binding.setViewModel(mViewModel);
-
-    // RecyclerView
-    RecyclerView recyclerView = binding.recyclerView;
-    recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
-    recyclerView.setHasFixedSize(true);
-
-    // Adapter
-    NavController navController = Navigation
-        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-    final AdapterMeasurements adapter = new AdapterMeasurements(navController);
-
-    recyclerView.setAdapter(adapter);
-
-    // loading the measurement entries
-    mViewModel.getAllMeasurementsById(mFoodId).observe(this, new Observer<List<Measurement>>() {
-      @Override
-      public void onChanged(List<Measurement> measurements) {
-        Measurement header = new Measurement(0, 0, false, "", 0, "", "", false, false, false, false,
-            false,
-            0);
-        measurements.add(0, header);
-        adapter.setMeasurements(measurements);
-      }
-    });
-
-    // fab
-    Bundle bundle = new Bundle();
-    bundle.putInt("food_id", mFoodId);
-    binding.add.setOnClickListener(Navigation
-        .createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement, bundle));
-
-    return binding.getRoot();
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.measurements_menu, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.add_tmp_measurement_unfinished:
-        createTemplateMeasurement(false);
-        return true;
-      case R.id.add_tmp_measurement_finished:
-        createTemplateMeasurement(true);
-        return true;
-      case R.id.delete_measurements:
-        deleteMeasurements();
-        return true;
+        // get passed food id
+        assert getArguments() != null;
+        mFoodId = getArguments().getInt("food_id");
     }
 
-    return super.onOptionsItemSelected(item);
-  }
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // Init data binding
+        FragmentMeasurementsBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.fragment_measurements, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        binding.setViewModel(mViewModel);
 
-  /**
-   * Creates a random measurement, either a unfinished or an unfinished one, depending on the user's
-   * selection.
-   *
-   * @param finished - Measurement unfinished or not
-   */
-  private void createTemplateMeasurement(final boolean finished) {
+        // RecyclerView
+        final RecyclerView recyclerView = binding.recyclerView;
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        recyclerView.setHasFixedSize(true);
 
-    // Load all measurements to check later if all has been finished
-    final LiveData<List<Measurement>> ldMeasurements = mViewModel.getAllMeasurements();
-    ldMeasurements.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-      @Override
-      public void onChanged(List<Measurement> allMeasurements) {
-        ldMeasurements.removeObserver(this);
+        // Adapter
+        // Load the reference food to calculate the GI, so it can be passed to the controller and
+        // displayed in the list
+        mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product").observe(getViewLifecycleOwner(), new Observer<Food>() {
+            @Override
+            public void onChanged(Food food) {
 
-        // Only insert if no other measurement is active right now
-        for (Measurement m : allMeasurements) {
-          if (m.isActive()) {
-            MySnackBar
-                .createSnackBar(getContext(),
-                    "Cannot add measurement because another one is still active!");
+                // Get all measurements for the reference food
+                mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                    @Override
+                    public void onChanged(List<Measurement> measurements) {
+                        NavController navController = Navigation
+                                .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
 
-            return;
-          }
+                        final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController, measurements);
+                        recyclerView.setAdapter(adapter);
+
+                        // loading the measurement entries
+                        mViewModel.getAllMeasurementsById(mFoodId).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                            @Override
+                            public void onChanged(List<Measurement> measurements) {
+                                Measurement header = new Measurement(0, 0, false, "", 0, "", "", false, false, false, false,
+                                        false,
+                                        0);
+                                measurements.add(0, header);
+                                adapter.setMeasurements(measurements);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        // fab
+        Bundle bundle = new Bundle();
+        bundle.putInt("food_id", mFoodId);
+        binding.add.setOnClickListener(Navigation
+                .createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement, bundle));
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.measurements_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_tmp_measurement_unfinished:
+                createTemplateMeasurement(false);
+                return true;
+            case R.id.add_tmp_measurement_finished:
+                createTemplateMeasurement(true);
+                return true;
+            case R.id.delete_measurements:
+                deleteMeasurements();
+                return true;
         }
 
-        // Load user data
-        final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
-        ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
-          @Override
-          public void onChanged(final UserHistory userHistory) {
-            ldu.removeObserver(this);
+        return super.onOptionsItemSelected(item);
+    }
 
-            // Leave if no user data has been set yet
-            if (userHistory == null) {
-              MySnackBar.createSnackBar(getContext(), "Enter user data first!");
-              return;
-            }
+    /**
+     * Creates a random measurement, either a unfinished or an unfinished one, depending on the user's
+     * selection.
+     *
+     * @param finished - Measurement unfinished or not
+     */
+    private void createTemplateMeasurement(final boolean finished) {
 
-            Measurement templateMeasurement;
+        // Load all measurements to check later if all has been finished
+        final LiveData<List<Measurement>> ldMeasurements = mViewModel.getAllMeasurements();
+        ldMeasurements.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+            @Override
+            public void onChanged(List<Measurement> allMeasurements) {
+                ldMeasurements.removeObserver(this);
 
-            // Create either an unfinished or a finished measurement
-            if (finished) {
-              templateMeasurement = Samples.getRandomMeasurement(
-                  Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
-            } else {
-              templateMeasurement = Samples
-                  .getRandomMeasurementUnfinished(Objects.requireNonNull(getContext()), mFoodId,
-                      userHistory.id);
-            }
+                // Only insert if no other measurement is active right now
+                for (Measurement m : allMeasurements) {
+                    if (m.isActive()) {
+                        MySnackBar
+                                .createSnackBar(getContext(),
+                                        "Cannot add measurement because another one is still active!");
 
-            mViewModel.insertMeasurement(templateMeasurement);
-          }
-        });
-      }
-    });
-  }
-
-  /**
-   * Deletes all current measurements for the food.
-   */
-  private void deleteMeasurements() {
-    final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
-    ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
-      @Override
-      public void onChanged(Food food) {
-        ldf.removeObserver(this);
-
-        new AlertDialog.Builder(Objects.requireNonNull(getContext()))
-            .setTitle("Delete Confirmation")
-            .setMessage(
-                "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
-            .setIcon(android.R.drawable.ic_delete)
-            .setPositiveButton(android.R.string.yes, new OnClickListener() {
-
-              public void onClick(DialogInterface dialog, int whichButton) {
-                if (whichButton == -1) {
-                  mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
-                  //mViewModel.updateFood(food); //TODO is this needed?();
+                        return;
+                    }
                 }
-              }
-            })
-            .setNegativeButton(android.R.string.no, null).show();
-      }
-    });
-  }
+
+                // Load user data
+                final LiveData<UserHistory> ldu = mViewModel.getUserHistoryLatest();
+                ldu.observe(getViewLifecycleOwner(), new Observer<UserHistory>() {
+                    @Override
+                    public void onChanged(final UserHistory userHistory) {
+                        ldu.removeObserver(this);
+
+                        // Leave if no user data has been set yet
+                        if (userHistory == null) {
+                            MySnackBar.createSnackBar(getContext(), "Enter user data first!");
+                            return;
+                        }
+
+                        // Load the food
+                        final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+                        ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+                            @Override
+                            public void onChanged(Food food) {
+                                ldf.removeObserver(this);
+
+                                Measurement templateMeasurement;
+
+                                // Create either an unfinished or a finished measurement
+                                // If food is ref product use another sample to get higher values
+                                if (finished) {
+                                    if (food.getFoodName().equals("Glucose")) {
+                                        templateMeasurement = Samples.getRandomGlucoseMeasurement(Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
+                                    } else {
+                                        templateMeasurement = Samples.getRandomMeasurement(
+                                                Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
+                                    }
+                                } else {
+                                    templateMeasurement = Samples
+                                            .getRandomMeasurementUnfinished(Objects.requireNonNull(getContext()), mFoodId,
+                                                    userHistory.id);
+                                }
+
+                                mViewModel.insertMeasurement(templateMeasurement);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Deletes all current measurements for the food.
+     */
+    private void deleteMeasurements() {
+        final LiveData<Food> ldf = mViewModel.getFoodById(mFoodId);
+        ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+            @Override
+            public void onChanged(Food food) {
+                ldf.removeObserver(this);
+
+                new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                        .setTitle("Delete Confirmation")
+                        .setMessage(
+                                "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setPositiveButton(android.R.string.yes, new OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                if (whichButton == -1) {
+                                    mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+                                }
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+            }
+        });
+    }
 }
 

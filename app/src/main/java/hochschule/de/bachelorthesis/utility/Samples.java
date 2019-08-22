@@ -142,4 +142,35 @@ public class Samples {
 
         return randomMeasurement;
     }
+
+    public static Measurement getRandomGlucoseMeasurement(Context context, int foodId, int userHistoryId) {
+        Measurement randomMeasurement = getRandomMeasurementUnfinished(context, foodId, userHistoryId);
+
+        // Random measurement, starting with 100 and ending with 100
+        int[] glucoseValuesRandom = new int[]{
+                100,
+                130,
+                155,
+                180,
+                250,
+                255,
+                235,
+                200,
+                155,
+        };
+
+        randomMeasurement.setAmount(100);
+        randomMeasurement.setGi(true);
+        randomMeasurement.setGlucoseStart(glucoseValuesRandom[0]);
+        randomMeasurement.setGlucose15(glucoseValuesRandom[1]);
+        randomMeasurement.setGlucose30(glucoseValuesRandom[2]);
+        randomMeasurement.setGlucose45(glucoseValuesRandom[3]);
+        randomMeasurement.setGlucose60(glucoseValuesRandom[4]);
+        randomMeasurement.setGlucose75(glucoseValuesRandom[5]);
+        randomMeasurement.setGlucose90(glucoseValuesRandom[6]);
+        randomMeasurement.setGlucose105(glucoseValuesRandom[7]);
+        randomMeasurement.setGlucose120(glucoseValuesRandom[8]);
+
+        return randomMeasurement;
+    }
 }

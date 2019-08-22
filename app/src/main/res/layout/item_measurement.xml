@@ -21,6 +21,16 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
     <TextView
+        android:id="@+id/isGi"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="@string/_120"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+    <TextView
         android:id="@+id/amount"
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="60dp"
@@ -40,18 +50,9 @@
         android:text="@string/_200"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-    <TextView
-        android:id="@+id/avg_glucose"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:gravity="center"
-        android:text="@string/_120"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
     <TextView
-        android:id="@+id/rating"
+        android:id="@+id/gi"
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="60dp"
         android:layout_height="wrap_content"

@@ -2,7 +2,10 @@ package hochschule.de.bachelorthesis.utility;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+
+import hochschule.de.bachelorthesis.room.tables.Measurement;
 
 public class MyMath {
 
@@ -73,6 +76,30 @@ public class MyMath {
         }
 
         return (deltaX / 2) * (values.get(0) + 2 * (sum) + values.get(values.size() - 1));
+    }
+
+    /**
+     * Calculates the GI for a given set of glucose values.
+     *
+     * @param testProductValues - glucose values for a test product
+     * @param refMeasurements   - all measurement values from the reference product (glucose)
+     * @return - Returns the calculated GI, 0 if any list is empty.
+     */
+    public static float calculateGI(ArrayList<Integer> testProductValues, List<Measurement> refMeasurements) {
+        if (testProductValues.size() == 0 || refMeasurements.size() == 0) {
+            return 0;
+        }
+
+        // Add all glucose values from all ref measurements to one list
+        ArrayList<Float> allIntegralsRefs = new ArrayList<>();
+
+        // Calculate all integrals from all measurements
+        for (Measurement m : refMeasurements) {
+            allIntegralsRefs.add(m.getIntegral());
+        }
+
+        // Now use the mean from all calculated integrals for the ref food.
+        return (calculateIntegral(testProductValues) / calculateMeanFromFloats(allIntegralsRefs) * 100);
     }
 
 

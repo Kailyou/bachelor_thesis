@@ -71,6 +71,7 @@ public abstract class FoodDatabase extends RoomDatabase {
       foodDao.insert(Samples.getApple());
       foodDao.insert(Samples.getPizza());
       foodDao.insert(Samples.getCoke());
+
       return null;
     }
   }
