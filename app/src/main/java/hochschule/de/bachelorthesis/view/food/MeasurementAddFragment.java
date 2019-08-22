@@ -3,7 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -300,33 +299,33 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
     private boolean inPutOkay() {
         // checks the text fields
         if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
-            toast("Please select the date.");
+            snackBar("Please select the date.");
             return false;
         }
 
         if (mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
-            toast("Please select a time.");
+            snackBar("Please select a time.");
             return false;
         }
 
         if (mBinding.amount.getText() == null || mBinding.amount.getText().toString().equals("")) {
-            toast("Please enter the amount consumed.");
+            snackBar("Please enter the amount consumed.");
             return false;
         }
 
         // checks the drop down menus
         if (mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
-            toast("Please select the stress level.");
+            snackBar("Please select the stress level.");
             return false;
         }
 
         if (mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
-            toast("Please select the tired level.");
+            snackBar("Please select the tired level.");
             return false;
         }
 
         if (mBinding.mv0.getText() == null || mBinding.mv0.getText().toString().equals("")) {
-            toast("Please select a start glucose value.");
+            snackBar("Please select a start glucose value.");
             return false;
         }
 
@@ -349,10 +348,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
                 // Only insert if no other measurement is active right now
                 for (Measurement m : allMeasurements) {
                     if (m.isActive()) {
-                        MySnackBar
-                                .createSnackBar(getContext(),
-                                        "Cannot add measurement because another one is still active!");
-
+                        snackBar("Cannot add measurement because another one is still active!");
                         return;
                     }
                 }
@@ -366,7 +362,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
 
                         // Return if there are no user data yet
                         if (userHistory == null) {
-                            MySnackBar.createSnackBar(getContext(), "Please enter user data first!");
+                            snackBar("Please enter user data first!");
                             return;
                         }
 
@@ -441,7 +437,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
      *
      * @param msg The message to display in the SnackBar
      */
-    private void toast(String msg) {
-        MySnackBar.createSnackBar(getContext(), msg);
+    private void snackBar(String msg) {
+        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
     }
 }

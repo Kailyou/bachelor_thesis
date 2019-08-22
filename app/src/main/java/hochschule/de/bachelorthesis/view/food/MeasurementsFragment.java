@@ -156,9 +156,7 @@ public class MeasurementsFragment extends Fragment {
                 // Only insert if no other measurement is active right now
                 for (Measurement m : allMeasurements) {
                     if (m.isActive()) {
-                        MySnackBar
-                                .createSnackBar(getContext(),
-                                        "Cannot add measurement because another one is still active!");
+                        snackBar("Cannot add measurement because another one is still active!");
 
                         return;
                     }
@@ -173,7 +171,7 @@ public class MeasurementsFragment extends Fragment {
 
                         // Leave if no user data has been set yet
                         if (userHistory == null) {
-                            MySnackBar.createSnackBar(getContext(), "Enter user data first!");
+                            snackBar("Enter user data first!");
                             return;
                         }
 
@@ -236,6 +234,15 @@ public class MeasurementsFragment extends Fragment {
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
+    }
+
+    /**
+     * Helper function for faster SnackBar creation
+     *
+     * @param msg The message to display in the SnackBar
+     */
+    private void snackBar(String msg) {
+        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
     }
 }
 

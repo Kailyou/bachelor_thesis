@@ -300,27 +300,27 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
     private boolean isInputOkay() {
         // checks the text fields
         if (mBinding.date.getText() == null || mBinding.date.getText().toString().equals("")) {
-            toast("Please select the date.");
+            snackBar("Please select the date.");
             return false;
         }
 
         if (mBinding.time.getText() == null || mBinding.time.getText().toString().equals("")) {
-            toast("Please select the time.");
+            snackBar("Please select the time.");
             return false;
         }
 
         if (mBinding.stress.getText() == null || mBinding.stress.getText().toString().equals("")) {
-            toast("Please select the stress level.");
+            snackBar("Please select the stress level.");
             return false;
         }
 
         if (mBinding.tired.getText() == null || mBinding.tired.getText().toString().equals("")) {
-            toast("Please select the tiredness level.");
+            snackBar("Please select the tiredness level.");
             return false;
         }
 
         if (mBinding.mv0.getText() == null || mBinding.mv0.getText().toString().equals("")) {
-            toast("Please select at least the start glucose value.");
+            snackBar("Please select at least the start glucose value.");
             return false;
         }
 
@@ -437,7 +437,12 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
         return mBinding.date.getText().toString() + "_" + mBinding.time.getText().toString();
     }
 
-    private void toast(String msg) {
-        MySnackBar.createSnackBar(getContext(), msg);
+    /**
+     * Helper function for faster SnackBar creation
+     *
+     * @param msg The message to display in the SnackBar
+     */
+    private void snackBar(String msg) {
+        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
     }
 }
