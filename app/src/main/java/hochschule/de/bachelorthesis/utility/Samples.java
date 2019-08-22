@@ -26,8 +26,8 @@ public class Samples {
 
     public static Food getGlucose() {
         return new Food("Glucose",
-                "",
-                "REF",
+                "Reference Product",
+                "Glucose",
                 400,
                 1676,
                 0,
