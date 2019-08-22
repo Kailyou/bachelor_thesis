@@ -75,6 +75,10 @@ public class MeEditFragment extends Fragment {
     ldu.observe(this, new Observer<UserHistory>() {
       @Override
       public void onChanged(UserHistory uh) {
+        if(uh == null) {
+          return;
+        }
+
         /* Update text views */
 
         updateTextViews(uh.getAge(), uh.getHeight(), uh.getWeight(), uh.getSex(),
