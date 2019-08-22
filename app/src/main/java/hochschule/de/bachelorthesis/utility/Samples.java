@@ -12,6 +12,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This class provides some example data for foods and measurements.
+ * <p>
+ * There will be a total of four sample foods as soon as the APP starts,
+ * the reference product glucose, which is the only one which cannot be deleted since it is needed
+ * for the GI calculation. The other products are: Apple, Pizza and Coke.
+ * <p>
+ * ALso, there can be two sample measurements, unfinished and finished ones. Those are used for
+ * debugging reasons, to be able to create measurements faster.
+ */
 public class Samples {
 
     public static Food getGlucose() {
@@ -27,7 +37,6 @@ public class Samples {
                 100,
                 -1);
     }
-
 
     public static Food getApple() {
         return new Food("Apple",
