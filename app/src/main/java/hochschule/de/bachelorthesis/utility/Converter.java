@@ -1,8 +1,6 @@
 package hochschule.de.bachelorthesis.utility;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -119,8 +117,6 @@ public class Converter {
 
             // Convert to string again and return
             sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
-
-            Log.d("yolo", "convertTimeStampToTimeEnd: result = " + sdf.format(date));
 
             return sdf.format(date);
         } catch (ParseException e) {
