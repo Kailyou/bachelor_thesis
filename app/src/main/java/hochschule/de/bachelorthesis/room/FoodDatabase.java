@@ -67,6 +67,7 @@ public abstract class FoodDatabase extends RoomDatabase {
 
     @Override
     protected Void doInBackground(Void... voids) {
+      foodDao.insert(Samples.getGlucose());
       foodDao.insert(Samples.getApple());
       foodDao.insert(Samples.getPizza());
       foodDao.insert(Samples.getCoke());
