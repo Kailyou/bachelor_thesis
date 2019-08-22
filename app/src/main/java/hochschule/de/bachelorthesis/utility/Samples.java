@@ -14,20 +14,6 @@ import java.util.Locale;
 
 public class Samples {
 
-    public static Food getEmptyFood() {
-        return new Food("",
-                "",
-                "",
-                -1,
-                -1,
-                -1,
-                -1,
-                -1,
-                -1,
-                -1,
-                -1);
-    }
-
     public static Food getGlucose() {
         return new Food("Glucose",
                 "",
