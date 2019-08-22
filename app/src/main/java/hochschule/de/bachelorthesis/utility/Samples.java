@@ -28,6 +28,21 @@ public class Samples {
                 -1);
     }
 
+    public static Food getGlucose() {
+        return new Food("Glucose",
+                "",
+                "REF",
+                400,
+                1676,
+                0,
+                0,
+                0,
+                100,
+                100,
+                -1);
+    }
+
+
     public static Food getApple() {
         return new Food("Apple",
                 "Pink Lady",
