@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -11,17 +12,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
+
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsHostBinding;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
-import java.util.Objects;
 
 public class GraphsHostFragment extends Fragment {
 
   private GraphsViewModel mViewModel;
-  private int mFoodId;
-
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -73,12 +75,10 @@ public class GraphsHostFragment extends Fragment {
 
       switch (i) {
         case 0:
-          GraphsFoodSingleFragment graphsFoodSingleFragment = new GraphsFoodSingleFragment();
-          return graphsFoodSingleFragment;
+          return new GraphsFoodSingleFragment();
 
         case 1:
-          GraphsFoodsFragment graphsFoodsFragment = new GraphsFoodsFragment();
-          return graphsFoodsFragment;
+          return new GraphsFoodsFragment();
 
         default:
           throw new IllegalArgumentException("Unexpected index @FoodInfoActivity");
