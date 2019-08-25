@@ -25,16 +25,16 @@ public class AdapterMeasurements extends
 
     private Context mContext;
 
-    private List<Measurement> mRefMeasurements;
+    private List<Measurement> mMeasurements = new ArrayList<>();
+
+    private List<Measurement> mRefMeasurements = new ArrayList<>();
 
     private NavController mNavController;
 
-    private List<Measurement> mMeasurements = new ArrayList<>();
 
 
-    public AdapterMeasurements(Context context, NavController navController, List<Measurement> refMeasurements) {
+    public AdapterMeasurements(Context context, NavController navController) {
         mContext = context;
-        mRefMeasurements = refMeasurements;
         mNavController = navController;
     }
 
@@ -108,7 +108,12 @@ public class AdapterMeasurements extends
     }
 
     public void setMeasurements(List<Measurement> measurements) {
-        this.mMeasurements = measurements;
+        mMeasurements = measurements;
+        notifyDataSetChanged();
+    }
+
+    public void setmRefMeasurements(List<Measurement> measurements) {
+        mRefMeasurements = measurements;
         notifyDataSetChanged();
     }
 

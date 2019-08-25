@@ -39,6 +39,8 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementsFragment extends Fragment {
 
+    private AdapterMeasurements mAdapter;
+
     private FoodViewModel mViewModel;
 
     private int mFoodId;
@@ -73,34 +75,54 @@ public class MeasurementsFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         recyclerView.setHasFixedSize(true);
 
-        // Adapter
+
+        // loading the measurement entries
+        mViewModel.getAllMeasurementsById(mFoodId).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+            @Override
+            public void onChanged(List<Measurement> measurements) {
+
+                // Should never happen
+                if (measurements == null) {
+                    return;
+                }
+
+                NavController navController = Navigation
+                        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
+
+                mAdapter = new AdapterMeasurements(getContext(), navController);
+                recyclerView.setAdapter(mAdapter);
+
+                Measurement header = new Measurement(0, 0, false, "", 0, "", "", false, false, false, false,
+                        false,
+                        0);
+                measurements.add(0, header);
+                mAdapter.setMeasurements(measurements);
+            }
+        });
+
+
         // Load the reference food to calculate the GI, so it can be passed to the controller and
         // displayed in the list
         mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product").observe(getViewLifecycleOwner(), new Observer<Food>() {
             @Override
-            public void onChanged(Food food) {
+            public void onChanged(Food refFood) {
+
+                // Leave if there is no REF food
+                if (refFood == null) {
+                    return;
+                }
 
                 // Get all measurements for the reference food
-                mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                mViewModel.getAllMeasurementsById(refFood.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
                     @Override
-                    public void onChanged(List<Measurement> measurements) {
-                        NavController navController = Navigation
-                                .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
+                    public void onChanged(List<Measurement> refMeasurements) {
 
-                        final AdapterMeasurements adapter = new AdapterMeasurements(getContext(), navController, measurements);
-                        recyclerView.setAdapter(adapter);
+                        // Leave if there are no REF food measurements.
+                        if (refMeasurements == null) {
+                            return;
+                        }
 
-                        // loading the measurement entries
-                        mViewModel.getAllMeasurementsById(mFoodId).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-                            @Override
-                            public void onChanged(List<Measurement> measurements) {
-                                Measurement header = new Measurement(0, 0, false, "", 0, "", "", false, false, false, false,
-                                        false,
-                                        0);
-                                measurements.add(0, header);
-                                adapter.setMeasurements(measurements);
-                            }
-                        });
+                        mAdapter.setmRefMeasurements(refMeasurements);
                     }
                 });
             }

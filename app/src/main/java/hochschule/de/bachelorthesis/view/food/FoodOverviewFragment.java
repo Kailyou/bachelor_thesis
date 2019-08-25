@@ -77,71 +77,89 @@ public class FoodOverviewFragment extends Fragment {
         assert getArguments() != null;
         final int foodId = getArguments().getInt("food_id");
 
-        // First get the REF food for the GI calculation
-        mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product").observe(getViewLifecycleOwner(), new Observer<Food>() {
+        // Get food from database
+        mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
             @Override
-            public void onChanged(final Food refFood) {
+            public void onChanged(final Food food) {
+                // Leave immediately if there is no food. Usually this should never happen.
+                if (food == null) {
+                    return;
+                }
 
-                // Get all measurements for the ref food
-                mViewModel.getAllMeasurementsById(refFood.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-                    @Override
-                    public void onChanged(final List<Measurement> refMeasurements) {
-                        // Get food from database
-                        mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
+                // Get all measurements for that food
+                mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(),
+                        new Observer<List<Measurement>>() {
                             @Override
-                            public void onChanged(final Food food) {
-                                if (food == null) {
-                                    return;
-                                }
+                            public void onChanged(final List<Measurement> measurements) {
 
-                                // Get all measurements for that food
-                                mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(),
-                                        new Observer<List<Measurement>>() {
+                                // Remove unfinished measurements
+                                Measurement.removeNotFinishedMeasurements(measurements);
+
+                                /* Update text views */
+
+                                // General
+                                mBinding.foodName.setText(food.getFoodName());
+                                mBinding.brandName.setText(food.getBrandName());
+                                mBinding.type.setText(food.getFoodType());
+                                mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
+
+                                // Measurements
+                                mBinding.amount.setText(String.valueOf(measurements.size()));
+
+                                mBinding.glucoseMax
+                                        .setText(String.valueOf(Measurement.getGlucoseMaxFromList(measurements)));
+
+                                mBinding.glucoseAverage.setText(
+                                        String.valueOf((int) Measurement.getGlucoseAverageFromList(measurements)));
+
+                                mBinding.glucoseIncreaseMax.setText(
+                                        String.valueOf(Measurement.getGlucoseIncreaseMaxFromList(measurements))
+                                );
+
+                                mBinding.glucoseIncreaseAvg.setText(
+                                        String
+                                                .valueOf((int) Measurement.getGlucoseIncreaseAverageFromList(measurements))
+                                );
+
+                                mBinding.integral.setText(
+                                        String.valueOf((int) Measurement.getAverageIntegralFromList(measurements)));
+
+                                mBinding.stdev.setText(
+                                        String.valueOf((int) Measurement.getStandardDeviationFromList(measurements)));
+
+
+                                // Get the REF food for the GI calculation
+                                mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product").observe(getViewLifecycleOwner(), new Observer<Food>() {
+                                    @Override
+                                    public void onChanged(final Food refFood) {
+
+                                        // Leave if there is no ref food because there cannot be
+                                        // a GI calculated without ref food.
+                                        if (refFood == null) {
+                                            return;
+                                        }
+
+                                        // Get all measurements for the ref food
+                                        mViewModel.getAllMeasurementsById(refFood.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
                                             @Override
-                                            public void onChanged(final List<Measurement> measurements) {
+                                            public void onChanged(final List<Measurement> refMeasurements) {
+
+                                                // Leave if there is no measurement for a REF food yet.
+                                                if (refMeasurements == null) {
+                                                    return;
+                                                }
+
                                                 // Remove unfinished measurements
-                                                Measurement.removeNotFinishedMeasurements(measurements);
-
-                                                /* Update text views */
-
-                                                // General
-                                                mBinding.foodName.setText(food.getFoodName());
-                                                mBinding.brandName.setText(food.getBrandName());
-                                                mBinding.type.setText(food.getFoodType());
-                                                mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
-
-                                                // Measurements
-                                                mBinding.amount.setText(String.valueOf(measurements.size()));
-
-                                                mBinding.glucoseMax
-                                                        .setText(String.valueOf(Measurement.getGlucoseMaxFromList(measurements)));
-
-                                                mBinding.glucoseAverage.setText(
-                                                        String.valueOf((int) Measurement.getGlucoseAverageFromList(measurements)));
-
-                                                mBinding.glucoseIncreaseMax.setText(
-                                                        String.valueOf(Measurement.getGlucoseIncreaseMaxFromList(measurements))
-                                                );
-
-                                                mBinding.glucoseIncreaseAvg.setText(
-                                                        String
-                                                                .valueOf((int) Measurement.getGlucoseIncreaseAverageFromList(measurements))
-                                                );
-
-                                                mBinding.integral.setText(
-                                                        String.valueOf((int) Measurement.getAverageIntegralFromList(measurements)));
-
-                                                mBinding.stdev.setText(
-                                                        String.valueOf((int) Measurement.getStandardDeviationFromList(measurements)));
+                                                Measurement.removeNotFinishedMeasurements(refMeasurements);
 
                                                 mBinding.personalIndex.setText(
                                                         String.valueOf((int) Measurement.getGIFromList(refMeasurements, measurements)));
                                             }
                                         });
+                                    }
+                                });
                             }
                         });
-                    }
-                });
             }
         });
 
