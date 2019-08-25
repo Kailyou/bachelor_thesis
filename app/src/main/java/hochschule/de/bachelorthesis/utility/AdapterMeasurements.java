@@ -9,16 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
 
 public class AdapterMeasurements extends
         RecyclerView.Adapter<AdapterMeasurements.MeasurementHolder> {

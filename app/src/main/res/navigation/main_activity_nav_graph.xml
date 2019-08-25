@@ -17,6 +17,9 @@
     <action
         android:id="@+id/action_homeFragment_to_legalNotificationsFragment"
         app:destination="@id/legalNotificationsFragment" />
+    <action
+        android:id="@+id/action_homeFragment_to_howToUse"
+        app:destination="@id/howToUse" />
   </fragment>
   <fragment
     android:id="@+id/foodFragment"
@@ -142,6 +145,11 @@
       android:name="hochschule.de.bachelorthesis.view.home.LegalNotificationsFragment"
       android:label="@string/legal_notifications"
       tools:layout="@layout/fragment_legal_notifications" />
+  <fragment
+      android:id="@+id/howToUse"
+      android:name="hochschule.de.bachelorthesis.view.home.HowToUse"
+      android:label="fragment_how_to_use"
+      tools:layout="@layout/fragment_how_to_use" />
 
 </navigation>
 

@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.home;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -86,10 +87,17 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.legal_notifications) {
-            Navigation.findNavController(Objects.requireNonNull(getView()))
-                    .navigate(R.id.action_homeFragment_to_legalNotificationsFragment);
-            return true;
+
+        switch (item.getItemId()) {
+            case R.id.legal_notifications:
+                Navigation.findNavController(Objects.requireNonNull(getView()))
+                        .navigate(R.id.action_homeFragment_to_legalNotificationsFragment);
+                return true;
+
+            case R.id.how_to_use:
+                Navigation.findNavController(Objects.requireNonNull(getView()))
+                        .navigate(R.id.action_homeFragment_to_howToUse);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

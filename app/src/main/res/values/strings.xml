@@ -151,6 +151,33 @@
     <string name="no">No</string>
     <string name="minutes_15">15 minutes</string>
 
+    <string name="how_to_use_header_1">Step 1: Insert user data</string>
+    <string name="how_to_use_header_2">Step 2: Add food to list</string>
+    <string name="how_to_use_header_3">Step 3: Create measurement</string>
+    <string name="how_to_use_header_4">Step 4: Update measurement</string>
+
+    <string name="how_to_use_text_1">The first step always is to enter user data.
+        Without user data being set, you cannot use the APP.
+        This can be easily done by pressing on the "Me" button in the
+        Bottom Navigation followed by the edit button (pencil icon). Then fill out the form and press
+        the save button inside the action bar.</string>
+
+    <string name="how_to_use_text_2">Next step is to add foods to the list. This is required to be
+        able creating measurements for this food. Simply click on the "My Food" button in the Bottom
+        Navigation. Then use the Floating Action Button (+ button), fill out the form and press the
+        save icon in the action bar.</string>
+
+    <string name="how_to_use_text_3">Now measurements can be created for the foods. To achieve that,
+    click on the food item you would like to create measurements for, swipe to "measurements" and
+    click the floating action button (+ button). Fill out the form and press the save button.</string>
+
+    <string name="how_to_use_text_4">Final step is to update the measurement values. Easiest and
+    quickest way to do this is via the Home Screen. Press the Home Button in the Bottom Navigation
+    and then on the update button. Another way to update is by navigating to the created measurement
+    itself (My Foods —> Click on the food —> Swipe to measurements —> Click on the measurement
+    to edit)</string>
+    <string name="how_to_use_this_app">How to use this app</string>
+
     <string-array name="type">
         <item>Grains</item>
         <item>Vegetables</item>
@@ -168,7 +195,6 @@
         <item>A bit stressed</item>
         <item>Not stressed</item>
     </string-array>
-
     <string-array name="tired">
         <item>Very tired</item>
         <item>A bit tired</item>
@@ -179,6 +205,7 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
     <string-array name="fragment_me_spinner_fitness_level">
         <item>low</item>
         <item>average</item>

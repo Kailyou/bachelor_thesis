@@ -140,4 +140,32 @@
     <string name="no">Nein</string>
     <string name="minutes_15">15 Minuten</string>
 
+    <string name="how_to_use_header_1">Schritt 1: Benutzerdaten hinzufügen</string>
+    <string name="how_to_use_header_2">Schritt 2: Lebensmittel zur Liste hinzufügen</string>
+    <string name="how_to_use_header_3">Schritt 3: Messung hinzufügen</string>
+    <string name="how_to_use_header_4">Schritt 4: Messung aktualisieren</string>
+
+    <string name="how_to_use_text_1">Der erste Schritt ist immer die Benutzerdaten hinzuzufügen. Ohne
+        diese, kann die APP nicht weiter verwendet werden. Dies kann schnell über einen Klick auf den
+        "Ich" Knopf in der Bottom Navigation, gefolgt von einem Druck auf den Bearbeiten Knopf (Stift).
+        Das darauf folgende Formular muss ausgefüllt werden und dann der Speicher Knopf in der Action
+        Bar gedrückt werden.</string>
+
+    <string name="how_to_use_text_2">Der nächste Schritt ist das hinzufügen von Lebensmitteln in die
+        Liste. Dies ist erforderlich, damit für dieses Lebensmittel Messungen erzeugt werden können.
+        Es muss auf "Lebensmittel" in der Bottom Navigation gedrückt, dann den Floating Button (+ Knopf)
+        gedrückt, das Formular ausgefüllt und anschließend wieder auf Speichern gedrückt werden.</string>
+
+    <string name="how_to_use_text_3">Nun können Messungen für die Lebensmittel erzeugt werden. Um
+        dies zu erreichen, muss auf das Lebensmittel in der Liste geklickt werden, für welches Messungen
+        angelegt werden möchten. Danach muss der Floating Button (+ Knopf) gedrückt, das Formular
+        ausgefüllt und schließlich wieder auf den Speicher Knopf gedrückt werden.</string>
+
+    <string name="how_to_use_text_4">Der letzte Schritt ist das Aktualisieren der Messwerte. Am
+        einfachsten kann dies über den Startbildschirm erreicht werden. Diesen kann man über den
+        "Start" Knopf in der Bottom Navigation erreichen. Danach muss nur auf "AKTUALISIEREN" Knopf,
+        das Formular ausgefüllt und dann den Speicher Knopf gedrückt werden. Alternativ kann dies auch
+        über die Übersicht der Messungen geschehen (Lebensmittel —> Auf das Lebensmittel drücken
+        —> zu Messungen wächseln —> Auf die zu bearbeitete Messung drücken.</string>
+    <string name="how_to_use_this_app">How to use this app</string>
 </resources>
