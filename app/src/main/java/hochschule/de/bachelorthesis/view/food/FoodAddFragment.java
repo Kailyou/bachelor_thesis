@@ -379,7 +379,6 @@ public class FoodAddFragment extends Fragment {
         if (food.equals(mBinding.selectFood.getText().toString())) {
             buildNewFoodAndUpdateDatabase();
         } else {
-            Log.d("yolo", "isFromDb: false");
             new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                     .setTitle("Are you sure?")
                     .setMessage(
