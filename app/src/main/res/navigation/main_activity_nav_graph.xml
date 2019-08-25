@@ -41,7 +41,7 @@
     android:id="@+id/foodInfoFragment"
     android:label="@string/food_information"
     android:name="hochschule.de.bachelorthesis.view.food.FoodHostFragment"
-    tools:layout="@layout/fragment_food_info">
+    tools:layout="@layout/fragment_food_host">
     <action
       android:id="@+id/action_foodInfoFragment_to_addMeasurement"
       app:destination="@id/addMeasurement"/>
