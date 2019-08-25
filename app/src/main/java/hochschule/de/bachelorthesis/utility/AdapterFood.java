@@ -47,6 +47,7 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
         // Navigate to food info fragment and pass the food's id
         Bundle bundle = new Bundle();
         bundle.putInt("food_id", currentFood.id);
+        bundle.putString("title", currentFood.getFoodName());
         mNavController.navigate(R.id.action_foodFragment_to_foodInfoFragment, bundle);
       }
     });
