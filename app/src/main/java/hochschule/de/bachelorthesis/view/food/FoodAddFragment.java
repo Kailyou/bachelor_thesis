@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +21,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import de.siegmar.fastcsv.reader.CsvParser;
 import de.siegmar.fastcsv.reader.CsvReader;
 import de.siegmar.fastcsv.reader.CsvRow;
@@ -29,13 +37,6 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Parser;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * @author thielenm
@@ -368,8 +369,6 @@ public class FoodAddFragment extends Fragment {
      * Save the food to the database.
      */
     private void save() {
-        boolean isFromDb = false;
-
         String foodName = Objects.requireNonNull(mBinding.foodName.getText()).toString();
         String brandName = Objects.requireNonNull(mBinding.brandName.getText()).toString();
 
@@ -377,21 +376,15 @@ public class FoodAddFragment extends Fragment {
         // and compare them with the entries of the food data list
         String food = foodName + " (" + brandName + ")";
 
-        for (FoodData fd : mFoodData) {
-            if (fd.food.equals(food)) {
-                isFromDb = true;
-            }
-        }
-
-        // If food was taken from DB add it, if not first create a confirmation dialog.
-        if (isFromDb) {
+        if (food.equals(mBinding.selectFood.getText().toString())) {
             buildNewFoodAndUpdateDatabase();
         } else {
+            Log.d("yolo", "isFromDb: false");
             new AlertDialog.Builder(Objects.requireNonNull(getContext()))
-                    .setTitle("Delete Confirmation")
+                    .setTitle("Are you sure?")
                     .setMessage(
                             "It is suggest to choose a food from list, continue?")
-                    .setIcon(android.R.drawable.ic_delete)
+                    .setIcon(android.R.drawable.stat_sys_warning)
                     .setPositiveButton(android.R.string.yes, new OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
