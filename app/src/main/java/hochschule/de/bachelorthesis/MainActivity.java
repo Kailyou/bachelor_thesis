@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
   private static final String TAG = MainActivity.class.getName();
 
   private NavController navController;
-  private BottomNavigationView bottomNav;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     //bottom bar transition + update action bar
     navController = Navigation.findNavController(this, R.id.main_activity_fragment_host);
-    bottomNav = findViewById(R.id.main_activity_bottom_nav);
+    BottomNavigationView bottomNav = findViewById(R.id.main_activity_bottom_nav);
     NavigationUI.setupWithNavController(bottomNav, navController);
     NavigationUI.setupActionBarWithNavController(this, navController);
   }
