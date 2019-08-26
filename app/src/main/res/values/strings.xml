@@ -151,6 +151,19 @@
     <string name="no">No</string>
     <string name="minutes_15">15 minutes</string>
 
+    <!-- Onboarding -->
+    <string name="next">next</string>
+
+    <string name="onboarding_1_header">Welcome :)</string>
+    <string name="onboarding_2_header">Manage user data</string>
+    <string name="onboarding_3_header">Manage foods</string>
+    <string name="onboarding_4_header">Manage measurements</string>
+
+    <string name="onboarding_2_text">Create and manage user data.</string>
+    <string name="onboarding_3_text">Add foods you want to do glucose measurements with to your list.</string>
+    <string name="onboarding_4_text">Create either GI or normal glucose measurements for one food of your list.</string>
+
+    <!-- How to use -->
     <string name="how_to_use_header_1">Step 1: Insert user data</string>
     <string name="how_to_use_header_2">Step 2: Add food to list</string>
     <string name="how_to_use_header_3">Step 3: Create measurement</string>
@@ -177,6 +190,12 @@
     itself (My Foods —> Click on the food —> Swipe to measurements —> Click on the measurement
     to edit)</string>
     <string name="how_to_use_this_app">How to use this app</string>
+    <string name="back">back</string>
+    <string name="_2_4" translatable="false">2/4</string>
+    <string name="_1_3" translatable="false">1/3</string>
+    <string name="done">done</string>
+    <string name="_3_3" translatable="false">3/3</string>
+    <string name="_2_3" translatable="false">2/3</string>
 
     <string-array name="type">
         <item>Grains</item>
@@ -195,6 +214,7 @@
         <item>A bit stressed</item>
         <item>Not stressed</item>
     </string-array>
+
     <string-array name="tired">
         <item>Very tired</item>
         <item>A bit tired</item>

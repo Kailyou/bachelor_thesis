@@ -140,6 +140,19 @@
     <string name="no">Nein</string>
     <string name="minutes_15">15 Minuten</string>
 
+    <!-- Onboarding -->
+    <string name="next">nächste</string>
+
+    <string name="onboarding_1_header">Willkommen :)</string>
+    <string name="onboarding_2_header">Verwalte Benutzerdaten</string>
+    <string name="onboarding_3_header">Verwalte Lebensmittel</string>
+    <string name="onboarding_4_header">Verwalte Messungen</string>
+
+    <string name="onboarding_2_text">Erstelle und verwalte Benutzerdaten.</string>
+    <string name="onboarding_3_text">Füge die Lebensmittel, für die du Messungen anlegen möchtest deiner Liste hinzu.</string>
+    <string name="onboarding_4_text">Erstelle entweder GI oder normale Blutzuckermessungen für ein Lebensmittel aus deiner Liste.</string>
+
+    <!-- How to use -->
     <string name="how_to_use_header_1">Schritt 1: Benutzerdaten hinzufügen</string>
     <string name="how_to_use_header_2">Schritt 2: Lebensmittel zur Liste hinzufügen</string>
     <string name="how_to_use_header_3">Schritt 3: Messung hinzufügen</string>
@@ -168,4 +181,6 @@
         über die Übersicht der Messungen geschehen (Lebensmittel —> Auf das Lebensmittel drücken
         —> zu Messungen wächseln —> Auf die zu bearbeitete Messung drücken.</string>
     <string name="how_to_use_this_app">How to use this app</string>
+    <string name="done">fertig</string>
+    <string name="back">zurück</string>
 </resources>

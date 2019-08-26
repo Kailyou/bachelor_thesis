@@ -20,6 +20,9 @@
     <action
         android:id="@+id/action_homeFragment_to_howToUse"
         app:destination="@id/howToUse" />
+    <action
+        android:id="@+id/action_homeFragment_to_onboardingHostFragment"
+        app:destination="@id/onboardingHostFragment" />
   </fragment>
   <fragment
     android:id="@+id/foodFragment"
@@ -150,6 +153,10 @@
       android:name="hochschule.de.bachelorthesis.view.home.HowToUse"
       android:label="fragment_how_to_use"
       tools:layout="@layout/fragment_how_to_use" />
-
+  <fragment
+      android:id="@+id/onboardingHostFragment"
+      android:name="hochschule.de.bachelorthesis.view.onboarding.OnboardingHostFragment"
+      android:label="Welcome :)"
+      tools:layout="@layout/fragment_onboarding_host" />
 </navigation>
 

@@ -1,6 +1,7 @@
 package hochschule.de.bachelorthesis.view.home;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import hochschule.de.bachelorthesis.databinding.FragmentHomeBinding;
+import hochschule.de.bachelorthesis.databinding.FragmentHowToUseBinding;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -44,23 +46,22 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 
-public class HomeFragment extends Fragment {
+import static android.content.Context.MODE_PRIVATE;
 
-    private HomeViewModel mViewModel;
+public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
 
+    private HomeViewModel mViewModel;
+
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Change title
-        Objects.requireNonNull(getActivity()).setTitle("Home");
 
         // Enable menu
         setHasOptionsMenu(true);
 
         // View model
-        mViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
+        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(HomeViewModel.class);
     }
 
     @Nullable
@@ -68,16 +69,32 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        // Init data binding
         mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_home, container, false);
-        mBinding.setLifecycleOwner(this);
-
         loadActiveMeasurement();
-
+        mBinding.setLifecycleOwner(this);
         return mBinding.getRoot();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("app_first_run", MODE_PRIVATE);
+
+        // for test
+        Navigation.findNavController(Objects.requireNonNull(getView()))
+                .navigate(R.id.action_homeFragment_to_onboardingHostFragment);
+
+        /*
+        // Navigate to how to use fragment on first use
+        if (prefs.getBoolean("first_run", true)) {
+            Navigation.findNavController(Objects.requireNonNull(getView()))
+                    .navigate(R.id.action_homeFragment_to_onboardingHostFragment);
+            prefs.edit().putBoolean("first_run", false).apply();
+        }
+        */
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -95,8 +112,7 @@ public class HomeFragment extends Fragment {
                 return true;
 
             case R.id.how_to_use:
-                Navigation.findNavController(Objects.requireNonNull(getView()))
-                        .navigate(R.id.action_homeFragment_to_howToUse);
+
                 return true;
         }
 
