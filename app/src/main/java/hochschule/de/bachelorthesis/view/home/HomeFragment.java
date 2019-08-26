@@ -82,18 +82,12 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("app_first_run", MODE_PRIVATE);
 
-        // for test
-        Navigation.findNavController(Objects.requireNonNull(getView()))
-                .navigate(R.id.action_homeFragment_to_onboardingHostFragment);
-
-        /*
-        // Navigate to how to use fragment on first use
+        // Navigate to onboarding fragment on first use
         if (prefs.getBoolean("first_run", true)) {
             Navigation.findNavController(Objects.requireNonNull(getView()))
                     .navigate(R.id.action_homeFragment_to_onboardingHostFragment);
             prefs.edit().putBoolean("first_run", false).apply();
         }
-        */
     }
 
     @Override

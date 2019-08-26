@@ -157,6 +157,10 @@
       android:id="@+id/onboardingHostFragment"
       android:name="hochschule.de.bachelorthesis.view.onboarding.OnboardingHostFragment"
       android:label="Welcome :)"
-      tools:layout="@layout/fragment_onboarding_host" />
+      tools:layout="@layout/fragment_onboarding_host" >
+    <action
+        android:id="@+id/action_onboardingHostFragment_to_homeFragment"
+        app:destination="@id/homeFragment" />
+  </fragment>
 </navigation>
 
