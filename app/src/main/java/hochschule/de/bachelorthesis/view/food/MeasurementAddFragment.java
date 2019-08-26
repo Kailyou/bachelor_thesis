@@ -403,13 +403,7 @@ public class MeasurementAddFragment extends Fragment implements DatePickerDialog
                                 );
 
                                 mViewModel.insertMeasurement(newMeasurement);
-
-                                // Navigate back to me fragment
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("food_id", mFoodId);
-
-                                Navigation.findNavController(Objects.requireNonNull(getView()))
-                                        .navigate(R.id.action_addMeasurement_to_foodInfoFragment, bundle);
+                                snackBar("Added measurement!");
                             }
                         });
                     }
