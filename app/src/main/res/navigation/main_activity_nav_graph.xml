@@ -151,7 +151,7 @@
   <fragment
       android:id="@+id/howToUse"
       android:name="hochschule.de.bachelorthesis.view.home.HowToUse"
-      android:label="fragment_how_to_use"
+      android:label="How to use this app"
       tools:layout="@layout/fragment_how_to_use" />
   <fragment
       android:id="@+id/onboardingHostFragment"

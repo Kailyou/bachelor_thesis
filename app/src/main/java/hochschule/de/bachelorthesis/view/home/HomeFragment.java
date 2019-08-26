@@ -106,7 +106,8 @@ public class HomeFragment extends Fragment {
                 return true;
 
             case R.id.how_to_use:
-
+                Navigation.findNavController(Objects.requireNonNull(getView()))
+                        .navigate(R.id.action_homeFragment_to_howToUse);
                 return true;
         }
 
