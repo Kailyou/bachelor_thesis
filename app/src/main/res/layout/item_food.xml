@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/food_item_food_name" />
 
     <TextView
-        android:id="@+id/food_item_meta_text"
+        android:id="@+id/food_item_gi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="31dp"

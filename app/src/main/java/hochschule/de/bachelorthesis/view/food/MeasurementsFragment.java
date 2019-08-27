@@ -34,7 +34,7 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementsBinding;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.utility.AdapterMeasurements;
+import hochschule.de.bachelorthesis.adapter.AdapterMeasurements;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementsFragment extends Fragment {
@@ -92,9 +92,9 @@ public class MeasurementsFragment extends Fragment {
                 mAdapter = new AdapterMeasurements(getContext(), navController);
                 recyclerView.setAdapter(mAdapter);
 
-                Measurement header = new Measurement(0, 0, false, "", 0, "", "", false, false, false, false,
-                        false,
-                        0);
+                // Add a header element and set it to the start on the list,
+                // so the adapter can use index 0 and build a header line with.
+                Measurement header = Samples.getEmptyMesurement();
                 measurements.add(0, header);
                 mAdapter.setMeasurements(measurements);
             }
@@ -122,7 +122,7 @@ public class MeasurementsFragment extends Fragment {
                             return;
                         }
 
-                        mAdapter.setmRefMeasurements(refMeasurements);
+                        mAdapter.setRefMeasurements(refMeasurements);
                     }
                 });
             }

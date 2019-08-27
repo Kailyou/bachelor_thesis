@@ -18,8 +18,11 @@ import android.view.ViewGroup;
 
 import androidx.lifecycle.LiveData;
 
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
 import hochschule.de.bachelorthesis.utility.Samples;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -34,10 +37,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
-import hochschule.de.bachelorthesis.utility.AdapterFood;
+import hochschule.de.bachelorthesis.adapter.AdapterFood;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
-import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
 
 /**
  * @author thielenm
@@ -57,9 +59,9 @@ import hochschule.de.bachelorthesis.widget.BetterFloatingActionButton;
  */
 public class FoodsFragment extends Fragment {
 
-    private FoodViewModel mViewModel;
+    private FragmentFoodBinding mBinding;
 
-    private BetterFloatingActionButton mFab;
+    private FoodViewModel mViewModel;
 
     private AdapterFood mAdapter;
 
@@ -79,40 +81,24 @@ public class FoodsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Init data binding
-        FragmentFoodBinding binding = DataBindingUtil
-                .inflate(inflater, R.layout.fragment_food, container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-
-        mFab = binding.buttonAddNote;
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
+        mBinding.setLifecycleOwner(getViewLifecycleOwner());
 
         // Adapter
         NavController mNavController = Navigation
                 .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
 
-        mAdapter = new AdapterFood(mNavController);
+        mAdapter = new AdapterFood(getContext(), mNavController);
 
         // RecyclerView
-        RecyclerView recyclerView = binding.recyclerView;
+        RecyclerView recyclerView = mBinding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
-        mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
-            @Override
-            public void onChanged(List<Food> foods) {
-                sortFoodList("alphanumeric", mAdapter, foods);
-            }
-        });
+        handleListeners();
 
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mFab.setOnClickListener(
-                Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
+        return mBinding.getRoot();
     }
 
     @Override
@@ -144,7 +130,9 @@ public class FoodsFragment extends Fragment {
                 new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                         .setTitle("Delete Confirmation")
                         .setMessage(
-                                "You are about to delete this measurement.\n\nIt cannot be restored at a later time!\n\nContinue?")
+                                "You are about to delete this measurement." +
+                                        "\n\nIt cannot be restored at a later time!" +
+                                        "\n\nContinue?")
                         .setIcon(android.R.drawable.ic_delete)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -162,6 +150,79 @@ public class FoodsFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void handleListeners() {
+        // floating action button
+        mBinding.buttonAddNote.setOnClickListener(
+                Navigation.createNavigateOnClickListener(R.id.action_foodFragment_to_addFood));
+
+        loadDataForAdapter();
+    }
+
+    private void loadDataForAdapter() {
+
+        ArrayList<FoodObject> foodObects = new ArrayList<>();
+
+        // LOAD ALL FOODS
+        mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(final List<Food> foods) {
+
+                boolean refFoodFound = false;
+
+                // Check if a REF food is existing
+                for (Food f : foods) {
+                    if (f.getBrandName().equals("Reference Food")) {
+                        refFoodFound = true;
+                    }
+                }
+
+                // LOAD ALL MEASUREMENTS FOR
+
+                // If a ref food exists, GI calculation will be done before everything can
+                // be passed to the adapter.
+                if (refFoodFound) {
+
+                    final ArrayList<FoodObject> allFoodObjects = new ArrayList<>();
+
+                    // LOAD ALL MEASUREMENTS FROM ALL FOODS FOR GI CALCULATION
+                    for (final Food f : foods) {
+                        final LiveData<List<Measurement>> ldm = mViewModel.getAllMeasurementsById(f.id);
+                        ldm.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                            @Override
+                            public void onChanged(List<Measurement> measurements) {
+                                ldm.removeObserver(this);
+
+                                /*
+                                FoodObject tmp = new FoodObject(f.getFoodName(), f.getBrandName(),
+                                        measurements, 0);
+
+                                allFoodObjects.add(tmp);
+                                */
+                            }
+                        });
+                    }
+
+                    // If the amount of elements in the food object list is equal to the
+                    // amount of foods loaded, every object has been saved
+                    if (allFoodObjects.size() == foods.size()) {
+
+                    }
+
+                } else {
+                    // sort the list and
+                    sortFoodList("alphanumeric", foods);
+                    // Add a header element and set it to the start on the list,
+                    // so the adapter can use index 0 and build a header line with.
+                    Food header = Samples.getEmptyFood();
+                    foods.add(0, header);
+                    // Pass only the food list to the adapter. The adapter class will need
+                    // to check if the others are null.
+                    mAdapter.setFoods(foods);
+                }
+            }
+        });
+    }
+
     /**
      * Will sort the food list alphanumeric
      */
@@ -171,22 +232,22 @@ public class FoodsFragment extends Fragment {
             @Override
             public void onChanged(List<Food> foods) {
                 ldf.removeObserver(this);
-                sortFoodList("alphanumeric", mAdapter, foods);
+                sortFoodList("alphanumeric", foods);
             }
         });
     }
 
     /**
-     * Create a comperator depending on how to sort the list, sort the list and pass the list to the
+     * Create a comparator depending on how to sort the list, sort the list and pass the list to the
      * adapter, which will cause the list to be visible.
      *
      * @param sortType How to sort the list
-     * @param adapter  The list adapter
-     * @param list     The food list
+     * @param foods    The food list
      */
-    private void sortFoodList(String sortType, AdapterFood adapter, List<Food> list) {
+    private void sortFoodList(String sortType, List<Food> foods) {
         Comparator<Food> comparator = null;
 
+        // Create a comparator depending of the given parameter
         if (sortType.equals("alphanumeric")) {
             comparator = new Comparator<Food>() {
                 @Override
@@ -197,8 +258,7 @@ public class FoodsFragment extends Fragment {
         }
 
         if (comparator != null) {
-            Collections.sort(list, comparator);
-            mAdapter.setFoods(list);
+            Collections.sort(foods, comparator);
         }
     }
 }

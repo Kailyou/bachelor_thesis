@@ -50,7 +50,6 @@
         android:text="@string/_200"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-
     <TextView
         android:id="@+id/gi"
         style="@style/TextAppearance.MaterialComponents.Body1"

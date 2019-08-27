@@ -1,7 +1,8 @@
-package hochschule.de.bachelorthesis.utility;
+package hochschule.de.bachelorthesis.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.Converter;
 
 public class AdapterMeasurements extends
         RecyclerView.Adapter<AdapterMeasurements.MeasurementHolder> {
@@ -28,7 +30,6 @@ public class AdapterMeasurements extends
     private List<Measurement> mRefMeasurements = new ArrayList<>();
 
     private NavController mNavController;
-
 
 
     public AdapterMeasurements(Context context, NavController navController) {
@@ -80,10 +81,20 @@ public class AdapterMeasurements extends
         holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
 
         // Either calculate the GI or set the text as N/A
-        if (currentMeasurement.isGi())
-            holder.gi.setText(String.valueOf((int) currentMeasurement.getGi(mRefMeasurements)));
-        else
+        if (currentMeasurement.isGi()) {
+            int gi = (int) currentMeasurement.getGi(mRefMeasurements);
+            holder.gi.setText(String.valueOf(gi));
+            // Set text color depending of the GI result
+            if (gi < 55)
+                holder.gi.setTextColor(mContext.getResources().getColor(R.color.gi_low));
+            else if (gi < 71)
+                holder.gi.setTextColor(mContext.getResources().getColor(R.color.gi_mid));
+            else
+                holder.gi.setTextColor(mContext.getResources().getColor(R.color.gi_high));
+        } else
             holder.gi.setText("N/A");
+
+        holder.gi.setTypeface(null, Typeface.BOLD);
 
         // Click event for the card views, which will start a new activity (FoodInfoActivity)
         final Bundle bundle = new Bundle();
@@ -110,7 +121,7 @@ public class AdapterMeasurements extends
         notifyDataSetChanged();
     }
 
-    public void setmRefMeasurements(List<Measurement> measurements) {
+    public void setRefMeasurements(List<Measurement> measurements) {
         mRefMeasurements = measurements;
         notifyDataSetChanged();
     }

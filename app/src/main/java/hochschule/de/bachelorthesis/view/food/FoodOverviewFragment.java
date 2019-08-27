@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -122,7 +123,7 @@ public class FoodOverviewFragment extends Fragment {
                                 );
 
                                 mBinding.integral.setText(
-                                        String.valueOf((int) Measurement.getAverageIntegralFromList(measurements)));
+                                        String.valueOf((int) Measurement.getIntegralFromList(measurements)));
 
                                 mBinding.stdev.setText(
                                         String.valueOf((int) Measurement.getStandardDeviationFromList(measurements)));
@@ -152,8 +153,19 @@ public class FoodOverviewFragment extends Fragment {
                                                 // Remove unfinished measurements
                                                 Measurement.removeNotFinishedMeasurements(refMeasurements);
 
-                                                mBinding.personalIndex.setText(
-                                                        String.valueOf((int) Measurement.getGIFromList(refMeasurements, measurements)));
+                                                int gi = (int) Measurement.getGIFromList(refMeasurements, measurements);
+
+                                                mBinding.personalIndex.setText(String.valueOf((gi)));
+
+                                                // Set text color depending of the GI result
+                                                if (gi < 55)
+                                                    mBinding.personalIndex.setTextColor(getResources().getColor(R.color.gi_low));
+                                                else if (gi < 71)
+                                                    mBinding.personalIndex.setTextColor(getResources().getColor(R.color.gi_mid));
+                                                else
+                                                    mBinding.personalIndex.setTextColor(getResources().getColor(R.color.gi_high));
+
+                                                mBinding.personalIndex.setTypeface(null, Typeface.BOLD);
                                             }
                                         });
                                     }

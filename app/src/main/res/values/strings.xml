@@ -94,7 +94,7 @@
     <string name="add_coke_debug">Add Coke (Debug)</string>
     <string name="add_pizza_debug">Add Pizza (Debug)</string>
     <string name="add_apple_debug">Add Apple (Debug)</string>
-    <string name="delete_all_foods">Delete all foods</string>
+    <string name="delete_all_foods">Delete all mFoods</string>
     <string name="delete_food">Delete Food</string>
     <string name="time_min">Time (min)</string>
     <string name="glucose_mg_dl">Glucose (mg/dl)</string>
@@ -146,7 +146,7 @@
     <string name="measurement">Measurement</string>
     <string name="edit_food">Edit Food</string>
     <string name="single_food">Single food</string>
-    <string name="all_foods">All foods</string>
+    <string name="all_foods">All mFoods</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="minutes_15">15 minutes</string>
@@ -156,11 +156,11 @@
 
     <string name="onboarding_1_header">Welcome :)</string>
     <string name="onboarding_2_header">Manage user data</string>
-    <string name="onboarding_3_header">Manage foods</string>
+    <string name="onboarding_3_header">Manage mFoods</string>
     <string name="onboarding_4_header">Manage measurements</string>
 
     <string name="onboarding_2_text">Create and manage user data.</string>
-    <string name="onboarding_3_text">Add foods you want to do glucose measurements with to your list.</string>
+    <string name="onboarding_3_text">Add mFoods you want to do glucose measurements with to your list.</string>
     <string name="onboarding_4_text">Create either GI or normal glucose measurements for one food of your list.</string>
 
     <!-- How to use -->
@@ -175,12 +175,12 @@
         Bottom Navigation followed by the edit button (pencil icon). Then fill out the form and press
         the save button inside the action bar.</string>
 
-    <string name="how_to_use_text_2">Next step is to add foods to the list. This is required to be
+    <string name="how_to_use_text_2">Next step is to add mFoods to the list. This is required to be
         able creating measurements for this food. Simply click on the "My Food" button in the Bottom
         Navigation. Then use the Floating Action Button (+ button), fill out the form and press the
         save icon in the action bar.</string>
 
-    <string name="how_to_use_text_3">Now measurements can be created for the foods. To achieve that,
+    <string name="how_to_use_text_3">Now measurements can be created for the mFoods. To achieve that,
     click on the food item you would like to create measurements for, swipe to "measurements" and
     click the floating action button (+ button). Fill out the form and press the save button.</string>
 
@@ -196,6 +196,9 @@
     <string name="done">done</string>
     <string name="_3_3" translatable="false">3/3</string>
     <string name="_2_3" translatable="false">2/3</string>
+    <string name="gi">GI</string>
+    <string name="food">Food</string>
+    <string name="max_increase_glucose_overall">Max increase glucose (overall)</string>
 
     <string-array name="type">
         <item>Grains</item>

@@ -1,5 +1,7 @@
 package hochschule.de.bachelorthesis.utility;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -206,13 +208,14 @@ public class MyMath {
      * @return The variance.
      */
     private static float calculateVariance(ArrayList<Integer> values) {
-        float average = calculateMeanFromIntegers(values);
+        float mean = calculateMeanFromIntegers(values);
         float temp = 0f;
+
         for (Integer i : values) {
-            temp += (i - average) * (i - average);
+            temp += (i - mean) * (i - mean);
         }
 
-        return temp / values.size() - 1;
+        return temp / (values.size() - 1);
     }
 
     public static float calculateStandardDeviation(ArrayList<Integer> values) {
