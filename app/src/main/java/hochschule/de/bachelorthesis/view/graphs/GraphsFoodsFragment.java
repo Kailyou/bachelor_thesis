@@ -150,7 +150,7 @@ public class GraphsFoodsFragment extends Fragment {
                                             Measurement.getGlucoseIncreaseAverageFromList(measurements),
                                             Measurement.getGlucoseMaxFromList(measurements),
                                             Measurement.getGlucoseAverageFromList(measurements),
-                                            Measurement.getAverageIntegralFromList(measurements),
+                                            Measurement.getIntegralFromList(measurements),
                                             Measurement.getStandardDeviationFromList(measurements));
 
                                     mFoodData.add(foodData);
