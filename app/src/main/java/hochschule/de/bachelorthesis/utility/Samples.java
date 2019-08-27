@@ -24,6 +24,25 @@ import java.util.Locale;
  */
 public class Samples {
 
+    /**
+     * Empty Food object is used for the header line in the food list.
+     *
+     * @return An empty food object.
+     */
+    public static Food getEmptyFood() {
+        return new Food("",
+                "",
+                "",
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1);
+    }
+
     public static Food getGlucose() {
         return new Food("Glucose",
                 "Reference Product",
@@ -78,6 +97,15 @@ public class Samples {
                 10.6f,
                 10.6f,
                 0f);
+    }
+
+    /**
+     * Empty Measurement object is used for the header line in the measurement list.
+     *
+     * @return An empty measurement object.
+     */
+    public static Measurement getEmptyMesurement() {
+        return new Measurement(-1, -1, false, "", -1, "", "", false, false, false, false, false, -1);
     }
 
     public static Measurement getRandomMeasurementUnfinished(Context context, int foodId,
