@@ -226,26 +226,29 @@ public class Measurement {
     private ArrayList<Integer> getAllGlucoseValuesAsList(int type) {
         ArrayList<Integer> res = new ArrayList<>();
 
-        if (type == 0) {
-            res.add(0); // start - start
-            res.add(glucose15 - glucoseStart);
-            res.add(glucose30 - glucoseStart);
-            res.add(glucose45 - glucoseStart);
-            res.add(glucose60 - glucoseStart);
-            res.add(glucose75 - glucoseStart);
-            res.add(glucose90 - glucoseStart);
-            res.add(glucose105 - glucoseStart);
-            res.add(glucose120 - glucoseStart);
-        } else {
-            res.add(glucoseStart);
-            res.add(glucose15);
-            res.add(glucose30);
-            res.add(glucose45);
-            res.add(glucose60);
-            res.add(glucose75);
-            res.add(glucose90);
-            res.add(glucose105);
-            res.add(glucose120);
+        switch (type) {
+            case 0:
+                res.add(0); // start - start
+                res.add(glucose15 - glucoseStart);
+                res.add(glucose30 - glucoseStart);
+                res.add(glucose45 - glucoseStart);
+                res.add(glucose60 - glucoseStart);
+                res.add(glucose75 - glucoseStart);
+                res.add(glucose90 - glucoseStart);
+                res.add(glucose105 - glucoseStart);
+                res.add(glucose120 - glucoseStart);
+                break;
+            case 1:
+                res.add(glucoseStart);
+                res.add(glucose15);
+                res.add(glucose30);
+                res.add(glucose45);
+                res.add(glucose60);
+                res.add(glucose75);
+                res.add(glucose90);
+                res.add(glucose105);
+                res.add(glucose120);
+                break;
         }
 
         return res;
