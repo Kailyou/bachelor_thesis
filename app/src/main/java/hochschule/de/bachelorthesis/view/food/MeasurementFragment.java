@@ -203,7 +203,6 @@ public class MeasurementFragment extends Fragment {
         mBinding.glucoseMax.setText(String.valueOf(mo.getGlucoseMax()));
         mBinding.glucoseAverage.setText(String.valueOf(mo.getGlucoseAvg()));
         mBinding.glucoseIncreaseMax.setText(String.valueOf(mo.getGlucoseIncreaseMax()));
-        mBinding.integral.setText(String.valueOf(mo.getIntegral()));
         mBinding.standardDeviation.setText(String.valueOf(mo.getStandardDeviation()));
 
         // Set text color depending of the GI result

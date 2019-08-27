@@ -167,18 +167,6 @@ public class Samples {
 
         switch (type) {
             case LOW:
-                glucoseRandomValues[1] = MyMath.getRandomInt(101, 106);
-                glucoseRandomValues[2] = MyMath.getRandomInt(107, 112);
-                glucoseRandomValues[3] = MyMath.getRandomInt(113, 118);
-                glucoseRandomValues[4] = MyMath.getRandomInt(120, 125);
-                glucoseRandomValues[5] = MyMath.getRandomInt(113, 118);
-                glucoseRandomValues[6] = MyMath.getRandomInt(107, 112);
-                glucoseRandomValues[7] = MyMath.getRandomInt(101, 106);
-                glucoseRandomValues[8] = 100;
-
-                break;
-
-            case MID:
                 glucoseRandomValues[1] = MyMath.getRandomInt(108, 113);
                 glucoseRandomValues[2] = MyMath.getRandomInt(120, 125);
                 glucoseRandomValues[3] = MyMath.getRandomInt(133, 138);
@@ -187,9 +175,10 @@ public class Samples {
                 glucoseRandomValues[6] = MyMath.getRandomInt(120, 125);
                 glucoseRandomValues[7] = MyMath.getRandomInt(108, 113);
                 glucoseRandomValues[8] = MyMath.getRandomInt(100, 107);
+
                 break;
 
-            case HIGH:
+            case MID:
                 glucoseRandomValues[1] = MyMath.getRandomInt(120, 125);
                 glucoseRandomValues[2] = MyMath.getRandomInt(145, 150);
                 glucoseRandomValues[3] = MyMath.getRandomInt(170, 175);
@@ -198,6 +187,17 @@ public class Samples {
                 glucoseRandomValues[6] = MyMath.getRandomInt(145, 150);
                 glucoseRandomValues[7] = MyMath.getRandomInt(120, 125);
                 glucoseRandomValues[8] = MyMath.getRandomInt(100, 119);
+                break;
+
+            case HIGH:
+                glucoseRandomValues[1] = MyMath.getRandomInt(130, 135);
+                glucoseRandomValues[2] = MyMath.getRandomInt(160, 165);
+                glucoseRandomValues[3] = MyMath.getRandomInt(200, 205);
+                glucoseRandomValues[4] = MyMath.getRandomInt(200, 225);
+                glucoseRandomValues[5] = MyMath.getRandomInt(200, 205);
+                glucoseRandomValues[6] = MyMath.getRandomInt(160, 165);
+                glucoseRandomValues[7] = MyMath.getRandomInt(130, 135);
+                glucoseRandomValues[8] = MyMath.getRandomInt(100, 134);
                 break;
 
             case REF:

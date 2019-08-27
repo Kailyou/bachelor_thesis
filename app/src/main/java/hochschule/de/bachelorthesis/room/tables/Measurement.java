@@ -265,12 +265,12 @@ public class Measurement {
      * done, return 0.
      */
     public int getGlucoseIncreaseMax() {
-        ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(0);
+        ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
 
         if (glucoseValues == null) {
             return 0;
         } else {
-            return MyMath.calculateMaxFromIntList(glucoseValues);
+            return MyMath.calculateMaxFromIntList(glucoseValues) - glucoseStart;
         }
     }
 
@@ -328,7 +328,7 @@ public class Measurement {
      * is not done, return 0.
      */
     public float getGi(List<Measurement> refMeasurements) {
-        return MyMath.calculateGI(getAllGlucoseValuesAsList(1), refMeasurements);
+        return MyMath.calculateGI(getAllGlucoseValuesAsList(0), refMeasurements);
     }
 
 

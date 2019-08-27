@@ -121,27 +121,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/integral"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                    <TextView
-                        android:id="@+id/integral"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
                         android:text="@string/gi"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
@@ -385,7 +364,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="end"
-                        android:layout_marginBottom="100dp"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
@@ -649,7 +627,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp">
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="100dp">
 
                     <TextView
                         android:layout_width="wrap_content"
