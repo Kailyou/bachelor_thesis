@@ -9,6 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import hochschule.de.bachelorthesis.room.daos.FoodDao;
+import hochschule.de.bachelorthesis.room.daos.MeasurementDao;
+import hochschule.de.bachelorthesis.room.daos.UserHistoryDao;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;

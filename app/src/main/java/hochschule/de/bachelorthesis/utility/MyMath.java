@@ -111,6 +111,7 @@ public class MyMath {
      */
     public static float calculateMeanFromIntegers(ArrayList<Integer> values) {
         float average = 0.0f;
+
         for (int i = 0; i < values.size(); i++) {
             average += values.get(i);
         }

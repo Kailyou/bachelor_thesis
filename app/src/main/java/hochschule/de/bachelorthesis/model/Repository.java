@@ -2,17 +2,15 @@ package hochschule.de.bachelorthesis.model;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import androidx.annotation.MainThread;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
-import hochschule.de.bachelorthesis.room.MeasurementDao;
-import hochschule.de.bachelorthesis.room.UserHistoryDao;
+import hochschule.de.bachelorthesis.room.daos.MeasurementDao;
+import hochschule.de.bachelorthesis.room.daos.UserHistoryDao;
 import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.FoodDao;
+import hochschule.de.bachelorthesis.room.daos.FoodDao;
 import hochschule.de.bachelorthesis.room.FoodDatabase;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;

@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.room;
+package hochschule.de.bachelorthesis.room.daos;
 
 import androidx.annotation.MainThread;
 import java.util.List;
