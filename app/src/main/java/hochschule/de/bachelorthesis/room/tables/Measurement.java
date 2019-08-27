@@ -596,7 +596,7 @@ public class Measurement {
 
         ArrayList<Float> allGis = new ArrayList<>();
 
-        // Calculate the standard deviation for each measurement
+        // Calculate the GI for each measurement
         for (Measurement m : measurements) {
             // Add all glucose values from all measurements to one list
             allGis.add(MyMath.calculateGI(m.getAllGlucoseValuesAsList(1), refMeasurements));
