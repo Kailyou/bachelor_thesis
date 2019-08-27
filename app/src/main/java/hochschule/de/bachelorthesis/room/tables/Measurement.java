@@ -275,20 +275,17 @@ public class Measurement {
     }
 
     /**
-     * @return Returns the average glucose increase if the measurement is done. If the measurement is
-     * not done, return 0.
+     * Get all glucose increase values in a list and remove the zero glucose values. Then calculate the
+     * average (mean) and return it.
+     *
+     * @return Returns the average glucose value.
      */
     public float getGlucoseIncreaseAverage() {
         ArrayList<Integer> glucoseIncreaseValues = getAllGlucoseValuesAsList(0);
 
-        // We need to remove the first element of the list because this is the start value.
-        glucoseIncreaseValues.remove(0);
+        removeZeroEntriesFromList(glucoseIncreaseValues);
 
-        if (glucoseIncreaseValues.size() <= 1) {
-            return 0;
-        } else {
-            return MyMath.calculateMeanFromIntegers(glucoseIncreaseValues);
-        }
+        return MyMath.calculateMeanFromIntegers(glucoseIncreaseValues);
     }
 
     /**
@@ -308,8 +305,8 @@ public class Measurement {
     }
 
     /**
-     * This function does not return 0 if measurement is not done to display the current average for
-     * unfinished measurements.
+     * Get all glucose values in a list and remove the zero glucose values. Then calculate the
+     * average (mean) and return it.
      *
      * @return Returns the average glucose value.
      */
@@ -347,6 +344,14 @@ public class Measurement {
 
     /* LISTS */
 
+    /**
+     * Removes all entries which are lower or equal to zero.
+     * This is used to remove the zero entries from the glucose list.
+     * Also, the values smaller than zero come from the increase because (0 - glucose Start) is negative,
+     * so also remove those.
+     *
+     * @param list
+     */
     private void removeZeroEntriesFromList(ArrayList<Integer> list) {
         if (list.size() == 0) {
             return;
@@ -355,7 +360,7 @@ public class Measurement {
         Iterator<Integer> iterator = list.iterator();
 
         while (iterator.hasNext()) {
-            if (iterator.next() == 0) {
+            if (iterator.next() <= 0) {
                 iterator.remove();
             }
         }
