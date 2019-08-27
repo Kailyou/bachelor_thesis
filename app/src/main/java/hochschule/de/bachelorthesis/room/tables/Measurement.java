@@ -275,20 +275,6 @@ public class Measurement {
     }
 
     /**
-     * Get all glucose increase values in a list and remove the zero glucose values. Then calculate the
-     * average (mean) and return it.
-     *
-     * @return Returns the average glucose value.
-     */
-    public float getGlucoseIncreaseAverage() {
-        ArrayList<Integer> glucoseIncreaseValues = getAllGlucoseValuesAsList(0);
-
-        removeZeroEntriesFromList(glucoseIncreaseValues);
-
-        return MyMath.calculateMeanFromIntegers(glucoseIncreaseValues);
-    }
-
-    /**
      * This function does not return 0 if measurement is not done to display the current average for
      * unfinished measurements.
      *
@@ -329,7 +315,11 @@ public class Measurement {
      * @return Returns the standard deviation. If the measurement is not done, return 0.
      */
     public float getStandardDeviation() {
-        return MyMath.calculateStandardDeviation(getAllGlucoseValuesAsList(1));
+        ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
+
+        removeZeroEntriesFromList(glucoseValues);
+
+        return MyMath.calculateStandardDeviation(glucoseValues);
     }
 
     /**
