@@ -79,32 +79,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/max_increase_glucose_overall"
+                        android:text="@string/max_increase_glucose"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <TextView
                         android:id="@+id/glucose_increase_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Max increase (step)"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                    <TextView
-                        android:id="@+id/glucose_increase_max_step"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="end"
