@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -204,6 +205,16 @@ public class MeasurementFragment extends Fragment {
         mBinding.glucoseIncreaseMax.setText(String.valueOf(mo.getGlucoseIncreaseMax()));
         mBinding.integral.setText(String.valueOf(mo.getIntegral()));
         mBinding.standardDeviation.setText(String.valueOf(mo.getStandardDeviation()));
+
+        // Set text color depending of the GI result
+        if (mo.getGi() < 55)
+            mBinding.gi.setTextColor(getResources().getColor(R.color.gi_low));
+        else if (mo.getGi() < 71)
+            mBinding.gi.setTextColor(getResources().getColor(R.color.gi_mid));
+        else
+            mBinding.gi.setTextColor(getResources().getColor(R.color.gi_high));
+
+        mBinding.gi.setTypeface(null, Typeface.BOLD);
         mBinding.gi.setText(String.valueOf(mo.getGi()));
 
         // Glucose Values

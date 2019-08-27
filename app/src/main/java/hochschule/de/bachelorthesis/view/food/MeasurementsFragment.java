@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.MeasurementType;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
 
@@ -94,7 +95,7 @@ public class MeasurementsFragment extends Fragment {
 
                 // Add a header element and set it to the start on the list,
                 // so the adapter can use index 0 and build a header line with.
-                Measurement header = Samples.getEmptyMesurement();
+                Measurement header = Samples.getEmptyMeasurement();
                 measurements.add(0, header);
                 mAdapter.setMeasurements(measurements);
             }
@@ -146,12 +147,22 @@ public class MeasurementsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_tmp_measurement_unfinished:
-                createTemplateMeasurement(false);
+            case R.id.add_unfinished_gi_measurement:
+                createTemplateMeasurement(false, null);
                 return true;
-            case R.id.add_tmp_measurement_finished:
-                createTemplateMeasurement(true);
+            case R.id.add_low_gi_measurement:
+                createTemplateMeasurement(true, MeasurementType.LOW);
                 return true;
+            case R.id.add_mid_gi_measurement:
+                createTemplateMeasurement(true, MeasurementType.MID);
+                return true;
+            case R.id.add_high_gi_measurement:
+                createTemplateMeasurement(true, MeasurementType.HIGH);
+                return true;
+            case R.id.add_ref_gi_measurement:
+                createTemplateMeasurement(true, MeasurementType.REF);
+                return true;
+
             case R.id.delete_measurements:
                 deleteMeasurements();
                 return true;
@@ -161,12 +172,11 @@ public class MeasurementsFragment extends Fragment {
     }
 
     /**
-     * Creates a random measurement, either a unfinished or an unfinished one, depending on the user's
-     * selection.
+     * Creates a random GI measurement
      *
      * @param finished - Measurement unfinished or not
      */
-    private void createTemplateMeasurement(final boolean finished) {
+    private void createTemplateMeasurement(final boolean finished, final MeasurementType type) {
 
         // Load all measurements to check later if all has been finished
         final LiveData<List<Measurement>> ldMeasurements = mViewModel.getAllMeasurements();
@@ -209,16 +219,12 @@ public class MeasurementsFragment extends Fragment {
                                 // Create either an unfinished or a finished measurement
                                 // If food is ref product use another sample to get higher values
                                 if (finished) {
-                                    if (food.getFoodName().equals("Glucose")) {
-                                        templateMeasurement = Samples.getRandomGlucoseMeasurement(Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
-                                    } else {
-                                        templateMeasurement = Samples.getRandomMeasurement(
-                                                Objects.requireNonNull(getContext()), mFoodId, userHistory.id);
-                                    }
+                                    templateMeasurement = Samples.getRandomMeasurement(
+                                            Objects.requireNonNull(getContext()), mFoodId, userHistory.id, true, type);
                                 } else {
                                     templateMeasurement = Samples
                                             .getRandomMeasurementUnfinished(Objects.requireNonNull(getContext()), mFoodId,
-                                                    userHistory.id);
+                                                    userHistory.id, true);
                                 }
 
                                 mViewModel.insertMeasurement(templateMeasurement);

@@ -199,6 +199,13 @@
     <string name="gi">GI</string>
     <string name="food">Food</string>
     <string name="max_increase_glucose_overall">Max increase glucose (overall)</string>
+    <string name="add_random_gi_measurement_unfinished">Add random GI measurement (unfinished)</string>
+    <string name="add_random_gi_measurement_finished">Add random GI measurement (finished)</string>
+    <string name="add_random_low_gi_measurement">Add random low GI measurement</string>
+    <string name="add_random_mid_gi_measurement">Add random mid GI measurement</string>
+    <string name="add_random_high_gi_measurement">Add random high GI measurement</string>
+    <string name="add_random_ref_gi_measurement">Add random REF GI measurement</string>
+    <string name="add_unfinished_gi_measurement">Add unfinished GI measurement</string>
 
     <string-array name="type">
         <item>Grains</item>
