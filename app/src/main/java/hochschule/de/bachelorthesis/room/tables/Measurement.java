@@ -316,14 +316,9 @@ public class Measurement {
     public float getGlucoseAverage() {
         ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
 
-        // We need to remove the first element of the list because this is the start value.
-        glucoseValues.remove(0);
+        removeZeroEntriesFromList(glucoseValues);
 
-        if (glucoseValues.size() <= 1) {
-            return 0;
-        } else {
-            return MyMath.calculateMeanFromIntegers(glucoseValues);
-        }
+        return MyMath.calculateMeanFromIntegers(glucoseValues);
     }
 
     /**
@@ -351,6 +346,20 @@ public class Measurement {
 
 
     /* LISTS */
+
+    private void removeZeroEntriesFromList(ArrayList<Integer> list) {
+        if (list.size() == 0) {
+            return;
+        }
+
+        Iterator<Integer> iterator = list.iterator();
+
+        while (iterator.hasNext()) {
+            if (iterator.next() == 0) {
+                iterator.remove();
+            }
+        }
+    }
 
     /**
      * Removes unfinished measurements of a list.
