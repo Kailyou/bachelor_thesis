@@ -5,4 +5,9 @@
   <color name="colorAccent">#42A5F5</color>
   <color name="colorSecondary">#0277bd</color>
 
+  <!-- Colors for GI -->
+  <color name="gi_low">#0c630d</color>
+  <color name="gi_mid">#eb8334</color>
+  <color name="gi_high">#bd1111</color>
+
 </resources>
