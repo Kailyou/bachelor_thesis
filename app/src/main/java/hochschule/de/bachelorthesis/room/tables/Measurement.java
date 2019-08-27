@@ -533,7 +533,7 @@ public class Measurement {
      * @param measurements List of measurements.
      * @return The average integral
      */
-    public static float getAverageIntegralFromList(List<Measurement> measurements) {
+    public static float getIntegralFromList(List<Measurement> measurements) {
         // Remove unfinished measurements
         removeNotFinishedMeasurements(measurements);
 
