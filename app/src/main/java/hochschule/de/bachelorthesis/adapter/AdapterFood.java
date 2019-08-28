@@ -2,8 +2,9 @@ package hochschule.de.bachelorthesis.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
 
 public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
 
     private Context mContext;
 
-    private List<Food> mFoods = new ArrayList<>();
-
-    private List<Measurement> mMeasurements = new ArrayList<>();
-
-    private List<Measurement> mRefMeasurements = new ArrayList<>();
+    private List<FoodObject> mFoodObjects = new ArrayList<>();
 
     private NavController mNavController;
 
@@ -50,27 +46,47 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull FoodHolder holder, final int position) {
-        final Food currentFood = mFoods.get(position);
+        final FoodObject currentFoodObject = mFoodObjects.get(position);
 
         // Position 0 as header
         if (position == 0) {
-            holder.textViewFoodName.setText(mContext.getString(R.string.food));
-            holder.textViewFoodName.setTextSize(10);
-            holder.textViewFoodName.setGravity(Gravity.CENTER);
+            holder.mFoodName.setText(mContext.getString(R.string.food));
+            holder.mFoodName.setTextSize(10);
+            holder.mFoodName.setTextColor(Color.BLACK);
+            holder.mFoodName.setTypeface(null, Typeface.BOLD);
+            //holder.mFoodName.setGravity(Gravity.CENTER);
 
-            holder.textViewBrandName.setVisibility(View.GONE);
-            holder.textViewFoodName.setGravity(Gravity.CENTER);
+            holder.mBrandName.setVisibility(View.GONE);
+            holder.mBrandName.setTextColor(Color.BLACK);
+            holder.mBrandName.setTypeface(null, Typeface.BOLD);
+            //holder.mFoodName.setGravity(Gravity.CENTER);
 
-            holder.textViewGi.setText(mContext.getString(R.string.gi));
-            holder.textViewGi.setTextSize(10);
-            holder.textViewGi.setGravity(Gravity.CENTER);
+            holder.mGi.setText(mContext.getString(R.string.gi));
+            holder.mGi.setTextSize(10);
+            holder.mGi.setTextColor(Color.BLACK);
+            holder.mGi.setTypeface(null, Typeface.BOLD);
+            //holder.mGi.setGravity(Gravity.CENTER);
 
             return;
         }
 
-        holder.textViewFoodName.setText(currentFood.getFoodName());
-        holder.textViewBrandName.setText(currentFood.getBrandName());
-        holder.textViewGi.setText("N/A");
+        holder.mFoodName.setText(currentFoodObject.getFood().getFoodName());
+        holder.mBrandName.setText(currentFoodObject.getFood().getBrandName());
+
+        int gi = currentFoodObject.getGi();
+        holder.mGi.setText(String.valueOf(gi));
+
+        // Set text color depending of the GI result
+        if (gi == 0) {
+            holder.mGi.setTextColor(Color.BLACK);
+        }
+        if (gi < 55)
+            holder.mGi.setTextColor(mContext.getResources().getColor(R.color.gi_low));
+        else if (gi < 71)
+            holder.mGi.setTextColor(mContext.getResources().getColor(R.color.gi_mid));
+        else
+            holder.mGi.setTextColor(mContext.getResources().getColor(R.color.gi_high));
+
 
         // Click event for the card views, which will start a new activity (FoodInfoActivity)
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +95,8 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
             public void onClick(View v) {
                 // Navigate to food info fragment and pass the food's id
                 Bundle bundle = new Bundle();
-                bundle.putInt("food_id", currentFood.id);
-                bundle.putString("title", currentFood.getFoodName());
+                bundle.putInt("food_id", currentFoodObject.getFood().id);
+                bundle.putString("title", currentFoodObject.getFood().getFoodName());
                 mNavController.navigate(R.id.action_foodFragment_to_foodInfoFragment, bundle);
             }
         });
@@ -91,35 +107,25 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
      */
     @Override
     public int getItemCount() {
-        return mFoods.size();
+        return mFoodObjects.size();
     }
 
-    public void setFoods(List<Food> mFoods) {
-        this.mFoods = mFoods;
-        notifyDataSetChanged();
-    }
-
-    public void setMeasurements(List<Measurement> measurements) {
-        mMeasurements = measurements;
-        notifyDataSetChanged();
-    }
-
-    public void setRefMeasurements(List<Measurement> measurements) {
-        mRefMeasurements = measurements;
+    public void setFoodObjects(List<FoodObject> foodObjects) {
+        mFoodObjects = foodObjects;
         notifyDataSetChanged();
     }
 
     class FoodHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewFoodName;
-        private TextView textViewBrandName;
-        private TextView textViewGi;
+        private TextView mFoodName;
+        private TextView mBrandName;
+        private TextView mGi;
 
         private FoodHolder(@NonNull View itemView) {
             super(itemView);
-            textViewFoodName = itemView.findViewById(R.id.food_item_food_name);
-            textViewBrandName = itemView.findViewById(R.id.food_item_brand_name);
-            textViewGi = itemView.findViewById(R.id.food_item_gi);
+            mFoodName = itemView.findViewById(R.id.food_item_food_name);
+            mBrandName = itemView.findViewById(R.id.food_item_brand_name);
+            mGi = itemView.findViewById(R.id.food_item_gi);
         }
     }
 }

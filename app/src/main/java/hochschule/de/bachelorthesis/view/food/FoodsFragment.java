@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -111,7 +112,7 @@ public class FoodsFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sort:
-                sort();
+                //sort();
                 return true;
 
             case R.id.add_apple:
@@ -160,105 +161,109 @@ public class FoodsFragment extends Fragment {
 
     private void loadDataForAdapter() {
 
-        ArrayList<FoodObject> foodObects = new ArrayList<>();
-
         // LOAD ALL FOODS
-        mViewModel.getAllFoods().observe(this, new Observer<List<Food>>() {
+        mViewModel.getAllFoods().observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
             @Override
             public void onChanged(final List<Food> foods) {
 
-                boolean refFoodFound = false;
+                final List<FoodObject> foodObjects = new ArrayList<>();
 
-                // Check if a REF food is existing
-                for (Food f : foods) {
-                    if (f.getBrandName().equals("Reference Food")) {
-                        refFoodFound = true;
-                    }
+                if (foods == null || foods.size() == 0) {
+                    mAdapter.setFoodObjects(foodObjects);
+                    return;
                 }
 
-                // LOAD ALL MEASUREMENTS FOR
+                // LOAD ALL MEASUREMENTS FOR FOODS
+                for (final Food f : foods) {
+                    final LiveData<List<Measurement>> ldf = mViewModel.getAllMeasurementsById(f.id);
+                    ldf.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                        @Override
+                        public void onChanged(List<Measurement> measurements) {
+                            ldf.removeObserver(this);
+                            {
+                                Measurement.removeNotFinishedMeasurements(measurements);
 
-                // If a ref food exists, GI calculation will be done before everything can
-                // be passed to the adapter.
-                if (refFoodFound) {
+                                foodObjects.add(new FoodObject(f, measurements));
 
-                    final ArrayList<FoodObject> allFoodObjects = new ArrayList<>();
+                                if (foodObjects.size() == foods.size()) {
 
-                    // LOAD ALL MEASUREMENTS FROM ALL FOODS FOR GI CALCULATION
-                    for (final Food f : foods) {
-                        final LiveData<List<Measurement>> ldm = mViewModel.getAllMeasurementsById(f.id);
-                        ldm.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-                            @Override
-                            public void onChanged(List<Measurement> measurements) {
-                                ldm.removeObserver(this);
+                                    // Add a header element and set it to the start on the list,
+                                    // so the adapter can use index 0 and build a header line with.
+                                    foodObjects.add(0, new FoodObject(Samples.getEmptyFood(), null));
 
-                                /*
-                                FoodObject tmp = new FoodObject(f.getFoodName(), f.getBrandName(),
-                                        measurements, 0);
+                                    // LOAD REF PRODUCT
+                                    final LiveData<Food> ldf2 = mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product");
+                                    ldf2.observe(getViewLifecycleOwner(), new Observer<Food>() {
+                                        @Override
+                                        public void onChanged(Food refFood) {
+                                            ldf2.removeObserver(this);
 
-                                allFoodObjects.add(tmp);
-                                */
+                                            if (refFood == null) {
+                                                sortFoodObjects("alphanumeric", foodObjects);
+                                                mAdapter.setFoodObjects(foodObjects);
+                                                return;
+                                            }
+
+                                            // LOAD ALL MEASUREMENTS
+                                            final LiveData<List<Measurement>> ldlm = mViewModel.getAllMeasurementsById(refFood.id);
+                                            ldlm.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                                                @Override
+                                                public void onChanged(List<Measurement> refMeasurements) {
+                                                    Measurement.removeNonGiMeasurements(refMeasurements);
+
+                                                    if (refMeasurements.size() == 0) {
+                                                        sortFoodObjects("alphanumeric", foodObjects);
+                                                        mAdapter.setFoodObjects(foodObjects);
+                                                        return;
+                                                    }
+
+                                                    for (FoodObject fo : foodObjects) {
+                                                        fo.setRefAllMeasurements(refMeasurements);
+                                                    }
+
+                                                    sortFoodObjects("alphanumeric", foodObjects);
+                                                    mAdapter.setFoodObjects(foodObjects);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
                             }
-                        });
-                    }
-
-                    // If the amount of elements in the food object list is equal to the
-                    // amount of foods loaded, every object has been saved
-                    if (allFoodObjects.size() == foods.size()) {
-
-                    }
-
-                } else {
-                    // sort the list and
-                    sortFoodList("alphanumeric", foods);
-                    // Add a header element and set it to the start on the list,
-                    // so the adapter can use index 0 and build a header line with.
-                    Food header = Samples.getEmptyFood();
-                    foods.add(0, header);
-                    // Pass only the food list to the adapter. The adapter class will need
-                    // to check if the others are null.
-                    mAdapter.setFoods(foods);
+                        }
+                    });
                 }
             }
         });
-    }
 
-    /**
-     * Will sort the food list alphanumeric
-     */
-    private void sort() {
-        final LiveData<List<Food>> ldf = mViewModel.getAllFoods();
-        ldf.observe(getViewLifecycleOwner(), new Observer<List<Food>>() {
-            @Override
-            public void onChanged(List<Food> foods) {
-                ldf.removeObserver(this);
-                sortFoodList("alphanumeric", foods);
-            }
-        });
     }
 
     /**
      * Create a comparator depending on how to sort the list, sort the list and pass the list to the
      * adapter, which will cause the list to be visible.
      *
-     * @param sortType How to sort the list
-     * @param foods    The food list
+     * @param sortType    How to sort the list
+     * @param foodObjects Food object list
      */
-    private void sortFoodList(String sortType, List<Food> foods) {
-        Comparator<Food> comparator = null;
+    private void sortFoodObjects(String sortType, List<FoodObject> foodObjects) {
+        Comparator<FoodObject> comparator = null;
 
         // Create a comparator depending of the given parameter
         if (sortType.equals("alphanumeric")) {
-            comparator = new Comparator<Food>() {
+            comparator = new Comparator<FoodObject>() {
                 @Override
-                public int compare(Food food1, Food food2) {
-                    return String.CASE_INSENSITIVE_ORDER.compare(food1.getFoodName(), food2.getFoodName());
+                public int compare(FoodObject fo1, FoodObject fo2) {
+                    return String.CASE_INSENSITIVE_ORDER.compare(fo1.getFood().getFoodName(), fo2.getFood().getFoodName());
                 }
             };
         }
 
         if (comparator != null) {
-            Collections.sort(foods, comparator);
+            FoodObject tmp = foodObjects.get(0);
+            foodObjects.remove(0);
+
+            Collections.sort(foodObjects, comparator);
+
+            foodObjects.add(0, tmp);
         }
     }
 }

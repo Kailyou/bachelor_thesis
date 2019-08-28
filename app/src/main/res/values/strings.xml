@@ -94,7 +94,7 @@
     <string name="add_coke_debug">Add Coke (Debug)</string>
     <string name="add_pizza_debug">Add Pizza (Debug)</string>
     <string name="add_apple_debug">Add Apple (Debug)</string>
-    <string name="delete_all_foods">Delete all mFoods</string>
+    <string name="delete_all_foods">Delete all Foods</string>
     <string name="delete_food">Delete Food</string>
     <string name="time_min">Time (min)</string>
     <string name="glucose_mg_dl">Glucose (mg/dl)</string>

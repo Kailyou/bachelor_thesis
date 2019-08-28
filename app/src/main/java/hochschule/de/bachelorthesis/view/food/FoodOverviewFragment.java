@@ -101,7 +101,7 @@ public class FoodOverviewFragment extends Fragment {
                                 Measurement.removeNotFinishedMeasurements(measurements);
 
                                 if (measurements == null || measurements.size() == 0) {
-                                    FoodObject fo = new FoodObject(food, null, null);
+                                    FoodObject fo = new FoodObject(food, null);
                                     updateTextViews(fo);
                                     return;
                                 }
@@ -115,7 +115,7 @@ public class FoodOverviewFragment extends Fragment {
                                         // Leave if there is no ref food because there cannot be
                                         // a GI calculated without ref food.
                                         if (refFood == null) {
-                                            FoodObject fo = new FoodObject(food, null, measurements);
+                                            FoodObject fo = new FoodObject(food, measurements);
                                             updateTextViews(fo);
                                             return;
                                         }
@@ -128,12 +128,13 @@ public class FoodOverviewFragment extends Fragment {
                                                 Measurement.removeNotFinishedMeasurements(refMeasurements);
 
                                                 if (refMeasurements == null || refMeasurements.size() == 0) {
-                                                    FoodObject fo = new FoodObject(food, null, null);
+                                                    FoodObject fo = new FoodObject(food, null);
                                                     updateTextViews(fo);
                                                     return;
                                                 }
 
-                                                FoodObject fo = new FoodObject(food, refMeasurements, measurements);
+                                                FoodObject fo = new FoodObject(food, measurements);
+                                                fo.setRefAllMeasurements(refMeasurements);
                                                 updateTextViews(fo);
                                             }
                                         });
@@ -182,6 +183,10 @@ public class FoodOverviewFragment extends Fragment {
      * @param fo the food object, which contains all data for the food.
      */
     private void updateTextViews(FoodObject fo) {
+        if (fo == null || fo.getFood() == null) {
+            return;
+        }
+
         // General
         mBinding.foodName.setText(fo.getFood().getFoodName());
         mBinding.brandName.setText(fo.getFood().getBrandName());
