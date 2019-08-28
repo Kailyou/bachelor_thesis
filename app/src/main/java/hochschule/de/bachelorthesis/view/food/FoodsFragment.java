@@ -111,9 +111,6 @@ public class FoodsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.sort:
-                //sort();
-                return true;
 
             case R.id.add_apple:
                 mViewModel.insertFood(Samples.getApple());
