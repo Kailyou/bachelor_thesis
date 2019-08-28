@@ -27,7 +27,7 @@ public class MeasurementObject {
     public MeasurementObject(Measurement measurement, List<Measurement> refMeasurements) {
         mMeasurement = measurement;
 
-        if (measurement == null || measurement.isActive()) {
+        if (measurement == null) {
             return;
         }
 
@@ -42,7 +42,7 @@ public class MeasurementObject {
         mGlucoseIncreaseMax = mMeasurement.getGlucoseIncreaseMax();
         mStandardDeviation = Math.round(mMeasurement.getStandardDeviation());
 
-        if (refMeasurements == null) {
+        if (refMeasurements == null || measurement.isActive()) {
             return;
         }
 
