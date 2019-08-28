@@ -362,7 +362,7 @@ public class Measurement {
      * @param measurements The list to check for empty measurements.
      */
     public static void removeNotFinishedMeasurements(List<Measurement> measurements) {
-        if (measurements.size() == 0) {
+        if (measurements == null || measurements.size() == 0) {
             return;
         }
 
@@ -380,8 +380,8 @@ public class Measurement {
      *
      * @param measurements The list to check for gi measurements.
      */
-    private static void removeNonGiMeasurements(List<Measurement> measurements) {
-        if (measurements.size() == 0) {
+    public static void removeNonGiMeasurements(List<Measurement> measurements) {
+        if (measurements == null || measurements.size() == 0) {
             return;
         }
 
@@ -431,33 +431,6 @@ public class Measurement {
         }
 
         return glucoseIncreaseMax;
-    }
-
-    /**
-     * This functions returns the average glucose increase from a list of measurements.
-     * <p>
-     * First taking all glucose values from all measurements into one list and then calculating the
-     * average increase of those.
-     *
-     * @return Returns max glucose or 0 if the list is empty.
-     */
-    public static float getGlucoseIncreaseAverageFromList(List<Measurement> measurements) {
-        // Remove unfinished measurements
-        removeNotFinishedMeasurements(measurements);
-
-        // Return 0 if list is empty
-        if (measurements.size() == 0) {
-            return 0;
-        }
-
-        // Add all glucose values from all measurements to one list
-        ArrayList<Integer> allGlucoseValues = new ArrayList<>();
-
-        for (Measurement m : measurements) {
-            allGlucoseValues.addAll(m.getAllGlucoseValuesAsList(0));
-        }
-
-        return MyMath.calculateMeanFromIntegers(allGlucoseValues);
     }
 
     /**
@@ -533,7 +506,7 @@ public class Measurement {
         removeNotFinishedMeasurements(measurements);
 
         // Return 0 if list is empty
-        if (measurements.size() == 0) {
+        if (measurements == null || measurements.size() == 0) {
             return 0;
         }
 
@@ -542,7 +515,7 @@ public class Measurement {
         // Calculate the integral for each measurement
         for (Measurement m : measurements) {
             // Add all glucose values from all measurements to one list
-            allIntegrals.add(MyMath.calculateIntegral(m.getAllGlucoseValuesAsList(1)));
+            allIntegrals.add(m.getIntegral());
         }
 
         return MyMath.calculateMeanFromFloats(allIntegrals);
@@ -569,23 +542,24 @@ public class Measurement {
         // Calculate the standard deviation for each measurement
         for (Measurement m : measurements) {
             // Add all glucose values from all measurements to one list
-            allStandardDeviations.add(MyMath.calculateStandardDeviation(m.getAllGlucoseValuesAsList(1)));
+            allStandardDeviations.add(m.getStandardDeviation());
         }
 
         return MyMath.calculateMeanFromFloats(allStandardDeviations);
     }
 
     public static float getGIFromList(List<Measurement> refMeasurements, List<Measurement> measurements) {
-        // Remove unfinished measurements
-        removeNotFinishedMeasurements(refMeasurements);
-        removeNotFinishedMeasurements(measurements);
 
         // Remove all non-gi-measurements
         removeNonGiMeasurements(refMeasurements);
         removeNonGiMeasurements(measurements);
 
+        // Remove unfinished measurements
+        removeNotFinishedMeasurements(refMeasurements);
+        removeNotFinishedMeasurements(measurements);
+
         // Return 0 if one list is empty
-        if (refMeasurements.size() == 0 || measurements.size() == 0) {
+        if (refMeasurements == null || measurements == null || refMeasurements.size() == 0 || measurements.size() == 0) {
             return 0;
         }
 
@@ -594,7 +568,7 @@ public class Measurement {
         // Calculate the GI for each measurement
         for (Measurement m : measurements) {
             // Add all glucose values from all measurements to one list
-            allGis.add(MyMath.calculateGI(m.getAllGlucoseValuesAsList(1), refMeasurements));
+            allGis.add(m.getGi(refMeasurements));
         }
 
         return MyMath.calculateMeanFromFloats(allGis);

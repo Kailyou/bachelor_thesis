@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import androidx.navigation.Navigation;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodOverviewBinding;
+import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
+import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Converter;
@@ -46,10 +49,11 @@ import java.util.Objects;
  */
 public class FoodOverviewFragment extends Fragment {
 
+    private FragmentFoodOverviewBinding mBinding;
+
     private FoodViewModel mViewModel;
 
     private int mFoodId;
-
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +74,7 @@ public class FoodOverviewFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         // Init data binding
-        final FragmentFoodOverviewBinding mBinding = DataBindingUtil
+        mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_food_overview, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
 
@@ -78,7 +82,7 @@ public class FoodOverviewFragment extends Fragment {
         assert getArguments() != null;
         final int foodId = getArguments().getInt("food_id");
 
-        // Get food from database
+        // LOAD FOOD
         mViewModel.getFoodById(foodId).observe(getViewLifecycleOwner(), new Observer<Food>() {
             @Override
             public void onChanged(final Food food) {
@@ -87,7 +91,7 @@ public class FoodOverviewFragment extends Fragment {
                     return;
                 }
 
-                // Get all measurements for that food
+                // LOAD MEASUREMENTS FOR FOOD
                 mViewModel.getAllMeasurementsById(food.id).observe(getViewLifecycleOwner(),
                         new Observer<List<Measurement>>() {
                             @Override
@@ -96,40 +100,14 @@ public class FoodOverviewFragment extends Fragment {
                                 // Remove unfinished measurements
                                 Measurement.removeNotFinishedMeasurements(measurements);
 
-                                /* Update text views */
-
-                                // General
-                                mBinding.foodName.setText(food.getFoodName());
-                                mBinding.brandName.setText(food.getBrandName());
-                                mBinding.type.setText(food.getFoodType());
-                                mBinding.kiloCalories.setText(Converter.convertFloat(food.getKiloCalories()));
-
-                                // Measurements
-                                mBinding.amount.setText(String.valueOf(measurements.size()));
-
-                                mBinding.glucoseMax
-                                        .setText(String.valueOf(Measurement.getGlucoseMaxFromList(measurements)));
-
-                                mBinding.glucoseAverage.setText(
-                                        String.valueOf((int) Measurement.getGlucoseAverageFromList(measurements)));
-
-                                mBinding.glucoseIncreaseMax.setText(
-                                        String.valueOf(Measurement.getGlucoseIncreaseMaxFromList(measurements))
-                                );
-
-                                mBinding.glucoseIncreaseAvg.setText(
-                                        String
-                                                .valueOf((int) Measurement.getGlucoseIncreaseAverageFromList(measurements))
-                                );
-
-                                mBinding.integral.setText(
-                                        String.valueOf((int) Measurement.getIntegralFromList(measurements)));
-
-                                mBinding.stdev.setText(
-                                        String.valueOf((int) Measurement.getStandardDeviationFromList(measurements)));
+                                if (measurements == null || measurements.size() == 0) {
+                                    FoodObject fo = new FoodObject(food, null, null);
+                                    updateTextViews(fo);
+                                    return;
+                                }
 
 
-                                // Get the REF food for the GI calculation
+                                // LOAD REF FOOD
                                 mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product").observe(getViewLifecycleOwner(), new Observer<Food>() {
                                     @Override
                                     public void onChanged(final Food refFood) {
@@ -137,35 +115,26 @@ public class FoodOverviewFragment extends Fragment {
                                         // Leave if there is no ref food because there cannot be
                                         // a GI calculated without ref food.
                                         if (refFood == null) {
+                                            FoodObject fo = new FoodObject(food, null, measurements);
+                                            updateTextViews(fo);
                                             return;
                                         }
 
-                                        // Get all measurements for the ref food
+                                        // LOAD MEASUREMENTS FOR REF FOOD
                                         mViewModel.getAllMeasurementsById(refFood.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
                                             @Override
                                             public void onChanged(final List<Measurement> refMeasurements) {
-
-                                                // Leave if there is no measurement for a REF food yet.
-                                                if (refMeasurements == null) {
-                                                    return;
-                                                }
-
                                                 // Remove unfinished measurements
                                                 Measurement.removeNotFinishedMeasurements(refMeasurements);
 
-                                                int gi = (int) Measurement.getGIFromList(refMeasurements, measurements);
+                                                if (refMeasurements == null || refMeasurements.size() == 0) {
+                                                    FoodObject fo = new FoodObject(food, null, null);
+                                                    updateTextViews(fo);
+                                                    return;
+                                                }
 
-                                                mBinding.personalIndex.setText(String.valueOf((gi)));
-
-                                                // Set text color depending of the GI result
-                                                if (gi < 55)
-                                                    mBinding.personalIndex.setTextColor(getResources().getColor(R.color.gi_low));
-                                                else if (gi < 71)
-                                                    mBinding.personalIndex.setTextColor(getResources().getColor(R.color.gi_mid));
-                                                else
-                                                    mBinding.personalIndex.setTextColor(getResources().getColor(R.color.gi_high));
-
-                                                mBinding.personalIndex.setTypeface(null, Typeface.BOLD);
+                                                FoodObject fo = new FoodObject(food, refMeasurements, measurements);
+                                                updateTextViews(fo);
                                             }
                                         });
                                     }
@@ -205,6 +174,44 @@ public class FoodOverviewFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Updates the text views
+     *
+     * @param fo the food object, which contains all data for the food.
+     */
+    private void updateTextViews(FoodObject fo) {
+        // General
+        mBinding.foodName.setText(fo.getFood().getFoodName());
+        mBinding.brandName.setText(fo.getFood().getBrandName());
+        mBinding.type.setText(fo.getFood().getFoodType());
+        mBinding.kiloCalories.setText(Converter.convertFloat(fo.getFood().getKiloCalories()));
+
+        // Measurements
+        mBinding.amount.setText(String.valueOf(fo.getAmountMeasurement()));
+
+        mBinding.glucoseMax.setText(String.valueOf(fo.getGlucoseMax()));
+
+        mBinding.glucoseAverage.setText(String.valueOf(fo.getGlucoseAvg()));
+
+        mBinding.glucoseIncreaseMax.setText(String.valueOf(fo.getGlucoseIncreaseMax()));
+
+        mBinding.stdev.setText(String.valueOf(fo.getStandardDeviation()));
+
+        mBinding.gi.setText(String.valueOf(fo.getGi()));
+
+        // Set text color depending of the GI result
+        if (fo.getGi() == 0)
+            mBinding.gi.setTextColor(Color.BLACK);
+        if (fo.getGi() < 55)
+            mBinding.gi.setTextColor(getResources().getColor(R.color.gi_low));
+        else if (fo.getGi() < 71)
+            mBinding.gi.setTextColor(getResources().getColor(R.color.gi_mid));
+        else
+            mBinding.gi.setTextColor(getResources().getColor(R.color.gi_high));
+
+        mBinding.gi.setTypeface(null, Typeface.BOLD);
     }
 
     /**

@@ -23,12 +23,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MeasurementType;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +41,8 @@ import hochschule.de.bachelorthesis.adapter.AdapterMeasurements;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementsFragment extends Fragment {
+
+    private FragmentMeasurementsBinding mBinding;
 
     private AdapterMeasurements mAdapter;
 
@@ -66,76 +70,31 @@ public class MeasurementsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Init data binding
-        FragmentMeasurementsBinding binding = DataBindingUtil
+        mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_measurements, container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-        binding.setViewModel(mViewModel);
+        mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        mBinding.setViewModel(mViewModel);
 
         // RecyclerView
-        final RecyclerView recyclerView = binding.recyclerView;
+        final RecyclerView recyclerView = mBinding.recyclerView;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         recyclerView.setHasFixedSize(true);
 
+        NavController navController = Navigation
+                .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
 
-        // loading the measurement entries
-        mViewModel.getAllMeasurementsById(mFoodId).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-            @Override
-            public void onChanged(List<Measurement> measurements) {
+        mAdapter = new AdapterMeasurements(getContext(), navController);
+        recyclerView.setAdapter(mAdapter);
 
-                // Should never happen
-                if (measurements == null) {
-                    return;
-                }
-
-                NavController navController = Navigation
-                        .findNavController(Objects.requireNonNull(getActivity()), R.id.main_activity_fragment_host);
-
-                mAdapter = new AdapterMeasurements(getContext(), navController);
-                recyclerView.setAdapter(mAdapter);
-
-                // Add a header element and set it to the start on the list,
-                // so the adapter can use index 0 and build a header line with.
-                Measurement header = Samples.getEmptyMeasurement();
-                measurements.add(0, header);
-                mAdapter.setMeasurements(measurements);
-            }
-        });
-
-
-        // Load the reference food to calculate the GI, so it can be passed to the controller and
-        // displayed in the list
-        mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product").observe(getViewLifecycleOwner(), new Observer<Food>() {
-            @Override
-            public void onChanged(Food refFood) {
-
-                // Leave if there is no REF food
-                if (refFood == null) {
-                    return;
-                }
-
-                // Get all measurements for the reference food
-                mViewModel.getAllMeasurementsById(refFood.id).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
-                    @Override
-                    public void onChanged(List<Measurement> refMeasurements) {
-
-                        // Leave if there are no REF food measurements.
-                        if (refMeasurements == null) {
-                            return;
-                        }
-
-                        mAdapter.setRefMeasurements(refMeasurements);
-                    }
-                });
-            }
-        });
+        handleListeners();
 
         // fab
         Bundle bundle = new Bundle();
         bundle.putInt("food_id", mFoodId);
-        binding.add.setOnClickListener(Navigation
+        mBinding.add.setOnClickListener(Navigation
                 .createNavigateOnClickListener(R.id.action_foodInfoFragment_to_addMeasurement, bundle));
 
-        return binding.getRoot();
+        return mBinding.getRoot();
     }
 
     @Override
@@ -169,6 +128,67 @@ public class MeasurementsFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void handleListeners() {
+        // LOAD ALL MEASUREMENTS
+        mViewModel.getAllMeasurementsById(mFoodId).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+            @Override
+            public void onChanged(final List<Measurement> measurements) {
+
+                Measurement.removeNotFinishedMeasurements(measurements);
+
+                // Add a header element and set it to the start on the list,
+                // so the adapter can use index 0 and build a header line with.
+                Measurement header = Samples.getEmptyMeasurement();
+                measurements.add(0, header);
+
+                final List<MeasurementObject> lmo = new ArrayList<>();
+
+                // LOAD REF PRODUCT
+                final LiveData<Food> ldf = mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product");
+                ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+                    @Override
+                    public void onChanged(Food refFood) {
+                        ldf.removeObserver(this);
+
+                        if (refFood == null) {
+                            for (Measurement m : measurements) {
+                                lmo.add(new MeasurementObject(m, null));
+                                mAdapter.setMeasurementObjects(lmo);
+                            }
+
+                            return;
+                        }
+
+                        // LOAD REF MEASUREMENTS
+                        final LiveData<List<Measurement>> ldm = mViewModel.getAllMeasurementsById(refFood.id);
+                        ldm.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
+                            @Override
+                            public void onChanged(List<Measurement> refMeasurements) {
+                                ldm.removeObserver(this);
+
+                                Measurement.removeNonGiMeasurements(refMeasurements);
+
+                                if (refMeasurements.size() == 0) {
+                                    for (Measurement m : measurements) {
+                                        lmo.add(new MeasurementObject(m, null));
+                                        mAdapter.setMeasurementObjects(lmo);
+                                    }
+
+                                    return;
+                                }
+
+                                for (Measurement m : measurements) {
+                                    lmo.add(new MeasurementObject(m, refMeasurements));
+                                    mAdapter.setMeasurementObjects(lmo);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     /**

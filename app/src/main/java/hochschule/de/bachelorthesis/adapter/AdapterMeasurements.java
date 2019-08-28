@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.utility.Converter;
 
 public class AdapterMeasurements extends
@@ -25,9 +26,7 @@ public class AdapterMeasurements extends
 
     private Context mContext;
 
-    private List<Measurement> mMeasurements = new ArrayList<>();
-
-    private List<Measurement> mRefMeasurements = new ArrayList<>();
+    private List<MeasurementObject> mMeasurementObjects = new ArrayList<>();
 
     private NavController mNavController;
 
@@ -49,42 +48,53 @@ public class AdapterMeasurements extends
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MeasurementHolder holder, final int position) {
-        final Measurement currentMeasurement = mMeasurements.get(position);
+        final MeasurementObject currentMeasurementObject = mMeasurementObjects.get(position);
 
         // Position 0 as header
         if (position == 0) {
             holder.date.setText("Date");
             holder.date.setTextSize(10);
+            holder.date.setTextColor(Color.BLACK);
+            holder.date.setTypeface(null, Typeface.BOLD);
 
             holder.isGi.setText("Is GI?");
             holder.isGi.setTextSize(10);
+            holder.isGi.setTextColor(Color.BLACK);
+            holder.isGi.setTypeface(null, Typeface.BOLD);
 
             holder.amount.setText("Amount");
             holder.amount.setTextSize(10);
+            holder.amount.setTextColor(Color.BLACK);
+            holder.amount.setTypeface(null, Typeface.BOLD);
 
             holder.mp.setText("Glucose max");
             holder.mp.setTextSize(10);
+            holder.mp.setTextColor(Color.BLACK);
+            holder.mp.setTypeface(null, Typeface.BOLD);
 
             holder.gi.setText("GI");
             holder.gi.setTextSize(10);
+            holder.gi.setTextColor(Color.BLACK);
+            holder.gi.setTypeface(null, Typeface.BOLD);
 
             return;
         }
 
-        // Build date
-        String ts = currentMeasurement.getTimeStamp();
-        String date = String.copyValueOf(ts.toCharArray(), 0, 10);
-
-        holder.date.setText(date);
-        holder.isGi.setText(Converter.convertBoolean(mContext, currentMeasurement.isGi()));
-        holder.amount.setText(String.valueOf(currentMeasurement.getAmount()));
-        holder.mp.setText(String.valueOf(currentMeasurement.getGlucoseMax()));
+        holder.date.setText(currentMeasurementObject.getDate());
+        holder.isGi.setText(Converter.convertBoolean(mContext, currentMeasurementObject.getMeasurement().isGi()));
+        holder.amount.setText(String.valueOf(currentMeasurementObject.getMeasurement().getAmount()));
+        holder.mp.setText(String.valueOf(currentMeasurementObject.getGlucoseMax()));
 
         // Either calculate the GI or set the text as N/A
-        if (currentMeasurement.isGi()) {
-            int gi = (int) currentMeasurement.getGi(mRefMeasurements);
-            holder.gi.setText(String.valueOf(gi));
+        if (currentMeasurementObject.getMeasurement().isGi()) {
+            int gi = currentMeasurementObject.getGi();
+
+            holder.gi.setText(String.valueOf(currentMeasurementObject.getGi()));
+
             // Set text color depending of the GI result
+            if (gi == 0) {
+                holder.gi.setTextColor(Color.BLACK);
+            }
             if (gi < 55)
                 holder.gi.setTextColor(mContext.getResources().getColor(R.color.gi_low));
             else if (gi < 71)
@@ -98,7 +108,7 @@ public class AdapterMeasurements extends
 
         // Click event for the card views, which will start a new activity (FoodInfoActivity)
         final Bundle bundle = new Bundle();
-        bundle.putInt("measurement_id", currentMeasurement.id);
+        bundle.putInt("measurement_id", currentMeasurementObject.getMeasurement().id);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,16 +123,11 @@ public class AdapterMeasurements extends
      */
     @Override
     public int getItemCount() {
-        return mMeasurements.size();
+        return mMeasurementObjects.size();
     }
 
-    public void setMeasurements(List<Measurement> measurements) {
-        mMeasurements = measurements;
-        notifyDataSetChanged();
-    }
-
-    public void setRefMeasurements(List<Measurement> measurements) {
-        mRefMeasurements = measurements;
+    public void setMeasurementObjects(List<MeasurementObject> measurementObjects) {
+        mMeasurementObjects = measurementObjects;
         notifyDataSetChanged();
     }
 
