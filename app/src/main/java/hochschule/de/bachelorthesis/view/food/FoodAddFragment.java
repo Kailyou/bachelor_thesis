@@ -432,7 +432,7 @@ public class FoodAddFragment extends Fragment {
 
         mViewModel.insertFood(newFood);
 
-        snackBar((mBinding.foodName.getText().toString() + "added to the list.."));
+        snackBar((mBinding.foodName.getText().toString() + " added to the list.."));
     }
 
     /**

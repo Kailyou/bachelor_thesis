@@ -239,6 +239,7 @@ public class HomeFragment extends Fragment {
         xAxis.setPosition(XAxisPosition.BOTTOM);
 
         LineDataSet set = new LineDataSet(values, "Glucose");
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setFillAlpha(110);
         set.setColor(getResources().getColor(R.color.colorPrimary));
         set.setLineWidth(3f);  // how fat is the line
