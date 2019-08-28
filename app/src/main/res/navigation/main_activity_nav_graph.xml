@@ -26,9 +26,9 @@
   </fragment>
   <fragment
     android:id="@+id/foodFragment"
-    android:name="hochschule.de.bachelorthesis.view.food.FoodsFragment"
+    android:name="hochschule.de.bachelorthesis.view.food.FoodListFragment"
     android:label="@string/bottom_nav_food"
-    tools:layout="@layout/fragment_food">
+    tools:layout="@layout/fragment_food_list">
     <action
       android:id="@+id/action_foodFragment_to_addFood"
       app:destination="@id/addFood"/>

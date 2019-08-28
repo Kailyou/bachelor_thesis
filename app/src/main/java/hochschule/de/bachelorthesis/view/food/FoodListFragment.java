@@ -2,14 +2,6 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,18 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-
-import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
-import hochschule.de.bachelorthesis.utility.Samples;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -36,10 +22,19 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentFoodBinding;
 import hochschule.de.bachelorthesis.adapter.AdapterFood;
+import hochschule.de.bachelorthesis.databinding.FragmentFoodListBinding;
+import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
@@ -58,9 +53,9 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
  * <p>
  * For debug reasons, it is currently possible to add three different foods by setting buttons.
  */
-public class FoodsFragment extends Fragment {
+public class FoodListFragment extends Fragment {
 
-    private FragmentFoodBinding mBinding;
+    private FragmentFoodListBinding mBinding;
 
     private FoodViewModel mViewModel;
 
@@ -82,7 +77,7 @@ public class FoodsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Init data binding
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_list, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
 
         // Adapter
@@ -178,8 +173,6 @@ public class FoodsFragment extends Fragment {
                         public void onChanged(List<Measurement> measurements) {
                             ldf.removeObserver(this);
                             {
-                                Measurement.removeNotFinishedMeasurements(measurements);
-
                                 foodObjects.add(new FoodObject(f, measurements));
 
                                 if (foodObjects.size() == foods.size()) {
@@ -206,7 +199,6 @@ public class FoodsFragment extends Fragment {
                                             ldlm.observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
                                                 @Override
                                                 public void onChanged(List<Measurement> refMeasurements) {
-                                                    Measurement.removeNonGiMeasurements(refMeasurements);
 
                                                     if (refMeasurements.size() == 0) {
                                                         sortFoodObjects("alphanumeric", foodObjects);

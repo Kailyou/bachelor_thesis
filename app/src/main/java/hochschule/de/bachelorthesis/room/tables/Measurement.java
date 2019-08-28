@@ -1,18 +1,16 @@
 package hochschule.de.bachelorthesis.room.tables;
 
-import android.util.Log;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import hochschule.de.bachelorthesis.utility.MyMath;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import hochschule.de.bachelorthesis.utility.MyMath;
 
 
 // A foreign key with cascade delete means that if a record in the parent table is deleted,
@@ -283,7 +281,7 @@ public class Measurement {
     public int getGlucoseMax() {
         ArrayList<Integer> glucoseValues = getAllGlucoseValuesAsList(1);
 
-        if (glucoseValues == null || glucoseValues.size() == 1) {
+        if (glucoseValues == null) {
             return 0;
         } else {
             return MyMath.calculateMaxFromIntList(glucoseValues);
@@ -403,34 +401,26 @@ public class Measurement {
      * @return Returns max glucose or 0 if the list is empty.
      */
     public static int getGlucoseIncreaseMaxFromList(List<Measurement> measurements) {
-        // Remove unfinished measurements
-        removeNotFinishedMeasurements(measurements);
-
-        // Return 0 if list is empty
-        if (measurements.size() == 0) {
+        if (measurements == null) {
             return 0;
         }
 
-        // Return the max of the first measurement, if there is only one measurement
-        if (measurements.size() == 1) {
-            return measurements.get(0).getGlucoseMax() - measurements.get(0).getGlucoseStart();
+        List<Measurement> measurementsCopy = new ArrayList<>(measurements);
+
+        // Remove unfinished measurements
+        removeNotFinishedMeasurements(measurementsCopy);
+
+        // Return 0 if list is empty
+        if (measurementsCopy.size() == 0) {
+            return 0;
         }
 
-        // Calculate the max glucose increase of all measurements and return the biggest one
-        int glucoseIncreaseMax =
-                measurements.get(0).getGlucoseMax() - measurements.get(0).getGlucoseStart();
-
-        for (int i = 1; i < measurements.size(); ++i) {
-
-            int newGlucoseIncrease =
-                    measurements.get(i).getGlucoseMax() - measurements.get(i).getGlucoseStart();
-
-            if (newGlucoseIncrease > glucoseIncreaseMax) {
-                glucoseIncreaseMax = newGlucoseIncrease;
-            }
+        ArrayList<Integer> allMaxValues = new ArrayList<>();
+        for (Measurement m : measurementsCopy) {
+            allMaxValues.add(MyMath.calculateMaxFromIntList(m.getAllGlucoseValuesAsList(0)));
         }
 
-        return glucoseIncreaseMax;
+        return MyMath.calculateMaxFromIntList(allMaxValues);
     }
 
     /**
@@ -442,25 +432,31 @@ public class Measurement {
      * @return Returns max glucose or 0 if the list is empty.
      */
     public static int getGlucoseMaxFromList(List<Measurement> measurements) {
+        if (measurements == null) {
+            return 0;
+        }
+
+        List<Measurement> measurementsCopy = new ArrayList<>(measurements);
+
         // Remove unfinished measurements
-        removeNotFinishedMeasurements(measurements);
+        removeNotFinishedMeasurements(measurementsCopy);
 
         // Return 0 if list is empty
-        if (measurements.size() == 0) {
+        if (measurementsCopy.size() == 0) {
             return 0;
         }
 
         // Return the max of the first measurement, if there is only one measurement
-        if (measurements.size() == 1) {
-            return measurements.get(0).getGlucoseMax();
+        if (measurementsCopy.size() == 1) {
+            return measurementsCopy.get(0).getGlucoseMax();
         }
 
         // Calculate the max glucose of all measurements and return
-        int maxGlucose = measurements.get(0).getGlucoseMax();
+        int maxGlucose = measurementsCopy.get(0).getGlucoseMax();
 
-        for (int i = 1; i < measurements.size(); ++i) {
-            if (measurements.get(i).getGlucoseMax() > maxGlucose) {
-                maxGlucose = measurements.get(i).getGlucoseMax();
+        for (int i = 1; i < measurementsCopy.size(); ++i) {
+            if (measurementsCopy.get(i).getGlucoseMax() > maxGlucose) {
+                maxGlucose = measurementsCopy.get(i).getGlucoseMax();
             }
         }
 
@@ -476,18 +472,25 @@ public class Measurement {
      * @return Returns max glucose or 0 if the list is empty.
      */
     public static float getGlucoseAverageFromList(List<Measurement> measurements) {
+
+        if (measurements == null) {
+            return 0;
+        }
+
+        List<Measurement> measurementsCopy = new ArrayList<>(measurements);
+
         // Remove unfinished measurements
-        removeNotFinishedMeasurements(measurements);
+        removeNotFinishedMeasurements(measurementsCopy);
 
         // Return 0 if list is empty
-        if (measurements.size() == 0) {
+        if (measurementsCopy.size() == 0) {
             return 0;
         }
 
         // Add all glucose values from all measurements to one list
         ArrayList<Integer> allGlucoseValues = new ArrayList<>();
 
-        for (Measurement m : measurements) {
+        for (Measurement m : measurementsCopy) {
             allGlucoseValues.addAll(m.getAllGlucoseValuesAsList(1));
         }
 
@@ -502,18 +505,25 @@ public class Measurement {
      * @return The average integral
      */
     public static float getIntegralFromList(List<Measurement> measurements) {
+
+        if (measurements == null) {
+            return 0;
+        }
+
+        List<Measurement> measurementsCopy = new ArrayList<>(measurements);
+
         // Remove unfinished measurements
-        removeNotFinishedMeasurements(measurements);
+        removeNotFinishedMeasurements(measurementsCopy);
 
         // Return 0 if list is empty
-        if (measurements == null || measurements.size() == 0) {
+        if (measurementsCopy.size() == 0) {
             return 0;
         }
 
         ArrayList<Float> allIntegrals = new ArrayList<>();
 
         // Calculate the integral for each measurement
-        for (Measurement m : measurements) {
+        for (Measurement m : measurementsCopy) {
             // Add all glucose values from all measurements to one list
             allIntegrals.add(m.getIntegral());
         }
@@ -529,18 +539,25 @@ public class Measurement {
      * @return The average deviation
      */
     public static float getStandardDeviationFromList(List<Measurement> measurements) {
+
+        if (measurements == null) {
+            return 0;
+        }
+
+        List<Measurement> measurementsCopy = new ArrayList<>(measurements);
+
         // Remove unfinished measurements
-        removeNotFinishedMeasurements(measurements);
+        removeNotFinishedMeasurements(measurementsCopy);
 
         // Return 0 if list is empty
-        if (measurements.size() == 0) {
+        if (measurementsCopy.size() == 0) {
             return 0;
         }
 
         ArrayList<Float> allStandardDeviations = new ArrayList<>();
 
         // Calculate the standard deviation for each measurement
-        for (Measurement m : measurements) {
+        for (Measurement m : measurementsCopy) {
             // Add all glucose values from all measurements to one list
             allStandardDeviations.add(m.getStandardDeviation());
         }
@@ -550,25 +567,32 @@ public class Measurement {
 
     public static float getGIFromList(List<Measurement> refMeasurements, List<Measurement> measurements) {
 
+        if (refMeasurements == null || measurements == null) {
+            return 0;
+        }
+
+        List<Measurement> refMeasurementsCopy = new ArrayList<>(refMeasurements);
+        List<Measurement> measurementsCopy = new ArrayList<>(measurements);
+
         // Remove all non-gi-measurements
-        removeNonGiMeasurements(refMeasurements);
-        removeNonGiMeasurements(measurements);
+        removeNonGiMeasurements(refMeasurementsCopy);
+        removeNonGiMeasurements(measurementsCopy);
 
         // Remove unfinished measurements
-        removeNotFinishedMeasurements(refMeasurements);
-        removeNotFinishedMeasurements(measurements);
+        removeNotFinishedMeasurements(refMeasurementsCopy);
+        removeNotFinishedMeasurements(measurementsCopy);
 
         // Return 0 if one list is empty
-        if (refMeasurements == null || measurements == null || refMeasurements.size() == 0 || measurements.size() == 0) {
+        if (refMeasurementsCopy.size() == 0 || measurementsCopy.size() == 0) {
             return 0;
         }
 
         ArrayList<Float> allGis = new ArrayList<>();
 
         // Calculate the GI for each measurement
-        for (Measurement m : measurements) {
+        for (Measurement m : measurementsCopy) {
             // Add all glucose values from all measurements to one list
-            allGis.add(m.getGi(refMeasurements));
+            allGis.add(m.getGi(refMeasurementsCopy));
         }
 
         return MyMath.calculateMeanFromFloats(allGis);

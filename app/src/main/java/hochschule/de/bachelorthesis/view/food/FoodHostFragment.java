@@ -99,9 +99,9 @@ public class FoodHostFragment extends Fragment {
           return overviewFragment;
 
         case 1:
-          MeasurementsFragment measurementsFragment = new MeasurementsFragment();
-          measurementsFragment.setArguments(bundle);
-          return measurementsFragment;
+          MeasurementListFragment measurementListFragment = new MeasurementListFragment();
+          measurementListFragment.setArguments(bundle);
+          return measurementListFragment;
 
         case 2:
           FoodDataFragment dataFragment = new FoodDataFragment();

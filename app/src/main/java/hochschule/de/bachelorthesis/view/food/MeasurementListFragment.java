@@ -23,26 +23,25 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MeasurementType;
-import hochschule.de.bachelorthesis.utility.MySnackBar;
-import hochschule.de.bachelorthesis.utility.Samples;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
-import hochschule.de.bachelorthesis.databinding.FragmentMeasurementsBinding;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.adapter.AdapterMeasurements;
+import hochschule.de.bachelorthesis.databinding.FragmentMeasurementListBinding;
+import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
+import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.room.tables.UserHistory;
+import hochschule.de.bachelorthesis.utility.MeasurementType;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
+import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
-public class MeasurementsFragment extends Fragment {
+public class MeasurementListFragment extends Fragment {
 
-    private FragmentMeasurementsBinding mBinding;
+    private FragmentMeasurementListBinding mBinding;
 
     private AdapterMeasurements mAdapter;
 
@@ -71,7 +70,7 @@ public class MeasurementsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         // Init data binding
         mBinding = DataBindingUtil
-                .inflate(inflater, R.layout.fragment_measurements, container, false);
+                .inflate(inflater, R.layout.fragment_measurement_list, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
 
@@ -135,8 +134,6 @@ public class MeasurementsFragment extends Fragment {
         mViewModel.getAllMeasurementsById(mFoodId).observe(getViewLifecycleOwner(), new Observer<List<Measurement>>() {
             @Override
             public void onChanged(final List<Measurement> measurements) {
-
-                Measurement.removeNotFinishedMeasurements(measurements);
 
                 // Add a header element and set it to the start on the list,
                 // so the adapter can use index 0 and build a header line with.

@@ -34,8 +34,6 @@ public class FoodObject {
 
         mAllMeasurements = allMeasurements;
 
-        Measurement.removeNotFinishedMeasurements(mAllMeasurements);
-
         if (mAllMeasurements.size() == 0) {
             return;
         }
@@ -77,9 +75,6 @@ public class FoodObject {
 
     public void setRefAllMeasurements(List<Measurement> refAllMeasurements) {
         mRefAllMeasurements = refAllMeasurements;
-
-        Measurement.removeNotFinishedMeasurements(mRefAllMeasurements);
-        Measurement.removeNonGiMeasurements(mRefAllMeasurements);
 
         if (mRefAllMeasurements.size() == 0) {
             return;
