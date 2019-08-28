@@ -53,27 +53,27 @@ public class AdapterMeasurements extends
         // Position 0 as header
         if (position == 0) {
             holder.date.setText("Date");
-            holder.date.setTextSize(10);
+            holder.date.setTextSize(9);
             holder.date.setTextColor(Color.BLACK);
             holder.date.setTypeface(null, Typeface.BOLD);
 
             holder.isGi.setText("Is GI?");
-            holder.isGi.setTextSize(10);
+            holder.isGi.setTextSize(9);
             holder.isGi.setTextColor(Color.BLACK);
             holder.isGi.setTypeface(null, Typeface.BOLD);
 
-            holder.amount.setText("Amount");
-            holder.amount.setTextSize(10);
+            holder.amount.setText("Amount (g/ml)");
+            holder.amount.setTextSize(9);
             holder.amount.setTextColor(Color.BLACK);
             holder.amount.setTypeface(null, Typeface.BOLD);
 
-            holder.mp.setText("Glucose max");
-            holder.mp.setTextSize(10);
+            holder.mp.setText("Glucose max (mg/dl)");
+            holder.mp.setTextSize(9);
             holder.mp.setTextColor(Color.BLACK);
             holder.mp.setTypeface(null, Typeface.BOLD);
 
             holder.gi.setText("GI");
-            holder.gi.setTextSize(10);
+            holder.gi.setTextSize(9);
             holder.gi.setTextColor(Color.BLACK);
             holder.gi.setTypeface(null, Typeface.BOLD);
 
@@ -94,8 +94,7 @@ public class AdapterMeasurements extends
             // Set text color depending of the GI result
             if (gi == 0) {
                 holder.gi.setTextColor(Color.BLACK);
-            }
-            if (gi < 55)
+            } else if (gi < 55)
                 holder.gi.setTextColor(mContext.getResources().getColor(R.color.gi_low));
             else if (gi < 71)
                 holder.gi.setTextColor(mContext.getResources().getColor(R.color.gi_mid));

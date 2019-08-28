@@ -79,8 +79,7 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
         // Set text color depending of the GI result
         if (gi == 0) {
             holder.mGi.setTextColor(Color.BLACK);
-        }
-        if (gi < 55)
+        } else if (gi < 55)
             holder.mGi.setTextColor(mContext.getResources().getColor(R.color.gi_low));
         else if (gi < 71)
             holder.mGi.setTextColor(mContext.getResources().getColor(R.color.gi_mid));
