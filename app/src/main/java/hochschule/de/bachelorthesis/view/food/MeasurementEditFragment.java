@@ -340,6 +340,7 @@ public class MeasurementEditFragment extends Fragment implements DatePickerDialo
             public void onChanged(final Measurement measurement) {
                 ldm.removeObserver(this);
                 updateMeasurement(measurement);
+                snackBar("Measurement updated!");
             }
         });
     }
