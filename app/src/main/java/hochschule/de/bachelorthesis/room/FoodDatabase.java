@@ -34,7 +34,7 @@ public abstract class FoodDatabase extends RoomDatabase {
   public static synchronized FoodDatabase getDatabase(Context context) {
     if (INSTANCE == null) {
       INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-          FoodDatabase.class, "word_database")
+          FoodDatabase.class, "food_database")
           .fallbackToDestructiveMigration()
           .addCallback(roomCallback)
           .build();
