@@ -16,13 +16,13 @@ public class FoodObject {
     private List<Measurement> mRefAllMeasurements;
 
     // Measurements
-    private int mAmountMeasurement;
-    private int mGlucoseMax;
-    private int mGlucoseAvg;
-    private int mGlucoseIncreaseMax;
-    private int mStandardDeviation;
+    private Integer mAmountMeasurement = 0;
+    private Integer mGlucoseMax = 0;
+    private Integer mGlucoseAvg = 0;
+    private Integer mGlucoseIncreaseMax = 0;
+    private Integer mStandardDeviation = 0;
 
-    private int mGi;
+    private Integer mGi = 0;
 
     public FoodObject(Food food, List<Measurement> allMeasurements) {
 
@@ -49,27 +49,27 @@ public class FoodObject {
         return mFood;
     }
 
-    public int getAmountMeasurement() {
+    public Integer getAmountMeasurement() {
         return mAmountMeasurement;
     }
 
-    public int getGlucoseMax() {
+    public Integer getGlucoseMax() {
         return mGlucoseMax;
     }
 
-    public int getGlucoseAvg() {
+    public Integer getGlucoseAvg() {
         return mGlucoseAvg;
     }
 
-    public int getGlucoseIncreaseMax() {
+    public Integer getGlucoseIncreaseMax() {
         return mGlucoseIncreaseMax;
     }
 
-    public int getStandardDeviation() {
+    public Integer getStandardDeviation() {
         return mStandardDeviation;
     }
 
-    public int getGi() {
+    public Integer getGi() {
         return mGi;
     }
 

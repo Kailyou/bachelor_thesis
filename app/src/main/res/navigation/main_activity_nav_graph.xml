@@ -119,6 +119,9 @@
     <action
       android:id="@+id/action_measurementFragment_to_editMeasurementFragment"
       app:destination="@id/editMeasurementFragment"/>
+    <action
+        android:id="@+id/action_measurementFragment_to_foodHostFragment"
+        app:destination="@id/foodHostFragment" />
   </fragment>
   <fragment
     android:id="@+id/editFoodDataFragment2"

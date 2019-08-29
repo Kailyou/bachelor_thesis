@@ -38,6 +38,7 @@ import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Converter;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementFragment extends Fragment {
@@ -161,13 +162,39 @@ public class MeasurementFragment extends Fragment {
      */
     private void deleteMeasurement() {
 
+        // LOAD MEASUREMENT
         final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mMeasurementId);
-
         ldm.observe(getViewLifecycleOwner(), new Observer<Measurement>() {
             @Override
             public void onChanged(Measurement measurement) {
                 ldm.removeObserver(this);
+
+                if (measurement == null) {
+                    return;
+                }
+
                 mViewModel.deleteMeasurement(measurement);
+
+                // LOAD FOOD
+                final LiveData<Food> ldf = mViewModel.getFoodById(measurement.getFoodId());
+                ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
+                    @Override
+                    public void onChanged(Food food) {
+                        ldf.removeObserver(this);
+
+                        if (food == null) {
+                            return;
+                        }
+
+                        // Navigate back
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("food_id", food.id);
+                        bundle.putString("title", food.getFoodName());
+
+                        Navigation.findNavController(Objects.requireNonNull(getView()))
+                                .navigate(R.id.action_measurementFragment_to_foodHostFragment, bundle);
+                    }
+                });
             }
         });
     }
@@ -298,5 +325,14 @@ public class MeasurementFragment extends Fragment {
         mBinding.lineChart.getDescription().setEnabled(false);
         mBinding.lineChart.notifyDataSetChanged();
         mBinding.lineChart.invalidate();
+    }
+
+    /**
+     * Helper function for faster SnackBar creation
+     *
+     * @param msg The message to display in the SnackBar
+     */
+    private void snackBar(String msg) {
+        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
     }
 }

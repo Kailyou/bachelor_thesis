@@ -32,6 +32,7 @@ import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentGraphsFoodsBinding;
+import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.BarChartValueFormatter;
@@ -42,7 +43,7 @@ public class GraphsFoodsFragment extends Fragment {
 
     private FragmentGraphsFoodsBinding mBinding;
 
-    private ArrayList<FoodData> mFoodData = new ArrayList<>();
+    private ArrayList<FoodObject> mFoodObjects = new ArrayList<>();
 
     private ArrayList<IBarDataSet> mDataSets = new ArrayList<>();
 
@@ -100,13 +101,8 @@ public class GraphsFoodsFragment extends Fragment {
                 loadFoodDataAndBuildChart();
                 return true;
 
-            case R.id.graphs_all_integral:
-                mViewModel.getGraphAllModel().setChartType(3);
-                loadFoodDataAndBuildChart();
-                return true;
-
             case R.id.graphs_all_stdev:
-                mViewModel.getGraphAllModel().setChartType(4);
+                mViewModel.getGraphAllModel().setChartType(3);
                 loadFoodDataAndBuildChart();
                 return true;
 
@@ -135,22 +131,13 @@ public class GraphsFoodsFragment extends Fragment {
 
                     mViewModel.getAllMeasurementsByFoodId(food.id).observe(getViewLifecycleOwner(),
                             new Observer<List<Measurement>>() {
-
                                 @Override
                                 public void onChanged(List<Measurement> measurements) {
                                     // Create food data object and save it to the list
-                                    FoodData foodData = new FoodData(
-                                            food.getFoodName(),
-                                            Measurement.getGlucoseIncreaseMaxFromList(measurements),
-                                            Measurement.getGlucoseMaxFromList(measurements),
-                                            Measurement.getGlucoseAverageFromList(measurements),
-                                            Measurement.getIntegralFromList(measurements),
-                                            Measurement.getStandardDeviationFromList(measurements));
-
-                                    mFoodData.add(foodData);
+                                    mFoodObjects.add(new FoodObject(food, measurements));
 
                                     // If all values has been collected, build the graph
-                                    if (mFoodData.size() == foods.size()) {
+                                    if (mFoodObjects.size() == foods.size()) {
                                         buildChart();
                                     }
                                 }
@@ -164,23 +151,23 @@ public class GraphsFoodsFragment extends Fragment {
      * Takes the wrapper object and removes all objects where one value is zero, which removes all
      * food objects with not at least one finished measurement inside. This needs to be done here
      * because if I do it in the load function, my finish condition is not working anymore.
-     * (mFoodData.length == foods.size).
+     * (mFoodObjects.length == foods.size).
      * <p>
      * Depending on the selected chart type to display, call the correct function and build the
      * chart.
      */
     private void buildChart() {
-        if (mFoodData.size() == 0) {
+        if (mFoodObjects.size() == 0) {
             return;
         }
 
         // Remove all unfinished measurements
-        Iterator<FoodData> iterator = mFoodData.iterator();
+        Iterator<FoodObject> iterator = mFoodObjects.iterator();
 
         while (iterator.hasNext()) {
-            FoodData current = iterator.next();
+            FoodObject current = iterator.next();
             if (current.getGlucoseMax() == 0
-                    || current.getGlucoseAverage() < 0.1f) {
+                    || current.getGlucoseAvg() < 0.1f) {
                 iterator.remove();
             }
         }
@@ -217,9 +204,6 @@ public class GraphsFoodsFragment extends Fragment {
                 createChartGlucoseAverage();
                 break;
             case 3:
-                createChartGlucoseIntegral();
-                break;
-            case 4:
                 createChartGlucoseStandardDeviation();
                 break;
             default:
@@ -240,19 +224,19 @@ public class GraphsFoodsFragment extends Fragment {
         mBinding.header.setText(getResources().getString(R.string.header_glucose_increase_max));
 
         // Sort
-        Collections.sort(mFoodData, new Comparator<FoodData>() {
+        Collections.sort(mFoodObjects, new Comparator<FoodObject>() {
             @Override
-            public int compare(FoodData o1, FoodData o2) {
-                return o1.getIncreaseMax().compareTo(o2.getIncreaseMax());
+            public int compare(FoodObject o1, FoodObject o2) {
+                return o1.getGlucoseIncreaseMax().compareTo(o2.getGlucoseIncreaseMax());
             }
         });
 
-        Collections.reverse(mFoodData);
+        Collections.reverse(mFoodObjects);
 
         ArrayList<Integer> glucoseIncreaseMaxValues = new ArrayList<>();
 
-        for (int i = 0; i < mFoodData.size(); i++) {
-            glucoseIncreaseMaxValues.add(mFoodData.get(i).getIncreaseMax());
+        for (int i = 0; i < mFoodObjects.size(); i++) {
+            glucoseIncreaseMaxValues.add(mFoodObjects.get(i).getGlucoseIncreaseMax());
         }
 
         // Set max
@@ -281,19 +265,19 @@ public class GraphsFoodsFragment extends Fragment {
         mBinding.header.setText(getResources().getString(R.string.header_glucose_max));
 
         // Sort
-        Collections.sort(mFoodData, new Comparator<FoodData>() {
+        Collections.sort(mFoodObjects, new Comparator<FoodObject>() {
             @Override
-            public int compare(FoodData o1, FoodData o2) {
+            public int compare(FoodObject o1, FoodObject o2) {
                 return o1.getGlucoseMax().compareTo(o2.getGlucoseMax());
             }
         });
 
-        Collections.reverse(mFoodData);
+        Collections.reverse(mFoodObjects);
 
         ArrayList<Integer> glucoseMaxValues = new ArrayList<>();
 
-        for (int i = 0; i < mFoodData.size(); i++) {
-            glucoseMaxValues.add(mFoodData.get(i).getGlucoseMax());
+        for (int i = 0; i < mFoodObjects.size(); i++) {
+            glucoseMaxValues.add(mFoodObjects.get(i).getGlucoseMax());
         }
 
         // Set max
@@ -322,19 +306,19 @@ public class GraphsFoodsFragment extends Fragment {
         mBinding.header.setText(getResources().getString(R.string.header_glucose_average));
 
         // Sort
-        Collections.sort(mFoodData, new Comparator<FoodData>() {
+        Collections.sort(mFoodObjects, new Comparator<FoodObject>() {
             @Override
-            public int compare(FoodData o1, FoodData o2) {
-                return o1.getGlucoseAverage().compareTo(o2.getGlucoseAverage());
+            public int compare(FoodObject o1, FoodObject o2) {
+                return o1.getGlucoseAvg().compareTo(o2.getGlucoseAvg());
             }
         });
 
-        Collections.reverse(mFoodData);
+        Collections.reverse(mFoodObjects);
 
         ArrayList<Float> glucoseAverageValues = new ArrayList<>();
 
-        for (int i = 0; i < mFoodData.size(); i++) {
-            glucoseAverageValues.add(mFoodData.get(i).getGlucoseAverage());
+        for (int i = 0; i < mFoodObjects.size(); i++) {
+            glucoseAverageValues.add((float) mFoodObjects.get(i).getGlucoseAvg());
         }
 
         // Set max
@@ -352,47 +336,6 @@ public class GraphsFoodsFragment extends Fragment {
     }
 
     /**
-     * First sort the data in glucose integral order. (From low to max)
-     * <p>
-     * then get the data for the chart and call the function, which will
-     * <p>
-     * set up the data and show the graph.
-     */
-    private void createChartGlucoseIntegral() {
-        // Update header
-        mBinding.header.setText(getResources().getString(R.string.header_integral));
-
-        // Sort
-        Collections.sort(mFoodData, new Comparator<FoodData>() {
-            @Override
-            public int compare(FoodData o1, FoodData o2) {
-                return o1.getIntegral().compareTo(o2.getIntegral());
-            }
-        });
-
-        Collections.reverse(mFoodData);
-
-        ArrayList<Float> glucoseIntegralValues = new ArrayList<>();
-
-        for (int i = 0; i < mFoodData.size(); i++) {
-            glucoseIntegralValues.add(mFoodData.get(i).getIntegral());
-        }
-
-        // Set max
-        mBinding.chart.getAxisLeft()
-                .setAxisMaximum(MyMath.calculateMaxFromFloatList(glucoseIntegralValues) + 5000);
-
-        // Entries
-        ArrayList<BarEntry> dataValues = new ArrayList<>();
-        for (int i = 0; i < glucoseIntegralValues.size(); ++i) {
-            dataValues.add(new BarEntry(i, glucoseIntegralValues.get(i)));
-        }
-
-        // Set
-        finishGraph(new BarDataSet(dataValues, "Integral"));
-    }
-
-    /**
      * First sort the data in standard deviation order. (From low to max)
      * <p>
      * then get the data for the chart and call the function, which will
@@ -404,19 +347,19 @@ public class GraphsFoodsFragment extends Fragment {
         mBinding.header.setText(getResources().getString(R.string.standard_deviation));
 
         // Sort
-        Collections.sort(mFoodData, new Comparator<FoodData>() {
+        Collections.sort(mFoodObjects, new Comparator<FoodObject>() {
             @Override
-            public int compare(FoodData o1, FoodData o2) {
-                return o1.getStdev().compareTo(o2.getStdev());
+            public int compare(FoodObject o1, FoodObject o2) {
+                return o1.getStandardDeviation().compareTo(o2.getStandardDeviation());
             }
         });
 
-        Collections.reverse(mFoodData);
+        Collections.reverse(mFoodObjects);
 
         ArrayList<Float> glucoseStdevValues = new ArrayList<>();
 
-        for (int i = 0; i < mFoodData.size(); i++) {
-            glucoseStdevValues.add(mFoodData.get(i).getStdev());
+        for (int i = 0; i < mFoodObjects.size(); i++) {
+            glucoseStdevValues.add((float) mFoodObjects.get(i).getStandardDeviation());
         }
 
         // Set max
@@ -440,10 +383,10 @@ public class GraphsFoodsFragment extends Fragment {
     private void finishGraph(BarDataSet set) {
         // Set label
         XAxis xAxis = mBinding.chart.getXAxis();
-        String[] labels = new String[mFoodData.size()];
+        String[] labels = new String[mFoodObjects.size()];
 
-        for (int i = 0; i < mFoodData.size(); i++) {
-            labels[i] = mFoodData.get(i).getFoodName();
+        for (int i = 0; i < mFoodObjects.size(); i++) {
+            labels[i] = mFoodObjects.get(i).getFood().getFoodName();
         }
 
         xAxis.setLabelCount(labels.length);
@@ -469,65 +412,11 @@ public class GraphsFoodsFragment extends Fragment {
      * Clear all data used for building the chart.
      */
     private void clearData() {
-        mFoodData.clear();
+        mFoodObjects.clear();
         mDataSets.clear();
         mBinding.chart.notifyDataSetChanged();
         mBinding.chart.clear();
         mBinding.chart.invalidate();
-    }
-
-    /**
-     * Wrapper object for the food data.
-     * <p>
-     * This is mainly needed because in the function where the data are loaded, to save the data in
-     * and have a possibility for a condition.
-     * <p>
-     * If the length of the list of objects with this wrapper object is equal to the amount of food
-     * objects, all data have been saved.
-     */
-    private class FoodData {
-
-        private String mFoodName;
-        private Integer mIncreaseMax;
-        private Integer mMax;
-        private Float mAverage;
-        private Float mIntegral;
-        private Float mStdev;
-
-        private FoodData(String foodName, int increaseMax,
-                         int max, float average, float integral,
-                         float stdev) {
-            mFoodName = foodName;
-            mIncreaseMax = increaseMax;
-            mMax = max;
-            mAverage = average;
-            mIntegral = integral;
-            mStdev = stdev;
-        }
-
-        private String getFoodName() {
-            return mFoodName;
-        }
-
-        private Integer getIncreaseMax() {
-            return mIncreaseMax;
-        }
-
-        private Integer getGlucoseMax() {
-            return mMax;
-        }
-
-        private Float getGlucoseAverage() {
-            return mAverage;
-        }
-
-        private Float getIntegral() {
-            return mIntegral;
-        }
-
-        private Float getStdev() {
-            return mStdev;
-        }
     }
 }
 
