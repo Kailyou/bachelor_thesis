@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/sort"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="@string/sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/sort_alphanumeric"
+                android:orderInCategory="100"
+                android:title="@string/sort_alphanumeric"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_gi"
+                android:orderInCategory="100"
+                android:title="@string/sort_for_gi"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/add_apple"
+        android:title="@string/add_apple"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_coke"
+        android:title="@string/add_coke"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_pizza"
+        android:title="@string/add_pizza"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_glucose"
+        android:title="@string/add_glucose"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/delete_foods"
+        android:title="@string/delete_all_foods"
+        app:showAsAction="never" />
+
+</menu>

@@ -71,7 +71,6 @@
     <string name="start_value">Start value</string>
     <string name="time_consumed">Time consumed</string>
     <string name="add_sample_user">Add sample user (debug)</string>
-    <string name="sort">sort</string>
     <string name="chose_date">Chose Date</string>
     <string name="chose_time">Chose Time</string>
     <string name="amount_consumed">Amount consumed</string>
@@ -206,6 +205,13 @@
     <string name="add_random_high_gi_measurement">Add random high GI measurement</string>
     <string name="add_random_ref_gi_measurement">Add random REF GI measurement</string>
     <string name="add_unfinished_gi_measurement">Add unfinished GI measurement</string>
+    <string name="sort">sort</string>
+    <string name="add_apple">Add Apple</string>
+    <string name="add_coke">Add Coke</string>
+    <string name="add_pizza">Add Pizza</string>
+    <string name="add_glucose">Add Glucose</string>
+    <string name="sort_alphanumeric">Sort alphanumeric</string>
+    <string name="sort_for_gi">Sort for GI</string>
 
     <string-array name="type">
         <item>Grains</item>

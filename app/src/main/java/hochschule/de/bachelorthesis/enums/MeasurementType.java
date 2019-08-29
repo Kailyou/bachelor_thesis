@@ -1,4 +1,4 @@
-package hochschule.de.bachelorthesis.utility;
+package hochschule.de.bachelorthesis.enums;
 
 public enum MeasurementType {
     LOW,

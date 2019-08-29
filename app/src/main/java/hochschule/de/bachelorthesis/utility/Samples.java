@@ -1,16 +1,12 @@
 package hochschule.de.bachelorthesis.utility;
 
 import android.content.Context;
-import android.util.Log;
-
-import androidx.annotation.IntDef;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.enums.MeasurementType;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;

@@ -31,9 +31,11 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.adapter.AdapterFood;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodListBinding;
+import hochschule.de.bachelorthesis.enums.SortType;
 import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
@@ -56,6 +58,8 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 public class FoodListFragment extends Fragment {
 
     private FragmentFoodListBinding mBinding;
+
+    private ArrayList<FoodObject> mFoodObjects = new ArrayList<>();
 
     private FoodViewModel mViewModel;
 
@@ -100,12 +104,24 @@ public class FoodListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.food_menu, menu);
+        inflater.inflate(R.menu.food_list_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.sort_alphanumeric:
+                mViewModel.getFoodListModel().setSortType(SortType.ALPHANUMERIC);
+                sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                snackBar("List sorted alphanumeric successfully!");
+                return true;
+
+            case R.id.sort_gi:
+                mViewModel.getFoodListModel().setSortType(SortType.GI);
+                sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                snackBar("List sorted for GI successfully!");
+                return true;
 
             case R.id.add_apple:
                 mViewModel.insertFood(Samples.getApple());
@@ -117,6 +133,10 @@ public class FoodListFragment extends Fragment {
 
             case R.id.add_pizza:
                 mViewModel.insertFood(Samples.getPizza());
+                return true;
+
+            case R.id.add_glucose:
+                mViewModel.insertFood(Samples.getGlucose());
                 return true;
 
             case R.id.delete_foods:
@@ -158,10 +178,10 @@ public class FoodListFragment extends Fragment {
             @Override
             public void onChanged(final List<Food> foods) {
 
-                final List<FoodObject> foodObjects = new ArrayList<>();
+                mFoodObjects.clear();
 
                 if (foods == null || foods.size() == 0) {
-                    mAdapter.setFoodObjects(foodObjects);
+                    mAdapter.setFoodObjects(mFoodObjects);
                     return;
                 }
 
@@ -173,13 +193,13 @@ public class FoodListFragment extends Fragment {
                         public void onChanged(List<Measurement> measurements) {
                             ldf.removeObserver(this);
                             {
-                                foodObjects.add(new FoodObject(f, measurements));
+                                mFoodObjects.add(new FoodObject(f, measurements));
 
-                                if (foodObjects.size() == foods.size()) {
+                                if (mFoodObjects.size() == foods.size()) {
 
                                     // Add a header element and set it to the start on the list,
                                     // so the adapter can use index 0 and build a header line with.
-                                    foodObjects.add(0, new FoodObject(Samples.getEmptyFood(), null));
+                                    mFoodObjects.add(0, new FoodObject(Samples.getEmptyFood(), null));
 
                                     // LOAD REF PRODUCT
                                     final LiveData<Food> ldf2 = mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product");
@@ -189,8 +209,8 @@ public class FoodListFragment extends Fragment {
                                             ldf2.removeObserver(this);
 
                                             if (refFood == null) {
-                                                sortFoodObjects("alphanumeric", foodObjects);
-                                                mAdapter.setFoodObjects(foodObjects);
+                                                sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                                                mAdapter.setFoodObjects(mFoodObjects);
                                                 return;
                                             }
 
@@ -201,17 +221,17 @@ public class FoodListFragment extends Fragment {
                                                 public void onChanged(List<Measurement> refMeasurements) {
 
                                                     if (refMeasurements.size() == 0) {
-                                                        sortFoodObjects("alphanumeric", foodObjects);
-                                                        mAdapter.setFoodObjects(foodObjects);
+                                                        sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                                                        mAdapter.setFoodObjects(mFoodObjects);
                                                         return;
                                                     }
 
-                                                    for (FoodObject fo : foodObjects) {
+                                                    for (FoodObject fo : mFoodObjects) {
                                                         fo.setRefAllMeasurements(refMeasurements);
                                                     }
 
-                                                    sortFoodObjects("alphanumeric", foodObjects);
-                                                    mAdapter.setFoodObjects(foodObjects);
+                                                    sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                                                    mAdapter.setFoodObjects(mFoodObjects);
                                                 }
                                             });
                                         }
@@ -233,27 +253,54 @@ public class FoodListFragment extends Fragment {
      * @param sortType    How to sort the list
      * @param foodObjects Food object list
      */
-    private void sortFoodObjects(String sortType, List<FoodObject> foodObjects) {
-        Comparator<FoodObject> comparator = null;
+    private void sortFoodObjects(SortType sortType, List<FoodObject> foodObjects) {
+        Comparator<FoodObject> comparator;
 
         // Create a comparator depending of the given parameter
-        if (sortType.equals("alphanumeric")) {
-            comparator = new Comparator<FoodObject>() {
-                @Override
-                public int compare(FoodObject fo1, FoodObject fo2) {
-                    return String.CASE_INSENSITIVE_ORDER.compare(fo1.getFood().getFoodName(), fo2.getFood().getFoodName());
-                }
-            };
+        switch (sortType) {
+            case ALPHANUMERIC:
+                comparator = new Comparator<FoodObject>() {
+                    @Override
+                    public int compare(FoodObject fo1, FoodObject fo2) {
+                        return String.CASE_INSENSITIVE_ORDER.compare(fo1.getFood().getFoodName(), fo2.getFood().getFoodName());
+                    }
+                };
+                break;
+
+            case GI:
+                comparator = new Comparator<FoodObject>() {
+                    @Override
+                    public int compare(FoodObject fo1, FoodObject fo2) {
+                        return fo1.getGi().compareTo(fo2.getGi());
+                    }
+                };
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected state at list sorting!");
         }
 
-        if (comparator != null) {
-            FoodObject tmp = foodObjects.get(0);
-            foodObjects.remove(0);
-
-            Collections.sort(foodObjects, comparator);
-
-            foodObjects.add(0, tmp);
+        if (foodObjects == null || foodObjects.size() == 0) {
+            return;
         }
+
+        FoodObject tmp = foodObjects.get(0);
+        foodObjects.remove(0);
+
+        Collections.sort(foodObjects, comparator);
+
+        foodObjects.add(0, tmp);
+
+        mAdapter.setFoodObjects(foodObjects);
+    }
+
+    /**
+     * Helper function for faster SnackBar creation
+     *
+     * @param msg The message to display in the SnackBar
+     */
+    private void snackBar(String msg) {
+        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
     }
 }
 

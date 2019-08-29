@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import hochschule.de.bachelorthesis.enums.SortType;
 import hochschule.de.bachelorthesis.model.FoodAddModel;
+import hochschule.de.bachelorthesis.model.FoodListModel;
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
@@ -26,6 +28,7 @@ public class FoodViewModel extends AndroidViewModel {
     private Repository mRepository;
 
     // Models
+    private FoodListModel mFoodListModel;
     private FoodAddModel mFoodAddModel;
     private MeasurementAddModel mMeasurementAddModel;
 
@@ -34,11 +37,23 @@ public class FoodViewModel extends AndroidViewModel {
 
         mRepository = new Repository(application);
 
+        mFoodListModel = new FoodListModel();
         mFoodAddModel = new FoodAddModel();
         mMeasurementAddModel = new MeasurementAddModel();
     }
 
     /* UPDATE MODELS */
+
+    /**
+     * This method will update the food list model.
+     */
+    public void updateFoodListModel(SortType sortType) {
+        if (sortType == null) {
+            return;
+        }
+
+        mFoodListModel.setSortType(sortType);
+    }
 
     /**
      * This method will update the food add model.
@@ -206,6 +221,10 @@ public class FoodViewModel extends AndroidViewModel {
     }
 
     /* GETTER */
+
+    public FoodListModel getFoodListModel() {
+        return mFoodListModel;
+    }
 
     public FoodAddModel getFoodAddDataModel() {
         return mFoodAddModel;

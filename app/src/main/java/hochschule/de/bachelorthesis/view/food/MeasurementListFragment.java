@@ -34,7 +34,7 @@ import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.utility.MeasurementType;
+import hochschule.de.bachelorthesis.enums.MeasurementType;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
