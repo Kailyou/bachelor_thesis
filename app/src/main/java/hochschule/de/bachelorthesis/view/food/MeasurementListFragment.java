@@ -3,6 +3,7 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -110,44 +111,37 @@ public class MeasurementListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.sort_gi:
                 mViewModel.updateFoodListModel(SortType.GI);
-                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mAllMeasurementObjects);
+                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                 snackBar("List sorted for GI successfully!");
                 return true;
 
             case R.id.sort_glucose_max:
                 mViewModel.updateFoodListModel(SortType.GLUCOSE_MAX);
-                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mAllMeasurementObjects);
-                snackBar("List sorted for glucose max successfully!");
+                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                 return true;
 
             case R.id.add_unfinished_gi_measurement:
                 createTemplateMeasurement(false, null);
-                snackBar("Added unfinished measurement successfully!");
                 return true;
 
             case R.id.add_low_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.LOW);
-                snackBar("Added low gi measurement successfully!");
                 return true;
 
             case R.id.add_mid_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.MID);
-                snackBar("Added mid gi measurement successfully!");
                 return true;
 
             case R.id.add_high_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.HIGH);
-                snackBar("Added high gi measurement successfully!");
                 return true;
 
             case R.id.add_ref_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.REF);
-                snackBar("Added ref gi measurement successfully!");
                 return true;
 
             case R.id.delete_measurements:
                 deleteMeasurements();
-                snackBar("Deleted all measurements successfully!");
                 return true;
         }
 
@@ -162,11 +156,6 @@ public class MeasurementListFragment extends Fragment {
 
                 mAllMeasurementObjects.clear();
 
-                // Add a header element and set it to the start on the list,
-                // so the adapter can use index 0 and build a header line with.
-                Measurement header = Samples.getEmptyMeasurement();
-                measurements.add(0, header);
-
                 // LOAD REF PRODUCT
                 final LiveData<Food> ldf = mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product");
                 ldf.observe(getViewLifecycleOwner(), new Observer<Food>() {
@@ -174,12 +163,16 @@ public class MeasurementListFragment extends Fragment {
                     public void onChanged(Food refFood) {
                         ldf.removeObserver(this);
 
+                        // Add a header element and set it to the start on the list,
+                        // so the adapter can use index 0 and build a header line with.
+                        measurements.add(0, Samples.getEmptyMeasurement());
+
                         if (refFood == null) {
                             for (Measurement m : measurements) {
                                 mAllMeasurementObjects.add(new MeasurementObject(m, null));
-                                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType(), mAllMeasurementObjects);
                             }
 
+                            sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType());
                             return;
                         }
 
@@ -195,15 +188,15 @@ public class MeasurementListFragment extends Fragment {
                                 if (refMeasurements.size() == 0) {
                                     for (Measurement m : measurements) {
                                         mAllMeasurementObjects.add(new MeasurementObject(m, null));
-                                        sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType(), mAllMeasurementObjects);
                                     }
 
+                                    sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType());
                                     return;
                                 }
 
                                 for (Measurement m : measurements) {
                                     mAllMeasurementObjects.add(new MeasurementObject(m, refMeasurements));
-                                    sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType(), mAllMeasurementObjects);
+                                    sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType());
                                 }
                             }
                         });
@@ -261,14 +254,15 @@ public class MeasurementListFragment extends Fragment {
                                 // If food is ref product use another sample to get higher values
                                 if (finished) {
                                     templateMeasurement = Samples.getRandomMeasurement(
-                                            Objects.requireNonNull(getContext()), mFoodId, userHistory.id, true, type);
+                                            Objects.requireNonNull(getContext()), mFoodId, userHistory.id, true, type, food.getFoodName());
                                 } else {
                                     templateMeasurement = Samples
                                             .getRandomMeasurementUnfinished(Objects.requireNonNull(getContext()), mFoodId,
-                                                    userHistory.id, true);
+                                                    userHistory.id, true, food.getFoodName());
                                 }
 
                                 mViewModel.insertMeasurement(templateMeasurement);
+                                snackBar("Measurement added successfully!");
                             }
                         });
                     }
@@ -297,6 +291,7 @@ public class MeasurementListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 if (whichButton == -1) {
                                     mViewModel.deleteAllMeasurementFromFoodWithId(mFoodId);
+                                    snackBar("Deleted all measurements successfully!");
                                 }
                             }
                         })
@@ -309,10 +304,9 @@ public class MeasurementListFragment extends Fragment {
      * Create a comparator depending on how to sort the list, sort the list and pass the list to the
      * adapter, which will cause the list to be visible.
      *
-     * @param sortType           How to sort the list
-     * @param measurementObjects Measurement object list
+     * @param sortType How to sort the list
      */
-    private void sortMeasurementObjectsAndPassResultToAdapter(SortType sortType, List<MeasurementObject> measurementObjects) {
+    private void sortMeasurementObjectsAndPassResultToAdapter(SortType sortType) {
         Comparator<MeasurementObject> comparator;
 
         // Create a comparator depending of the given parameter
@@ -339,19 +333,21 @@ public class MeasurementListFragment extends Fragment {
                 throw new IllegalStateException("Unexpected state at list sorting!");
         }
 
-        if (measurementObjects == null || measurementObjects.size() == 0) {
+        if (mAllMeasurementObjects == null || mAllMeasurementObjects.size() == 0) {
             return;
         }
 
         // Remove the first element (header), sort the list and put the header back in
-        MeasurementObject tmp = measurementObjects.get(0);
-        measurementObjects.remove(0);
+        MeasurementObject tmp = mAllMeasurementObjects.get(0);
+        mAllMeasurementObjects.remove(0);
 
-        Collections.sort(measurementObjects, comparator);
+        Collections.sort(mAllMeasurementObjects, comparator);
 
-        measurementObjects.add(0, tmp);
+        mAllMeasurementObjects.add(0, tmp);
 
-        mAdapter.setMeasurementObjects(measurementObjects);
+        mAdapter.setMeasurementObjects(mAllMeasurementObjects);
+
+        snackBar("List sorted for glucose max successfully!");
     }
 
     /**

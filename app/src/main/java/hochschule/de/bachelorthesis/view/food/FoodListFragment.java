@@ -2,6 +2,7 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -113,14 +114,12 @@ public class FoodListFragment extends Fragment {
 
             case R.id.sort_alphanumeric:
                 mViewModel.updateFoodListModel(SortType.ALPHANUMERIC);
-                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
-                snackBar("List sorted alphanumeric successfully!");
+                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                 return true;
 
             case R.id.sort_gi:
                 mViewModel.updateFoodListModel(SortType.GI);
-                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
-                snackBar("List sorted for GI successfully!");
+                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                 return true;
 
             case R.id.add_apple:
@@ -145,7 +144,6 @@ public class FoodListFragment extends Fragment {
 
             case R.id.delete_foods:
                 deleteFoods();
-                snackBar("Deleted all foods successfully!");
                 return true;
         }
 
@@ -198,7 +196,7 @@ public class FoodListFragment extends Fragment {
                                             ldf2.removeObserver(this);
 
                                             if (refFood == null) {
-                                                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                                                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                                                 return;
                                             }
 
@@ -209,7 +207,7 @@ public class FoodListFragment extends Fragment {
                                                 public void onChanged(List<Measurement> refMeasurements) {
 
                                                     if (refMeasurements.size() == 0) {
-                                                        sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                                                        sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                                                         return;
                                                     }
 
@@ -217,7 +215,7 @@ public class FoodListFragment extends Fragment {
                                                         fo.setRefAllMeasurements(refMeasurements);
                                                     }
 
-                                                    sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                                                    sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
                                                 }
                                             });
                                         }
@@ -245,6 +243,7 @@ public class FoodListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if (whichButton == -1) {
                             mViewModel.deleteAllFoods();
+                            snackBar("Deleted all foods successfully!");
                         }
                     }
                 })
@@ -255,10 +254,9 @@ public class FoodListFragment extends Fragment {
      * Create a comparator depending on how to sort the list, sort the list and pass the list to the
      * adapter, which will cause the list to be visible.
      *
-     * @param sortType    How to sort the list
-     * @param foodObjects Food object list
+     * @param sortType How to sort the list
      */
-    private void sortFoodObjectsAndPassResultToAdapter(SortType sortType, List<FoodObject> foodObjects) {
+    private void sortFoodObjectsAndPassResultToAdapter(SortType sortType) {
         Comparator<FoodObject> comparator;
 
         // Create a comparator depending of the given parameter
@@ -285,19 +283,25 @@ public class FoodListFragment extends Fragment {
                 throw new IllegalStateException("Unexpected state at list sorting!");
         }
 
-        if (foodObjects == null || foodObjects.size() == 0) {
+        if (mFoodObjects == null || mFoodObjects.size() == 0) {
             return;
         }
 
         // Remove the first element (header), sort the list and put the header back in
-        FoodObject tmp = foodObjects.get(0);
-        foodObjects.remove(0);
+        FoodObject tmp = mFoodObjects.get(0);
+        mFoodObjects.remove(0);
 
-        Collections.sort(foodObjects, comparator);
+        Collections.sort(mFoodObjects, comparator);
 
-        foodObjects.add(0, tmp);
+        mFoodObjects.add(0, tmp);
 
-        mAdapter.setFoodObjects(foodObjects);
+        mAdapter.setFoodObjects(mFoodObjects);
+
+        if (mViewModel.getFoodListModel().getSortType() == SortType.ALPHANUMERIC) {
+            snackBar("List sorted alphanumeric successfully!");
+        } else if (mViewModel.getFoodListModel().getSortType() == SortType.GI) {
+            snackBar("List sorted for GI successfully!");
+        }
     }
 
     /**

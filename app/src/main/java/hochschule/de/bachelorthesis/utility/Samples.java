@@ -115,13 +115,35 @@ public class Samples {
      * @return Returns an unfinished non gi measurement
      */
     public static Measurement getRandomMeasurementUnfinished(Context context, int foodId,
-                                                             int userHistoryId, boolean isGi) {
+                                                             int userHistoryId, boolean isGi, String foodName) {
         // Get current time
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy_KK:mm aa", Locale.getDefault());
         String timeStamp = sdf.format(currentTime);
 
-        int randomAmount = MyMath.getRandomInt(50, 1000);
+        int amount;
+
+        switch (foodName) {
+            case "Apple":
+                amount = 362;
+                break;
+
+            case "Coca-Cola":
+                amount = 471;
+                break;
+
+            case "Pizza Salame":
+                amount = 192;
+                break;
+
+            case "Glucose":
+                amount = 50;
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected state at random measurement!");
+        }
+
         String randomStress = context.getResources().getStringArray(R.array.stress)[MyMath
                 .getRandomInt(0, 2)];
         String randomTired = context.getResources().getStringArray(R.array.tired)[MyMath
@@ -137,12 +159,13 @@ public class Samples {
         } else {
             randomMedication = false;
         }
+
         boolean randomPeriod = (MyMath.getRandomInt(0, 1) != 0);
 
         return new Measurement(foodId, userHistoryId,
                 isGi,
                 timeStamp,
-                randomAmount,
+                amount,
                 randomStress, randomTired, randomPhysicallyActive, randomAlcoholConsumed, randomIll,
                 randomMedication, randomPeriod,
                 100);
@@ -154,14 +177,14 @@ public class Samples {
      * @param userHistoryId - The user history id
      * @return Returns a finished non gi measurement
      */
-    public static Measurement getRandomMeasurement(Context context, int foodId, int userHistoryId, boolean isGi, MeasurementType type) {
-        Measurement randomMeasurement = getRandomMeasurementUnfinished(context, foodId, userHistoryId, isGi);
+    public static Measurement getRandomMeasurement(Context context, int foodId, int userHistoryId, boolean isGi, MeasurementType measurementType, String foodType) {
+        Measurement randomMeasurement = getRandomMeasurementUnfinished(context, foodId, userHistoryId, isGi, foodType);
 
         // Random measurement, starting with 100 and ending with 100
         int[] glucoseRandomValues = new int[9];
         glucoseRandomValues[0] = 100;
 
-        switch (type) {
+        switch (measurementType) {
             case LOW:
                 glucoseRandomValues[1] = MyMath.getRandomInt(108, 113);
                 glucoseRandomValues[2] = MyMath.getRandomInt(120, 125);
