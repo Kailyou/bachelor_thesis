@@ -24,12 +24,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.adapter.AdapterMeasurements;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementListBinding;
+import hochschule.de.bachelorthesis.enums.SortType;
 import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -41,13 +44,13 @@ import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 public class MeasurementListFragment extends Fragment {
 
-    private FragmentMeasurementListBinding mBinding;
-
     private AdapterMeasurements mAdapter;
 
     private FoodViewModel mViewModel;
 
     private int mFoodId;
+
+    private List<MeasurementObject> mAllMeasurementObjects = new ArrayList<>();
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class MeasurementListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Init data binding
-        mBinding = DataBindingUtil
+        FragmentMeasurementListBinding mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_measurement_list, container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         mBinding.setViewModel(mViewModel);
@@ -99,30 +102,52 @@ public class MeasurementListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.measurements_menu, menu);
+        inflater.inflate(R.menu.measurement_list_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.sort_gi:
+                mViewModel.updateFoodListModel(SortType.GI);
+                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mAllMeasurementObjects);
+                snackBar("List sorted for GI successfully!");
+                return true;
+
+            case R.id.sort_glucose_max:
+                mViewModel.updateFoodListModel(SortType.GLUCOSE_MAX);
+                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mAllMeasurementObjects);
+                snackBar("List sorted for glucose max successfully!");
+                return true;
+
             case R.id.add_unfinished_gi_measurement:
                 createTemplateMeasurement(false, null);
+                snackBar("Added unfinished measurement successfully!");
                 return true;
+
             case R.id.add_low_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.LOW);
+                snackBar("Added low gi measurement successfully!");
                 return true;
+
             case R.id.add_mid_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.MID);
+                snackBar("Added mid gi measurement successfully!");
                 return true;
+
             case R.id.add_high_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.HIGH);
+                snackBar("Added high gi measurement successfully!");
                 return true;
+
             case R.id.add_ref_gi_measurement:
                 createTemplateMeasurement(true, MeasurementType.REF);
+                snackBar("Added ref gi measurement successfully!");
                 return true;
 
             case R.id.delete_measurements:
                 deleteMeasurements();
+                snackBar("Deleted all measurements successfully!");
                 return true;
         }
 
@@ -135,12 +160,12 @@ public class MeasurementListFragment extends Fragment {
             @Override
             public void onChanged(final List<Measurement> measurements) {
 
+                mAllMeasurementObjects.clear();
+
                 // Add a header element and set it to the start on the list,
                 // so the adapter can use index 0 and build a header line with.
                 Measurement header = Samples.getEmptyMeasurement();
                 measurements.add(0, header);
-
-                final List<MeasurementObject> lmo = new ArrayList<>();
 
                 // LOAD REF PRODUCT
                 final LiveData<Food> ldf = mViewModel.getFoodByFoodNameAndBrandName("Glucose", "Reference Product");
@@ -151,8 +176,8 @@ public class MeasurementListFragment extends Fragment {
 
                         if (refFood == null) {
                             for (Measurement m : measurements) {
-                                lmo.add(new MeasurementObject(m, null));
-                                mAdapter.setMeasurementObjects(lmo);
+                                mAllMeasurementObjects.add(new MeasurementObject(m, null));
+                                sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType(), mAllMeasurementObjects);
                             }
 
                             return;
@@ -169,16 +194,16 @@ public class MeasurementListFragment extends Fragment {
 
                                 if (refMeasurements.size() == 0) {
                                     for (Measurement m : measurements) {
-                                        lmo.add(new MeasurementObject(m, null));
-                                        mAdapter.setMeasurementObjects(lmo);
+                                        mAllMeasurementObjects.add(new MeasurementObject(m, null));
+                                        sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType(), mAllMeasurementObjects);
                                     }
 
                                     return;
                                 }
 
                                 for (Measurement m : measurements) {
-                                    lmo.add(new MeasurementObject(m, refMeasurements));
-                                    mAdapter.setMeasurementObjects(lmo);
+                                    mAllMeasurementObjects.add(new MeasurementObject(m, refMeasurements));
+                                    sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getMeasurementListModel().getSortType(), mAllMeasurementObjects);
                                 }
                             }
                         });
@@ -206,7 +231,6 @@ public class MeasurementListFragment extends Fragment {
                 for (Measurement m : allMeasurements) {
                     if (m.isActive()) {
                         snackBar("Cannot add measurement because another one is still active!");
-
                         return;
                     }
                 }
@@ -279,6 +303,55 @@ public class MeasurementListFragment extends Fragment {
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
+    }
+
+    /**
+     * Create a comparator depending on how to sort the list, sort the list and pass the list to the
+     * adapter, which will cause the list to be visible.
+     *
+     * @param sortType           How to sort the list
+     * @param measurementObjects Measurement object list
+     */
+    private void sortMeasurementObjectsAndPassResultToAdapter(SortType sortType, List<MeasurementObject> measurementObjects) {
+        Comparator<MeasurementObject> comparator;
+
+        // Create a comparator depending of the given parameter
+        switch (sortType) {
+            case GLUCOSE_MAX:
+                comparator = new Comparator<MeasurementObject>() {
+                    @Override
+                    public int compare(MeasurementObject mo1, MeasurementObject mo2) {
+                        return mo1.getGlucoseMax().compareTo(mo2.getGlucoseMax());
+                    }
+                };
+                break;
+
+            case GI:
+                comparator = new Comparator<MeasurementObject>() {
+                    @Override
+                    public int compare(MeasurementObject mo1, MeasurementObject mo2) {
+                        return mo1.getGi().compareTo(mo2.getGi());
+                    }
+                };
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected state at list sorting!");
+        }
+
+        if (measurementObjects == null || measurementObjects.size() == 0) {
+            return;
+        }
+
+        // Remove the first element (header), sort the list and put the header back in
+        MeasurementObject tmp = measurementObjects.get(0);
+        measurementObjects.remove(0);
+
+        Collections.sort(measurementObjects, comparator);
+
+        measurementObjects.add(0, tmp);
+
+        mAdapter.setMeasurementObjects(measurementObjects);
     }
 
     /**

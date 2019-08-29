@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort_white_24dp"
         android:title="@string/sort"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/sort_gi"
+                android:orderInCategory="100"
+                android:title="@string/sort_for_gi"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_glucose_max"
+                android:orderInCategory="100"
+                android:title="@string/sort_for_glucose_max"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/add_unfinished_gi_measurement"

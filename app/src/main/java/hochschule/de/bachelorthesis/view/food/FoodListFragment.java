@@ -112,51 +112,40 @@ public class FoodListFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.sort_alphanumeric:
-                mViewModel.getFoodListModel().setSortType(SortType.ALPHANUMERIC);
-                sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                mViewModel.updateFoodListModel(SortType.ALPHANUMERIC);
+                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
                 snackBar("List sorted alphanumeric successfully!");
                 return true;
 
             case R.id.sort_gi:
-                mViewModel.getFoodListModel().setSortType(SortType.GI);
-                sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
+                mViewModel.updateFoodListModel(SortType.GI);
+                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
                 snackBar("List sorted for GI successfully!");
                 return true;
 
             case R.id.add_apple:
                 mViewModel.insertFood(Samples.getApple());
+                snackBar("Added Apple successfully!");
                 return true;
 
             case R.id.add_coke:
                 mViewModel.insertFood(Samples.getCoke());
+                snackBar("Added Coke successfully!");
                 return true;
 
             case R.id.add_pizza:
                 mViewModel.insertFood(Samples.getPizza());
+                snackBar("Added Pizza successfully!");
                 return true;
 
             case R.id.add_glucose:
                 mViewModel.insertFood(Samples.getGlucose());
+                snackBar("Added Glucose successfully!");
                 return true;
 
             case R.id.delete_foods:
-                new AlertDialog.Builder(Objects.requireNonNull(getContext()))
-                        .setTitle("Delete Confirmation")
-                        .setMessage(
-                                "You are about to delete this measurement." +
-                                        "\n\nIt cannot be restored at a later time!" +
-                                        "\n\nContinue?")
-                        .setIcon(android.R.drawable.ic_delete)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                if (whichButton == -1) {
-                                    mViewModel.deleteAllFoods();
-                                }
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
-
+                deleteFoods();
+                snackBar("Deleted all foods successfully!");
                 return true;
         }
 
@@ -209,8 +198,7 @@ public class FoodListFragment extends Fragment {
                                             ldf2.removeObserver(this);
 
                                             if (refFood == null) {
-                                                sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
-                                                mAdapter.setFoodObjects(mFoodObjects);
+                                                sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
                                                 return;
                                             }
 
@@ -221,8 +209,7 @@ public class FoodListFragment extends Fragment {
                                                 public void onChanged(List<Measurement> refMeasurements) {
 
                                                     if (refMeasurements.size() == 0) {
-                                                        sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
-                                                        mAdapter.setFoodObjects(mFoodObjects);
+                                                        sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
                                                         return;
                                                     }
 
@@ -230,8 +217,7 @@ public class FoodListFragment extends Fragment {
                                                         fo.setRefAllMeasurements(refMeasurements);
                                                     }
 
-                                                    sortFoodObjects(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
-                                                    mAdapter.setFoodObjects(mFoodObjects);
+                                                    sortFoodObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType(), mFoodObjects);
                                                 }
                                             });
                                         }
@@ -246,6 +232,25 @@ public class FoodListFragment extends Fragment {
 
     }
 
+    private void deleteFoods() {
+        new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                .setTitle("Delete Confirmation")
+                .setMessage(
+                        "You are about to delete this measurement." +
+                                "\n\nIt cannot be restored at a later time!" +
+                                "\n\nContinue?")
+                .setIcon(android.R.drawable.ic_delete)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        if (whichButton == -1) {
+                            mViewModel.deleteAllFoods();
+                        }
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
     /**
      * Create a comparator depending on how to sort the list, sort the list and pass the list to the
      * adapter, which will cause the list to be visible.
@@ -253,7 +258,7 @@ public class FoodListFragment extends Fragment {
      * @param sortType    How to sort the list
      * @param foodObjects Food object list
      */
-    private void sortFoodObjects(SortType sortType, List<FoodObject> foodObjects) {
+    private void sortFoodObjectsAndPassResultToAdapter(SortType sortType, List<FoodObject> foodObjects) {
         Comparator<FoodObject> comparator;
 
         // Create a comparator depending of the given parameter
@@ -284,6 +289,7 @@ public class FoodListFragment extends Fragment {
             return;
         }
 
+        // Remove the first element (header), sort the list and put the header back in
         FoodObject tmp = foodObjects.get(0);
         foodObjects.remove(0);
 

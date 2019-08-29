@@ -17,12 +17,12 @@ public class MeasurementObject {
     private String mTimeEnded;
 
     // data
-    private int mGlucoseMax;
-    private int mGlucoseAvg;
-    private int mGlucoseIncreaseMax;
-    private int mStandardDeviation;
+    private Integer mGlucoseMax = 0;
+    private Integer mGlucoseAvg = 0;
+    private Integer mGlucoseIncreaseMax = 0;
+    private Integer mStandardDeviation = 0;
 
-    private int mGi;
+    private Integer mGi = 0;
 
     public MeasurementObject(Measurement measurement, List<Measurement> refMeasurements) {
         mMeasurement = measurement;
@@ -72,23 +72,23 @@ public class MeasurementObject {
         return mTimeEnded;
     }
 
-    public int getGlucoseMax() {
+    public Integer getGlucoseMax() {
         return mGlucoseMax;
     }
 
-    public int getGlucoseAvg() {
+    public Integer getGlucoseAvg() {
         return mGlucoseAvg;
     }
 
-    public int getGlucoseIncreaseMax() {
+    public Integer getGlucoseIncreaseMax() {
         return mGlucoseIncreaseMax;
     }
 
-    public int getStandardDeviation() {
+    public Integer getStandardDeviation() {
         return mStandardDeviation;
     }
 
-    public int getGi() {
+    public Integer getGi() {
         return mGi;
     }
 }

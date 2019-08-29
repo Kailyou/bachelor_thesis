@@ -10,6 +10,7 @@ import hochschule.de.bachelorthesis.enums.SortType;
 import hochschule.de.bachelorthesis.model.FoodAddModel;
 import hochschule.de.bachelorthesis.model.FoodListModel;
 import hochschule.de.bachelorthesis.model.MeasurementAddModel;
+import hochschule.de.bachelorthesis.model.MeasurementListModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
@@ -30,6 +31,7 @@ public class FoodViewModel extends AndroidViewModel {
     // Models
     private FoodListModel mFoodListModel;
     private FoodAddModel mFoodAddModel;
+    private MeasurementListModel mMeasurementListModel;
     private MeasurementAddModel mMeasurementAddModel;
 
     public FoodViewModel(@NonNull Application application) {
@@ -39,6 +41,7 @@ public class FoodViewModel extends AndroidViewModel {
 
         mFoodListModel = new FoodListModel();
         mFoodAddModel = new FoodAddModel();
+        mMeasurementListModel = new MeasurementListModel();
         mMeasurementAddModel = new MeasurementAddModel();
     }
 
@@ -74,6 +77,17 @@ public class FoodViewModel extends AndroidViewModel {
         mFoodAddModel.setCarbohydrates(food.getCarbohydrate());
         mFoodAddModel.setSugars(food.getSugars());
         mFoodAddModel.setSalt(food.getSalt());
+    }
+
+    /**
+     * This method will update the food list model.
+     */
+    public void updateMeasurementListModel(SortType sortType) {
+        if (sortType == null) {
+            return;
+        }
+
+        mMeasurementListModel.setSortType(sortType);
     }
 
     /**
@@ -228,6 +242,10 @@ public class FoodViewModel extends AndroidViewModel {
 
     public FoodAddModel getFoodAddDataModel() {
         return mFoodAddModel;
+    }
+
+    public MeasurementListModel getMeasurementListModel() {
+        return mMeasurementListModel;
     }
 
     public MeasurementAddModel getMeasurementAddModel() {

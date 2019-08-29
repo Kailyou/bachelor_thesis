@@ -212,6 +212,7 @@
     <string name="add_glucose">Add Glucose</string>
     <string name="sort_alphanumeric">Sort alphanumeric</string>
     <string name="sort_for_gi">Sort for GI</string>
+    <string name="sort_for_glucose_max">Sort for glucose max</string>
 
     <string-array name="type">
         <item>Grains</item>
