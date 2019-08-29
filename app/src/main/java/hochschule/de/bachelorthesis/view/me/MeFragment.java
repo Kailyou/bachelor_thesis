@@ -71,9 +71,9 @@ public class MeFragment extends Fragment {
                 /* Update text views */
 
                 // Personal data
-                mBinding.age.setText(Converter.convertAge(uh.getAge()));
-                mBinding.height.setText(Converter.convertHeight(uh.getHeight()));
-                mBinding.weight.setText(Converter.convertWeight(uh.getWeight()));
+                mBinding.age.setText(String.valueOf(uh.getAge()));
+                mBinding.height.setText(String.valueOf(uh.getHeight()));
+                mBinding.weight.setText(String.valueOf(uh.getWeight()));
                 mBinding.sex.setText(uh.getSex());
 
                 // Lifestyle
