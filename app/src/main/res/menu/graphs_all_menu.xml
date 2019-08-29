@@ -21,11 +21,6 @@
         android:title="@string/glucose_average"
         app:showAsAction="never"/>
       <item
-        android:id="@+id/graphs_all_integral"
-        android:orderInCategory="100"
-        android:title="@string/integral"
-        app:showAsAction="never"/>
-      <item
         android:id="@+id/graphs_all_stdev"
         android:orderInCategory="100"
         android:title="@string/standard_deviation"
