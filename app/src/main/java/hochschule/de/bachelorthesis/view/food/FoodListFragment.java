@@ -296,12 +296,6 @@ public class FoodListFragment extends Fragment {
         mFoodObjects.add(0, tmp);
 
         mAdapter.setFoodObjects(mFoodObjects);
-
-        if (mViewModel.getFoodListModel().getSortType() == SortType.ALPHANUMERIC) {
-            snackBar("List sorted alphanumeric successfully!");
-        } else if (mViewModel.getFoodListModel().getSortType() == SortType.GI) {
-            snackBar("List sorted for GI successfully!");
-        }
     }
 
     /**

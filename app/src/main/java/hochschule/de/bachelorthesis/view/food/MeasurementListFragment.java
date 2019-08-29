@@ -112,7 +112,6 @@ public class MeasurementListFragment extends Fragment {
             case R.id.sort_gi:
                 mViewModel.updateFoodListModel(SortType.GI);
                 sortMeasurementObjectsAndPassResultToAdapter(mViewModel.getFoodListModel().getSortType());
-                snackBar("List sorted for GI successfully!");
                 return true;
 
             case R.id.sort_glucose_max:
@@ -262,7 +261,6 @@ public class MeasurementListFragment extends Fragment {
                                 }
 
                                 mViewModel.insertMeasurement(templateMeasurement);
-                                snackBar("Measurement added successfully!");
                             }
                         });
                     }
@@ -306,6 +304,7 @@ public class MeasurementListFragment extends Fragment {
      *
      * @param sortType How to sort the list
      */
+
     private void sortMeasurementObjectsAndPassResultToAdapter(SortType sortType) {
         Comparator<MeasurementObject> comparator;
 
@@ -346,8 +345,6 @@ public class MeasurementListFragment extends Fragment {
         mAllMeasurementObjects.add(0, tmp);
 
         mAdapter.setMeasurementObjects(mAllMeasurementObjects);
-
-        snackBar("List sorted for glucose max successfully!");
     }
 
     /**
