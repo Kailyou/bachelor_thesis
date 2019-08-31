@@ -3,6 +3,8 @@ package hochschule.de.bachelorthesis.model;
 import hochschule.de.bachelorthesis.enums.SortType;
 
 /**
+ * @author Maik Thielen
+ * <p>
  * This model class will be used to store data of the food list view.
  * <p>
  * The sorting type will be stored.

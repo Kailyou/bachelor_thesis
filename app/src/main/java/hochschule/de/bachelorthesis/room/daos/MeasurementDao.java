@@ -9,34 +9,40 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * DaO class for the Measurement table
+ * <p>
+ * Contains functions to wrap SQL functions in.
+ */
 @Dao
 public interface MeasurementDao {
 
-  @Insert
-  void insert(Measurement measurement);
+    @Insert
+    void insert(Measurement measurement);
 
-  @Update
-  void update(Measurement measurement);
+    @Update
+    void update(Measurement measurement);
 
-  @Delete
-  void delete(Measurement measurement);
+    @Delete
+    void delete(Measurement measurement);
 
-  @Query("DELETE FROM measurement_table WHERE food_id=:foodId")
-  void deleteAllMeasurementsWithFoodId(int foodId);
+    @Query("DELETE FROM measurement_table WHERE food_id=:foodId")
+    void deleteAllMeasurementsWithFoodId(int foodId);
 
-  @Query("SELECT * FROM measurement_table WHERE id=:id")
-  LiveData<Measurement> getMeasurementById(int id);
+    @Query("SELECT * FROM measurement_table WHERE id=:id")
+    LiveData<Measurement> getMeasurementById(int id);
 
-  @Query("SELECT * FROM measurement_table WHERE food_id=:foodId")
-  LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId);
+    @Query("SELECT * FROM measurement_table WHERE food_id=:foodId")
+    LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId);
 
-  // ORDER BY id it was before
-  @Query("SELECT * FROM measurement_table ORDER BY food_id DESC")
-  LiveData<List<Measurement>> getAllMeasurements();
+    // ORDER BY id it was before
+    @Query("SELECT * FROM measurement_table ORDER BY food_id DESC")
+    LiveData<List<Measurement>> getAllMeasurements();
 
-  @Query("SELECT COUNT(id) FROM measurement_table WHERE food_id=:foodId")
-  LiveData<Integer> getRowCount(int foodId);
+    @Query("SELECT COUNT(id) FROM measurement_table WHERE food_id=:foodId")
+    LiveData<Integer> getRowCount(int foodId);
 }

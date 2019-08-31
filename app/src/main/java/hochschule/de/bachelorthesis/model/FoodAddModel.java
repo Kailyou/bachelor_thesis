@@ -3,6 +3,8 @@ package hochschule.de.bachelorthesis.model;
 import androidx.lifecycle.MutableLiveData;
 
 /**
+ * @author Maik Thielen
+ * <p>
  * This model class will be used to store data of the add food view.
  * <p>
  * This will affect, once the user leaves the add food fragment to save the input and when the user

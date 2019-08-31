@@ -16,7 +16,11 @@ import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
 
 /**
+ * @author Maik Thielen
+ * <p>
  * Is not part of the architecture components library but it is considered best practice.
+ * <p>
+ * The repository connects the ViewModel with the database.
  */
 public class Repository {
 
