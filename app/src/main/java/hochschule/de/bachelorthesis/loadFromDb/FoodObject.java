@@ -13,7 +13,6 @@ public class FoodObject {
     private Food mFood;
 
     private List<Measurement> mAllMeasurements;
-    private List<Measurement> mRefAllMeasurements;
 
     // Measurements
     private Integer mAmountMeasurement = 0;
@@ -74,12 +73,11 @@ public class FoodObject {
     }
 
     public void setRefAllMeasurements(List<Measurement> refAllMeasurements) {
-        mRefAllMeasurements = refAllMeasurements;
 
-        if (mRefAllMeasurements.size() == 0) {
+        if (refAllMeasurements.size() == 0) {
             return;
         }
 
-        mGi = Math.round(Measurement.getGIFromList(mRefAllMeasurements, mAllMeasurements));
+        mGi = Math.round(Measurement.getGIFromList(refAllMeasurements, mAllMeasurements));
     }
 }
