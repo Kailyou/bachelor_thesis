@@ -20,6 +20,13 @@ import java.util.List;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.loadFromDb.FoodObject;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * Adapter class for the food list.
+ * <p>
+ * Will take a list of food objects and create the needed text views out of it.
+ */
 public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
 
     private Context mContext;
@@ -54,18 +61,15 @@ public class AdapterFood extends RecyclerView.Adapter<AdapterFood.FoodHolder> {
             holder.mFoodName.setTextSize(10);
             holder.mFoodName.setTextColor(Color.BLACK);
             holder.mFoodName.setTypeface(null, Typeface.BOLD);
-            //holder.mFoodName.setGravity(Gravity.CENTER);
 
             holder.mBrandName.setVisibility(View.GONE);
             holder.mBrandName.setTextColor(Color.BLACK);
             holder.mBrandName.setTypeface(null, Typeface.BOLD);
-            //holder.mFoodName.setGravity(Gravity.CENTER);
 
             holder.mGi.setText(mContext.getString(R.string.gi));
             holder.mGi.setTextSize(10);
             holder.mGi.setTextColor(Color.BLACK);
             holder.mGi.setTypeface(null, Typeface.BOLD);
-            //holder.mGi.setGravity(Gravity.CENTER);
 
             return;
         }

@@ -10,6 +10,13 @@ import hochschule.de.bachelorthesis.view.onboarding.OnboardingOneFragment;
 import hochschule.de.bachelorthesis.view.onboarding.OnboardingThreeFragment;
 import hochschule.de.bachelorthesis.view.onboarding.OnboardingTwoFragment;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * Adapter class for the onboarding views.
+ * <p>
+ * Returns the needed Fragment depending on the tab item.
+ */
 public class OnboardingAdapter extends FragmentPagerAdapter {
 
     public OnboardingAdapter(@NonNull FragmentManager fm, int behavior) {

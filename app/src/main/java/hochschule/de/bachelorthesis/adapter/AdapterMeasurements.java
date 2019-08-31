@@ -21,6 +21,13 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.utility.Converter;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * Adapter class for the measurement list.
+ * <p>
+ * Will take a list of measurement objects and create the needed text views out of it.
+ */
 public class AdapterMeasurements extends
         RecyclerView.Adapter<AdapterMeasurements.MeasurementHolder> {
 
