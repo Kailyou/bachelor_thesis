@@ -11,8 +11,8 @@
     <string name="legal_notifications">Legal Notifications</string>
     <string name="update">Update</string>
     <string name="tab_text_1">Overview</string>
-    <string name="tab_text_2">Measuring</string>
-    <string name="tab_text_3">Food data</string>
+    <string name="tab_text_2">Measurements</string>
+    <string name="tab_text_3">Data</string>
     <string name="add_random_measurement_unfinished">Add random measurement (unfinished)</string>
     <string name="add_random_measurement_finished">Add random measurement (finished)</string>
     <string name="delete_all_measurements">Delete all measurements</string>
@@ -90,7 +90,7 @@
     <string name="_90_minutes">… 90 minutes</string>
     <string name="_105_minutes">… 105 Minuten</string>
     <string name="_120_minutes">… 120 minutes</string>
-    <string name="add_coke_debug">Add Coke (Debug)</string>
+    <string name="add_coke_debug" translatable="false">Add Coke (Debug)</string>
     <string name="add_pizza_debug">Add Pizza (Debug)</string>
     <string name="add_apple_debug">Add Apple (Debug)</string>
     <string name="delete_all_foods">Delete all Foods</string>
@@ -195,19 +195,19 @@
     <string name="done">done</string>
     <string name="_3_3" translatable="false">3/3</string>
     <string name="_2_3" translatable="false">2/3</string>
-    <string name="gi">GI</string>
+    <string name="gi" translatable="false">GI</string>
     <string name="food">Food</string>
     <string name="max_increase_glucose_overall">Max increase glucose (overall)</string>
-    <string name="add_random_gi_measurement_unfinished">Add random GI measurement (unfinished)</string>
-    <string name="add_random_gi_measurement_finished">Add random GI measurement (finished)</string>
-    <string name="add_random_low_gi_measurement">Add random low GI measurement</string>
-    <string name="add_random_mid_gi_measurement">Add random mid GI measurement</string>
-    <string name="add_random_high_gi_measurement">Add random high GI measurement</string>
-    <string name="add_random_ref_gi_measurement">Add random REF GI measurement</string>
-    <string name="add_unfinished_gi_measurement">Add unfinished GI measurement</string>
+    <string name="add_random_gi_measurement_unfinished" translatable="false">Add random GI measurement (unfinished)</string>
+    <string name="add_random_gi_measurement_finished" translatable="false">Add random GI measurement (finished)</string>
+    <string name="add_random_low_gi_measurement" translatable="false">Add random low GI measurement</string>
+    <string name="add_random_mid_gi_measurement" translatable="false">Add random mid GI measurement</string>
+    <string name="add_random_high_gi_measurement" translatable="false">Add random high GI measurement</string>
+    <string name="add_random_ref_gi_measurement" translatable="false">Add random REF GI measurement</string>
+    <string name="add_unfinished_gi_measurement" translatable="false">Add unfinished GI measurement</string>
     <string name="sort">sort</string>
-    <string name="add_apple">Add Apple</string>
-    <string name="add_coke">Add Coke</string>
+    <string name="add_apple" translatable="false">Add Apple</string>
+    <string name="add_coke" translatable="false">Add Coke</string>
     <string name="add_pizza">Add Pizza</string>
     <string name="add_glucose">Add Glucose</string>
     <string name="sort_alphanumeric">Sort alphanumeric</string>

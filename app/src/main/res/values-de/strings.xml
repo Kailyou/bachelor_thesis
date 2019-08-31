@@ -13,7 +13,6 @@
     <string name="about_the_food">Über das Lebensmittel</string>
     <string name="active_measurement">Aktive Messung</string>
     <string name="add_apple_debug">Apfel hinzufügen (Debug)</string>
-    <string name="add_coke_debug">Cola hinzufügen (Debug)</string>
     <string name="add_pizza_debug">Pizza hinzufügen (Debug)</string>
     <string name="add_random_measurement_finished">Zufällige Messung hinzufügen (Abgeschlossen)</string>
     <string name="add_random_measurement_unfinished">Zufällige Messung hinzufügen (Nicht abgeschlossen)</string>
@@ -183,4 +182,11 @@
     <string name="how_to_use_this_app">How to use this app</string>
     <string name="done">fertig</string>
     <string name="back">zurück</string>
+    <string name="add_glucose">Glukose hinzufügen</string>
+    <string name="add_pizza">Pizza hinzufügen</string>
+    <string name="sort_alphanumeric">Alphabetisch sortieren</string>
+    <string name="sort_for_gi">Nach GI sortieren</string>
+    <string name="sort_for_glucose_max">Nach Blutzucker max. sortieren</string>
+    <string name="max_increase_glucose_overall">Blutzuckeranstieg max.</string>
+    <string name="food">Lebensmittel</string>
 </resources>

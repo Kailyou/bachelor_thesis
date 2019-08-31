@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.adapter.OnboardingAdapter;
 import hochschule.de.bachelorthesis.databinding.FragmentOnboardingHostBinding;
 
 public class OnboardingHostFragment extends Fragment {

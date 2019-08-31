@@ -1,10 +1,14 @@
-package hochschule.de.bachelorthesis.view.onboarding;
+package hochschule.de.bachelorthesis.adapter;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import hochschule.de.bachelorthesis.view.onboarding.OnboardingOneFragment;
+import hochschule.de.bachelorthesis.view.onboarding.OnboardingThreeFragment;
+import hochschule.de.bachelorthesis.view.onboarding.OnboardingTwoFragment;
 
 public class OnboardingAdapter extends FragmentPagerAdapter {
 

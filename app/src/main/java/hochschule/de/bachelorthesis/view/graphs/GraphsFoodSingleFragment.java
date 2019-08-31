@@ -248,9 +248,7 @@ public class GraphsFoodSingleFragment extends Fragment {
                         switch (mViewModel.getGraphSingleModel().getChartType()) {
                           // chart type 0 displays a line chart to display glucose over time
                           case 0:
-                            buildLineChart(measurements);
-                            break;
-                          // chart type 1 displays a line chart to display glucose increase over time
+                            // chart type 1 displays a line chart to display glucose increase over time
                           case 1:
                             buildLineChart(measurements);
                             break;
