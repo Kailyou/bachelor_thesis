@@ -2,6 +2,13 @@ package hochschule.de.bachelorthesis.model;
 
 import androidx.lifecycle.MutableLiveData;
 
+/**
+ * @author Maik Thielen
+ *
+ * This model class will be used to store data of the measurement list view.
+ * <p>
+ * The sorting type will be stored.
+ */
 public class MeasurementAddModel {
 
     // General

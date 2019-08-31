@@ -4,30 +4,30 @@ import androidx.lifecycle.MutableLiveData;
 
 public class GraphSingleModel {
 
-  private MutableLiveData<String> mSelectedFood;
-  private int mChartType;
+    private MutableLiveData<String> mSelectedFood;
+    private int mChartType;
 
-  public GraphSingleModel() {
-    mSelectedFood = new MutableLiveData<>();
-  }
+    public GraphSingleModel() {
+        mSelectedFood = new MutableLiveData<>();
+    }
 
-  /* GETTER */
+    /* GETTER */
 
-  public MutableLiveData<String> getSelectedFood() {
-    return mSelectedFood;
-  }
+    public MutableLiveData<String> getSelectedFood() {
+        return mSelectedFood;
+    }
 
-  public int getChartType() {
-    return mChartType;
-  }
+    public int getChartType() {
+        return mChartType;
+    }
 
-  /* SETTER */
+    /* SETTER */
 
-  public void setSelectedFood(String selectedFood) {
-    mSelectedFood.setValue(selectedFood);
-  }
+    public void setSelectedFood(String selectedFood) {
+        mSelectedFood.setValue(selectedFood);
+    }
 
-  public void setChartType(int chartType) {
-    mChartType = chartType;
-  }
+    public void setChartType(int chartType) {
+        mChartType = chartType;
+    }
 }
