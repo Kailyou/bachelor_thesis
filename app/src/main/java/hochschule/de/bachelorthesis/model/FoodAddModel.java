@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 /**
  * This model class will be used to store data of the add food view.
- *
+ * <p>
  * This will affect, once the user leaves the add food fragment to save the input and when the user
  * opens the view again, the data will be restored.
  */

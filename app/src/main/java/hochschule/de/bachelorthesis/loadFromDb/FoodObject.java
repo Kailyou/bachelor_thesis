@@ -6,7 +6,7 @@ import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 
 /**
- * This is a helper class to save information for a food object in
+ * This is a helper class to save information for a food object in.
  */
 public class FoodObject {
 

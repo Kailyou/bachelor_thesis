@@ -6,7 +6,7 @@ import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Converter;
 
 /**
- * This is a helper class to save information for a measurement in
+ * This is a helper class to save information for a measurement in.
  */
 public class MeasurementObject {
 
