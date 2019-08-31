@@ -17,6 +17,11 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentOnboardingTwoBinding;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * View class for the second onboarding fragment.
+ */
 public class OnboardingTwoFragment extends Fragment {
 
     @Nullable

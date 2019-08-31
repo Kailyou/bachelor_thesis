@@ -28,6 +28,11 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
 import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
 
+/**
+ * View class to display the user data.
+ * <p>
+ * The data will be loaded from data base.
+ */
 public class MeFragment extends Fragment {
 
     private MeViewModel mViewModel;

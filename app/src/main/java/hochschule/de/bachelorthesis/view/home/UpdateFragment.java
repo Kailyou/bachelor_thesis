@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -24,7 +25,15 @@ import hochschule.de.bachelorthesis.viewmodels.HomeViewModel;
 
 import java.util.Objects;
 
-
+/**
+ * @author Maik Thielen
+ * <p>
+ * View for the measurement update fragment from the home view.
+ * <p>
+ * A simple form to enter or change measurement values.
+ * <p>
+ * The user can save by clicking on the save button in the action bar.
+ */
 public class UpdateFragment extends Fragment {
 
     private HomeViewModel mViewModel;
@@ -48,8 +57,8 @@ public class UpdateFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         // Init data binding
         mBinding = DataBindingUtil
@@ -102,6 +111,9 @@ public class UpdateFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Takes the new input from the user and updates the measurement object.
+     */
     private void save() {
         // Load measurement object from database
         final LiveData<Measurement> ldm = mViewModel.getMeasurementById(mMeasurementId);
@@ -156,17 +168,15 @@ public class UpdateFragment extends Fragment {
                 }
 
                 mViewModel.updateMeasurement(measurement);
-                snackBar("Measurement updated successfully!");
+                snackBar();
             }
         });
     }
 
     /**
      * Helper function for faster SnackBar creation
-     *
-     * @param msg The message to display in the SnackBar
      */
-    private void snackBar(String msg) {
-        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
+    private void snackBar() {
+        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), "Measurement updated successfully!");
     }
 }

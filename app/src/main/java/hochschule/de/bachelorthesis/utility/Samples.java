@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
+ * @author Maik Thielen
+ * <p>
  * This class provides some example data for foods and measurements.
  * <p>
  * There will be a total of four sample foods as soon as the APP starts,

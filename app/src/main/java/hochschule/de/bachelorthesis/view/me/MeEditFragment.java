@@ -28,7 +28,7 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 
 /**
- * @author Maik T.
+ * @author Maik Thielen
  * <p>
  * This class handles the User edit feature.
  * <p>

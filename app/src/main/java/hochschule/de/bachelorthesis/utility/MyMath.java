@@ -7,6 +7,11 @@ import java.util.Random;
 
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * Simple Math class :)
+ */
 public class MyMath {
 
     /* ANALYSE MEASUREMENTS */
@@ -231,6 +236,8 @@ public class MyMath {
      * @param min The minimum count (included)
      * @param max The maximum count (included)
      * @return Returns a random count between a given range.
+     * <p>
+     * Ignore this warning, it cannot set public because it is used outside this class.
      */
     public static int getRandomInt(int min, int max) {
         Random random = new Random();

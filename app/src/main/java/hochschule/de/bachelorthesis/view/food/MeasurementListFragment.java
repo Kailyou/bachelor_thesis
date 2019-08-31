@@ -3,7 +3,6 @@ package hochschule.de.bachelorthesis.view.food;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,16 +32,32 @@ import java.util.Objects;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.adapter.AdapterMeasurements;
 import hochschule.de.bachelorthesis.databinding.FragmentMeasurementListBinding;
+import hochschule.de.bachelorthesis.enums.MeasurementType;
 import hochschule.de.bachelorthesis.enums.SortType;
 import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.room.tables.UserHistory;
-import hochschule.de.bachelorthesis.enums.MeasurementType;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
+/**
+ * View for the measurement list.
+ * <p>
+ * All existing measurements for the selected food will be displayed here.
+ * <p>
+ * The user is able to create a new measurement by clicking on the floating action button.
+ * <p>
+ * Also, the list can be sorted, either alphanumeric or for the GI value.
+ * <p>
+ * The user is able to delete all measurements in this list by pressing the Delete all measurements
+ * in the action bar.
+ * <p>
+ * KNOWN BUG:
+ * Sometimes, if clicking too fast and creating new measurements, the text size of a random
+ * measurement may lowers.
+ */
 public class MeasurementListFragment extends Fragment {
 
     private AdapterMeasurements mAdapter;

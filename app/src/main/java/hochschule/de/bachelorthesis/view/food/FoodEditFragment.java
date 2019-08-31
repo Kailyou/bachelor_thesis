@@ -17,6 +17,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.util.Objects;
+
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodEditBinding;
 import hochschule.de.bachelorthesis.room.tables.Food;
@@ -24,10 +26,8 @@ import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
-import java.util.Objects;
-
 /**
- * @author thielenm
+ * @author Maik Thielen
  * <p>
  * This class contains the logic for editing a food.
  * <p>

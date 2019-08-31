@@ -3,22 +3,17 @@ package hochschule.de.bachelorthesis.view.home;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View.OnClickListener;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -31,23 +26,28 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import hochschule.de.bachelorthesis.databinding.FragmentHomeBinding;
-import hochschule.de.bachelorthesis.databinding.FragmentHowToUseBinding;
-import hochschule.de.bachelorthesis.databinding.FragmentMeBinding;
-import hochschule.de.bachelorthesis.room.tables.Food;
-import hochschule.de.bachelorthesis.room.tables.Measurement;
-import hochschule.de.bachelorthesis.utility.Converter;
-import hochschule.de.bachelorthesis.viewmodels.HomeViewModel;
-import hochschule.de.bachelorthesis.viewmodels.MeViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.databinding.FragmentHomeBinding;
+import hochschule.de.bachelorthesis.room.tables.Food;
+import hochschule.de.bachelorthesis.room.tables.Measurement;
+import hochschule.de.bachelorthesis.utility.Converter;
+import hochschule.de.bachelorthesis.viewmodels.HomeViewModel;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * View class for the home fragment.
+ * <p>
+ * If existing, there will be the existing measurement displayed.
+ * <p>
+ * The user is able to update the measurement values by pressing the update button.
+ */
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
@@ -114,7 +114,11 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Loading the active measurement, if existing.
+     * <p>
+     * There always can be one measurement active at a time.
+     */
     private void loadActiveMeasurement() {
 
         // Load all measurements

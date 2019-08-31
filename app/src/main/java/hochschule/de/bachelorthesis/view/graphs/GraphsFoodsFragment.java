@@ -39,6 +39,14 @@ import hochschule.de.bachelorthesis.utility.BarChartValueFormatter;
 import hochschule.de.bachelorthesis.utility.MyMath;
 import hochschule.de.bachelorthesis.viewmodels.GraphsViewModel;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * This class will create the char to compare all foods with.
+ * <p>
+ * The user is able to choose which value should be compared via the graph, by clicking
+ * on the action bar and the "compare values" menu, then selecting the preffered one.
+ */
 public class GraphsFoodsFragment extends Fragment {
 
     private FragmentGraphsFoodsBinding mBinding;

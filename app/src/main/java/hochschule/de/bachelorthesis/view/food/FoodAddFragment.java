@@ -38,7 +38,7 @@ import hochschule.de.bachelorthesis.utility.Parser;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
- * @author thielenm
+ * @author Maik Thielen
  * <p>
  * The fragment for the View to create a new food.
  * <p>

@@ -1,76 +1,83 @@
 package hochschule.de.bachelorthesis.viewmodels;
 
 import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
 import hochschule.de.bachelorthesis.model.GraphAllModel;
 import hochschule.de.bachelorthesis.model.GraphSingleModel;
 import hochschule.de.bachelorthesis.model.Repository;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
+
 import java.util.List;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * This ViewModel class contains the data for the graph related classes.
+ */
 public class GraphsViewModel extends AndroidViewModel {
 
-  // Database
-  private Repository mRepository;
+    // Database
+    private Repository mRepository;
 
-  // Model
-  private GraphSingleModel mGraphSingleModel;
-  private GraphAllModel mGraphModelAll;
-
-
-  public GraphsViewModel(@NonNull Application application) {
-    super(application);
-
-    mRepository = new Repository(application);
-
-    mGraphSingleModel = new GraphSingleModel();
-    mGraphModelAll = new GraphAllModel();
-  }
+    // Model
+    private GraphSingleModel mGraphSingleModel;
+    private GraphAllModel mGraphModelAll;
 
 
-  /* FOOD */
+    public GraphsViewModel(@NonNull Application application) {
+        super(application);
 
-  /**
-   * Gets all foods from the database.
-   *
-   * @return - A Live data list with all foods.
-   */
-  public LiveData<List<Food>> getAllFoods() {
-    return mRepository.getAllFoods();
-  }
+        mRepository = new Repository(application);
 
-  /**
-   * @param foodName Name of the food
-   * @param brandName Brand name of the food
-   * @return A live data object with the food
-   */
-  public LiveData<Food> getFoodByFoodNameAndBrandName(String foodName, String brandName) {
-    return mRepository.getFoodByFoodNameAndBrandName(foodName, brandName);
-  }
+        mGraphSingleModel = new GraphSingleModel();
+        mGraphModelAll = new GraphAllModel();
+    }
 
 
-  /* MEASUREMENT */
+    /* FOOD */
 
-  /**
-   * Gets all measurements from the food objects from the database.
-   *
-   * @param foodId - The Id of the food.
-   * @return - A live data list of measurements of the food.
-   */
-  public LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId) {
-    return mRepository.getAllMeasurementsByFoodId(foodId);
-  }
+    /**
+     * Gets all foods from the database.
+     *
+     * @return - A Live data list with all foods.
+     */
+    public LiveData<List<Food>> getAllFoods() {
+        return mRepository.getAllFoods();
+    }
+
+    /**
+     * @param foodName  Name of the food
+     * @param brandName Brand name of the food
+     * @return A live data object with the food
+     */
+    public LiveData<Food> getFoodByFoodNameAndBrandName(String foodName, String brandName) {
+        return mRepository.getFoodByFoodNameAndBrandName(foodName, brandName);
+    }
 
 
-  /* GETTER */
-  public GraphSingleModel getGraphSingleModel() {
-    return mGraphSingleModel;
-  }
+    /* MEASUREMENT */
 
-  public GraphAllModel getGraphAllModel() {
-    return mGraphModelAll;
-  }
+    /**
+     * Gets all measurements from the food objects from the database.
+     *
+     * @param foodId - The Id of the food.
+     * @return - A live data list of measurements of the food.
+     */
+    public LiveData<List<Measurement>> getAllMeasurementsByFoodId(int foodId) {
+        return mRepository.getAllMeasurementsByFoodId(foodId);
+    }
+
+    /* GETTER */
+    public GraphSingleModel getGraphSingleModel() {
+        return mGraphSingleModel;
+    }
+
+    public GraphAllModel getGraphAllModel() {
+        return mGraphModelAll;
+    }
 }

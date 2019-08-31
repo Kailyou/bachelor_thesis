@@ -19,7 +19,7 @@ import hochschule.de.bachelorthesis.room.tables.UserHistory;
 import java.util.List;
 
 /**
- * @author thielen
+ * @author Maik Thielen
  * <p>
  * This ViewModel class contains the data for the food related classes.
  */
@@ -77,17 +77,6 @@ public class FoodViewModel extends AndroidViewModel {
         mFoodAddModel.setCarbohydrates(food.getCarbohydrate());
         mFoodAddModel.setSugars(food.getSugars());
         mFoodAddModel.setSalt(food.getSalt());
-    }
-
-    /**
-     * This method will update the food list model.
-     */
-    public void updateMeasurementListModel(SortType sortType) {
-        if (sortType == null) {
-            return;
-        }
-
-        mMeasurementListModel.setSortType(sortType);
     }
 
     /**

@@ -2,7 +2,6 @@ package hochschule.de.bachelorthesis.view.food;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +40,7 @@ import hochschule.de.bachelorthesis.utility.Samples;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
- * @author thielenm
+ * @author Maik Thielen
  * <p>
  * This class contains the logic for the food list.
  * <p>

@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * @author thielenm
+ * @author Maik Thielen
  * <p>
  * The View class for editing an existing measurement.
  * <p>

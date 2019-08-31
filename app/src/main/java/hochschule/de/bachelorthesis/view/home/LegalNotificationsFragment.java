@@ -36,6 +36,13 @@ import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Converter;
 import hochschule.de.bachelorthesis.viewmodels.HomeViewModel;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * View class for the legal notifications.
+ * <p>
+ * Currently, just having some temp datas.
+ */
 public class LegalNotificationsFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -23,7 +21,7 @@ import hochschule.de.bachelorthesis.databinding.FragmentFoodHostBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
- * @author thielenm
+ * @author Maik Thielen
  * <p>
  * This class is the wrapper class for the tabs.
  * <p>

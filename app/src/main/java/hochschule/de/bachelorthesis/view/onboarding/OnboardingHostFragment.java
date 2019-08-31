@@ -18,9 +18,10 @@ import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.adapter.OnboardingAdapter;
 import hochschule.de.bachelorthesis.databinding.FragmentOnboardingHostBinding;
 
+/**
+ * The Host Fragment for the onboarding views.
+ */
 public class OnboardingHostFragment extends Fragment {
-
-    private ViewPager mViewPager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -30,7 +31,7 @@ public class OnboardingHostFragment extends Fragment {
                 .inflate(inflater, R.layout.fragment_onboarding_host, container, false);
 
         // view pager
-        mViewPager = binding.onboardingViewPager;
+        ViewPager mViewPager = binding.onboardingViewPager;
         OnboardingAdapter adapter = new OnboardingAdapter(getChildFragmentManager(), 2); // ?
         mViewPager.setAdapter(adapter);
 

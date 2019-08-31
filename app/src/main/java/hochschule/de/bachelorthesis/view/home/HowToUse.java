@@ -14,6 +14,11 @@ import androidx.fragment.app.Fragment;
 import hochschule.de.bachelorthesis.R;
 import hochschule.de.bachelorthesis.databinding.FragmentHowToUseBinding;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * View class which will show some information about how ot use the application.
+ */
 public class HowToUse extends Fragment {
 
     @Nullable

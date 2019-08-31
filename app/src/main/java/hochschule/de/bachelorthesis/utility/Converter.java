@@ -10,6 +10,11 @@ import java.util.Locale;
 
 import hochschule.de.bachelorthesis.R;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * Helper class which takes input and returns some result Strings.
+ */
 public class Converter {
 
     public static String convertBoolean(Context context, Boolean b) {
@@ -36,56 +41,6 @@ public class Converter {
             return "";
         }
         return String.valueOf(i);
-    }
-
-    /**
-     * Converts a given Integer to a String.
-     *
-     * @param i - The given Integer.
-     * @return - returns empty string if the Integer is null or -1 (error code), else return a String
-     * created out of the float value.
-     */
-    public static String convertAge(Integer i) {
-        if (i == null || i == -1) {
-            return "";
-        }
-        return String.valueOf(i) + " years";
-    }
-
-    /**
-     * Converts a given Integer to a String.
-     *
-     * @param i - The given Integer.
-     * @return - returns empty string if the Integer is null or -1 (error code), else return a String
-     * created out of the float value.
-     */
-    public static String convertHeight(Integer i) {
-        if (i == null || i == -1) {
-            return "";
-        }
-        return String.valueOf(i) + " cm";
-    }
-
-    /**
-     * Converts a given Integer to a String.
-     *
-     * @param i - The given Integer.
-     * @return - returns empty string if the Integer is null or -1 (error code), else return a String
-     * created out of the float value.
-     */
-    public static String convertWeight(Integer i) {
-        if (i == null || i == -1) {
-            return "";
-        }
-        return String.valueOf(i) + " kg";
-    }
-
-
-    public static String convertGlucose(Integer i) {
-        if (i == null || i == -1 || i == 0) {
-            return "N/A";
-        }
-        return i + " mg/dl";
     }
 
     /**
@@ -174,17 +129,5 @@ public class Converter {
         }
 
         return "";
-    }
-
-    public static String convertString(String s) {
-        if (s == null) {
-            return "is null";
-        }
-
-        if (s.equals("")) {
-            return "unrated";
-        } else {
-            return s;
-        }
     }
 }

@@ -38,9 +38,19 @@ import hochschule.de.bachelorthesis.loadFromDb.MeasurementObject;
 import hochschule.de.bachelorthesis.room.tables.Food;
 import hochschule.de.bachelorthesis.room.tables.Measurement;
 import hochschule.de.bachelorthesis.utility.Converter;
-import hochschule.de.bachelorthesis.utility.MySnackBar;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
+/**
+ * @author Maik Thielen
+ * <p>
+ * First, there will be the measurement object loaded.
+ * <p>
+ * Then, the views will be updated to display the data of the measurement.
+ * <p>
+ * A graph will be built, which shows the current glucose progress.
+ * <p>
+ * The user is able to delete the measurement by clicking on the delete button in the action bar.
+ */
 public class MeasurementFragment extends Fragment {
 
     private FoodViewModel mViewModel;
@@ -325,14 +335,5 @@ public class MeasurementFragment extends Fragment {
         mBinding.lineChart.getDescription().setEnabled(false);
         mBinding.lineChart.notifyDataSetChanged();
         mBinding.lineChart.invalidate();
-    }
-
-    /**
-     * Helper function for faster SnackBar creation
-     *
-     * @param msg The message to display in the SnackBar
-     */
-    private void snackBar(String msg) {
-        MySnackBar.createSnackBar(Objects.requireNonNull(getContext()), Objects.requireNonNull(getView()), msg);
     }
 }
