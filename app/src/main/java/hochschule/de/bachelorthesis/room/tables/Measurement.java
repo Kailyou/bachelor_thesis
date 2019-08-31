@@ -338,7 +338,7 @@ public class Measurement {
      * Also, the values smaller than zero come from the increase because (0 - glucose Start) is negative,
      * so also remove those.
      *
-     * @param list
+     * @param list - The list
      */
     private void removeZeroEntriesFromList(ArrayList<Integer> list) {
         if (list.size() == 0) {

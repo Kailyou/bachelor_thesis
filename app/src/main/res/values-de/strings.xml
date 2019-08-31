@@ -12,10 +12,6 @@
     <string name="_90_minutes">… 90 Minuten</string>
     <string name="about_the_food">Über das Lebensmittel</string>
     <string name="active_measurement">Aktive Messung</string>
-    <string name="add_apple_debug">Apfel hinzufügen (Debug)</string>
-    <string name="add_pizza_debug">Pizza hinzufügen (Debug)</string>
-    <string name="add_random_measurement_finished">Zufällige Messung hinzufügen (Abgeschlossen)</string>
-    <string name="add_random_measurement_unfinished">Zufällige Messung hinzufügen (Nicht abgeschlossen)</string>
     <string name="add_sample_user">Beispielnutzer hinzufügen (Debug)</string>
     <string name="age">Alter</string>
     <string name="advance_information">Vorinformationen</string>
@@ -27,7 +23,6 @@
     <string name="animate_graph">Graph animieren</string>
     <string name="average">Durchschnitt</string>
     <string name="average_glucose">Blutzucker (i. D.)</string>
-    <string name="average_increase_glucose">Blutzuckeranstieg (i. D.)</string>
     <string name="bottom_nav_food">Lebensmittel</string>
     <string name="bottom_nav_graphs">Diagramme</string>
     <string name="brand_name">Markenname</string>
@@ -55,19 +50,16 @@
     <string name="gi_measurement">GI Messung</string>
     <string name="glucose_after">Blutzucker nach…</string>
     <string name="glucose_average">Blutzucker (i. D.)</string>
-    <string name="glucose_increase_avg">Blutzuckeranstieg (i. D.)</string>
     <string name="glucose_increase_max">Blutzuckeranstieg (Max.)</string>
     <string name="glucose_max">Blutzucker (Max.)</string>
     <string name="glucose_max_peak_mg_dl">Blutzucker maximaler Wert (mg/dl)</string>
     <string name="glucose_mg_dl">Blutzucker (mg/dl)</string>
     <string name="glucose_values">Blutzuckerwerte</string>
     <string name="header_glucose_average">Blutzucker Durchschnitt (mg/dl)</string>
-    <string name="header_glucose_increase_average">Blutzuckeranstie Durchschnitt (mg/dl)</string>
     <string name="header_glucose_increase_max">Blutzuckeranstieg max (mg/dl)</string>
     <string name="header_glucose_max">Blutzucker max Wert (mg/dl)</string>
     <string name="height">Höhe</string>
     <string name="ill_while_measuring">Krank (während Messung)</string>
-    <string name="header_integral">Integral (Fläche)</string>
     <string name="legal_notifications">Impressum</string>
     <string name="lifestyle">Lebensstil</string>
     <string name="line_style">Linienart</string>
@@ -93,11 +85,9 @@
     <string name="of_which_sugars">davon Zucker</string>
     <string name="period">Periode</string>
     <string name="personal_data">Persönliche Daten</string>
-    <string name="personal_index">Persönlicher Index</string>
     <string name="physically_active2">Physische Akvitivät</string>
     <string name="physically_active_more_than_usual">Pysisch Aktiv (Mehr als üblich)</string>
     <string name="protein">Eiweiß</string>
-    <string name="rating">Bewertung</string>
     <string name="salt">Salz</string>
     <string name="save">Speichern</string>
     <string name="select_food">Lebensmittel auswählen</string>
@@ -116,6 +106,7 @@
     <string name="time_information">Zeitinformationen</string>
     <string name="time_min">Zeit (min)</string>
     <string name="tired_level">Müdikeitsniveau</string>
+    <string name="gi">GI</string>
     <string name="tmp_phone">Telefon: 01234/789456</string>
     <string name="tmp_street">Loremweg 5</string>
     <string name="type">Typ</string>
@@ -127,7 +118,6 @@
     <string name="weight">Gewicht</string>
     <string name="update_measurement">Messung aktualisieren</string>
     <string name="add_food">Lebensmittel hinzufügen</string>
-    <string name="food_information">Lebensmittel informationen</string>
     <string name="add_measurement">Messung hinzufügen</string>
     <string name="edit_user_data">Benutzerdaten editieren</string>
     <string name="edit_measurement">Messung editieren</string>
@@ -142,7 +132,6 @@
     <!-- Onboarding -->
     <string name="next">nächste</string>
 
-    <string name="onboarding_1_header">Willkommen :)</string>
     <string name="onboarding_2_header">Verwalte Benutzerdaten</string>
     <string name="onboarding_3_header">Verwalte Lebensmittel</string>
     <string name="onboarding_4_header">Verwalte Messungen</string>
@@ -187,6 +176,16 @@
     <string name="sort_alphanumeric">Alphabetisch sortieren</string>
     <string name="sort_for_gi">Nach GI sortieren</string>
     <string name="sort_for_glucose_max">Nach Blutzucker max. sortieren</string>
-    <string name="max_increase_glucose_overall">Blutzuckeranstieg max.</string>
     <string name="food">Lebensmittel</string>
+    <string name="fat_g">Fett (g)</string>
+    <string name="height_cm">Höhe (cm)</string>
+    <string name="glucose_max_increase_mg_dl" translatable="false">Blutzucker max. Anstieg (mg/dl)</string>
+    <string name="glucose_max_mg_dl">Blutzucker max. (mg/dl)</string>
+    <string name="glucose_avg_mg_dl">Blutzucker i. D. (mg/dl)</string>
+    <string name="of_which_saturates_g">gesättigte Fettsäuren</string>
+    <string name="of_which_sugars_g">davon Zucker (g)</string>
+    <string name="weight_kg">Gewicht (kg)</string>
+    <string name="age_years">Alter (Jahre)</string>
+    <string name="carbohydrate_g">Kohlenhydrate (g)</string>
+    <string name="salt_g">Salz (g)</string>
 </resources>

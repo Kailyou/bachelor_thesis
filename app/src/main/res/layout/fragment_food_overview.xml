@@ -146,7 +146,7 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="Glucose max (mg/dl)"
+          android:text="@string/glucose_max_mg_dl"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <TextView
@@ -167,7 +167,7 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="Glucose avg. (mg/dl)"
+          android:text="@string/glucose_avg_mg_dl"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <TextView
@@ -188,7 +188,7 @@
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="Glucose max. increase (mg/dl)"
+          android:text="@string/glucose_max_increase_mg_dl"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <TextView
