@@ -2,17 +2,17 @@ package hochschule.de.bachelorthesis.model;
 
 public class GraphAllModel {
 
-  private int mChartType;
+    private int mChartType;
 
-  /* GETTER */
+    /* GETTER */
 
-  public int getChartType() {
-    return mChartType;
-  }
+    public int getChartType() {
+        return mChartType;
+    }
 
-  /* SETTER */
+    /* SETTER */
 
-  public void setChartType(int chartType) {
-    mChartType = chartType;
-  }
+    public void setChartType(int chartType) {
+        mChartType = chartType;
+    }
 }
