@@ -78,7 +78,9 @@
     <argument
       android:name="food_id"
       app:argType="integer"/>
-    <action app:destination="@id/foodHostFragment"/>
+    <action
+        android:id="@+id/action_addMeasurement_to_foodInfoFragment"
+        app:destination="@id/foodHostFragment"/>
   </fragment>
 
   <fragment
@@ -95,7 +97,9 @@
     android:name="hochschule.de.bachelorthesis.view.me.MeEditFragment"
     android:label="@string/edit_user_data"
     tools:layout="@layout/fragment_me_edit">
-    <action app:destination="@id/meFragment"/>
+    <action
+        android:id="@+id/action_meEditFragment_to_meFragment"
+        app:destination="@id/meFragment"/>
   </fragment>
   <fragment
     android:id="@+id/editMeasurementFragment"
