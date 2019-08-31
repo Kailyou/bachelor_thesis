@@ -18,104 +18,61 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Objects;
 
 import hochschule.de.bachelorthesis.R;
+import hochschule.de.bachelorthesis.adapter.FoodAdapter;
 import hochschule.de.bachelorthesis.databinding.FragmentFoodHostBinding;
 import hochschule.de.bachelorthesis.viewmodels.FoodViewModel;
 
 /**
  * @author thielenm
- *
+ * <p>
  * This class is the wrapper class for the tabs.
- *
+ * <p>
  * Returns the correct fragment after the user swiped or clicked on one tab element.
- *
+ * <p>
  * The navigation is not optiomal because currently NavigationComponent is not supporting Tabs.
- *
+ * <p>
  * In the future, the navigation here maybe could be outsourced to the navigation.xml file.
  */
 public class FoodHostFragment extends Fragment {
 
-  private FoodViewModel mViewModel;
-  private int mFoodId;
+    private FoodViewModel mViewModel;
+    private int mFoodId;
 
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    assert getArguments() != null;
-    mFoodId = getArguments().getInt("food_id");
+        assert getArguments() != null;
+        mFoodId = getArguments().getInt("food_id");
 
-    mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
-        .get(FoodViewModel.class);
-  }
-
-  @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    // Init data binding
-    FragmentFoodHostBinding binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_food_host, container, false);
-    binding.setLifecycleOwner(getViewLifecycleOwner());
-    binding.setVm(mViewModel);
-
-    // Create the adapter that will return a fragment for each of the three
-    // primary sections of the activity.
-    SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(
-        getChildFragmentManager());
-
-    // Set up the ViewPager with the sections adapter.
-    ViewPager viewPager = binding.container;
-    viewPager.setAdapter(mSectionsPagerAdapter);
-
-    TabLayout tabLayout = binding.tabs;
-
-    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-
-    return binding.getRoot();
-  }
-
-  /**
-   * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the
-   * sections/tabs/pages.
-   */
-  public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-    private SectionsPagerAdapter(FragmentManager fm) {
-      super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+                .get(FoodViewModel.class);
     }
 
     @Override
-    @NonNull
-    public Fragment getItem(int i) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Init data binding
+        FragmentFoodHostBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.fragment_food_host, container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        binding.setVm(mViewModel);
 
-      Bundle bundle = new Bundle();
-      bundle.putInt("food_id", mFoodId);
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        FoodAdapter mFoodAdapter = new FoodAdapter(
+                getChildFragmentManager(), mFoodId);
 
-      switch (i) {
-        case 0:
-          FoodOverviewFragment overviewFragment = new FoodOverviewFragment();
-          overviewFragment.setArguments(bundle);
-          return overviewFragment;
+        // Set up the ViewPager with the sections adapter.
+        ViewPager viewPager = binding.container;
+        viewPager.setAdapter(mFoodAdapter);
 
-        case 1:
-          MeasurementListFragment measurementListFragment = new MeasurementListFragment();
-          measurementListFragment.setArguments(bundle);
-          return measurementListFragment;
+        TabLayout tabLayout = binding.tabs;
 
-        case 2:
-          FoodDataFragment dataFragment = new FoodDataFragment();
-          dataFragment.setArguments(bundle);
-          return dataFragment;
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
-        default:
-          throw new IllegalArgumentException("Unexpected index @FoodInfoActivity");
-      }
+        return binding.getRoot();
     }
-
-    @Override
-    public int getCount() {
-      return 3;
-    }
-  }
 }
